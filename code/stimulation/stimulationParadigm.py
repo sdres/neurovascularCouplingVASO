@@ -1,36 +1,33 @@
 # Import libraries
 import pandas as pd
-import math
-from scipy.io import wavfile
-import wave
 import contextlib
 from psychopy import sound, core, prefs, logging, event, visual, gui
-from psychopy.sound import Sound
-from psychopy.hardware import emulator, keyboard
+from psychopy.hardware import keyboard
 import numpy as np
 import os
-import sounddevice as sd
-import soundfile as sf
 import time
-from random import choice
 
-# Load a keyboard in enable abortion.
+# Load a keyboard to enable abortion.
 defaultKeyboard = keyboard.Keyboard()
 
 #***************************
 #---EXPERIMENT SETTINGS
 #***************************
 
-expName = 'VASO_blockDesignFiveFingers'
-expInfo = {'participant': 'subxx',
-           'session': '001',
-           'run': 1}
+# Set initial values
+expName = 'neurovascularCouplingVASO'
+expInfo = {'participant': 'sub-xx',
+           'session': 'ses-00x',
+           'run': 'run-0x'}
 
 # Load a GUI in which the preset parameters can be changed.
-dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
+dlg = gui.DlgFromDict(dictionary=expInfo,
+    sortKeys=False,
+    title=expName
+    )
+
 if dlg.OK == False:
      core.quit()  # Abort if user pressed cancel
-
 
 #***************************
 #---PREPARE LOGFILE
@@ -38,41 +35,54 @@ if dlg.OK == False:
 
 # Define a name so the log-file so it can be attributed to the
 # subject/session/run.
-# logFilename = f'{expInfo['participant']}_sess{expInfo['session']}_30sOnOff_run{expInfo['run']}'
-logFileName = '%s_sess%s_EventRelated5Fingers_run%s'%(expInfo['participant'], expInfo['session'],expInfo['run'])
-
-
-## Actually create the log-file.
-#logFile = logging.LogFile(logFileName+'.log', level=logging.EXP)
-## Make sure we output to the screen, not a file.
-#logging.console.setLevel(logging.WARNING)
+logFileName = f'{expInfo['participant']}'
+    + '_{expInfo['session']}'
+    + '_{expInfo['run']}'
+    + 'neurovascularCoupling'
 
 # save a log file and set level for msg to be received
-logFile = logging.LogFile(logFileName+'.log', level=logging.INFO)
-logging.console.setLevel(logging.WARNING)  # set console to receive warnings
+logFile = logging.LogFile(f'{logFileName}.log',
+    level = logging.INFO
+    )
 
+# set console to receive warnings
+logging.console.setLevel(logging.WARNING)
 
+# get current date and time
 dateNow = time.strftime("%Y-%m-%d_%H.%M.%S")
-logFile.write(f'###############################################\nTHIS EXPERIMENT WAS STARTET {dateNow}\n###############################################\n')
 
+logFile.write(
+    '###############################################'
+    + f'\nTHIS EXPERIMENT WAS STARTET {dateNow}\n'
+    + '###############################################\n')
 
 
 # ****************************************
 #-----INITIALIZE GENERIC COMPONENTS
 # ****************************************
 
-
 # Setup the Window
 win = visual.Window(
-    size=[1920, 1200], fullscr=True, screen=0,
-    winType='pyglet', allowGUI=False, allowStencil=False,
-    monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
-    blendMode='avg', useFBO=True,
-    units='height')
+    size=[1920, 1200],
+    fullscr=True,
+    screen=0,
+    winType='pyglet',
+    allowGUI=False,
+    allowStencil=False,
+    monitor='testMonitor',
+    color=[0,0,0],
+    colorSpace='rgb',
+    blendMode='avg',
+    useFBO=True,
+    units='height'
+    )
 
 
 # Initialize text
-instructionsText = 'You will feel your fingers being stimulated. Please lie as still as possible and focus on the stimulation.'
+instructionsText = 'You will see flickering checkboards of varying duration.'
+    + '\n'
+    + 'Please lie as still as possible.'
+
 msg = visual.TextStim(win, text=instructionsText, color=(1,1,1), height=50,units='pix',)
 
 fixationCross = visual.TextStim(win=win,
