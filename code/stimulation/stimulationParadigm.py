@@ -81,37 +81,26 @@ win = visual.Window(
 # Initialize text
 instructionsText = 'You will see flickering checkboards of varying duration.'
     + '\n'
-    + 'Please lie as still as possible.'
+    + 'Please maintain your gaze on the cross in the center of the screen'
+    + '\n'
+    + 'The cross will change its color from black to red from time to time'
+    + 'When you notice a color-change, press a button on the reponse box.'
+    + 'Your performance will be recorded.'
+    + '\n'
+    + 'Please remain as still as possible.'
 
-msg = visual.TextStim(win, text=instructionsText, color=(1,1,1), height=50,units='pix',)
+msg = visual.TextStim(win,
+    text=instructionsText,
+    color=(1,1,1),
+    height=50,
+    units='pix'
+    )
 
 fixationCross = visual.TextStim(win=win,
-                                text='+',
-                                color='white',
-                                name='fixationCross')
-
-
-################### ################### ################
-################### Initialize Sound ###################
-################### ################### ################
-
-
-volume = 3000     # range [0.0, 1.0]
-fs = 44100       # sampling rate, Hz, must be integer
-duration = 2.0   # in seconds, may be float
-f = 25        # sine frequency, Hz, may be float
-
-# generate samples, note conversion to float32 array
-data = (np.sin(2*np.pi*np.arange(fs*duration)*f/fs)).astype(np.float32)
-
-soundArr = np.zeros((8, data.shape[0]))
-
-for n in range(0,8):
-    soundArr[n] = data
-
-soundArr = np.transpose(soundArr)
-
-stimChan1 = 2.*(soundArr - np.min(soundArr))/np.ptp(soundArr)-1
+    text='+',
+    color='black',
+    name='fixationCross'
+    )
 
 
 ################### ################### ################
@@ -120,22 +109,24 @@ stimChan1 = 2.*(soundArr - np.min(soundArr))/np.ptp(soundArr)-1
 
 tapImages = []
 for i in range(0,2):
-    tapImages.append(visual.ImageStim(win, pos=[0,0], name='Movie Frame %d'%i,image='visual_%d.png'%(i), units='pix'))
+    tapImages.append(visual.ImageStim(win, pos=[0,0],
+        name=f'Movie Frame {i}',
+        image=f'visual_{i}.png',
+        units='pix'
+        )
+        )
 
+###########################################################
+################### Initialize timings ####################
+###########################################################
 
-#########################################################
-################### Load timing file ####################
-#########################################################
-
-timings = np.loadtxt("eventRelatedTemplate.csv", delimiter= " ")
-
-
-################### ################### ################
-################## prepare randomization ################
-################### ################### ################
-
-condList = ['visual', 'visiotactile']
-
+timings = {
+    '1': [1,10],
+    '2': [2,12],
+    '4': [4,16],
+    '12': [12,20],
+    '24': [24,24]
+    }
 
 #########################################################
 ################## Start of Experiment ##################
@@ -150,22 +141,25 @@ nTR2 = 0; # odd TR counter = VASO
 globalTime = core.Clock()
 fmriTime = core.Clock()
 logging.setDefaultClock(fmriTime)
-globalTime.reset()
-fmriTime.reset()
 trialTime = core.Clock()
-visStimTime = core.Clock()
+restTime = core.Clock()
+
 
 msg.draw()
 win.flip()
 
 
-# Waiting for scanner
-# Because we want to start odd and even runs differently, we have to wait for the first and second triggers, respectively.
-event.waitKeys(keyList=["5"], timeStamped=False)
+# Waiting for scanner and start at first trigger
+event.waitKeys(
+    keyList=["5"],
+    timeStamped=False
+    )
+
 fmriTime.reset()
 nTR= nTR+1; # total TR counter
 nTR1 = nTR1+1; # even TR counter = VASO
 nTR2 = 0; # uneven TR counter = BOLD
+
 logging.data('TR ' + str(nTR) + ' | TR1 ' + str(nTR1) + ' | TR2 ' + str(nTR2))
 
 logging.data('StartOfRun' + str(expInfo['run']))
@@ -177,49 +171,38 @@ fixationCross.draw()
 win.flip()
 
 
-stimDur = 2
-restDurs = timings
-nrTrials = len(timings)
-trialCount = 1
-visStimType = 0
-visStimCount = 0
+# start with 30 s baseline
+trialTime.reset()
+logging.data('Initial baseline' + '\n')
 
 
+while trialTime.getTime() < 30:
+    # handle key presses each frame
+    for keys in event.getKeys():
+        if keys[0] in ['escape', 'q']:
+            myWin.close()
+            core.quit()
+        elif keys in ['5']:
+            nTR = nTR + 1
+            if nTR % 2 ==1: # odd TRs
+                nTR1 = nTR1 + 1
 
-for restTime in timings:
-    # Start with a rest period
-    logFile.write('\n')
-    logging.data('reststart' + '\n')
-    trialTime.reset()
-    while restTime > trialTime.getTime():
-        # handle key presses each frame
-        for keys in event.getKeys():
-            if keys[0] in ['escape', 'q']:
-                myWin.close()
-                core.quit()
-            elif keys in ['5']:
-                nTR = nTR + 1
-                if nTR % 2 ==1: # odd TRs
-                    nTR1 = nTR1 + 1
+            elif nTR % 2 == 0:
+                nTR2 = nTR2 +1
 
-                elif nTR % 2 == 0:
-                    nTR2 = nTR2 +1
+            logging.data('TR ' + str(nTR) + ' | TR1 ' + str(nTR1) + ' | TR2 ' + str(nTR2))
 
-                logging.data('TR ' + str(nTR) + ' | TR1 ' + str(nTR1) + ' | TR2 ' + str(nTR2))
-    logging.data('reststop' + '\n')
 
-    # randomly choose condition
-    tmp_choice = choice(condList)
-    #print(tmp_choice)
+# start with trials - here we first code one trial with a duration of 1 second
+stimDur = 1
+trialTime.reset()
+
+
     # Start with Stimulation
     trialTime.reset()
     logFile.write('\n')
     logging.data('stimulation' + '\n')
-    if tmp_choice == 'visiotactile':
-        #soundStim.play()
-        sd.play(soundArr, fs, device = 23)
-    #sd.play(soundArr, fs)
-    logging.data(f'{tmp_choice} stimulation started')
+    logging.data(f'stimulation started')
 
     while stimDur > trialTime.getTime():
 
