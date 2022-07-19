@@ -1,6 +1,6 @@
 # neurovascularCouplingVASO
 
-In this repository, we are collecting resources for a project on neurovascular coupling using cerebral blood volume (CBV) and blood oxygen level dependent (BOLD) neasurements.
+In this repository, we are collecting resources for a project on neurovascular coupling using high resolution cerebral blood volume (CBV) and blood oxygen level dependent (BOLD) neasurements.
 
 An initial Literature summary can be found [here](https://docs.google.com/document/d/1vWa6RwnGaQvpN9fWnInSuZGsvmA0x_ivX2YPMoPk5IM/edit#)
 
