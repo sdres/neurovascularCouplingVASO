@@ -1,0 +1,451 @@
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+16.6303 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+16.6401 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+17.2908 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fd57a218880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fd5413ab790>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+17.2911 	EXP 	window1: mouseVisible = True
+17.3367 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+17.3802 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+17.4128 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+17.4423 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.0049 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0001 	DATA 	StartOfRunrun-01
+0.0001 	DATA 	StartOfParadigm
+0.0214 	DATA 	Initial baseline
+
+8.0409 	DATA 	Target presented
+9.6095 	DATA 	Keypress: 1
+9.6100 	DATA 	Target detected
+21.9615 	DATA 	Keypress: 1
+21.9618 	DATA 	Target detected
+27.6093 	DATA 	Keypress: 1
+27.6098 	DATA 	Target detected
+33.6583 	DATA 	Keypress: 1
+33.6587 	DATA 	Target detected
+39.6753 	DATA 	Keypress: 1
+39.6758 	DATA 	Target detected
+45.7093 	DATA 	Keypress: 1
+45.7098 	DATA 	Target detected
+51.8397 	DATA 	Keypress: 1
+51.8401 	DATA 	Target detected
+57.8064 	DATA 	Keypress: 1
+57.8067 	DATA 	Target detected
+60.0072 	DATA 	EndOfRunrun-01
+
+60.5723 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+6.4060 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+6.4147 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+7.0616 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fd822320880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fd782f24b80>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+7.0618 	EXP 	window1: mouseVisible = True
+7.0995 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+7.1390 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+7.1592 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+7.1734 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.8863 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0000 	DATA 	StartOfParadigm
+0.0199 	DATA 	Initial baseline
+
+8.0328 	DATA 	Target presented
+8.7691 	DATA 	Keypress: 1
+8.7695 	DATA 	Target detected
+42.9202 	DATA 	Keypress: q
+43.4845 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.4805 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.4900 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.1756 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fceb0650850>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fceba08d820>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.1759 	EXP 	window1: mouseVisible = True
+6.2215 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.2654 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.2949 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.3211 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.3476 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0001 	DATA 	StartOfRunrun-01
+0.0001 	DATA 	StartOfParadigm
+0.0229 	DATA 	Initial baseline
+
+8.0355 	DATA 	Target presented
+9.3891 	DATA 	Keypress: 1
+9.3895 	DATA 	Target detected
+27.9713 	DATA 	Keypress: q
+28.5315 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+4.8908 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+4.9001 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+5.8193 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fdcb0d80880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fdc3618bbb0>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.8196 	EXP 	window1: mouseVisible = True
+5.8625 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.9048 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+5.9318 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+5.9560 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.3607 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0000 	DATA 	StartOfParadigm
+0.0208 	DATA 	Initial baseline
+
+8.0321 	DATA 	Target presented
+8.5163 	DATA 	Keypress: 1
+8.5166 	DATA 	Target detected
+13.0324 	DATA 	Target presented
+13.0506 	DATA 	Target presented
+21.0511 	DATA 	Target presented
+22.3060 	DATA 	Keypress: 1
+22.3164 	DATA 	Target detected
+34.6179 	DATA 	Keypress: q
+35.1821 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.5834 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.5937 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.2560 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fb739328880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fb739850820>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.2562 	EXP 	window1: mouseVisible = True
+6.3007 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.3439 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.3709 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.3939 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.5010 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0000 	DATA 	StartOfParadigm
+0.0200 	DATA 	Initial baseline
+
+8.0258 	DATA 	Target presented
+8.8273 	DATA 	Keypress: 1
+8.8277 	DATA 	Target detected
+19.0423 	DATA 	Target presented
+19.0575 	DATA 	Target presented
+19.6297 	DATA 	Keypress: 1
+19.6420 	DATA 	Target detected
+27.0593 	DATA 	Target presented
+27.5766 	DATA 	Keypress: 1
+27.5770 	DATA 	Target detected
+60.0071 	DATA 	EndOfRunrun-01
+
+60.5626 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.7899 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.7999 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+7.0601 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f8b38e28880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f8a819a3b50>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+7.0604 	EXP 	window1: mouseVisible = True
+7.1037 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+7.1464 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+7.1721 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+7.1912 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.4723 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0000 	DATA 	StartOfParadigm
+0.0210 	DATA 	Initial baseline
+
+8.0265 	DATA 	Target presented
+8.5794 	DATA 	Keypress: 1
+8.5798 	DATA 	Target detected
+19.0278 	DATA 	Target presented
+19.6296 	DATA 	Keypress: 1
+19.6300 	DATA 	Target detected
+26.0615 	DATA 	Target presented
+26.5602 	DATA 	Keypress: 1
+26.5606 	DATA 	Target detected
+35.0781 	DATA 	Target presented
+35.5462 	DATA 	Keypress: 1
+35.5466 	DATA 	Target detected
+60.0110 	DATA 	EndOfRunrun-01
+
+60.5727 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.3000 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.3095 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.2649 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f7e61efa880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f7df4694a60>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.2652 	EXP 	window1: mouseVisible = True
+6.3101 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.3532 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.3799 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.3982 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.5884 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0000 	DATA 	StartOfParadigm
+0.0217 	DATA 	Initial baseline
+
+3.5832 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.6968 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.7066 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.6379 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f88f15aa880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f8891864b20>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.6381 	EXP 	window1: mouseVisible = True
+6.6841 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.7278 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.7544 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.7742 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.9135 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0000 	DATA 	StartOfParadigm
+0.0174 	DATA 	Initial baseline
+
+3.5776 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.9735 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.9838 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.7008 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f8caa10c880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f8c8886c9a0>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.7010 	EXP 	window1: mouseVisible = True
+6.7435 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.7859 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.8113 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.8354 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.6586 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0001 	DATA 	StartOfRunrun-01
+0.0001 	DATA 	StartOfParadigm
+0.0205 	DATA 	Initial baseline
+
+8.0306 	DATA 	Target presented
+8.8656 	DATA 	Keypress: 1
+8.8661 	DATA 	Key1 pressed
+19.0473 	DATA 	Target presented
+19.5194 	DATA 	Keypress: 1
+19.5313 	DATA 	Key1 pressed
+26.0474 	DATA 	Target presented
+27.0142 	DATA 	Keypress: 1
+27.0146 	DATA 	Key1 pressed
+35.0710 	DATA 	Target presented
+35.5386 	DATA 	Keypress: 1
+35.5389 	DATA 	Key1 pressed
+60.0045 	DATA 	EndOfRunrun-01
+
+60.0045 	DATA 	RatioOfDetectedTargets0.0
+60.5696 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+You have detected 0 out of 4 targets.
+You really need to focus more!
+5.8573 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.8668 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.5301 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fd9912938e0>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fd91655e910>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.5303 	EXP 	window1: mouseVisible = True
+6.5746 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.6173 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.6618 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.7120 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+3.0072 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0001 	DATA 	StartOfParadigm
+0.0202 	DATA 	Initial baseline
+
+8.0239 	DATA 	Target presented
+8.4914 	DATA 	Keypress: 1
+8.4918 	DATA 	Key1 pressed
+19.0257 	DATA 	Target presented
+19.5287 	DATA 	Keypress: 1
+19.5291 	DATA 	Key1 pressed
+26.0254 	DATA 	Target presented
+26.4941 	DATA 	Keypress: 1
+26.4945 	DATA 	Key1 pressed
+35.0407 	DATA 	Target presented
+36.0432 	DATA 	Keypress: 1
+36.0436 	DATA 	Key1 pressed
+45.0085 	DATA 	EndOfRunrun-01
+
+45.0086 	DATA 	RatioOfDetectedTargets0.0
+45.0086 	DATA 	You have detected 0 out of 4 targets.
+45.5780 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+You have detected 0 out of 4 targets.
+You really need to focus more!
+5.3819 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.3903 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.3124 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fa690f238e0>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fa6c446ba30>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.3127 	EXP 	window1: mouseVisible = True
+6.3555 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.3982 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.4249 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.4454 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.5140 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0001 	DATA 	StartOfParadigm
+0.0216 	DATA 	Initial baseline
+
+8.0332 	DATA 	Target presented
+8.6504 	DATA 	Keypress: 1
+8.6508 	DATA 	Key1 pressed
+19.0521 	DATA 	Target presented
+19.6385 	DATA 	Keypress: 1
+19.6388 	DATA 	Key1 pressed
+26.0522 	DATA 	Target presented
+27.5025 	DATA 	Keypress: 1
+27.5029 	DATA 	Key1 pressed
+35.0673 	DATA 	Target presented
+35.5701 	DATA 	Keypress: 1
+35.5706 	DATA 	Key1 pressed
+45.0182 	DATA 	EndOfRunrun-01
+
+45.0183 	DATA 	RatioOfDetectedTargets0.0
+45.0183 	DATA 	You have detected 0 out of 4 targets.
+50.6016 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.4363 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.4455 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.0900 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fc4d0722850>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fc43b793a00>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.0902 	EXP 	window1: mouseVisible = True
+6.1343 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.1772 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.2032 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.2216 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.2254 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0001 	DATA 	StartOfRunrun-01
+0.0001 	DATA 	StartOfParadigm
+0.0200 	DATA 	Initial baseline
+
+8.0248 	DATA 	Target presented
+9.6113 	DATA 	Keypress: 1
+9.6117 	DATA 	Key1 pressed
+9.6117 	DATA 	Target detected
+11.7281 	DATA 	Keypress: q
+12.2905 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+You have detected 3 out of 4 targets.
+Please try to focus more
+5.6444 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.6543 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.3509 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fa6e0bf1880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fa6c1a708b0>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.3512 	EXP 	window1: mouseVisible = True
+6.3952 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.4387 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.4668 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.4908 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.1633 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0001 	DATA 	StartOfRunrun-01
+0.0001 	DATA 	StartOfParadigm
+0.0203 	DATA 	Initial baseline
+
+8.0283 	DATA 	Target presented
+9.3952 	DATA 	Keypress: 1
+9.3956 	DATA 	Key1 pressed
+9.3956 	DATA 	Target detected
+19.0283 	DATA 	Target presented
+19.6330 	DATA 	Keypress: 1
+19.6334 	DATA 	Key1 pressed
+19.6335 	DATA 	Target detected
+22.7958 	DATA 	Keypress: 1
+22.7962 	DATA 	Key1 pressed
+23.7601 	DATA 	Keypress: 1
+23.7604 	DATA 	Key1 pressed
+24.0634 	DATA 	Keypress: 1
+24.0770 	DATA 	Key1 pressed
+26.0291 	DATA 	Target presented
+29.8305 	DATA 	Keypress: 1
+29.8444 	DATA 	Key1 pressed
+35.0450 	DATA 	Target presented
+36.4447 	DATA 	Keypress: 1
+36.4451 	DATA 	Key1 pressed
+36.4451 	DATA 	Target detected
+45.0098 	DATA 	EndOfRunrun-01
+
+45.0098 	DATA 	RatioOfDetectedTargets0.75
+45.0099 	DATA 	You have detected 3 out of 4 targets.
+50.5906 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+You have detected 10 out of 4 targets.
+Excellent! Keep up the good work
+6.0915 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+6.1014 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.7599 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fc440eea850>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fc441413970>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.7602 	EXP 	window1: mouseVisible = True
+6.8042 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.8470 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.8762 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.8981 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.6818 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0000 	DATA 	StartOfParadigm
+0.0198 	DATA 	Initial baseline
+
+8.0308 	DATA 	Target presented
+9.1147 	DATA 	Keypress: 1
+9.1151 	DATA 	Key1 pressed
+9.1151 	DATA 	Target detected
+9.4356 	DATA 	Keypress: 1
+9.4360 	DATA 	Key1 pressed
+9.4360 	DATA 	Target detected
+19.0470 	DATA 	Target presented
+26.0454 	DATA 	Target presented
+26.6487 	DATA 	Keypress: 1
+26.6491 	DATA 	Key1 pressed
+26.6491 	DATA 	Target detected
+26.8483 	DATA 	Keypress: 1
+26.8488 	DATA 	Key1 pressed
+26.8489 	DATA 	Target detected
+27.0469 	DATA 	Keypress: 1
+27.0473 	DATA 	Key1 pressed
+27.0474 	DATA 	Target detected
+27.2125 	DATA 	Keypress: 1
+27.2128 	DATA 	Key1 pressed
+27.2129 	DATA 	Target detected
+27.3821 	DATA 	Keypress: 1
+27.3825 	DATA 	Key1 pressed
+27.3825 	DATA 	Target detected
+27.5485 	DATA 	Keypress: 1
+27.5490 	DATA 	Key1 pressed
+27.5490 	DATA 	Target detected
+27.6791 	DATA 	Keypress: 1
+27.6795 	DATA 	Key1 pressed
+27.6795 	DATA 	Target detected
+35.0453 	DATA 	Target presented
+35.5132 	DATA 	Keypress: 1
+35.5136 	DATA 	Key1 pressed
+35.5136 	DATA 	Target detected
+45.0111 	DATA 	EndOfRunrun-01
+
+45.0111 	DATA 	RatioOfDetectedTargets2.5
+45.0112 	DATA 	You have detected 10 out of 4 targets.
+50.5887 	EXP 	window1: mouseVisible = True
