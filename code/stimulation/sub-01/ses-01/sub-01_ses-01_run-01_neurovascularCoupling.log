@@ -449,3 +449,49 @@ Excellent! Keep up the good work
 45.0111 	DATA 	RatioOfDetectedTargets2.5
 45.0112 	DATA 	You have detected 10 out of 4 targets.
 50.5887 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+You have detected 3 out of 4 targets.
+Please try to focus more
+5.7980 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.8051 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.7421 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fd3613d2880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fd3841b3a90>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.7422 	EXP 	window1: mouseVisible = True
+6.7754 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.8173 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+6.8456 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.8679 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.5384 	DATA 	Keypress: 5
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0000 	DATA 	StartOfRunrun-01
+0.0000 	DATA 	StartOfParadigm
+0.0343 	DATA 	Initial baseline
+
+8.0347 	DATA 	Target presented
+8.5027 	DATA 	Keypress: 1
+8.5030 	DATA 	Key1 pressed
+8.5030 	DATA 	Target detected
+19.0513 	DATA 	Target presented
+19.4874 	DATA 	Keypress: 1
+19.4878 	DATA 	Key1 pressed
+19.4878 	DATA 	Target detected
+19.8024 	DATA 	Keypress: 1
+19.8028 	DATA 	Key1 pressed
+20.0685 	DATA 	Keypress: 1
+20.0690 	DATA 	Key1 pressed
+20.3020 	DATA 	Keypress: 1
+20.3026 	DATA 	Key1 pressed
+21.0696 	DATA 	Keypress: 1
+21.0699 	DATA 	Key1 pressed
+26.0518 	DATA 	Target presented
+26.5356 	DATA 	Keypress: 1
+26.5360 	DATA 	Key1 pressed
+26.5360 	DATA 	Target detected
+35.0518 	DATA 	Target presented
+45.0011 	DATA 	EndOfRunrun-01
+
+45.0012 	DATA 	RatioOfDetectedTargets0.75
+45.0012 	DATA 	You have detected 3 out of 4 targets.
+50.5740 	EXP 	window1: mouseVisible = True
