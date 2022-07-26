@@ -54,18 +54,3 @@ stimDurTotal = np.sum(conditions['stimDur'])
 restDurTotal = np.sum(conditions['restDur'])
 
 expDurtotal = stimDurTotal + restDurTotal + 30 + 5 # 30s initial and 5s end rest
-
-
-#######################################################
-##### Chose timings for the attenton-task targets #####
-#######################################################
-
-
-min = 10 # min duration between targets
-max = 20 # max duration between targets
-nrTargets = int(expDurtotal/6) # present one target per minute
-
-targetTimes = s = np.random.uniform(min,max,nrTargets)
-
-
-np.savetxt("/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/targetTimes.csv", targetTimes, delimiter= " ", fmt = '%1.3f')
