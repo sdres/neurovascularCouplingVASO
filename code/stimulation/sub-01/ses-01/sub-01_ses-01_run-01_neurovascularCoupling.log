@@ -1554,3 +1554,1462 @@ PixelHeight=1200.0
 65.5753 	DATA 	Target detected
 67.3123 	DATA 	Keypress: q
 67.8867 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+6.5186 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+6.0376 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+6.0473 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.9966 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fad28c0d8b0>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fac99828b20>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.9969 	EXP 	window1: mouseVisible = True
+7.0406 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+7.0657 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+7.0817 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+2.7035 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0212 	DATA 	Initial baseline
+
+20.6641 	DATA 	
+
+20.6642 	DATA 	stimulation
+20.6642 	DATA 	stimDur = 1.0
+20.6642 	DATA 	jitter = 0.6599999999999999
+20.6642 	DATA 	restDur = 10.0
+20.6642 	DATA 	
+
+20.6642 	DATA 	stimulation started
+21.6640 	DATA 	stimulation stopped
+
+34.3215 	DATA 	
+
+34.3215 	DATA 	stimulation
+34.3215 	DATA 	stimDur = 4.0
+34.3215 	DATA 	jitter = 2.64
+34.3215 	DATA 	restDur = 16.0
+34.3215 	DATA 	
+
+34.3215 	DATA 	stimulation started
+38.3236 	DATA 	stimulation stopped
+
+56.9712 	DATA 	
+
+56.9712 	DATA 	stimulation
+56.9712 	DATA 	stimDur = 24.0
+56.9712 	DATA 	jitter = 2.64
+56.9713 	DATA 	restDur = 24.0
+56.9713 	DATA 	
+
+56.9713 	DATA 	stimulation started
+64.6701 	DATA 	Target presented
+80.9733 	DATA 	stimulation stopped
+
+106.9540 	DATA 	
+
+106.9540 	DATA 	stimulation
+106.9540 	DATA 	stimDur = 24.0
+106.9540 	DATA 	jitter = 1.98
+106.9540 	DATA 	restDur = 24.0
+106.9540 	DATA 	
+
+106.9541 	DATA 	stimulation started
+110.3239 	DATA 	Keypress: q
+110.9141 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+8.2953 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+8.3021 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+9.2232 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f94c13738e0>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f941c9d8af0>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+9.2235 	EXP 	window1: mouseVisible = True
+9.2675 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+9.2953 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+9.3147 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+3.1598 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0001 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0211 	DATA 	Initial baseline
+
+20.6605 	DATA 	
+
+20.6605 	DATA 	stimulation
+20.6605 	DATA 	stimDur = 1.0
+20.6605 	DATA 	jitter = 0.6599999999999999
+20.6605 	DATA 	restDur = 10.0
+20.6605 	DATA 	
+
+20.6605 	DATA 	stimulation started
+21.6603 	DATA 	stimulation stopped
+
+34.3195 	DATA 	
+
+34.3195 	DATA 	stimulation
+34.3195 	DATA 	stimDur = 4.0
+34.3195 	DATA 	jitter = 2.64
+34.3195 	DATA 	restDur = 16.0
+34.3196 	DATA 	
+
+34.3196 	DATA 	stimulation started
+38.3111 	DATA 	stimulation stopped
+
+56.9692 	DATA 	
+
+56.9692 	DATA 	stimulation
+56.9693 	DATA 	stimDur = 24.0
+56.9693 	DATA 	jitter = 2.64
+56.9693 	DATA 	restDur = 24.0
+56.9693 	DATA 	
+
+56.9693 	DATA 	stimulation started
+58.8966 	DATA 	Keypress: q
+59.4604 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.1774 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.1852 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.1128 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f85f8be58b0>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f85f92c3730>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.1130 	EXP 	window1: mouseVisible = True
+6.1556 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.1852 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.2043 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.1996 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0197 	DATA 	Initial baseline
+
+20.6640 	DATA 	
+
+20.6640 	DATA 	stimulation
+20.6640 	DATA 	stimDur = 1.0
+20.6640 	DATA 	jitter = 0.6599999999999999
+20.6640 	DATA 	restDur = 10.0
+20.6641 	DATA 	
+
+20.6641 	DATA 	stimulation started
+21.6603 	DATA 	stimulation stopped
+
+34.3143 	DATA 	
+
+34.3143 	DATA 	stimulation
+34.3143 	DATA 	stimDur = 4.0
+34.3143 	DATA 	jitter = 2.64
+34.3144 	DATA 	restDur = 16.0
+34.3144 	DATA 	
+
+34.3144 	DATA 	stimulation started
+37.0755 	DATA 	Keypress: q
+37.6453 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+4.8905 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+4.8999 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+5.8333 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fe2207a4880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fe1dd82e5e0>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.8336 	EXP 	window1: mouseVisible = True
+5.8774 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.9047 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+5.9224 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.3864 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0206 	DATA 	Initial baseline
+
+20.6619 	DATA 	
+
+20.6619 	DATA 	stimulation
+20.6619 	DATA 	stimDur = 1.0
+20.6619 	DATA 	jitter = 0.6599999999999999
+20.6619 	DATA 	restDur = 10.0
+20.6619 	DATA 	
+
+20.6620 	DATA 	stimulation started
+21.6601 	DATA 	stimulation stopped
+
+34.3213 	DATA 	
+
+34.3214 	DATA 	stimulation
+34.3214 	DATA 	stimDur = 4.0
+34.3214 	DATA 	jitter = 2.64
+34.3214 	DATA 	restDur = 16.0
+34.3214 	DATA 	
+
+34.3214 	DATA 	stimulation started
+38.3120 	DATA 	stimulation stopped
+
+39.5609 	DATA 	Keypress: q
+40.1276 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.2445 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.2539 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+5.9209 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f8639e1c880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f85e0941af0>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.9212 	EXP 	window1: mouseVisible = True
+5.9633 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.9940 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.0168 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.9774 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0209 	DATA 	Initial baseline
+
+0.6910 	DATA 	
+
+0.6910 	DATA 	stimulation
+0.6910 	DATA 	stimDur = 1.0
+0.6911 	DATA 	jitter = 0.6599999999999999
+0.6911 	DATA 	restDur = 10.0
+0.6911 	DATA 	
+
+0.6911 	DATA 	stimulation started
+1.6882 	DATA 	stimulation stopped
+
+14.3405 	DATA 	
+
+14.3405 	DATA 	stimulation
+14.3405 	DATA 	stimDur = 4.0
+14.3405 	DATA 	jitter = 2.64
+14.3406 	DATA 	restDur = 16.0
+14.3406 	DATA 	
+
+14.3406 	DATA 	stimulation started
+18.3385 	DATA 	stimulation stopped
+
+18.7542 	DATA 	Keypress: q
+19.3191 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+4.6813 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+4.6899 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+5.4018 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f9a606ea850>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f99b0ab1460>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.4021 	EXP 	window1: mouseVisible = True
+5.4444 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.4734 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+5.4928 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.7804 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0001 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0214 	DATA 	Initial baseline
+
+0.6926 	DATA 	
+
+0.6926 	DATA 	stimulation
+0.6926 	DATA 	stimDur = 1.0
+0.6926 	DATA 	jitter = 0.6599999999999999
+0.6927 	DATA 	restDur = 10.0
+0.6927 	DATA 	
+
+0.6927 	DATA 	stimulation started
+1.6900 	DATA 	stimulation stopped
+
+2.6391 	DATA 	Keypress: q
+3.2013 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.3549 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.3649 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.3262 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fed5955c880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fed3bb51bb0>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.3264 	EXP 	window1: mouseVisible = True
+6.3690 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.4089 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.4424 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.4213 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0215 	DATA 	Initial baseline
+
+0.6890 	DATA 	
+
+0.6890 	DATA 	stimulation
+0.6890 	DATA 	stimDur = 1.0
+0.6891 	DATA 	jitter = 0.6599999999999999
+0.6891 	DATA 	restDur = 10.0
+0.6891 	DATA 	
+
+0.6891 	DATA 	stimulation started
+1.6890 	DATA 	stimulation stopped
+
+6.4716 	DATA 	Keypress: q
+7.0371 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.2619 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.2710 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+6.1999 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f83822758e0>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f82f151bc40>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.2001 	EXP 	window1: mouseVisible = True
+6.2423 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.2729 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.2935 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.3986 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0195 	DATA 	Initial baseline
+
+0.6861 	DATA 	
+
+0.6861 	DATA 	stimulation
+0.6861 	DATA 	stimDur = 1.0
+0.6861 	DATA 	jitter = 0.6599999999999999
+0.6861 	DATA 	restDur = 10.0
+0.6862 	DATA 	
+
+0.6862 	DATA 	stimulation started
+1.6856 	DATA 	stimulation stopped
+
+14.3360 	DATA 	
+
+14.3360 	DATA 	stimulation
+14.3360 	DATA 	stimDur = 4.0
+14.3360 	DATA 	jitter = 2.64
+14.3360 	DATA 	restDur = 16.0
+14.3360 	DATA 	
+
+14.3360 	DATA 	stimulation started
+18.3374 	DATA 	stimulation stopped
+
+36.9855 	DATA 	
+
+36.9855 	DATA 	stimulation
+36.9855 	DATA 	stimDur = 24.0
+36.9855 	DATA 	jitter = 2.64
+36.9855 	DATA 	restDur = 24.0
+36.9855 	DATA 	
+
+36.9856 	DATA 	stimulation started
+55.0511 	DATA 	Target presented
+55.6850 	DATA 	Keypress: 1
+55.6854 	DATA 	Key1 pressed
+55.6854 	DATA 	Target detected
+60.9854 	DATA 	stimulation stopped
+
+86.9709 	DATA 	
+
+86.9710 	DATA 	stimulation
+86.9710 	DATA 	stimDur = 24.0
+86.9710 	DATA 	jitter = 1.98
+86.9710 	DATA 	restDur = 24.0
+86.9710 	DATA 	
+
+86.9710 	DATA 	stimulation started
+110.9686 	DATA 	stimulation stopped
+
+127.7506 	DATA 	Target presented
+128.2541 	DATA 	Keypress: 1
+128.2544 	DATA 	Key1 pressed
+128.2545 	DATA 	Target detected
+134.9870 	DATA 	
+
+134.9870 	DATA 	stimulation
+134.9870 	DATA 	stimDur = 12.0
+134.9870 	DATA 	jitter = 0.0
+134.9870 	DATA 	restDur = 20.0
+134.9870 	DATA 	
+
+134.9870 	DATA 	stimulation started
+146.9682 	DATA 	stimulation stopped
+
+169.6203 	DATA 	
+
+169.6203 	DATA 	stimulation
+169.6203 	DATA 	stimDur = 2.0
+169.6203 	DATA 	jitter = 2.64
+169.6203 	DATA 	restDur = 12.0
+169.6203 	DATA 	
+
+169.6204 	DATA 	stimulation started
+171.6205 	DATA 	stimulation stopped
+
+177.6691 	DATA 	Target presented
+178.2196 	DATA 	Keypress: 1
+178.2200 	DATA 	Key1 pressed
+178.2200 	DATA 	Target detected
+185.6009 	DATA 	
+
+185.6009 	DATA 	stimulation
+185.6009 	DATA 	stimDur = 4.0
+185.6010 	DATA 	jitter = 1.98
+185.6010 	DATA 	restDur = 16.0
+185.6010 	DATA 	
+
+185.6010 	DATA 	stimulation started
+189.6011 	DATA 	stimulation stopped
+
+208.2531 	DATA 	
+
+208.2532 	DATA 	stimulation
+208.2532 	DATA 	stimDur = 12.0
+208.2532 	DATA 	jitter = 2.64
+208.2532 	DATA 	restDur = 20.0
+208.2532 	DATA 	
+
+208.2532 	DATA 	stimulation started
+220.2509 	DATA 	stimulation stopped
+
+241.5837 	DATA 	
+
+241.5837 	DATA 	stimulation
+241.5837 	DATA 	stimDur = 12.0
+241.5837 	DATA 	jitter = 1.3199999999999998
+241.5837 	DATA 	restDur = 20.0
+241.5837 	DATA 	
+
+241.5837 	DATA 	stimulation started
+245.7160 	DATA 	Target presented
+246.4160 	DATA 	Keypress: 1
+246.4164 	DATA 	Key1 pressed
+246.4164 	DATA 	Target detected
+253.5834 	DATA 	stimulation stopped
+
+275.5692 	DATA 	
+
+275.5692 	DATA 	stimulation
+275.5692 	DATA 	stimDur = 1.0
+275.5692 	DATA 	jitter = 1.98
+275.5693 	DATA 	restDur = 10.0
+275.5693 	DATA 	
+
+275.5693 	DATA 	stimulation started
+276.5670 	DATA 	stimulation stopped
+
+287.2358 	DATA 	
+
+287.2359 	DATA 	stimulation
+287.2359 	DATA 	stimDur = 2.0
+287.2359 	DATA 	jitter = 0.6599999999999999
+287.2359 	DATA 	restDur = 12.0
+287.2359 	DATA 	
+
+287.2359 	DATA 	stimulation started
+289.2335 	DATA 	stimulation stopped
+
+295.2511 	DATA 	Target presented
+295.8346 	DATA 	Keypress: 1
+295.8350 	DATA 	Key1 pressed
+295.8350 	DATA 	Target detected
+301.9022 	DATA 	
+
+301.9022 	DATA 	stimulation
+301.9022 	DATA 	stimDur = 24.0
+301.9022 	DATA 	jitter = 0.6599999999999999
+301.9022 	DATA 	restDur = 24.0
+301.9022 	DATA 	
+
+301.9022 	DATA 	stimulation started
+325.8997 	DATA 	stimulation stopped
+
+337.8009 	DATA 	Target presented
+338.4001 	DATA 	Keypress: 1
+338.4006 	DATA 	Key1 pressed
+338.4006 	DATA 	Target detected
+349.9184 	DATA 	
+
+349.9184 	DATA 	stimulation
+349.9184 	DATA 	stimDur = 1.0
+349.9184 	DATA 	jitter = 0.0
+349.9184 	DATA 	restDur = 10.0
+349.9185 	DATA 	
+
+349.9185 	DATA 	stimulation started
+350.9015 	DATA 	stimulation stopped
+
+361.5678 	DATA 	
+
+361.5678 	DATA 	stimulation
+361.5678 	DATA 	stimDur = 4.0
+361.5678 	DATA 	jitter = 0.6599999999999999
+361.5678 	DATA 	restDur = 16.0
+361.5678 	DATA 	
+
+361.5678 	DATA 	stimulation started
+365.5661 	DATA 	stimulation stopped
+
+382.9015 	DATA 	
+
+382.9016 	DATA 	stimulation
+382.9016 	DATA 	stimDur = 1.0
+382.9016 	DATA 	jitter = 1.3199999999999998
+382.9016 	DATA 	restDur = 10.0
+382.9016 	DATA 	
+
+382.9016 	DATA 	stimulation started
+383.8992 	DATA 	stimulation stopped
+
+395.1503 	DATA 	Target presented
+395.7153 	DATA 	Keypress: 1
+395.7157 	DATA 	Key1 pressed
+395.7157 	DATA 	Target detected
+395.8824 	DATA 	
+
+395.8824 	DATA 	stimulation
+395.8825 	DATA 	stimDur = 12.0
+395.8825 	DATA 	jitter = 1.98
+395.8825 	DATA 	restDur = 20.0
+395.8825 	DATA 	
+
+395.8825 	DATA 	stimulation started
+407.8822 	DATA 	stimulation stopped
+
+430.5317 	DATA 	
+
+430.5317 	DATA 	stimulation
+430.5317 	DATA 	stimDur = 1.0
+430.5318 	DATA 	jitter = 2.64
+430.5318 	DATA 	restDur = 10.0
+430.5318 	DATA 	
+
+430.5318 	DATA 	stimulation started
+431.5320 	DATA 	stimulation stopped
+
+439.7470 	DATA 	Target presented
+440.3510 	DATA 	Keypress: 1
+440.3514 	DATA 	Key1 pressed
+440.3515 	DATA 	Target detected
+442.8652 	DATA 	
+
+442.8652 	DATA 	stimulation
+442.8652 	DATA 	stimDur = 2.0
+442.8652 	DATA 	jitter = 1.3199999999999998
+442.8652 	DATA 	restDur = 12.0
+442.8653 	DATA 	
+
+442.8653 	DATA 	stimulation started
+444.8651 	DATA 	stimulation stopped
+
+458.1982 	DATA 	
+
+458.1982 	DATA 	stimulation
+458.1983 	DATA 	stimDur = 24.0
+458.1983 	DATA 	jitter = 1.3199999999999998
+458.1983 	DATA 	restDur = 24.0
+458.1983 	DATA 	
+
+458.1983 	DATA 	stimulation started
+482.1982 	DATA 	stimulation stopped
+
+501.8823 	DATA 	Target presented
+502.5008 	DATA 	Keypress: 1
+502.5013 	DATA 	Key1 pressed
+502.5013 	DATA 	Target detected
+506.8646 	DATA 	
+
+506.8646 	DATA 	stimulation
+506.8646 	DATA 	stimDur = 12.0
+506.8646 	DATA 	jitter = 0.6599999999999999
+506.8646 	DATA 	restDur = 20.0
+506.8646 	DATA 	
+
+506.8647 	DATA 	stimulation started
+518.8645 	DATA 	stimulation stopped
+
+540.1975 	DATA 	
+
+540.1975 	DATA 	stimulation
+540.1976 	DATA 	stimDur = 4.0
+540.1976 	DATA 	jitter = 1.3199999999999998
+540.1976 	DATA 	restDur = 16.0
+540.1976 	DATA 	
+
+540.1976 	DATA 	stimulation started
+542.4299 	DATA 	Target presented
+543.0634 	DATA 	Keypress: 1
+543.0638 	DATA 	Key1 pressed
+543.0638 	DATA 	Target detected
+544.1973 	DATA 	stimulation stopped
+
+560.2165 	DATA 	
+
+560.2165 	DATA 	stimulation
+560.2165 	DATA 	stimDur = 2.0
+560.2165 	DATA 	jitter = 0.0
+560.2165 	DATA 	restDur = 12.0
+560.2166 	DATA 	
+
+560.2166 	DATA 	stimulation started
+562.2138 	DATA 	stimulation stopped
+
+564.8132 	DATA 	Keypress: 1
+564.8136 	DATA 	Key1 pressed
+576.1994 	DATA 	
+
+576.1995 	DATA 	stimulation
+576.1995 	DATA 	stimDur = 2.0
+576.1995 	DATA 	jitter = 1.98
+576.1995 	DATA 	restDur = 12.0
+576.1995 	DATA 	
+
+576.1995 	DATA 	stimulation started
+578.1971 	DATA 	stimulation stopped
+
+586.0151 	DATA 	Target presented
+586.5656 	DATA 	Keypress: 1
+586.5660 	DATA 	Key1 pressed
+586.5660 	DATA 	Target detected
+586.9296 	DATA 	Keypress: 1
+586.9300 	DATA 	Key1 pressed
+587.1510 	DATA 	Keypress: 1
+587.1620 	DATA 	Key1 pressed
+587.3629 	DATA 	Keypress: 1
+587.3632 	DATA 	Key1 pressed
+587.5810 	DATA 	Keypress: 1
+587.5814 	DATA 	Key1 pressed
+587.7965 	DATA 	Keypress: 1
+587.7969 	DATA 	Key1 pressed
+590.2136 	DATA 	
+
+590.2136 	DATA 	stimulation
+590.2137 	DATA 	stimDur = 4.0
+590.2137 	DATA 	jitter = 0.0
+590.2137 	DATA 	restDur = 16.0
+590.2137 	DATA 	
+
+590.2137 	DATA 	stimulation started
+594.2135 	DATA 	stimulation stopped
+
+610.2322 	DATA 	
+
+610.2322 	DATA 	stimulation
+610.2322 	DATA 	stimDur = 24.0
+610.2322 	DATA 	jitter = 0.0
+610.2323 	DATA 	restDur = 24.0
+610.2323 	DATA 	
+
+610.2323 	DATA 	stimulation started
+634.2135 	DATA 	stimulation stopped
+
+658.8112 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.0726 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.0821 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+5.7241 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f92a1803820>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f921cd70850>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.7243 	EXP 	window1: mouseVisible = True
+5.7643 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.7926 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+5.8106 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.1549 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0205 	DATA 	Initial baseline
+
+0.6865 	DATA 	
+
+0.6865 	DATA 	stimulation
+0.6865 	DATA 	stimDur = 1.0
+0.6865 	DATA 	jitter = 0.6599999999999999
+0.6865 	DATA 	restDur = 10.0
+0.6865 	DATA 	
+
+0.6866 	DATA 	stimulation started
+1.6843 	DATA 	stimulation stopped
+
+14.3343 	DATA 	
+
+14.3343 	DATA 	stimulation
+14.3344 	DATA 	stimDur = 4.0
+14.3344 	DATA 	jitter = 2.64
+14.3344 	DATA 	restDur = 16.0
+14.3344 	DATA 	
+
+14.3344 	DATA 	stimulation started
+16.6202 	DATA 	Keypress: 5
+17.1794 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.1966 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.2063 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+5.8545 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fa0f0fc6880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fa0cfe6a430>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.8548 	EXP 	window1: mouseVisible = True
+5.8957 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.9250 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+5.9432 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+0.4600 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0001 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0193 	DATA 	Initial baseline
+
+0.6818 	DATA 	
+
+0.6818 	DATA 	stimulation
+0.6819 	DATA 	stimDur = 1.0
+0.6819 	DATA 	jitter = 0.6599999999999999
+0.6819 	DATA 	restDur = 10.0
+0.6819 	DATA 	
+
+0.6819 	DATA 	stimulation started
+1.3986 	DATA 	Keypress: 5
+1.9559 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+4.8105 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+4.8195 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+5.4829 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fe4b140b8e0>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fe4701599d0>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.4831 	EXP 	window1: mouseVisible = True
+5.5236 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.5535 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+5.5723 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.1614 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0201 	DATA 	Initial baseline
+
+0.6875 	DATA 	
+
+0.6875 	DATA 	stimulation
+0.6875 	DATA 	stimDur = 1.0
+0.6875 	DATA 	jitter = 0.6599999999999999
+0.6875 	DATA 	restDur = 10.0
+0.6876 	DATA 	
+
+0.6876 	DATA 	stimulation started
+1.6864 	DATA 	stimulation stopped
+
+14.3443 	DATA 	
+
+14.3443 	DATA 	stimulation
+14.3443 	DATA 	stimDur = 4.0
+14.3443 	DATA 	jitter = 2.64
+14.3443 	DATA 	restDur = 16.0
+14.3443 	DATA 	
+
+14.3443 	DATA 	stimulation started
+18.3466 	DATA 	stimulation stopped
+
+36.9940 	DATA 	
+
+36.9940 	DATA 	stimulation
+36.9940 	DATA 	stimDur = 24.0
+36.9940 	DATA 	jitter = 2.64
+36.9940 	DATA 	restDur = 24.0
+36.9940 	DATA 	
+
+36.9940 	DATA 	stimulation started
+54.1096 	DATA 	Target presented
+54.5938 	DATA 	Keypress: 1
+54.5942 	DATA 	Key1 pressed
+54.5942 	DATA 	Target detected
+55.3823 	DATA 	Keypress: 1
+55.3827 	DATA 	Key1 pressed
+60.9940 	DATA 	stimulation stopped
+
+86.9772 	DATA 	
+
+86.9773 	DATA 	stimulation
+86.9773 	DATA 	stimDur = 24.0
+86.9773 	DATA 	jitter = 1.98
+86.9773 	DATA 	restDur = 24.0
+86.9773 	DATA 	
+
+86.9773 	DATA 	stimulation started
+95.3182 	DATA 	Target presented
+110.9858 	DATA 	stimulation stopped
+
+134.9952 	DATA 	
+
+134.9952 	DATA 	stimulation
+134.9952 	DATA 	stimDur = 12.0
+134.9952 	DATA 	jitter = 0.0
+134.9952 	DATA 	restDur = 20.0
+134.9953 	DATA 	
+
+134.9953 	DATA 	stimulation started
+146.9953 	DATA 	stimulation stopped
+
+158.5939 	DATA 	Target presented
+159.1915 	DATA 	Keypress: 1
+159.1919 	DATA 	Key1 pressed
+159.1919 	DATA 	Target detected
+169.6449 	DATA 	
+
+169.6450 	DATA 	stimulation
+169.6450 	DATA 	stimDur = 2.0
+169.6450 	DATA 	jitter = 2.64
+169.6450 	DATA 	restDur = 12.0
+169.6450 	DATA 	
+
+169.6450 	DATA 	stimulation started
+171.6452 	DATA 	stimulation stopped
+
+185.6280 	DATA 	
+
+185.6280 	DATA 	stimulation
+185.6280 	DATA 	stimDur = 4.0
+185.6281 	DATA 	jitter = 1.98
+185.6281 	DATA 	restDur = 16.0
+185.6281 	DATA 	
+
+185.6281 	DATA 	stimulation started
+189.6260 	DATA 	stimulation stopped
+
+199.3269 	DATA 	Target presented
+208.2757 	DATA 	
+
+208.2757 	DATA 	stimulation
+208.2757 	DATA 	stimDur = 12.0
+208.2757 	DATA 	jitter = 2.64
+208.2757 	DATA 	restDur = 20.0
+208.2757 	DATA 	
+
+208.2757 	DATA 	stimulation started
+220.2751 	DATA 	stimulation stopped
+
+241.6086 	DATA 	
+
+241.6086 	DATA 	stimulation
+241.6086 	DATA 	stimDur = 12.0
+241.6086 	DATA 	jitter = 1.3199999999999998
+241.6086 	DATA 	restDur = 20.0
+241.6086 	DATA 	
+
+241.6087 	DATA 	stimulation started
+253.6107 	DATA 	stimulation stopped
+
+257.5405 	DATA 	Target presented
+275.5915 	DATA 	
+
+275.5915 	DATA 	stimulation
+275.5915 	DATA 	stimDur = 1.0
+275.5915 	DATA 	jitter = 1.98
+275.5915 	DATA 	restDur = 10.0
+275.5915 	DATA 	
+
+275.5915 	DATA 	stimulation started
+276.5936 	DATA 	stimulation stopped
+
+287.2602 	DATA 	
+
+287.2602 	DATA 	stimulation
+287.2602 	DATA 	stimDur = 2.0
+287.2602 	DATA 	jitter = 0.6599999999999999
+287.2602 	DATA 	restDur = 12.0
+287.2602 	DATA 	
+
+287.2603 	DATA 	stimulation started
+289.2599 	DATA 	stimulation stopped
+
+301.9270 	DATA 	
+
+301.9270 	DATA 	stimulation
+301.9270 	DATA 	stimDur = 24.0
+301.9271 	DATA 	jitter = 0.6599999999999999
+301.9271 	DATA 	restDur = 24.0
+301.9271 	DATA 	
+
+301.9271 	DATA 	stimulation started
+310.2758 	DATA 	Target presented
+325.9247 	DATA 	stimulation stopped
+
+349.9427 	DATA 	
+
+349.9427 	DATA 	stimulation
+349.9427 	DATA 	stimDur = 1.0
+349.9427 	DATA 	jitter = 0.0
+349.9427 	DATA 	restDur = 10.0
+349.9428 	DATA 	
+
+349.9428 	DATA 	stimulation started
+350.9239 	DATA 	stimulation stopped
+
+361.5927 	DATA 	
+
+361.5927 	DATA 	stimulation
+361.5927 	DATA 	stimDur = 4.0
+361.5927 	DATA 	jitter = 0.6599999999999999
+361.5928 	DATA 	restDur = 16.0
+361.5928 	DATA 	
+
+361.5928 	DATA 	stimulation started
+365.5901 	DATA 	stimulation stopped
+
+382.9235 	DATA 	
+
+382.9235 	DATA 	stimulation
+382.9235 	DATA 	stimDur = 1.0
+382.9235 	DATA 	jitter = 1.3199999999999998
+382.9235 	DATA 	restDur = 10.0
+382.9235 	DATA 	
+
+382.9235 	DATA 	stimulation started
+383.9258 	DATA 	stimulation stopped
+
+384.1725 	DATA 	Target presented
+395.9093 	DATA 	
+
+395.9094 	DATA 	stimulation
+395.9094 	DATA 	stimDur = 12.0
+395.9094 	DATA 	jitter = 1.98
+395.9094 	DATA 	restDur = 20.0
+395.9094 	DATA 	
+
+395.9094 	DATA 	stimulation started
+407.9086 	DATA 	stimulation stopped
+
+430.5564 	DATA 	
+
+430.5564 	DATA 	stimulation
+430.5564 	DATA 	stimDur = 1.0
+430.5564 	DATA 	jitter = 2.64
+430.5564 	DATA 	restDur = 10.0
+430.5564 	DATA 	
+
+430.5564 	DATA 	stimulation started
+431.5563 	DATA 	stimulation stopped
+
+442.8897 	DATA 	
+
+442.8897 	DATA 	stimulation
+442.8897 	DATA 	stimDur = 2.0
+442.8897 	DATA 	jitter = 1.3199999999999998
+442.8897 	DATA 	restDur = 12.0
+442.8897 	DATA 	
+
+442.8897 	DATA 	stimulation started
+444.8894 	DATA 	stimulation stopped
+
+453.0573 	DATA 	Target presented
+458.2249 	DATA 	
+
+458.2249 	DATA 	stimulation
+458.2250 	DATA 	stimDur = 24.0
+458.2250 	DATA 	jitter = 1.3199999999999998
+458.2250 	DATA 	restDur = 24.0
+458.2250 	DATA 	
+
+458.2250 	DATA 	stimulation started
+482.2222 	DATA 	stimulation stopped
+
+498.0735 	DATA 	Target presented
+506.8907 	DATA 	
+
+506.8907 	DATA 	stimulation
+506.8907 	DATA 	stimDur = 12.0
+506.8907 	DATA 	jitter = 0.6599999999999999
+506.8908 	DATA 	restDur = 20.0
+506.8908 	DATA 	
+
+506.8908 	DATA 	stimulation started
+518.8908 	DATA 	stimulation stopped
+
+540.2242 	DATA 	
+
+540.2242 	DATA 	stimulation
+540.2243 	DATA 	stimDur = 4.0
+540.2243 	DATA 	jitter = 1.3199999999999998
+540.2243 	DATA 	restDur = 16.0
+540.2243 	DATA 	
+
+540.2243 	DATA 	stimulation started
+544.2218 	DATA 	stimulation stopped
+
+549.1892 	DATA 	Target presented
+560.2402 	DATA 	
+
+560.2402 	DATA 	stimulation
+560.2402 	DATA 	stimDur = 2.0
+560.2402 	DATA 	jitter = 0.0
+560.2403 	DATA 	restDur = 12.0
+560.2403 	DATA 	
+
+560.2403 	DATA 	stimulation started
+562.2241 	DATA 	stimulation stopped
+
+576.2049 	DATA 	
+
+576.2050 	DATA 	stimulation
+576.2050 	DATA 	stimDur = 2.0
+576.2050 	DATA 	jitter = 1.98
+576.2050 	DATA 	restDur = 12.0
+576.2050 	DATA 	
+
+576.2050 	DATA 	stimulation started
+578.2044 	DATA 	stimulation stopped
+
+590.2231 	DATA 	
+
+590.2231 	DATA 	stimulation
+590.2232 	DATA 	stimDur = 4.0
+590.2232 	DATA 	jitter = 0.0
+590.2232 	DATA 	restDur = 16.0
+590.2232 	DATA 	
+
+590.2232 	DATA 	stimulation started
+594.2228 	DATA 	stimulation stopped
+
+610.2210 	DATA 	
+
+610.2210 	DATA 	stimulation
+610.2210 	DATA 	stimDur = 24.0
+610.2210 	DATA 	jitter = 0.0
+610.2210 	DATA 	restDur = 24.0
+610.2210 	DATA 	
+
+610.2210 	DATA 	stimulation started
+627.0686 	DATA 	Target presented
+634.2225 	DATA 	stimulation stopped
+
+775.2216 	DATA 	Keypress: q
+775.7881 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+You have detected 5 out of 11 targets.
+You really need to focus more!
+9.6870 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+9.6968 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+10.6195 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fef6183c880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7feeed671a60>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+10.6198 	EXP 	window1: mouseVisible = True
+10.6629 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+10.6908 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+10.7079 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.9184 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun ses-01run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0202 	DATA 	Initial baseline
+
+0.6876 	DATA 	
+
+0.6876 	DATA 	stimulation
+0.6876 	DATA 	stimDur = 1.0
+0.6877 	DATA 	jitter = 0.6599999999999999
+0.6877 	DATA 	restDur = 10.0
+0.6877 	DATA 	
+
+0.6877 	DATA 	stimulation started
+1.6876 	DATA 	stimulation stopped
+
+14.3402 	DATA 	
+
+14.3403 	DATA 	stimulation
+14.3403 	DATA 	stimDur = 4.0
+14.3403 	DATA 	jitter = 2.64
+14.3403 	DATA 	restDur = 16.0
+14.3403 	DATA 	
+
+14.3403 	DATA 	stimulation started
+18.3373 	DATA 	stimulation stopped
+
+36.9896 	DATA 	
+
+36.9896 	DATA 	stimulation
+36.9896 	DATA 	stimDur = 24.0
+36.9896 	DATA 	jitter = 2.64
+36.9896 	DATA 	restDur = 24.0
+36.9896 	DATA 	
+
+36.9896 	DATA 	stimulation started
+51.3860 	DATA 	Target presented
+52.0365 	DATA 	Keypress: 1
+52.0369 	DATA 	Key1 pressed
+52.0369 	DATA 	Target detected
+60.9902 	DATA 	stimulation stopped
+
+86.9888 	DATA 	
+
+86.9888 	DATA 	stimulation
+86.9888 	DATA 	stimDur = 24.0
+86.9888 	DATA 	jitter = 1.98
+86.9888 	DATA 	restDur = 24.0
+86.9888 	DATA 	
+
+86.9888 	DATA 	stimulation started
+109.3856 	DATA 	Target presented
+110.9698 	DATA 	stimulation stopped
+
+134.9891 	DATA 	
+
+134.9891 	DATA 	stimulation
+134.9891 	DATA 	stimDur = 12.0
+134.9891 	DATA 	jitter = 0.0
+134.9891 	DATA 	restDur = 20.0
+134.9892 	DATA 	
+
+134.9892 	DATA 	stimulation started
+146.9862 	DATA 	stimulation stopped
+
+169.6216 	DATA 	
+
+169.6217 	DATA 	stimulation
+169.6217 	DATA 	stimDur = 2.0
+169.6217 	DATA 	jitter = 2.64
+169.6217 	DATA 	restDur = 12.0
+169.6217 	DATA 	
+
+169.6217 	DATA 	stimulation started
+171.6223 	DATA 	stimulation stopped
+
+185.6024 	DATA 	
+
+185.6024 	DATA 	stimulation
+185.6024 	DATA 	stimDur = 4.0
+185.6024 	DATA 	jitter = 1.98
+185.6024 	DATA 	restDur = 16.0
+185.6024 	DATA 	
+
+185.6024 	DATA 	stimulation started
+188.1180 	DATA 	Target presented
+188.6917 	DATA 	Keypress: 1
+188.6965 	DATA 	Key1 pressed
+188.6966 	DATA 	Target detected
+189.6028 	DATA 	stimulation stopped
+
+198.8846 	DATA 	Keypress: 5
+198.8850 	DATA 	TR 2 | TR1 1 | TR2 1
+199.5679 	DATA 	Keypress: 5
+199.5682 	DATA 	TR 3 | TR1 2 | TR2 1
+200.2049 	DATA 	Keypress: 5
+200.2053 	DATA 	TR 4 | TR1 2 | TR2 2
+200.9359 	DATA 	Keypress: 5
+200.9364 	DATA 	TR 5 | TR1 3 | TR2 2
+201.7351 	DATA 	Keypress: 5
+201.7355 	DATA 	TR 6 | TR1 3 | TR2 3
+202.5038 	DATA 	Keypress: 5
+202.5042 	DATA 	TR 7 | TR1 4 | TR2 3
+203.3208 	DATA 	Keypress: 5
+203.3212 	DATA 	TR 8 | TR1 4 | TR2 4
+204.1547 	DATA 	Keypress: 5
+204.1552 	DATA 	TR 9 | TR1 5 | TR2 4
+205.4877 	DATA 	Keypress: 5
+205.4882 	DATA 	TR 10 | TR1 5 | TR2 5
+205.9535 	DATA 	Keypress: 5
+205.9673 	DATA 	TR 11 | TR1 6 | TR2 5
+206.3343 	DATA 	Keypress: 5
+206.3347 	DATA 	TR 12 | TR1 6 | TR2 6
+207.1344 	DATA 	Keypress: 5
+207.1347 	DATA 	TR 13 | TR1 7 | TR2 6
+208.2543 	DATA 	
+
+208.2543 	DATA 	stimulation
+208.2543 	DATA 	stimDur = 12.0
+208.2543 	DATA 	jitter = 2.64
+208.2544 	DATA 	restDur = 20.0
+208.2544 	DATA 	
+
+208.2544 	DATA 	stimulation started
+208.5040 	DATA 	Keypress: 5
+208.5174 	DATA 	TR 14 | TR1 7 | TR2 7
+220.2516 	DATA 	stimulation stopped
+
+231.4703 	DATA 	Keypress: 1
+231.4706 	DATA 	Key1 pressed
+231.6204 	DATA 	Keypress: 1
+231.6207 	DATA 	Key1 pressed
+231.8019 	DATA 	Keypress: 1
+231.8024 	DATA 	Key1 pressed
+241.5870 	DATA 	
+
+241.5870 	DATA 	stimulation
+241.5870 	DATA 	stimDur = 12.0
+241.5870 	DATA 	jitter = 1.3199999999999998
+241.5870 	DATA 	restDur = 20.0
+241.5870 	DATA 	
+
+241.5870 	DATA 	stimulation started
+253.5849 	DATA 	stimulation stopped
+
+259.0002 	DATA 	Target presented
+275.5679 	DATA 	
+
+275.5679 	DATA 	stimulation
+275.5679 	DATA 	stimDur = 1.0
+275.5679 	DATA 	jitter = 1.98
+275.5679 	DATA 	restDur = 10.0
+275.5679 	DATA 	
+
+275.5679 	DATA 	stimulation started
+276.5678 	DATA 	stimulation stopped
+
+287.2346 	DATA 	
+
+287.2346 	DATA 	stimulation
+287.2346 	DATA 	stimDur = 2.0
+287.2346 	DATA 	jitter = 0.6599999999999999
+287.2346 	DATA 	restDur = 12.0
+287.2346 	DATA 	
+
+287.2346 	DATA 	stimulation started
+289.2345 	DATA 	stimulation stopped
+
+301.9000 	DATA 	
+
+301.9000 	DATA 	stimulation
+301.9000 	DATA 	stimDur = 24.0
+301.9000 	DATA 	jitter = 0.6599999999999999
+301.9001 	DATA 	restDur = 24.0
+301.9001 	DATA 	
+
+301.9001 	DATA 	stimulation started
+325.9005 	DATA 	stimulation stopped
+
+336.8657 	DATA 	Target presented
+337.5043 	DATA 	Keypress: 1
+337.5080 	DATA 	Key1 pressed
+337.5080 	DATA 	Target detected
+349.9202 	DATA 	
+
+349.9202 	DATA 	stimulation
+349.9203 	DATA 	stimDur = 1.0
+349.9203 	DATA 	jitter = 0.0
+349.9203 	DATA 	restDur = 10.0
+349.9203 	DATA 	
+
+349.9203 	DATA 	stimulation started
+350.9171 	DATA 	stimulation stopped
+
+361.5854 	DATA 	
+
+361.5854 	DATA 	stimulation
+361.5855 	DATA 	stimDur = 4.0
+361.5855 	DATA 	jitter = 0.6599999999999999
+361.5855 	DATA 	restDur = 16.0
+361.5855 	DATA 	
+
+361.5855 	DATA 	stimulation started
+365.5838 	DATA 	stimulation stopped
+
+369.9363 	DATA 	Keypress: 1
+369.9367 	DATA 	Key1 pressed
+370.0869 	DATA 	Keypress: 1
+370.0986 	DATA 	Key1 pressed
+370.2855 	DATA 	Keypress: 1
+370.2859 	DATA 	Key1 pressed
+370.4659 	DATA 	Keypress: 1
+370.4662 	DATA 	Key1 pressed
+370.6187 	DATA 	Keypress: 1
+370.6190 	DATA 	Key1 pressed
+371.3189 	DATA 	Keypress: 5
+371.3339 	DATA 	TR 15 | TR1 8 | TR2 7
+371.9026 	DATA 	Keypress: 5
+371.9031 	DATA 	TR 16 | TR1 8 | TR2 8
+372.4857 	DATA 	Keypress: 5
+372.4862 	DATA 	TR 17 | TR1 9 | TR2 8
+373.2496 	DATA 	Keypress: 5
+373.2500 	DATA 	TR 18 | TR1 9 | TR2 9
+373.9508 	DATA 	Keypress: 5
+373.9698 	DATA 	TR 19 | TR1 10 | TR2 9
+374.7496 	DATA 	Keypress: 5
+374.7499 	DATA 	TR 20 | TR1 10 | TR2 10
+375.5182 	DATA 	Keypress: 5
+375.5186 	DATA 	TR 21 | TR1 11 | TR2 10
+376.2684 	DATA 	Keypress: 5
+376.2688 	DATA 	TR 22 | TR1 11 | TR2 11
+377.1021 	DATA 	Keypress: 5
+377.1178 	DATA 	TR 23 | TR1 12 | TR2 11
+377.9162 	DATA 	Keypress: 5
+377.9165 	DATA 	TR 24 | TR1 12 | TR2 12
+378.7499 	DATA 	Keypress: 5
+378.7503 	DATA 	TR 25 | TR1 13 | TR2 12
+379.6673 	DATA 	Keypress: 5
+379.6677 	DATA 	TR 26 | TR1 13 | TR2 13
+380.5525 	DATA 	Keypress: 5
+380.5530 	DATA 	TR 27 | TR1 14 | TR2 13
+381.3822 	DATA 	Keypress: 5
+381.3825 	DATA 	TR 28 | TR1 14 | TR2 14
+382.2025 	DATA 	Keypress: 5
+382.2030 	DATA 	TR 29 | TR1 15 | TR2 14
+382.9188 	DATA 	
+
+382.9188 	DATA 	stimulation
+382.9188 	DATA 	stimDur = 1.0
+382.9188 	DATA 	jitter = 1.3199999999999998
+382.9188 	DATA 	restDur = 10.0
+382.9188 	DATA 	
+
+382.9189 	DATA 	stimulation started
+383.0340 	DATA 	Keypress: 5
+383.0344 	DATA 	TR 30 | TR1 15 | TR2 15
+383.7663 	DATA 	Keypress: 5
+383.7667 	DATA 	TR 31 | TR1 16 | TR2 15
+383.9167 	DATA 	stimulation stopped
+
+384.5689 	DATA 	Keypress: 5
+384.5693 	DATA 	TR 32 | TR1 16 | TR2 16
+385.4325 	DATA 	Keypress: 5
+385.4328 	DATA 	TR 33 | TR1 17 | TR2 16
+386.3848 	DATA 	Keypress: 5
+386.3851 	DATA 	TR 34 | TR1 17 | TR2 17
+387.3658 	DATA 	Keypress: 5
+387.3661 	DATA 	TR 35 | TR1 18 | TR2 17
+388.3659 	DATA 	Keypress: 5
+388.3663 	DATA 	TR 36 | TR1 18 | TR2 18
+389.3661 	DATA 	Keypress: 5
+389.3665 	DATA 	TR 37 | TR1 19 | TR2 18
+390.2991 	DATA 	Keypress: 5
+390.2995 	DATA 	TR 38 | TR1 19 | TR2 19
+391.1327 	DATA 	Keypress: 5
+391.1331 	DATA 	TR 39 | TR1 20 | TR2 19
+395.9027 	DATA 	
+
+395.9027 	DATA 	stimulation
+395.9027 	DATA 	stimDur = 12.0
+395.9027 	DATA 	jitter = 1.98
+395.9027 	DATA 	restDur = 20.0
+395.9027 	DATA 	
+
+395.9027 	DATA 	stimulation started
+405.6822 	DATA 	Target presented
+407.8997 	DATA 	stimulation stopped
+
+430.5491 	DATA 	
+
+430.5492 	DATA 	stimulation
+430.5492 	DATA 	stimDur = 1.0
+430.5492 	DATA 	jitter = 2.64
+430.5492 	DATA 	restDur = 10.0
+430.5492 	DATA 	
+
+430.5492 	DATA 	stimulation started
+431.5523 	DATA 	stimulation stopped
+
+442.8848 	DATA 	
+
+442.8848 	DATA 	stimulation
+442.8848 	DATA 	stimDur = 2.0
+442.8848 	DATA 	jitter = 1.3199999999999998
+442.8849 	DATA 	restDur = 12.0
+442.8849 	DATA 	
+
+442.8849 	DATA 	stimulation started
+444.8854 	DATA 	stimulation stopped
+
+458.2181 	DATA 	
+
+458.2181 	DATA 	stimulation
+458.2181 	DATA 	stimDur = 24.0
+458.2182 	DATA 	jitter = 1.3199999999999998
+458.2182 	DATA 	restDur = 24.0
+458.2182 	DATA 	
+
+458.2182 	DATA 	stimulation started
+475.5828 	DATA 	Target presented
+476.1349 	DATA 	Keypress: 1
+476.1393 	DATA 	Key1 pressed
+476.1393 	DATA 	Target detected
+477.8981 	DATA 	Keypress: 1
+477.8984 	DATA 	Key1 pressed
+478.0652 	DATA 	Keypress: 1
+478.0656 	DATA 	Key1 pressed
+478.2313 	DATA 	Keypress: 1
+478.2316 	DATA 	Key1 pressed
+478.4032 	DATA 	Keypress: 1
+478.4138 	DATA 	Key1 pressed
+478.5648 	DATA 	Keypress: 1
+478.5652 	DATA 	Key1 pressed
+478.7344 	DATA 	Keypress: 1
+478.7478 	DATA 	Key1 pressed
+478.9163 	DATA 	Keypress: 1
+478.9167 	DATA 	Key1 pressed
+482.2155 	DATA 	stimulation stopped
+
+506.8842 	DATA 	
+
+506.8842 	DATA 	stimulation
+506.8842 	DATA 	stimDur = 12.0
+506.8842 	DATA 	jitter = 0.6599999999999999
+506.8843 	DATA 	restDur = 20.0
+506.8843 	DATA 	
+
+506.8843 	DATA 	stimulation started
+518.8819 	DATA 	stimulation stopped
+
+528.6471 	DATA 	Target presented
+529.1177 	DATA 	Keypress: 1
+529.1181 	DATA 	Key1 pressed
+529.1181 	DATA 	Target detected
+529.2823 	DATA 	Keypress: 1
+529.2827 	DATA 	Key1 pressed
+529.4312 	DATA 	Keypress: 1
+529.4315 	DATA 	Key1 pressed
+529.5975 	DATA 	Keypress: 1
+529.5979 	DATA 	Key1 pressed
+529.7654 	DATA 	Keypress: 1
+529.7658 	DATA 	Key1 pressed
+529.9174 	DATA 	Keypress: 1
+529.9178 	DATA 	Key1 pressed
+530.0976 	DATA 	Keypress: 1
+530.0980 	DATA 	Key1 pressed
+530.2307 	DATA 	Keypress: 1
+530.2311 	DATA 	Key1 pressed
+540.2177 	DATA 	
+
+540.2178 	DATA 	stimulation
+540.2178 	DATA 	stimDur = 4.0
+540.2178 	DATA 	jitter = 1.3199999999999998
+540.2178 	DATA 	restDur = 16.0
+540.2178 	DATA 	
+
+540.2178 	DATA 	stimulation started
+544.2149 	DATA 	stimulation stopped
+
+560.2339 	DATA 	
+
+560.2339 	DATA 	stimulation
+560.2339 	DATA 	stimDur = 2.0
+560.2339 	DATA 	jitter = 0.0
+560.2340 	DATA 	restDur = 12.0
+560.2340 	DATA 	
+
+560.2340 	DATA 	stimulation started
+562.2314 	DATA 	stimulation stopped
+
+571.0326 	DATA 	Target presented
+576.2005 	DATA 	
+
+576.2006 	DATA 	stimulation
+576.2006 	DATA 	stimDur = 2.0
+576.2006 	DATA 	jitter = 1.98
+576.2006 	DATA 	restDur = 12.0
+576.2006 	DATA 	
+
+576.2006 	DATA 	stimulation started
+578.1978 	DATA 	stimulation stopped
+
+590.2168 	DATA 	
+
+590.2168 	DATA 	stimulation
+590.2168 	DATA 	stimDur = 4.0
+590.2168 	DATA 	jitter = 0.0
+590.2168 	DATA 	restDur = 16.0
+590.2168 	DATA 	
+
+590.2168 	DATA 	stimulation started
+594.1977 	DATA 	stimulation stopped
+
+610.2310 	DATA 	
+
+610.2310 	DATA 	stimulation
+610.2310 	DATA 	stimDur = 24.0
+610.2310 	DATA 	jitter = 0.0
+610.2310 	DATA 	restDur = 24.0
+610.2311 	DATA 	
+
+610.2311 	DATA 	stimulation started
+625.9297 	DATA 	Target presented
+634.2308 	DATA 	stimulation stopped
+
+683.0130 	DATA 	EndOfRunrun-01
+
+683.0130 	DATA 	RatioOfDetectedTargets0.45454545454545453
+683.0130 	DATA 	You have detected 5 out of 11 targets.
+688.5891 	EXP 	window1: mouseVisible = True

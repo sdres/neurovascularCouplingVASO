@@ -107,8 +107,7 @@ win = visual.Window(size=(PixW, PixH),
     color=backColor,
     colorSpace='rgb',
     units='deg',
-    blendMode='avg',
-    mouseVisible = False
+    blendMode='avg'
     )
 
 # fixation dot - center [black]
@@ -155,7 +154,9 @@ for i in range(0,2): # loop over frames
         units='pix'
         )
         )
-    
+
+stimFrameRate = 8 # set stimulus frame rate in Hz
+
 ###########################################################
 ################### Initialize timings ####################
 ###########################################################
@@ -164,7 +165,7 @@ trialTiming = pd.read_csv('/Users/sebastiandresbach/git/neurovascularCouplingVAS
 trialCounter = 0 # set counter for trials
 
 # Get duration of entire experiment
-initialRest = 20 # set inital rest of 20 s
+initialRest = 0 # set inital rest
 stimDurTotal = np.sum(trialTiming['stimDur']) # sum stimulus durations 
 restDurTotal = np.sum(trialTiming['restDur']) # sum rest durations
 jitDurTotal = np.sum(trialTiming['jitter']) # sum jitter durations
@@ -194,7 +195,14 @@ targetDur = 0.5 # target duration in seconds
 targetCounter = 0 # set counter for targets
 detectedTargets = 0 # set counter for detected targets
 
+# set up TR counters
+nTR= 0 # total TR counter
+nTR1 = 0 # odd TR counter = VASO
+nTR2 = 0 # even TR counter = BOLD
+
+# define function to handle keys
 #def recordKeys():
+#    # evaluate keys
 #    for keys in event.getKeys():
 #        if keys[0] in ['escape', 'q']:
 #            win.close()
@@ -202,32 +210,39 @@ detectedTargets = 0 # set counter for detected targets
 #        
 #        elif keys in ['5']:
 #            nTR = nTR + 1
-#            if nTR % 2 ==1: # odd TRs
+#            if nTR % 2 == 1: # odd TRs
 #                nTR1 = nTR1 + 1
 #    
 #            elif nTR % 2 == 0:
-#                nTR2 = nTR2 +1
+#                nTR2 = nTR2 + 1
 #    
-#            logging.data('TR ' + str(nTR) + ' | TR1 ' + str(nTR1) + ' | TR2 ' + str(nTR2))
+#            logging.data(
+#                'TR '
+#                + str(nTR)
+#                + ' | TR1 '
+#                + str(nTR1)
+#                + ' | TR2 '
+#                + str(nTR2)
+#                )
 #        
-#        elif keys in ['1']:
-#            
+#        elif keys in ['1']: #target detection
 #            logging.data('Key1 pressed')
-#            
+#
+#
+#
+#            # if button one is pressed in 2 s window after target
+#            # and response is possible
 #            if (responseTimer.getTime() <= 2) & (responseSwitch):
+#                # record that the target was detected
 #                logging.data('Target detected')
 #                detectedTargets = detectedTargets + 1
-#                responseSwitch = False
+#                # disable target counter until next target
+#                responseSwitch = False  
 
 
 #########################################################
 ################## Start of Experiment ##################
 #########################################################
-
-
-nTR= 0 # total TR counter
-nTR1 = 0 # odd TR counter = VASO
-nTR2 = 0 # even TR counter = BOLD
 
 # Set up clocks
 fmriTime = core.Clock() 
@@ -261,6 +276,7 @@ nTR2 = 0 # even (BOLD) TR counter does not change yet
 
 logging.data(
     'StartOfRun '
+    + str(expInfo['participant'])
     + str(expInfo['session'])
     + str(expInfo['run'])
     )
@@ -308,7 +324,9 @@ while fmriTime.getTime() < initialRest:
         
         elif keys in ['1']: #target detection
             logging.data('Key1 pressed')
-            
+
+
+
             # if button one is pressed in 2 s window after target
             # and response is possible
             if (responseTimer.getTime() <= 2) & (responseSwitch):
@@ -317,7 +335,8 @@ while fmriTime.getTime() < initialRest:
                 detectedTargets = detectedTargets + 1
                 # disable target counter until next target
                 responseSwitch = False  
-    
+
+
 # initialize bool for target presentation
 targetSwitch = False # target on/off
 responseSwitch = False # whether reponse to target was registered
@@ -330,7 +349,7 @@ targetTime.reset() # reset target after initial fixation (no targets before)
 while runExp:
     
     # execute attention task only if there is targets remaining
-    # and we are durrently not presenting a target anyway
+    # and we are currently not presenting a target anyway
     if (targetCounter < len(targetTimes)) & (not targetSwitch):
         
         # check whether it is time for a target
@@ -367,75 +386,93 @@ while runExp:
             # is still open for 2 more seconds
             responseTimer.reset()
     
-    # get durations of current trial
-    currTrial = trialTiming.iloc[[trialCounter]]
-    trialDur = (
-        currTrial['stimDur']
-        + currTrial['restDur']
-        + currTrial['jitter'])
-        [trialCounter] # we have to give it the index because dataFrame.iloc
-        )
-    stimDur = currTrial['stimDur'][trialCounter]
-    restDur = currTrial['restDur'][trialCounter]
-    jitDur = currTrial['jitter'][trialCounter]
+    # only execute until we reached the last trial
+    if trialCounter < trialTiming.shape[0]:
+        # get durations of current trial
+        currTrial = trialTiming.iloc[[trialCounter]]
+        trialDur = (
+            (
+            currTrial['stimDur']
+            + currTrial['restDur']
+            + currTrial['jitter']
+            )[trialCounter] # we have to give it the index because dataFrame.iloc
+            )
+        stimDur = currTrial['stimDur'][trialCounter]
+        restDur = currTrial['restDur'][trialCounter]
+        jitDur = currTrial['jitter'][trialCounter]
                 
-    
-    if (trialTime.getTime() > jitDur) and (trialTime.getTime() <= (stimDur + jitDur)):
+        # check wether we are past the jitter time but not past the stimulation
+        # duration plus the jitter time for the current trial
+        if (
+            trialTime.getTime() > jitDur and 
+            (trialTime.getTime() <= (stimDur + jitDur))
+            ):
+            
+            # If we just started the stimulation, write down stimulus parameters
+            if not stimSwitch:
+                # log stimulus info
+                logging.data('\n')
+                logging.data('stimulation')
+                logging.data(f'stimDur = {stimDur}')
+                logging.data(f"jitter = {jitDur}")
+                logging.data(f'restDur = {restDur}')
+                logging.data('\n')
+                logging.data(f'stimulation started')
+                
+                # we are starting to present a stimulus so reset the timer 
+                visStimTime.reset()
+                # start with frame 0
+                visStimFrame = 0
+                # turn on switch that we are presenting a stimulus
+                stimSwitch = True
+            
+            # we have to change stim frames at the desired rate
+            if stimSwitch and visStimTime.getTime() >= 1/8:
+                
+                # switch to other frame for next iteration
+                if visStimFrame == 0:
+                    visStimFrame = 1
+                elif visStimFrame == 1:
+                    visStimFrame = 0
+                
+                # reset timer
+                visStimTime.reset()
+        
+        # check whether we reached the end of the stimulation
+        if trialTime.getTime() > (stimDur + jitDur):    
+            # turn off stimulation if yes
+            if stimSwitch:
+                stimSwitch = False
+                logging.data(f'stimulation stopped' + '\n')
+        
+        # check whether we have reached the end of the entire trial
+        # this INCLUDES the rest period
+        if trialTime.getTime() > trialDur:
+            # jump to next trial
+            trialCounter = trialCounter + 1
+            trialTime.reset()
         
         if not stimSwitch:
-            logging.data('\n')
-            logging.data('stimulation' + '\n')
-            logging.data(f'stimDur = {stimDur}\n')
-            logging.data(f"jitter = {jitDur}\n")
-            logging.data(f'restDur = {restDur}\n')
-            logging.data('\n')
-            
-            logging.data(f'stimulation started')
-            visStimType = 0
-            stimSwitch = True
-            
-        if visStimTime.getTime() >= 1/8:
-            if visStimType == 0:
-                # display stimulus frame
-                tapImages[visStimType].draw()
-                # display fixation
-                dotFixSurround.draw()
-                dotFix.draw()
-                win.flip()
-                visStimTime.reset()
-                visStimType = 1
-
-        if visStimTime.getTime() >= 1/8:
-            if visStimType == 1:
-                # display stimulus frame
-                tapImages[visStimType].draw()
-                # display fixation
-                dotFixSurround.draw()
-                dotFix.draw()
-                win.flip()
-                visStimTime.reset()
-                visStimType = 0
-        
-    if trialTime.getTime() > (stimDur + jitDur):    
+            # display fixation
+            dotFixSurround.draw()
+            dotFix.draw()
+            win.flip()
+    
         if stimSwitch:
-#            dotFixSurround.draw()
-#            dotFix.draw()
-#            win.flip()
-            stimSwitch = False
-            logging.data(f'stimulation stopped' + '\n')
-            
+            # display stimulus frame
+            tapImages[visStimFrame].draw()
+            # display fixation
+            dotFixSurround.draw()
+            dotFix.draw()
+            win.flip()
     
-    if trialTime.getTime() > trialDur:
-        trialCounter = trialCounter + 1
-        trialTime.reset()
-
     
-    if not stimSwitch:    
+    
+    else:
         # display fixation
         dotFixSurround.draw()
         dotFix.draw()
         win.flip()
-
     
     
     for keys in event.getKeys():
@@ -451,7 +488,14 @@ while runExp:
             elif nTR % 2 == 0:
                 nTR2 = nTR2 +1
     
-            logging.data('TR ' + str(nTR) + ' | TR1 ' + str(nTR1) + ' | TR2 ' + str(nTR2))
+            logging.data(
+                'TR '
+                + str(nTR)
+                + ' | TR1 '
+                + str(nTR1)
+                + ' | TR2 '
+                + str(nTR2)
+                )
         
         elif keys in ['1']:
             
@@ -462,11 +506,17 @@ while runExp:
                 detectedTargets = detectedTargets + 1
                 responseSwitch = False    
 
-
-if fmriTime.getTime() > expDurTotal:
-    runExp = False
     
-logging.data('EndOfRun' + str(expInfo['run']) + '\n')
+    if fmriTime.getTime() > expDurTotal:
+        runExp = False
+    
+logging.data(
+    'EndOfRun '
+    + str(expInfo['participant'])
+    + str(expInfo['session'])
+    + str(expInfo['run'])
+    + '\n'
+    )
 
 
 
@@ -475,7 +525,7 @@ logging.data('EndOfRun' + str(expInfo['run']) + '\n')
 
 # detection ratio
 DetectRatio = detectedTargets/len(targetTimes)
-logging.data('RatioOfDetectedTargets' + str(DetectRatio))
+logging.data('RatioOfDetectedTargets ' + str(DetectRatio))
 
 # display target detection results to participant
 resultText = 'You have detected %i out of %i targets.' % (detectedTargets,
