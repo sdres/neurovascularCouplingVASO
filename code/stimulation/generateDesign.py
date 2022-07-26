@@ -61,11 +61,11 @@ expDurtotal = stimDurTotal + restDurTotal + 30 + 5 # 30s initial and 5s end rest
 #######################################################
 
 
-min = 40 # min duration between targets
-max = 80 # max duration between targets
-nrTargets = int(expDurtotal/60) # present one target per minute
+min = 10 # min duration between targets
+max = 20 # max duration between targets
+nrTargets = int(expDurtotal/6) # present one target per minute
 
 targetTimes = s = np.random.uniform(min,max,nrTargets)
 
 
-targetTimesnp.savetxt("eventRelatedTemplate.csv", restTimesArr, delimiter= " ", fmt = '%1.3f')
+np.savetxt("/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/targetTimes.csv", targetTimes, delimiter= " ", fmt = '%1.3f')
