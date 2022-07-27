@@ -232,7 +232,7 @@ nTR2 = 0 # even TR counter = BOLD
 #
 #            # if button one is pressed in 2 s window after target
 #            # and response is possible
-#            if (responseTimer.getTime() <= 2) & (responseSwitch):
+#            if (responseTimer.getTime() <= 2) and (responseSwitch):
 #                # record that the target was detected
 #                logging.data('Target detected')
 #                detectedTargets = detectedTargets + 1
@@ -329,7 +329,7 @@ while fmriTime.getTime() < initialRest:
 
             # if button one is pressed in 2 s window after target
             # and response is possible
-            if (responseTimer.getTime() <= 2) & (responseSwitch):
+            if (responseTimer.getTime() <= 2) and (responseSwitch):
                 # record that the target was detected
                 logging.data('Target detected')
                 detectedTargets = detectedTargets + 1
@@ -350,7 +350,7 @@ while runExp:
     
     # execute attention task only if there is targets remaining
     # and we are currently not presenting a target anyway
-    if (targetCounter < len(targetTimes)) & (not targetSwitch):
+    if (targetCounter < len(targetTimes)) and (not targetSwitch):
         
         # check whether it is time for a target
         if targetTime.getTime() >= targetTimes[targetCounter]:
@@ -369,7 +369,7 @@ while runExp:
     
     # do not execute this before first target is being presented or when
     # there os no target at the moment
-    if (targetCounter > 0) & targetSwitch:
+    if (targetCounter > 0) and targetSwitch:
         # if the target has been there for the target duration
         if (
             targetTime.getTime() >= 
@@ -395,7 +395,7 @@ while runExp:
             currTrial['stimDur']
             + currTrial['restDur']
             + currTrial['jitter']
-            )[trialCounter] # we have to give it the index because dataFrame.iloc
+            )[trialCounter] #we have to give it the index because dataFrame.iloc
             )
         stimDur = currTrial['stimDur'][trialCounter]
         restDur = currTrial['restDur'][trialCounter]
@@ -501,7 +501,7 @@ while runExp:
             
             logging.data('Key1 pressed')
             
-            if (responseTimer.getTime() <= 2) & (responseSwitch):
+            if (responseTimer.getTime() <= 2) and (responseSwitch):
                 logging.data('Target detected')
                 detectedTargets = detectedTargets + 1
                 responseSwitch = False    
