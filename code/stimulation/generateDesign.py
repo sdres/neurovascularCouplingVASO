@@ -7,50 +7,69 @@ import os
 dateNow = time.strftime("%Y-%m-%d_%H.%M")
 
 # get the path that this script is in and change dir to it
-_thisDir = os.path.dirname(os.path.abspath(__file__))  # get current path
-os.chdir(_thisDir)  # change directory to this path
+# _thisDir = os.path.dirname(os.path.abspath(__file__))  # get current path
+# os.chdir(_thisDir)  # change directory to this path
 
+folder = '/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation'
 
 #########################################
 ##### Chose timings for the stimuli #####
 #########################################
 
-# we have 5 stimulus durations
-stimDurs =  [2, 4, 12, 24] # stimulus durations in seconds
-stimDurArr = np.ones(5)
+# set pair TR
+TR = 4
+#set nr of jitters
+nrJitters = 4
 
-for i, stimDur in enumerate(stimDurs):
-    for n in range(5):
+# we have 5 stimulus durations
+stimDurs =  [1, 2, 4, 12, 24] # stimulus durations in seconds
+nrStims = len(stimDurs)
+stimDurArr = np.ones(nrJitters)
+
+for i, stimDur in enumerate(stimDurs[1:]):
+    for n in range(nrJitters):
         stimDurArr = np.append(stimDurArr, stimDur)
 
 # The rest periods for these stimuli are
-restDurs = [12, 16, 20, 24]  # rest durations in seconds
-restDurArr = np.ones(5)*10
+restDurs = [12, 14, 16, 20, 24]  # rest durations in seconds
+restDurArr = np.ones(nrJitters)*restDurs[0]
 
-for i, restDur in enumerate(restDurs):
-    for n in range(5):
+for i, restDur in enumerate(restDurs[1:]):
+    for n in range(nrJitters):
         restDurArr = np.append(restDurArr, restDur)
 
-# We want to have 5 sub TR jitters
-# These have to be determined wrt the TR
-# Here we assume a TR of 3.3 s
 
-TR = 3.3
-
-# therefore the steps between jitters are
-jitters = np.arange(0,5)
-jitters = jitters * (TR/5)
+# the steps between jitters are
+jitters = np.arange(0,nrJitters)
+jitters = jitters * (TR/nrJitters)
 jittersArr = jitters.copy()
-for n in range(4):
+
+for n in range(nrStims-1):
+    print(n)
     jittersArr = np.append(jittersArr, jitters)
 
-# lets make a daraframe from all the possible conditions
-conditions = pd.DataFrame({'stimDur':stimDurArr, 'restDur': restDurArr, 'jitter': jittersArr})
+# make a daraframe from all the possible conditions
+conditions = pd.DataFrame(
+    {
+    'stimDur':stimDurArr,
+    'restDur': restDurArr,
+    'jitter': jittersArr
+    }
+    )
+
+# shuffle the dataframe
 conditions = conditions.sample(frac=1).reset_index(drop=True)
 
-conditions.to_csv(f'/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/conditionTimings_{dateNow}.csv', index=False)
+# save the dataframe
+conditions.to_csv(
+    f'{folder}/conditionTimings_TR-{TR}_jitters-{nrJitters}_{dateNow}.csv',
+    index=False
+    )
 
-stimDurTotal = np.sum(conditions['stimDur'])
-restDurTotal = np.sum(conditions['restDur'])
+# caculate run duration
+stimDurTotal = np.sum(conditions['stimDur']) # total stim duration
+restDurTotal = np.sum(conditions['restDur']) # total rest duration
 
-expDurtotal = stimDurTotal + restDurTotal + 30 + 5 # 30s initial and 5s end rest
+# sum
+expDurtotal = stimDurTotal + restDurTotal + 15 + 25 # initial and end rest
+print(f'Total experiment time: {expDurtotal} seconds')
