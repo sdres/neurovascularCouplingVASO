@@ -161,17 +161,17 @@ stimFrameRate = 8 # set stimulus frame rate in Hz
 ################### Initialize timings ####################
 ###########################################################
 
-trialTiming = pd.read_csv('/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/conditionTimings_2022-07-23_13.44.csv')
+trialTiming = pd.read_csv('/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/conditionTimings_TR-4_jitters-4_2022-08-08_16.59.csv')
 trialCounter = 0 # set counter for trials
 
 # Get duration of entire experiment
-initialRest = 5 # set inital rest
+initialRest = 15 # set inital rest
 stimDurTotal = np.sum(trialTiming['stimDur']) # sum stimulus durations
 restDurTotal = np.sum(trialTiming['restDur']) # sum rest durations
 jitDurTotal = np.sum(trialTiming['jitter']) # sum jitter durations
-# set extra 25 s rest after experiment to account for longer run durations
+# set extra rest after experiment to account for longer run durations
 # due to waiting for triggers and extra baseline
-finalRest = 25
+finalRest = 50
 
 # calculate entire run duration
 expDurTotal = (
@@ -199,46 +199,6 @@ detectedTargets = 0 # set counter for detected targets
 nTR= 0 # total TR counter
 nTR1 = 0 # odd TR counter = VASO
 nTR2 = 0 # even TR counter = BOLD
-
-# define function to handle keys
-#def recordKeys():
-#    # evaluate keys
-#    for keys in event.getKeys():
-#        if keys[0] in ['escape', 'q']:
-#            win.close()
-#            core.quit()
-#
-#        elif keys in ['5']:
-#            nTR = nTR + 1
-#            if nTR % 2 == 1: # odd TRs
-#                nTR1 = nTR1 + 1
-#
-#            elif nTR % 2 == 0:
-#                nTR2 = nTR2 + 1
-#
-#            logging.data(
-#                'TR '
-#                + str(nTR)
-#                + ' | TR1 '
-#                + str(nTR1)
-#                + ' | TR2 '
-#                + str(nTR2)
-#                )
-#
-#        elif keys in ['1']: #target detection
-#            logging.data('Key1 pressed')
-#
-#
-#
-#            # if button one is pressed in 2 s window after target
-#            # and response is possible
-#            if (responseTimer.getTime() <= 2) and (responseSwitch):
-#                # record that the target was detected
-#                logging.data('Target detected')
-#                detectedTargets = detectedTargets + 1
-#                # disable target counter until next target
-#                responseSwitch = False
-
 
 #########################################################
 ################## Start of Experiment ##################
@@ -339,9 +299,11 @@ while fmriTime.getTime() < initialRest:
                 responseSwitch = False
 
 
-# initialize bool for target presentation
+# initialize bools for target presentation
 targetSwitch = False # target on/off
 responseSwitch = False # whether reponse to target was registered
+
+# initialize bools for stimulus presentation
 stimSwitch = False # stimulation on/off
 triggerSwitch = False # wait for VASO trigger in stimulation
 
@@ -393,68 +355,73 @@ while runExp:
     ### Visual stimulation ###
     
     if triggerSwitch:
+        # check wether we are past the jitter time but not past the stimulation
+        # duration plus the jitter time for the current trial
+        if (
+            trialTime.getTime() > jitDur and
+            (
+            trialTime.getTime() <= (stimDur + jitDur)
+            )
+            ):
 
-        # only execute until we reached the last trial
-        if trialCounter < trialTiming.shape[0]:
-
-            # check wether we are past the jitter time but not past the stimulation
-            # duration plus the jitter time for the current trial
-            if (
-                trialTime.getTime() > jitDur and
-                (trialTime.getTime() <= (stimDur + jitDur))
-                ):
-
-                # If we just started the stimulation, write down stimulus parameters
-                if not stimSwitch:
-
-                    logging.data(f'stimulation started' + '\n')
-
-                    # we are starting to present a stimulus so reset the timer
-                    visStimTime.reset()
-                    # start with frame 0
-                    visStimFrame = 0
-                    # turn on switch that we are presenting a stimulus
-                    stimSwitch = True
-
-                # we have to change stim frames at the desired rate
-                if stimSwitch and visStimTime.getTime() >= 1/8:
-
-                    # switch to other frame for next iteration
-                    if visStimFrame == 0:
-                        visStimFrame = 1
-                    elif visStimFrame == 1:
-                        visStimFrame = 0
-
-                    # reset timer
-                    visStimTime.reset()
-
-            # check whether we reached the end of the stimulation
-            if trialTime.getTime() > (stimDur + jitDur):
-                # turn off stimulation if yes
-                if stimSwitch:
-                    stimSwitch = False
-                    logging.data(f'stimulation stopped' + '\n')
-
-            # check whether we have reached the end of the entire trial
-            # this INCLUDES the rest period
-            if trialTime.getTime() > trialDur:
-                # jump to next trial
-                trialCounter = trialCounter + 1
-                triggerSwitch = False
-
+            # If we haven't started the stimulation start now
             if not stimSwitch:
-                # display fixation
-                dotFixSurround.draw()
-                dotFix.draw()
-                win.flip()
+                logging.data('')
+                logging.data(f'stimulation started')
+                logging.data('')
+                # we are starting to present a stimulus so reset the timer
+                visStimTime.reset()
+                # start with frame 0
+                visStimFrame = 0
+                # turn on switch that we are presenting a stimulus
+                stimSwitch = True
 
+            # we have to change stim frames at the desired rate
+            if stimSwitch and visStimTime.getTime() >= 1/8:
+
+                # switch to other frame for next iteration
+                if visStimFrame == 0:
+                    visStimFrame = 1
+                elif visStimFrame == 1:
+                    visStimFrame = 0
+
+                # reset timer
+                visStimTime.reset()
+
+        # check whether we reached the end of the stimulation
+        if trialTime.getTime() > (stimDur + jitDur):
+            # turn off stimulation if yes
             if stimSwitch:
-                # display stimulus frame
-                tapImages[visStimFrame].draw()
-                # display fixation
-                dotFixSurround.draw()
-                dotFix.draw()
-                win.flip()
+                stimSwitch = False
+                logging.data('')
+                logging.data(f'stimulation stopped')
+                logging.data('')
+                
+        # check whether we have reached the end of the entire trial
+        # this INCLUDES the rest period
+        if trialTime.getTime() > trialDur:
+            trialCounter = trialCounter + 1
+            logging.data(f'')
+            logging.data(f'Trial complete')
+            if trialCounter < (trialTiming.shape[0]-1):
+                logging.data(f'Waiting for VASO trigger to start next trial')
+            logging.data(f'')
+
+            triggerSwitch = False
+
+        
+        if not stimSwitch:
+            # display only fixation
+            dotFixSurround.draw()
+            dotFix.draw()
+            win.flip()
+
+        if stimSwitch:
+            # display stimulus frame and fixation
+            tapImages[visStimFrame].draw()
+            dotFixSurround.draw()
+            dotFix.draw()
+            win.flip()
 
 
     # for fixation baseline (at end or in between trials)
@@ -477,14 +444,15 @@ while runExp:
 
                 # wait for VASO trigger
                 if not triggerSwitch:
-                    triggerSwitch = True
-                    trialTime.reset()
                     
                     # only execute until we reached the last trial
                     if trialCounter < trialTiming.shape[0]:
+                        triggerSwitch = True
+                        trialTime.reset()
             
                         # get durations of current trial
                         currTrial = trialTiming.iloc[[trialCounter]]
+                        
                         trialDur = (
                             (
                             currTrial['stimDur']
@@ -497,13 +465,13 @@ while runExp:
                         restDur = currTrial['restDur'][trialCounter]
                         jitDur = currTrial['jitter'][trialCounter]
 
-                    # log stimulus info of next trial
-                    logging.data('\n')
-                    logging.data('Trial')
-                    logging.data(f'stimDur = {stimDur}')
-                    logging.data(f"jitter = {jitDur}")
-                    logging.data(f'restDur = {restDur}\n')
-
+                        # log stimulus info of next trial
+                        logging.data('')
+                        logging.data(f'Trial {trialCounter+1}')
+                        logging.data(f'stimDur = {stimDur}')
+                        logging.data(f"jitter = {jitDur}")
+                        logging.data(f'restDur = {restDur}\n')
+                        logging.data('')
 
             elif nTR % 2 == 0:
                 nTR2 = nTR2 +1
@@ -533,7 +501,9 @@ while runExp:
 logging.data(
     'EndOfRun '
     + str(expInfo['participant'])
+    + '_'
     + str(expInfo['session'])
+    + '_'
     + str(expInfo['run'])
     + '\n'
     )

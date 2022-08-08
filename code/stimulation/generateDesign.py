@@ -17,12 +17,13 @@ folder = '/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulatio
 #########################################
 
 # set pair TR
-TR = 4
+TR = 2
 #set nr of jitters
-nrJitters = 4
+nrJitters = 2
 
 # we have 5 stimulus durations
-stimDurs =  [1, 2, 4, 12, 24] # stimulus durations in seconds
+# stimDurs =  [1, 2, 4, 12, 24] # stimulus durations in seconds
+stimDurs =  [1, 2, 3, 4, 5] # stimulus durations in seconds
 nrStims = len(stimDurs)
 stimDurArr = np.ones(nrJitters)
 
@@ -31,7 +32,8 @@ for i, stimDur in enumerate(stimDurs[1:]):
         stimDurArr = np.append(stimDurArr, stimDur)
 
 # The rest periods for these stimuli are
-restDurs = [12, 14, 16, 20, 24]  # rest durations in seconds
+# restDurs = [12, 14, 16, 20, 24]  # rest durations in seconds
+restDurs = [2, 2, 2, 2, 2]  # rest durations in seconds
 restDurArr = np.ones(nrJitters)*restDurs[0]
 
 for i, restDur in enumerate(restDurs[1:]):
@@ -45,7 +47,6 @@ jitters = jitters * (TR/nrJitters)
 jittersArr = jitters.copy()
 
 for n in range(nrStims-1):
-    print(n)
     jittersArr = np.append(jittersArr, jitters)
 
 # make a daraframe from all the possible conditions
@@ -62,14 +63,16 @@ conditions = conditions.sample(frac=1).reset_index(drop=True)
 
 # save the dataframe
 conditions.to_csv(
-    f'{folder}/conditionTimings_TR-{TR}_jitters-{nrJitters}_{dateNow}.csv',
+    f'{folder}/conditionTimings_TR-{TR}_jitters-{nrJitters}_{dateNow}_debug.csv',
     index=False
     )
 
 # caculate run duration
 stimDurTotal = np.sum(conditions['stimDur']) # total stim duration
 restDurTotal = np.sum(conditions['restDur']) # total rest duration
+jitterDurTotal = np.sum(conditions['jitter']) # total rest duration
+
 
 # sum
-expDurtotal = stimDurTotal + restDurTotal + 15 + 25 # initial and end rest
+expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + 5 + 10 # initial and end rest
 print(f'Total experiment time: {expDurtotal} seconds')
