@@ -161,7 +161,7 @@ stimFrameRate = 8 # set stimulus frame rate in Hz
 ################### Initialize timings ####################
 ###########################################################
 
-trialTiming = pd.read_csv('/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/conditionTimings_TR-4_jitters-4_2022-08-08_16.59.csv')
+trialTiming = pd.read_csv('/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/conditionTimings_TR-3_jitters-6_2022-08-09_13.33.csv')
 trialCounter = 0 # set counter for trials
 
 # Get duration of entire experiment
@@ -171,7 +171,7 @@ restDurTotal = np.sum(trialTiming['restDur']) # sum rest durations
 jitDurTotal = np.sum(trialTiming['jitter']) # sum jitter durations
 # set extra rest after experiment to account for longer run durations
 # due to waiting for triggers and extra baseline
-finalRest = 50
+finalRest = 75
 
 # calculate entire run duration
 expDurTotal = (
