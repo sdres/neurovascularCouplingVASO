@@ -18,10 +18,10 @@ def infotodict(seqinfo):
     subindex: sub index within group
     """
 
-    vasoMagn = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-stimulation_run-00{item:01d}_part-mag_cbv')
-    vasoPhs = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-stimulation_run-00{item:01d}_part-phase_cbv')
-    boldMagn = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-stimulation_run-00{item:01d}_part-mag_bold')
-    boldPhs = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-stimulation_run-00{item:01d}_part-phase_bold')
+    vasoMagn = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-stimulation_run-0{item:01d}_part-mag_cbv')
+    vasoPhs = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-stimulation_run-0{item:01d}_part-phase_cbv')
+    boldMagn = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-stimulation_run-0{item:01d}_part-mag_bold')
+    boldPhs = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-stimulation_run-0{item:01d}_part-phase_bold')
 
     info = {vasoMagn:[],vasoPhs:[],boldMagn:[],boldPhs:[]}
 
