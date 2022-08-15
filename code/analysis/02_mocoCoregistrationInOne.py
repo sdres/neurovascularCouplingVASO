@@ -16,39 +16,24 @@ afniPath = '/Users/sebastiandresbach/abin'
 
 
 for sub in ['sub-01']:
-    # os.system(f'mkdir {root}/derivatives/{sub}')
-    # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-02']:
-        # os.system(f'mkdir {root}/derivatives/{sub}/{ses}')
 
-        # look for individual runs
-        runs = sorted(glob.glob(f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))
-        # make folder to dump motion traces
-        outFolder = f'{root}/derivatives/{sub}/{ses}'
-        os.system(f'mkdir {outFolder}/motionParameters')
+    # os.system(f'mkdir {root}/derivatives/{sub}/{ses}')
 
-        for j, run in enumerate(runs,start=1):
-            base = os.path.basename(run).rsplit('.', 2)[0]
-            print(f'Processing run {base}')
+    # look for individual runs
+    allRuns = sorted(glob.glob(f'{root}/{sub}/ses-0*/func/{sub}_ses-0*_task-stimulation_run-0*_part-mag_*.nii.gz'))
+    # make folder to dump motion traces
+    outFolder = f'{root}/derivatives/{sub}'
+    os.system(f'mkdir {outFolder}/motionParameters')
 
-            modality = base.split('_')[-1]
+    ses01Runs = len(glob.glob(f'{root}/{sub}/ses-01/func/{sub}_ses-0*_task-stimulation_run-0*_part-mag_*.nii.gz'))/2
 
-            nii = nb.load(run)
-            # get header and affine
-            header = nii.header
-            affine = nii.affine
-            # Load data as array
-            data = nii.get_fdata()
 
-            # make folder to dump motion traces for the run
-            os.system(f'mkdir {outFolder}/motionParameters/{base}')
+    for j, run in enumerate(allRuns,start=1):
 
-            # initiate lists for motion traces
-            lstsubMot = [] # List for the motion value
-            lstsubMot_Nme = [] # List for the motion name (e.g. translation in x direction)
-            lstTR_sub = [] # List for name of subject. technically not needed because we are only doing it run by run
-            modalityList = [] # List for nulled/notnulled
+        base = os.path.basename(run).rsplit('.', 2)[0]
+        print(f'Processing run {base}')
 
+        if j == 1:
             # make moma
             print('Generating mask')
             subprocess.run(f'{afniPath}/3dAutomask -prefix {outFolder}/{base}_moma.nii -peels 3 -dilate 2 {root}/{sub}/{ses}/func/{base}.nii.gz',shell=True)
@@ -59,84 +44,105 @@ for sub in ['sub-01']:
             img = nb.Nifti1Image(reference, header=header, affine=affine)
             nb.save(img, f'{outFolder}/{base}_reference.nii')
 
-            # separate into individual volumes
-            for i in range(data.shape[-1]):
-                # overwrite volumes 0,1,2 with volumes 3,4,5
-                if i <= 2:
-                    vol = data[:,:,:,i+3]
-                else:
-                    vol = data[:,:,:,i]
-                # Save individual volumes
-                img = nb.Nifti1Image(vol, header=header, affine=affine)
-                nb.save(img, f'{outFolder}/{base}_vol{i:03d}.nii')
-            # define mask and reference images in 'antspy-style'
-            fixed = ants.image_read(f'{outFolder}/{base}_reference.nii')
-            mask = ants.image_read(f'{outFolder}/{base}_moma.nii')
+        if 'ses-02' in run:
+            j = j-ses01Runs
 
-            # loop over volumes to do the correction
-            for i in range(data.shape[-1]):
-                moving = ants.image_read(f'{outFolder}/{base}_vol{i:03d}.nii')
-                mytx = ants.registration(fixed=fixed, moving=moving, type_of_transform = 'Rigid', mask=mask)
-                # save transformation matrix for later
-                os.system(f"cp {mytx['fwdtransforms'][0]} {outFolder}/motionParameters/{base}/{base}_vol{i:03d}.mat")
-                # convert transformattion matrix into FSL format
-                os.system(f'{antsPath}/ConvertTransformFile 3 {outFolder}/motionParameters/{base}/{base}_vol{i:03d}.mat {outFolder}/motionParameters/{base}/{base}_vol{i:03d}_af.mat --convertToAffineType')
-                os.system(f'/usr/local/bin/c3d_affine_tool -ref {outFolder}/{base}_reference.nii -src {outFolder}/{base}_vol{i:03d}.nii -itk {outFolder}/motionParameters/{base}/{base}_vol{i:03d}_af.mat -ras2fsl -o {outFolder}/motionParameters/{base}/{base}_vol{i:03d}_FSL.mat -info-full')
-                # read parameters
-                tmp = fsl.AvScale(all_param=True,mat_file=f'{outFolder}/motionParameters/{base}/{base}_vol{i:03d}_FSL.mat');
-                tmpReadout = tmp.run();
+        modality = base.split('_')[-1]
 
-                # Get the rotations (in rads) and translations (in mm) per volume
-                aryTmpMot = list(itertools.chain.from_iterable([tmpReadout.outputs.translations, tmpReadout.outputs.rot_angles]));
+        nii = nb.load(run)
+        # get header and affine
+        header = nii.header
+        affine = nii.affine
+        # Load data as array
+        data = nii.get_fdata()
 
-                # Save the rotation and translations in lists
-                lstsubMot.append(aryTmpMot)
-                lstTR_sub.append([int(i)+1 for k in range(6)])
-                lstsubMot_Nme.append([f'TX {modality}',f'TY {modality}',f'TZ {modality}',f'RX {modality}',f'RY {modality}',f'RZ {modality}'])
-                modalityList.append([modality for k in range(6)])
+        # make folder to dump motion traces for the run
+        os.system(f'mkdir {outFolder}/motionParameters/{base}')
 
-                clear_output(wait=True)
-                # apply transformation
-                mywarpedimage = ants.apply_transforms(fixed=fixed, moving=moving,transformlist=mytx['fwdtransforms'], interpolator='bSpline')
-                # save warped image
-                ants.image_write(mywarpedimage, f'{outFolder}/{base}_vol{i:03d}_warped.nii')
+        # initiate lists for motion traces
+        lstsubMot = [] # List for the motion value
+        lstsubMot_Nme = [] # List for the motion name (e.g. translation in x direction)
+        lstTR_sub = [] # List for name of subject. technically not needed because we are only doing it run by run
+        modalityList = [] # List for nulled/notnulled
 
-            # assemble images
-            newData = np.zeros(data.shape)
-            for i in range(data.shape[-1]):
-                vol = nb.load(f'{outFolder}/{base}_vol{i:03d}_warped.nii').get_fdata()
-                newData[:,:,:,i] = vol
-            img = nb.Nifti1Image(newData, header=header, affine=affine)
-            nb.save(img, f'{outFolder}/{base}_moco.nii')
-            # remove volumes
-            os.system(f'rm {outFolder}/{base}_vol*.nii')
+        # separate into individual volumes
+        for i in range(data.shape[-1]):
+            # overwrite volumes 0,1,2 with volumes 3,4,5
+            if i <= 2:
+                vol = data[:,:,:,i+3]
+            else:
+                vol = data[:,:,:,i]
+            # Save individual volumes
+            img = nb.Nifti1Image(vol, header=header, affine=affine)
+            nb.save(img, f'{outFolder}/{base}_vol{i:03d}.nii')
+        # define mask and reference images in 'antspy-style'
+        fixed = ants.image_read(f'{outFolder}/{base}_reference.nii')
+        mask = ants.image_read(f'{outFolder}/{base}_moma.nii')
+
+        # loop over volumes to do the correction
+        for i in range(data.shape[-1]):
+            moving = ants.image_read(f'{outFolder}/{base}_vol{i:03d}.nii')
+            mytx = ants.registration(fixed=fixed, moving=moving, type_of_transform = 'Rigid', mask=mask)
+            # save transformation matrix for later
+            os.system(f"cp {mytx['fwdtransforms'][0]} {outFolder}/motionParameters/{base}/{base}_vol{i:03d}.mat")
+            # convert transformattion matrix into FSL format
+            os.system(f'{antsPath}/ConvertTransformFile 3 {outFolder}/motionParameters/{base}/{base}_vol{i:03d}.mat {outFolder}/motionParameters/{base}/{base}_vol{i:03d}_af.mat --convertToAffineType')
+            os.system(f'/usr/local/bin/c3d_affine_tool -ref {outFolder}/{base}_reference.nii -src {outFolder}/{base}_vol{i:03d}.nii -itk {outFolder}/motionParameters/{base}/{base}_vol{i:03d}_af.mat -ras2fsl -o {outFolder}/motionParameters/{base}/{base}_vol{i:03d}_FSL.mat -info-full')
+            # read parameters
+            tmp = fsl.AvScale(all_param=True,mat_file=f'{outFolder}/motionParameters/{base}/{base}_vol{i:03d}_FSL.mat');
+            tmpReadout = tmp.run();
+
+            # Get the rotations (in rads) and translations (in mm) per volume
+            aryTmpMot = list(itertools.chain.from_iterable([tmpReadout.outputs.translations, tmpReadout.outputs.rot_angles]));
+
+            # Save the rotation and translations in lists
+            lstsubMot.append(aryTmpMot)
+            lstTR_sub.append([int(i)+1 for k in range(6)])
+            lstsubMot_Nme.append([f'TX {modality}',f'TY {modality}',f'TZ {modality}',f'RX {modality}',f'RY {modality}',f'RZ {modality}'])
+            modalityList.append([modality for k in range(6)])
+
+            clear_output(wait=True)
+            # apply transformation
+            mywarpedimage = ants.apply_transforms(fixed=fixed, moving=moving,transformlist=mytx['fwdtransforms'], interpolator='bSpline')
+            # save warped image
+            ants.image_write(mywarpedimage, f'{outFolder}/{base}_vol{i:03d}_warped.nii')
+
+        # assemble images
+        newData = np.zeros(data.shape)
+        for i in range(data.shape[-1]):
+            vol = nb.load(f'{outFolder}/{base}_vol{i:03d}_warped.nii').get_fdata()
+            newData[:,:,:,i] = vol
+        img = nb.Nifti1Image(newData, header=header, affine=affine)
+        nb.save(img, f'{outFolder}/{base}_moco.nii')
+        # remove volumes
+        os.system(f'rm {outFolder}/{base}_vol*.nii')
 
 
-            # Make appropriate arrays from lists
-            aryCurr = np.array(lstsubMot)
-            aryCurr_Ses =  aryCurr.reshape((aryCurr.size,-1))
+        # Make appropriate arrays from lists
+        aryCurr = np.array(lstsubMot)
+        aryCurr_Ses =  aryCurr.reshape((aryCurr.size,-1))
 
-            aryCurr_TR = np.array(lstTR_sub)
-            aryCurr_TR_Ses = aryCurr_TR.reshape((aryCurr_TR.size,-1))
+        aryCurr_TR = np.array(lstTR_sub)
+        aryCurr_TR_Ses = aryCurr_TR.reshape((aryCurr_TR.size,-1))
 
-            aryCurr_Nme = np.array(lstsubMot_Nme)
-            aryCurr_Nme_Ses = aryCurr_Nme.reshape((aryCurr_Nme.size,-1))
+        aryCurr_Nme = np.array(lstsubMot_Nme)
+        aryCurr_Nme_Ses = aryCurr_Nme.reshape((aryCurr_Nme.size,-1))
 
-            aryIdx = np.arange(1,len(aryCurr_Nme_Ses)+1)
+        aryIdx = np.arange(1,len(aryCurr_Nme_Ses)+1)
 
-            aryCurr_mod = np.array(modalityList)
-            aryCurr_mod = aryCurr_mod.reshape((aryCurr_mod.size,-1))
+        aryCurr_mod = np.array(modalityList)
+        aryCurr_mod = aryCurr_mod.reshape((aryCurr_mod.size,-1))
 
-            data_dict = {
-                'Time/TR': aryCurr_TR_Ses[:,0],
-                'Motion_Name': aryCurr_Nme_Ses[:,0],
-                'Motion': aryCurr_Ses[:,0],
-                'idx':aryIdx,
-                'modality': aryCurr_mod[:,0]}
+        data_dict = {
+            'Time/TR': aryCurr_TR_Ses[:,0],
+            'Motion_Name': aryCurr_Nme_Ses[:,0],
+            'Motion': aryCurr_Ses[:,0],
+            'idx':aryIdx,
+            'modality': aryCurr_mod[:,0]}
 
-            # Save motion parameters as csv
-            pd_ses = pd.DataFrame(data=data_dict)
-            pd_ses.to_csv(f'{outFolder}/motionParameters/{base}_motionParameters.csv', index=False)
+        # Save motion parameters as csv
+        pd_ses = pd.DataFrame(data=data_dict)
+        pd_ses.to_csv(f'{outFolder}/motionParameters/{base}_motionParameters.csv', index=False)
 
 
 # get T1w image in EPI space
