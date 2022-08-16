@@ -1,10 +1,8 @@
 """Generate stimulation protocol."""
 
 import numpy as np
-import random
 import pandas as pd
 import time
-import os
 
 dateNow = time.strftime("%Y-%m-%d_%H.%M")
 
