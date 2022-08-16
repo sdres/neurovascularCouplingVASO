@@ -14,11 +14,11 @@ NR_JITTERS = 6
 
 # Stimulus durations (in seconds)
 STIM_DURS = [1, 2, 4, 12, 24]
-# STIM_DURS =  [1, 2, 3, 4, 5]
+# STIM_DURS =  [1, 2, 3, 4, 5]  # Short stimulus durations for debugging
 
 # Rest durations (in seconds)
 REST_DURS = [12, 14, 16, 20, 24]
-# REST_DURS = [2, 2, 2, 2, 2]
+# REST_DURS = [2, 2, 2, 2, 2]  # Short rest durations for debugging
 
 # =============================================================================
 dateNow = time.strftime("%Y-%m-%d_%H.%M")
@@ -61,12 +61,16 @@ stimDurTotal = np.sum(conditions['stimDur'])  # total stim duration
 restDurTotal = np.sum(conditions['restDur'])  # total rest duration
 jitterDurTotal = np.sum(conditions['jitter'])  # total rest duration
 
-# TODO(Sebastian): Describe what are these rests, indicate their units
+# Set initial rest (in seconds) to have a first baseline
 rest_init = 15
+# Set final rest (in seconds) to account for the fact that we wait for scanner
+# triggers to start the stimulation on each trial. This effectively makes the
+# experiment longer and is not accounted for in the calculation above.
+# Also acts as baseline.
 rest_end = 50
 
 expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + rest_init + rest_end
 print(f'Total experiment time: {expDurtotal} seconds')
 
-# TODO(Sebastian): What is this line for?
+# Calculate nr of TRs to enter in scanning protocol
 TRs = expDurtotal/TR
