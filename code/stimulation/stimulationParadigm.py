@@ -1,4 +1,5 @@
-# Import libraries
+"""Neurovascular Coupling with VASO experiment stimulation."""
+
 import pandas as pd
 import contextlib
 from psychopy import core, prefs, logging, event, visual, gui, monitors
@@ -353,7 +354,7 @@ while runExp:
             responseTimer.reset()
 
     ### Visual stimulation ###
-    
+
     if triggerSwitch:
         # check wether we are past the jitter time but not past the stimulation
         # duration plus the jitter time for the current trial
@@ -396,7 +397,7 @@ while runExp:
                 logging.data('')
                 logging.data(f'stimulation stopped')
                 logging.data('')
-                
+
         # check whether we have reached the end of the entire trial
         # this INCLUDES the rest period
         if trialTime.getTime() > trialDur:
@@ -409,7 +410,7 @@ while runExp:
 
             triggerSwitch = False
 
-        
+
         if not stimSwitch:
             # display only fixation
             dotFixSurround.draw()
@@ -444,15 +445,15 @@ while runExp:
 
                 # wait for VASO trigger
                 if not triggerSwitch:
-                    
+
                     # only execute until we reached the last trial
                     if trialCounter < trialTiming.shape[0]:
                         triggerSwitch = True
                         trialTime.reset()
-            
+
                         # get durations of current trial
                         currTrial = trialTiming.iloc[[trialCounter]]
-                        
+
                         trialDur = (
                             (
                             currTrial['stimDur']
@@ -460,7 +461,7 @@ while runExp:
                             + currTrial['jitter']
                             )[trialCounter] #we have to give it the index because dataFrame.iloc
                             )
-            
+
                         stimDur = currTrial['stimDur'][trialCounter]
                         restDur = currTrial['restDur'][trialCounter]
                         jitDur = currTrial['jitter'][trialCounter]
