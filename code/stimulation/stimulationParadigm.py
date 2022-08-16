@@ -11,9 +11,9 @@ import time
 # Load a keyboard to enable abortion.
 defaultKeyboard = keyboard.Keyboard()
 
-################### ################### ##########################
-################### Initial experiment settings ##################
-################### ################### ##########################
+# =============================================================================
+# Initial experiment settings
+# =============================================================================
 
 # Set initial values
 expName = 'neurovascularCouplingVASO'
@@ -24,18 +24,16 @@ expInfo = {'participant': 'sub-01',
 
 # Load a GUI in which the preset parameters can be changed.
 dlg = gui.DlgFromDict(dictionary=expInfo,
-    sortKeys=False,
-    title=expName
-    )
+                      sortKeys=False,
+                      title=expName
+                      )
 
 if dlg.OK == False:
-     core.quit()  # Abort if user pressed cancel
+    core.quit()  # Abort if user pressed cancel
 
-
-# get the path that this script is in and change dir to it
-_thisDir = os.path.dirname(os.path.abspath(__file__))  # get current path
-os.chdir(_thisDir)  # change directory to this path
-
+# Change directory to where this script is
+_thisDir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(_thisDir)
 
 # Name and create specific subject folder
 subFolderName = f"{expInfo['participant']}"
@@ -47,13 +45,11 @@ sesFolderName = f"{expInfo['participant']}/{expInfo['session']}"
 if not os.path.isdir(sesFolderName):
     os.makedirs(sesFolderName)
 
+# =============================================================================
+# Prepare logfile
+# =============================================================================
 
-################### ################### ##############
-################### Prepare logfile ##################
-################### ################### ##############
-
-# Define a name so the log-file so it can be attributed to the
-# subject/session/run.
+# Define a name so the log-file so it can be attributed to subject/session/run
 logFileName = (
     sesFolderName
     + os.path.sep
@@ -63,22 +59,18 @@ logFileName = (
     + '_neurovascularCoupling'
     )
 
-# save a log file and set level for msg to be received
-logFile = logging.LogFile(
-    f'{logFileName}.log',
-    level = logging.INFO
-    )
-# set console to receive warnings
+# Save a log file and set level for msg to be received
+logFile = logging.LogFile(f'{logFileName}.log', level=logging.INFO)
+
+# Set console to receive warnings
 logging.console.setLevel(logging.WARNING)
 
+# =============================================================================
+# Prepare monitor and window
+# =============================================================================
 
-
-################### ################### #########################
-################### Prepare monitor and window ##################
-################### ################### #########################
-
-# set monitor information - CHECK WITH MPI:
-distanceMon = 99  #  [99] in scanner
+# Set monitor information - CHECK WITH MPI:
+distanceMon = 99  # [99] in scanner
 widthMon = 30  # [30] in scanner
 PixW = 1920.0  # [1920.0] in scanner
 PixH = 1200.0  # [1200.0] in psychoph lab
@@ -86,32 +78,32 @@ PixH = 1200.0  # [1200.0] in psychoph lab
 moni = monitors.Monitor('testMonitor', width=widthMon, distance=distanceMon)
 moni.setSizePix([PixW, PixH])  # [1920.0, 1080.0] in psychoph lab
 
-# log monitor info
+# Log monitor info
 logFile.write('MonitorDistance=' + str(distanceMon) + 'cm' + '\n')
 logFile.write('MonitorWidth=' + str(widthMon) + 'cm' + '\n')
 logFile.write('PixelWidth=' + str(PixW) + '\n')
 logFile.write('PixelHeight=' + str(PixH) + '\n')
 
-# get current date and time
+# Get current date and time
 dateNow = time.strftime("%Y-%m-%d_%H.%M.%S")
 
 backColor = [-0.5, -0.5, -0.5]  # from -1 (black) to 1 (white)
 
-# set screen:
+# Set screen:
 win = visual.Window(size=(PixW, PixH),
-    screen = 0,
-    winType='pyglet',  # winType : None, ‘pyglet’, ‘pygame’
-    allowGUI=False,
-    allowStencil=False,
-    fullscr=True,  # for psychoph lab: fullscr = True
-    monitor=moni,
-    color=backColor,
-    colorSpace='rgb',
-    units='deg',
-    blendMode='avg'
-    )
+                    screen=0,
+                    winType='pyglet',  # winType : None, ‘pyglet’, ‘pygame’
+                    allowGUI=False,
+                    allowStencil=False,
+                    fullscr=True,  # for psychoph lab: fullscr = True
+                    monitor=moni,
+                    color=backColor,
+                    colorSpace='rgb',
+                    units='deg',
+                    blendMode='avg'
+                    )
 
-# fixation dot - center [black]
+# Fixation dot - center [black]
 dotFix = visual.Circle(
     win,
     autoLog=False,
@@ -122,7 +114,7 @@ dotFix = visual.Circle(
     lineColor=[0.0, 0.0, 0.0],
     )
 
-# fixation dot - surround [yellow]
+# Fixation dot - surround [yellow]
 dotFixSurround = visual.Circle(
     win,
     autoLog=False,
@@ -133,7 +125,7 @@ dotFixSurround = visual.Circle(
     lineColor=[0.0, 0.0, 0.0],
     )
 
-# set initial text
+# Set initial text
 triggerText = visual.TextStim(
     win=win,
     color='white',
@@ -141,40 +133,40 @@ triggerText = visual.TextStim(
     text='Experiment will start soon. Waiting for scanner'
     )
 
-################### ################### #########################
-################### Initialize Visual stimulus ##################
-################### ################### #########################
+# =============================================================================
+# Initialize Visual stimulus
+# =============================================================================
 
-tapImages = [] # make list for frames
-for i in range(0,2): # loop over frames
-    tapImages.append(visual.ImageStim( # append frame to list
+tapImages = []  # make list for frames
+for i in range(0, 2):  # loop over frames
+    tapImages.append(visual.ImageStim(  # append frame to list
         win,
-        pos=[0,0],
+        pos=[0, 0],
         name=f'Movie Frame {i}',
         image=f'visual_{i}.png',
         units='pix'
         )
         )
 
-stimFrameRate = 8 # set stimulus frame rate in Hz
+stimFrameRate = 8  # Set stimulus frame rate in Hz
 
-###########################################################
-################### Initialize timings ####################
-###########################################################
+# =============================================================================
+# Initialize timings
+# =============================================================================
 
 trialTiming = pd.read_csv('/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/conditionTimings_TR-3_jitters-6_2022-08-09_13.33.csv')
-trialCounter = 0 # set counter for trials
+trialCounter = 0  # set counter for trials
 
 # Get duration of entire experiment
-initialRest = 15 # set inital rest
-stimDurTotal = np.sum(trialTiming['stimDur']) # sum stimulus durations
-restDurTotal = np.sum(trialTiming['restDur']) # sum rest durations
-jitDurTotal = np.sum(trialTiming['jitter']) # sum jitter durations
-# set extra rest after experiment to account for longer run durations
+initialRest = 15  # set inital rest
+stimDurTotal = np.sum(trialTiming['stimDur'])  # sum stimulus durations
+restDurTotal = np.sum(trialTiming['restDur'])  # sum rest durations
+jitDurTotal = np.sum(trialTiming['jitter'])  # sum jitter durations
+# Set extra rest after experiment to account for longer run durations
 # due to waiting for triggers and extra baseline
 finalRest = 75
 
-# calculate entire run duration
+# Calculate entire run duration
 expDurTotal = (
     initialRest
     + stimDurTotal
@@ -184,37 +176,36 @@ expDurTotal = (
     )
 
 # Generate pseudo-random targets for attention task
-minInterval = 40 # min duration between targets
-maxInterval = 80 # max duration between targets
-nrTargets = int(expDurTotal/60) # present on average one target per minute
+minInterval = 40  # min duration between targets
+maxInterval = 80  # max duration between targets
+nrTargets = int(expDurTotal/60)  # present on average one target per minute
 
-# create array with intervcals between targets
-targetTimes = np.random.uniform(minInterval,maxInterval,nrTargets)
+# Create array with intervcals between targets
+targetTimes = np.random.uniform(minInterval, maxInterval, nrTargets)
 
-targetDur = 0.5 # target duration in seconds
+targetDur = 0.5  # target duration in seconds
+targetCounter = 0  # set counter for targets
+detectedTargets = 0  # set counter for detected targets
 
-targetCounter = 0 # set counter for targets
-detectedTargets = 0 # set counter for detected targets
+# Set up TR counters
+nTR = 0  # total TR counter
+nTR1 = 0  # odd TR counter = VASO
+nTR2 = 0  # even TR counter = BOLD
 
-# set up TR counters
-nTR= 0 # total TR counter
-nTR1 = 0 # odd TR counter = VASO
-nTR2 = 0 # even TR counter = BOLD
-
-#########################################################
-################## Start of Experiment ##################
-#########################################################
+# =============================================================================
+# Start of Experiment
+# =============================================================================
 
 # Set up clocks
 fmriTime = core.Clock()
 logging.setDefaultClock(fmriTime)
 
-trialTime = core.Clock() # timer for a trial
-visStimTime = core.Clock() # timer for visual stimulation
+trialTime = core.Clock()  # timer for a trial
+visStimTime = core.Clock()  # timer for visual stimulation
 
-# timers for the targets
-targetTime = core.Clock() # time until next target
-responseTimer = core.Clock() # time from target onset until response
+# Timers for the targets
+targetTime = core.Clock()  # time until next target
+responseTimer = core.Clock()  # time from target onset until response
 
 triggerText.draw()
 win.flip()
@@ -228,12 +219,11 @@ event.waitKeys(
     )
 
 runExp = True
-fmriTime.reset() # reset time for experiment
+fmriTime.reset()  # reset time for experiment
 
-nTR= nTR + 1 # update total TR counter
-nTR1 = nTR1 + 1 # update odd (VASO) TR counter
-nTR2 = 0 # even (BOLD) TR counter does not change yet
-
+nTR = nTR + 1  # update total TR counter
+nTR1 = nTR1 + 1  # update odd (VASO) TR counter
+nTR2 = 0  # even (BOLD) TR counter does not change yet
 
 logging.data(
     'StartOfRun '
@@ -253,16 +243,15 @@ logging.data(
     + str(nTR2)
     )
 
-
-# draw initial fixation dot
+# Draw initial fixation dot
 dotFixSurround.draw()
 dotFix.draw()
 win.flip()
 
-# start with initial baseline
+# Start with initial baseline
 logging.data('Initial baseline' + '\n')
 while fmriTime.getTime() < initialRest:
-    # evaluate keys
+    # Evaluate keys
     for keys in event.getKeys():
         if keys[0] in ['escape', 'q']:
             win.close()
@@ -270,7 +259,7 @@ while fmriTime.getTime() < initialRest:
 
         elif keys in ['5']:
             nTR = nTR + 1
-            if nTR % 2 == 1: # odd TRs
+            if nTR % 2 == 1:  # odd TRs
                 nTR1 = nTR1 + 1
 
             elif nTR % 2 == 0:
@@ -285,10 +274,8 @@ while fmriTime.getTime() < initialRest:
                 + str(nTR2)
                 )
 
-        elif keys in ['1']: #target detection
+        elif keys in ['1']:  # target detection
             logging.data('Key1 pressed')
-
-
 
             # if button one is pressed in 2 s window after target
             # and response is possible
@@ -301,21 +288,21 @@ while fmriTime.getTime() < initialRest:
 
 
 # initialize bools for target presentation
-targetSwitch = False # target on/off
-responseSwitch = False # whether reponse to target was registered
+targetSwitch = False  # target on/off
+responseSwitch = False  # whether reponse to target was registered
 
 # initialize bools for stimulus presentation
-stimSwitch = False # stimulation on/off
-triggerSwitch = False # wait for VASO trigger in stimulation
+stimSwitch = False  # stimulation on/off
+triggerSwitch = False  # wait for VASO trigger in stimulation
 
-# trialTime.reset() # reset trialtime after initial fixation - not necessary anymore because we reset after detected VASO trigger
-targetTime.reset() # reset target after initial fixation (no targets before)
+# trialTime.reset()  # reset trialtime after initial fixation - not necessary anymore because we reset after detected VASO trigger
+targetTime.reset()  # reset target after initial fixation (no targets before)
 
 while runExp:
-
-    ### Attention task ###
-
-    # execute attention task only if there is targets remaining
+    # -------------------------------------------------------------------------
+    # Attention task
+    # -------------------------------------------------------------------------
+    # Execute attention task only if there is targets remaining
     # and we are currently not presenting a target anyway
     if (targetCounter < len(targetTimes)) and (not targetSwitch):
 
@@ -331,74 +318,67 @@ while runExp:
             # reset timer because from now on the target detection window
             # is open
             responseTimer.reset()
-            targetSwitch = True # a target is being presented
-            responseSwitch = True # enable target detection
+            targetSwitch = True  # a target is being presented
+            responseSwitch = True  # enable target detection
 
     # do not execute this before first target is being presented or when
     # there os no target at the moment
     if (targetCounter > 0) and targetSwitch:
         # if the target has been there for the target duration
-        if (
-            targetTime.getTime() >=
-            (targetTimes[targetCounter-1] + targetDur)
-            ):
+        if (targetTime.getTime() >= (targetTimes[targetCounter-1] + targetDur)):
 
             # set dot surround back to yellow
             dotFixSurround.fillColor = [0.5, 0.5, 0.0]
             dotFixSurround.lineColor = [0.0, 0.0, 0.0]
             # reset timer to find time until next target
             targetTime.reset()
-            targetSwitch = False # no more target is being presented
+            targetSwitch = False  # no more target is being presented
             # reset timer because the target detection window
             # is still open for 2 more seconds
             responseTimer.reset()
 
-    ### Visual stimulation ###
-
+    # -------------------------------------------------------------------------
+    # Visual stimulation
+    # -------------------------------------------------------------------------
     if triggerSwitch:
-        # check wether we are past the jitter time but not past the stimulation
+        # Check wether we are past the jitter time but not past the stimulation
         # duration plus the jitter time for the current trial
-        if (
-            trialTime.getTime() > jitDur and
-            (
-            trialTime.getTime() <= (stimDur + jitDur)
-            )
-            ):
+        if (trialTime.getTime() > jitDur and (trialTime.getTime() <= (stimDur + jitDur))):
 
             # If we haven't started the stimulation start now
             if not stimSwitch:
                 logging.data('')
                 logging.data(f'stimulation started')
                 logging.data('')
-                # we are starting to present a stimulus so reset the timer
+                # We are starting to present a stimulus so reset the timer
                 visStimTime.reset()
-                # start with frame 0
+                # Start with frame 0
                 visStimFrame = 0
-                # turn on switch that we are presenting a stimulus
+                # Turn on switch that we are presenting a stimulus
                 stimSwitch = True
 
-            # we have to change stim frames at the desired rate
+            # We have to change stim frames at the desired rate
             if stimSwitch and visStimTime.getTime() >= 1/8:
 
-                # switch to other frame for next iteration
+                # Switch to other frame for next iteration
                 if visStimFrame == 0:
                     visStimFrame = 1
                 elif visStimFrame == 1:
                     visStimFrame = 0
 
-                # reset timer
+                # Reset timer
                 visStimTime.reset()
 
-        # check whether we reached the end of the stimulation
+        # Check whether we reached the end of the stimulation
         if trialTime.getTime() > (stimDur + jitDur):
-            # turn off stimulation if yes
+            # Turn off stimulation if yes
             if stimSwitch:
                 stimSwitch = False
                 logging.data('')
                 logging.data(f'stimulation stopped')
                 logging.data('')
 
-        # check whether we have reached the end of the entire trial
+        # Check whether we have reached the end of the entire trial
         # this INCLUDES the rest period
         if trialTime.getTime() > trialDur:
             trialCounter = trialCounter + 1
@@ -407,9 +387,7 @@ while runExp:
             if trialCounter < (trialTiming.shape[0]-1):
                 logging.data(f'Waiting for VASO trigger to start next trial')
             logging.data(f'')
-
             triggerSwitch = False
-
 
         if not stimSwitch:
             # display only fixation
@@ -424,13 +402,11 @@ while runExp:
             dotFix.draw()
             win.flip()
 
-
     # for fixation baseline (at end or in between trials)
     else:
         dotFixSurround.draw()
         dotFix.draw()
         win.flip()
-
 
     for keys in event.getKeys():
         if keys[0] in ['escape', 'q']:
@@ -440,7 +416,7 @@ while runExp:
         elif keys in ['5']:
             nTR = nTR + 1
 
-            if nTR % 2 == 1: # odd TRs
+            if nTR % 2 == 1:  # odd TRs
                 nTR1 = nTR1 + 1
 
                 # wait for VASO trigger
@@ -454,19 +430,17 @@ while runExp:
                         # get durations of current trial
                         currTrial = trialTiming.iloc[[trialCounter]]
 
-                        trialDur = (
-                            (
+                        trialDur = ((
                             currTrial['stimDur']
                             + currTrial['restDur']
                             + currTrial['jitter']
-                            )[trialCounter] #we have to give it the index because dataFrame.iloc
-                            )
+                            )[trialCounter])  # We have to give it the index because dataFrame.iloc
 
                         stimDur = currTrial['stimDur'][trialCounter]
                         restDur = currTrial['restDur'][trialCounter]
                         jitDur = currTrial['jitter'][trialCounter]
 
-                        # log stimulus info of next trial
+                        # Log stimulus info of next trial
                         logging.data('')
                         logging.data(f'Trial {trialCounter+1}')
                         logging.data(f'stimDur = {stimDur}')
@@ -475,19 +449,12 @@ while runExp:
                         logging.data('')
 
             elif nTR % 2 == 0:
-                nTR2 = nTR2 +1
+                nTR2 = nTR2 + 1
 
-            logging.data(
-                'TR '
-                + str(nTR)
-                + ' | TR1 '
-                + str(nTR1)
-                + ' | TR2 '
-                + str(nTR2)
-                )
+            logging.data('TR ' + str(nTR) + ' | TR1 ' + str(nTR1) + ' | TR2 '
+                         + str(nTR2))
 
         elif keys in ['1']:
-
             logging.data('Key1 pressed')
 
             if (responseTimer.getTime() <= 2) and (responseSwitch):
@@ -501,30 +468,25 @@ while runExp:
 
 logging.data(
     'EndOfRun '
-    + str(expInfo['participant'])
-    + '_'
-    + str(expInfo['session'])
-    + '_'
-    + str(expInfo['run'])
-    + '\n'
+    + str(expInfo['participant']) + '_'
+    + str(expInfo['session']) + '_'
+    + str(expInfo['run']) + '\n'
     )
-
-
 
 # %%  TARGET DETECTION RESULTS
 # calculate target detection results
 
-# detection ratio
+# Detection ratio
 DetectRatio = detectedTargets/len(targetTimes)
 logging.data('RatioOfDetectedTargets ' + str(DetectRatio))
 
-# display target detection results to participant
+# Display target detection results to participant
 resultText = 'You have detected %i out of %i targets.' % (detectedTargets,
                                                           len(targetTimes))
 
 print(resultText)
 logging.data(resultText)
-# also display a motivational slogan
+# Also display a motivational slogan
 if DetectRatio >= 0.95:
     feedbackText = 'Excellent! Keep up the good work'
 elif DetectRatio < 0.95 and DetectRatio >= 0.85:
@@ -548,7 +510,6 @@ logFile.write(str(feedbackText) + '\n')
 targetText.draw()
 win.flip()
 core.wait(5)
-
 
 win.close()
 core.quit()
