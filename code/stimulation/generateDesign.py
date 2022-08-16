@@ -10,7 +10,7 @@ dateNow = time.strftime("%Y-%m-%d_%H.%M")
 # _thisDir = os.path.dirname(os.path.abspath(__file__))  # get current path
 # os.chdir(_thisDir)  # change directory to this path
 
-folder = '/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation'
+FOLDER = '/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation'
 
 # =============================================================================
 # Chose timings for the stimuli
@@ -19,30 +19,30 @@ folder = '/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulatio
 # Set pair TR (repetition time)
 TR = 3
 # Set number of jitters
-nrJitters = 6
+NR_JITTERS = 6
 
 # We have 5 stimulus durations (in seconds)
-stimDurs = [1, 2, 4, 12, 24]
-# stimDurs =  [1, 2, 3, 4, 5]
-nrStims = len(stimDurs)
-stimDurArr = np.ones(nrJitters)
+STIM_DURS = [1, 2, 4, 12, 24]
+# STIM_DURS =  [1, 2, 3, 4, 5]
+nrStims = len(STIM_DURS)
+stimDurArr = np.ones(NR_JITTERS)
 
-for i, stimDur in enumerate(stimDurs[1:]):
-    for n in range(nrJitters):
+for i, stimDur in enumerate(STIM_DURS[1:]):
+    for n in range(NR_JITTERS):
         stimDurArr = np.append(stimDurArr, stimDur)
 
 # Rest periods for these stimuli (in seconds)
-restDurs = [12, 14, 16, 20, 24]
-# restDurs = [2, 2, 2, 2, 2]
-restDurArr = np.ones(nrJitters)*restDurs[0]
+REST_DURS = [12, 14, 16, 20, 24]
+# REST_DURS = [2, 2, 2, 2, 2]
+restDurArr = np.ones(NR_JITTERS)*REST_DURS[0]
 
-for i, restDur in enumerate(restDurs[1:]):
-    for n in range(nrJitters):
+for i, restDur in enumerate(REST_DURS[1:]):
+    for n in range(NR_JITTERS):
         restDurArr = np.append(restDurArr, restDur)
 
 # Steps between jitters
-jitters = np.arange(0, nrJitters)
-jitters = jitters * (TR/nrJitters)
+jitters = np.arange(0, NR_JITTERS)
+jitters = jitters * (TR/NR_JITTERS)
 jittersArr = jitters.copy()
 
 for n in range(nrStims-1):
@@ -58,7 +58,7 @@ conditions = conditions.sample(frac=1).reset_index(drop=True)
 
 # Save the dataframe
 conditions.to_csv(
-    f'{folder}/conditionTimings_TR-{TR}_jitters-{nrJitters}_{dateNow}.csv',
+    f'{FOLDER}/conditionTimings_TR-{TR}_jitters-{NR_JITTERS}_{dateNow}.csv',
     index=False
     )
 
