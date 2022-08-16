@@ -4,26 +4,25 @@ import numpy as np
 import pandas as pd
 import time
 
-dateNow = time.strftime("%Y-%m-%d_%H.%M")
-
-# get the path that this script is in and change dir to it
-# _thisDir = os.path.dirname(os.path.abspath(__file__))  # get current path
-# os.chdir(_thisDir)  # change directory to this path
-
+# Output folder
 FOLDER = '/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation'
 
-# =============================================================================
-# Chose timings for the stimuli
-# =============================================================================
-
-# Set pair TR (repetition time)
+# Pair TR (repetition time)
 TR = 3
-# Set number of jitters
+# Number of jitters
 NR_JITTERS = 6
 
-# We have 5 stimulus durations (in seconds)
+# Stimulus durations (in seconds)
 STIM_DURS = [1, 2, 4, 12, 24]
 # STIM_DURS =  [1, 2, 3, 4, 5]
+
+# Rest durations (in seconds)
+REST_DURS = [12, 14, 16, 20, 24]
+# REST_DURS = [2, 2, 2, 2, 2]
+
+# =============================================================================
+dateNow = time.strftime("%Y-%m-%d_%H.%M")
+
 nrStims = len(STIM_DURS)
 stimDurArr = np.ones(NR_JITTERS)
 
@@ -31,9 +30,6 @@ for i, stimDur in enumerate(STIM_DURS[1:]):
     for n in range(NR_JITTERS):
         stimDurArr = np.append(stimDurArr, stimDur)
 
-# Rest periods for these stimuli (in seconds)
-REST_DURS = [12, 14, 16, 20, 24]
-# REST_DURS = [2, 2, 2, 2, 2]
 restDurArr = np.ones(NR_JITTERS)*REST_DURS[0]
 
 for i, restDur in enumerate(REST_DURS[1:]):
