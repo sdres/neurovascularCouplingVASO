@@ -23,24 +23,22 @@ REST_DURS = [12, 14, 16, 20, 24]
 # =============================================================================
 dateNow = time.strftime("%Y-%m-%d_%H.%M")
 
-nrStims = len(STIM_DURS)
 stimDurArr = np.ones(NR_JITTERS)
-
 for i, stimDur in enumerate(STIM_DURS[1:]):
     for n in range(NR_JITTERS):
         stimDurArr = np.append(stimDurArr, stimDur)
 
 restDurArr = np.ones(NR_JITTERS)*REST_DURS[0]
-
 for i, restDur in enumerate(REST_DURS[1:]):
     for n in range(NR_JITTERS):
         restDurArr = np.append(restDurArr, restDur)
 
 # Steps between jitters
 jitters = np.arange(0, NR_JITTERS)
-jitters = jitters * (TR/NR_JITTERS)
+jitters = jitters * (TR / NR_JITTERS)
 jittersArr = jitters.copy()
 
+nrStims = len(STIM_DURS)
 for n in range(nrStims-1):
     jittersArr = np.append(jittersArr, jitters)
 
@@ -63,8 +61,12 @@ stimDurTotal = np.sum(conditions['stimDur'])  # total stim duration
 restDurTotal = np.sum(conditions['restDur'])  # total rest duration
 jitterDurTotal = np.sum(conditions['jitter'])  # total rest duration
 
-# Sum
-expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + 15 + 50  # initial and end rest
+# TODO(Sebastian): Describe what are these rests, indicate their units
+rest_init = 15
+rest_end = 50
+
+expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + rest_init + rest_end
 print(f'Total experiment time: {expDurtotal} seconds')
 
+# TODO(Sebastian): What is this line for?
 TRs = expDurtotal/TR
