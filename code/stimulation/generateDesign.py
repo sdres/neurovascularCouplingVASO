@@ -12,9 +12,9 @@ dateNow = time.strftime("%Y-%m-%d_%H.%M")
 
 folder = '/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation'
 
-#########################################
-##### Chose timings for the stimuli #####
-#########################################
+# =============================================================================
+# Chose timings for the stimuli
+# =============================================================================
 
 # Set pair TR (repetition time)
 TR = 3
@@ -22,7 +22,7 @@ TR = 3
 nrJitters = 6
 
 # We have 5 stimulus durations (in seconds)
-stimDurs =  [1, 2, 4, 12, 24]
+stimDurs = [1, 2, 4, 12, 24]
 # stimDurs =  [1, 2, 3, 4, 5]
 nrStims = len(stimDurs)
 stimDurArr = np.ones(nrJitters)
@@ -41,7 +41,7 @@ for i, restDur in enumerate(restDurs[1:]):
         restDurArr = np.append(restDurArr, restDur)
 
 # Steps between jitters
-jitters = np.arange(0,nrJitters)
+jitters = np.arange(0, nrJitters)
 jitters = jitters * (TR/nrJitters)
 jittersArr = jitters.copy()
 
@@ -49,13 +49,9 @@ for n in range(nrStims-1):
     jittersArr = np.append(jittersArr, jitters)
 
 # Make a dataframe from all the possible conditions
-conditions = pd.DataFrame(
-    {
-    'stimDur':stimDurArr,
-    'restDur': restDurArr,
-    'jitter': jittersArr
-    }
-    )
+conditions = pd.DataFrame({'stimDur': stimDurArr,
+                           'restDur': restDurArr,
+                           'jitter': jittersArr})
 
 # Shuffle the dataframe
 conditions = conditions.sample(frac=1).reset_index(drop=True)
@@ -67,12 +63,12 @@ conditions.to_csv(
     )
 
 # Calculate run duration
-stimDurTotal = np.sum(conditions['stimDur']) # total stim duration
-restDurTotal = np.sum(conditions['restDur']) # total rest duration
-jitterDurTotal = np.sum(conditions['jitter']) # total rest duration
+stimDurTotal = np.sum(conditions['stimDur'])  # total stim duration
+restDurTotal = np.sum(conditions['restDur'])  # total rest duration
+jitterDurTotal = np.sum(conditions['jitter'])  # total rest duration
 
 # Sum
-expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + 15 + 50 # initial and end rest
+expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + 15 + 50  # initial and end rest
 print(f'Total experiment time: {expDurtotal} seconds')
 
 TRs = expDurtotal/TR
