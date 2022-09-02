@@ -8,9 +8,9 @@ import time
 FOLDER = '/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation'
 
 # Pair TR (repetition time)
-TR = 3
+TR = 3.447
 # Number of jitters
-NR_JITTERS = 6
+NR_JITTERS = 4
 
 # Stimulus durations (in seconds)
 STIM_DURS = [1, 2, 4, 12, 24]

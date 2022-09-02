@@ -15,11 +15,11 @@ antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 afniPath = '/Users/sebastiandresbach/abin'
 
 
-for sub in ['sub-01']:
-    # os.system(f'mkdir {root}/derivatives/{sub}')
+for sub in ['sub-02']:
+    os.system(f'mkdir {root}/derivatives/{sub}')
     # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-02']:
-        # os.system(f'mkdir {root}/derivatives/{sub}/{ses}')
+    for ses in ['ses-01']:
+        os.system(f'mkdir {root}/derivatives/{sub}/{ses}')
 
         # look for individual runs
         runs = sorted(glob.glob(f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))
@@ -140,9 +140,9 @@ for sub in ['sub-01']:
 
 
 # get T1w image in EPI space
-for sub in ['sub-01']:
+for sub in ['sub-02']:
     # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-02']:
+    for ses in ['ses-01']:
         outFolder = f'{root}/derivatives/{sub}/{ses}'
         # look for individual runs
         runs = sorted(glob.glob(f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))
