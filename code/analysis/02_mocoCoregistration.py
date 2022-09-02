@@ -162,9 +162,9 @@ for sub in ['sub-02']:
 
 
 # register all T1w images to first run of ses-01
-for sub in ['sub-01']:
+for sub in ['sub-02']:
     # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-02']:
+    for ses in ['ses-01']:
         outFolder = f'{root}/derivatives/{sub}/{ses}'
 
         # look for individual runs
@@ -236,9 +236,9 @@ for sub in ['sub-01']:
 ############# Here, the coregistration of multiple runs starts #############
 ############################################################################
 
-for sub in ['sub-01']:
+for sub in ['sub-02']:
     # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-02']:
+    for ses in ['ses-01']:
         outFolder = f'{root}/derivatives/{sub}/{ses}'
 
         # look for individual runs
@@ -346,9 +346,9 @@ for sub in ['sub-01']:
 
 
 # get registered T1w image in EPI space
-for sub in ['sub-01']:
+for sub in ['sub-02']:
     # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-02']:
+    for ses in ['ses-01']:
 
         # look for individual runs
         runs = sorted(glob.glob(f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))

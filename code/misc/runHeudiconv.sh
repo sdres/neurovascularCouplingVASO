@@ -7,7 +7,7 @@ docker run --rm -it \
 -d /base/DICOM/sub-{subject}/ses-{session}/*.IMA \
 -o /base/Nifti/ \
 -f convertall \
--s 01 \
+-s 02 \
 -ss 01 \
 -c none \
 --overwrite
@@ -23,7 +23,7 @@ docker run --rm -it \
 -d /base/DICOM/sub-{subject}/ses-{session}/*.IMA \
 -o /base/Nifti/ \
 -f /base/Nifti/code/heudiconvHeuristic.py \
--s 01 \
+-s 02 \
 -ss 01 \
 -c dcm2niix \
 -b --overwrite
