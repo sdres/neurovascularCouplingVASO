@@ -9,7 +9,7 @@ afniPath = '/Users/sebastiandresbach/abin'
 antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
 
-for sub in ['sub-01']:
+for sub in ['sub-02']:
     for modality in ['cbv', 'bold']:
 
         outFolder = f'{root}/derivatives/{sub}/'
@@ -68,22 +68,3 @@ os.system(f'{afniPath}/3dTcat -prefix {outFolder}/{sub}_task-stimulation_part-ma
 os.system(f'{afniPath}/3dTstat -cvarinv -overwrite -prefix {outFolder}/{sub}_task-stimulation_part-mag_T1w.nii {outFolder}/{sub}_task-stimulation_part-mag_combined.nii')
 # Running biasfieldcorrection
 os.system(f'{antsPath}/N4BiasFieldCorrection -d 3 -i {outFolder}/{sub}_task-stimulation_part-mag_T1w.nii -o {outFolder}/{sub}_task-stimulation_part-mag_T1w_N4Corrected.nii')
-
-
-
-
-##### using fslmaths
-
-
-
-for sub in ['sub-01']:
-    for modality in ['cbv', 'bold']:
-
-        outFolder = f'{root}/derivatives/{sub}/'
-
-        # find all runs of participant
-        allRuns = sorted(glob.glob(f'{root}/{sub}/*/func/{sub}_ses-0*_task-stimulation_run-0*_part-mag_{modality}.nii.gz'))
-
-        command = f'fslmaths {allRuns[0]} '
-        for run in allRuns[1:]:
-            command += f'add {run} '
