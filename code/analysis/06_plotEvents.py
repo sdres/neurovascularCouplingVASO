@@ -10,36 +10,18 @@ import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Define root dir
-ROOT = '/Users/sebastiandresbach/git/neurovascularCouplingVASO'
+import sys
+# Define current dir
+ROOT = os.getcwd()
+
+sys.path.append(os.path.abspath('./code/analysis'))
+from findTr import *
+
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-01'
 
 # Define subjects to work on
 subs = ['sub-01']
-
-def findTR(logfile):
-    with open(logfile) as f:
-        f = f.readlines()
-
-    triggerTimes = []
-    for line in f[1:]:
-        if re.findall("Keypress: 5",line):
-            triggerTimes.append(float(re.findall("\d+\.\d+", line)[0]))
-
-    triggerTimes[0] = 0
-
-    triggersSubtracted = []
-    for n in range(len(triggerTimes)-1):
-        triggersSubtracted.append(float(triggerTimes[n+1])-float(triggerTimes[n]))
-
-    meanFirstTriggerDur = np.mean(triggersSubtracted[::2])
-    meanSecondTriggerDur = np.mean(triggersSubtracted[1::2])
-
-    # Find mean trigger-time
-    meanTriggerDur = (meanFirstTriggerDur+meanSecondTriggerDur)/2
-    return meanTriggerDur
-
 
 # =============================================================================
 # Extract upsampled timecourse
