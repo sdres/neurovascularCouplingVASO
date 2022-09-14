@@ -10,27 +10,13 @@ antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 afniPath = '/Users/sebastiandresbach/abin'
 layniiPath = '/Users/sebastiandresbach/git/laynii'
 
-def findTR(logfile):
-    with open(logfile) as f:
-        f = f.readlines()
+import sys
+# Define current dir
+ROOT = os.getcwd()
 
-    triggerTimes = []
-    for line in f[1:]:
-        if re.findall("Keypress: 5",line):
-            triggerTimes.append(float(re.findall("\d+\.\d+", line)[0]))
+sys.path.append(os.path.abspath('./code/analysis'))
+from findTr import *
 
-    triggerTimes[0] = 0
-
-    triggersSubtracted = []
-    for n in range(len(triggerTimes)-1):
-        triggersSubtracted.append(float(triggerTimes[n+1])-float(triggerTimes[n]))
-
-    meanFirstTriggerDur = np.mean(triggersSubtracted[::2])
-    meanSecondTriggerDur = np.mean(triggersSubtracted[1::2])
-
-    # find mean trigger-time
-    meanTriggerDur = (meanFirstTriggerDur+meanSecondTriggerDur)/2
-    return meanTriggerDur
 
 # boco on mean subject mean
 for sub in ['sub-01']:
