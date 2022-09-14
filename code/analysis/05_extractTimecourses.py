@@ -8,37 +8,19 @@ import subprocess
 import pandas as pd
 import re
 import matplotlib.pyplot as plt
+from scipy import interpolate
 
-# Define root dir
-ROOT = '/Users/sebastiandresbach/git/neurovascularCouplingVASO'
+import sys
+# Define current dir
+ROOT = os.getcwd()
+
+sys.path.append(os.path.abspath('./code/analysis'))
+from findTr import *
+
 # Define data dir
-DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-01'
+DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 # Define subjects to work on
 subs = ['sub-01']
-
-def findTR(logfile):
-    with open(logfile) as f:
-        f = f.readlines()
-
-    triggerTimes = []
-    for line in f[1:]:
-        if re.findall("Keypress: 5",line):
-            triggerTimes.append(float(re.findall("\d+\.\d+", line)[0]))
-
-    triggerTimes[0] = 0
-
-    triggersSubtracted = []
-    for n in range(len(triggerTimes)-1):
-        triggersSubtracted.append(float(triggerTimes[n+1])-float(triggerTimes[n]))
-
-    meanFirstTriggerDur = np.mean(triggersSubtracted[::2])
-    meanSecondTriggerDur = np.mean(triggersSubtracted[1::2])
-
-    # Find mean trigger-time
-    meanTriggerDur = (meanFirstTriggerDur+meanSecondTriggerDur)/2
-    return meanTriggerDur
-
-
 
 # =============================================================================
 # Extract timecourses
@@ -46,7 +28,8 @@ def findTR(logfile):
 
 for sub in subs:
     for modality in ['vaso', 'bold']:
-        run = f'{DATADIR}/{sub}_task-stimulation_part-mag_{modality}_intemp.nii.gz'
+        run = (f'{DATADIR}/{sub}/
+               {sub}_task-stimulation_part-mag_{modality}_intemp.nii.gz'
 
         nii = nb.load(run)
         header = nii.header
@@ -54,40 +37,40 @@ for sub in subs:
 
         mask = nb.load(f'{DATADIR}/v1Mask.nii.gz').get_fdata()
 
-        mask_mean = np.mean(data[:, :, :][mask.astype(bool)],axis=0)
+        mask_mean = np.mean(data[:, :, :][mask.astype(bool)], axis=0)
 
-        np.save(f'{DATADIR}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse', mask_mean)
-
-
+        np.save(f'{DATADIR}/
+                {sub}_task-stimulation_part-mag_{modality}_intemp_timecourse',
+                mask_mean
+                )
 
 # =============================================================================
 # Upsample timecourses
 # =============================================================================
 
-from scipy import interpolate
-
-logFile = f'../stimulation/{sub}/ses-01/{sub}_ses-01_run-01_neurovascularCoupling.log'
-tr = findTR(logFile)
-
+# Define jitter
 jitter = 6
+# Divide by 2 because we already upsampled with a factor of 2 before
 factor = jitter/2
 
 for sub in subs:
+    
     for modality in ['vaso', 'bold']:
-        timecourse = np.load(f'{DATADIR}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse.npy')
+        timecourse = np.load(f'{DATADIR}/{sub}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse.npy')
 
         x = np.arange(0, timecourse.shape[0])
-        f = interpolate.interp1d(x, timecourse, fill_value='extrapolate', kind = 'cubic')
 
-        xNew = np.arange(0, timecourse.shape[0], 1/factor)
-        new = f(xNew)
+        for interpType in ['cubic', 'linear']:
+            f = interpolate.interp1d(x, timecourse, fill_value='extrapolate', kind = interpType)
 
-        # Check whether interoplation makes sense
-        # plt.figure()
-        # plt.plot(x[:10], timecourse[:10], 'x')
-        # plt.plot(xNew[:30], new[:30], 'o', alpha=0.5)
-        # plt.show()
+            xNew = np.arange(0, timecourse.shape[0], 1/factor)
+            new = f(xNew)
 
-        # Save new timecourse
-        np.save(f'{DATADIR}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse_intemp', new)
-        
+            # Check whether interoplation makes sense
+            # plt.figure()
+            # plt.plot(x[:10], timecourse[:10], 'x')
+            # plt.plot(xNew[:30], new[:30], 'o', alpha=0.5)
+            # plt.show()
+
+            # Save new timecourse
+            np.save(f'{DATADIR}/{sub}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse_intemp-{interpType}', new)
