@@ -84,7 +84,7 @@ for sub in ['sub-01']:
     nii2 = nb.load(f'{outFolder}/{sub}_task-stimulation_part-mag_bold_intemp.nii.gz').get_fdata()
     header = nb.load(f'{outFolder}/{sub}_task-stimulation_part-mag_cbv_intemp.nii.gz').header
     affine = nb.load(f'{outFolder}/{sub}_task-stimulation_part-mag_cbv_intemp.nii.gz').affine
-    new = np.divide(nii1, nii2)
+    new = np.divide(nii1[:,:,:,:-1], nii2[:,:,:,:-1])
 
     new[new > 1.5] = 1.5
     new[new < -1.5] = -1.5
@@ -96,8 +96,7 @@ for sub in ['sub-01']:
         )
 
     # calculate quality measures
-    # for modality in ['bold_intemp', 'vaso_intemp']:
-    for modality in ['vaso_intemp']:
+    for modality in ['bold_intemp', 'vaso_intemp']:
         subprocess.run(
             f'{layniiPath}/LN_SKEW '
             + f'-input {outFolder}/{sub}_task-stimulation_part-mag_{modality}.nii.gz',

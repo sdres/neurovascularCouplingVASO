@@ -1,4 +1,4 @@
-''' Get event-related avergaes per stimulus duration '''
+''' Get event-related averages per stimulus duration '''
 
 import os
 import glob
@@ -8,6 +8,7 @@ import subprocess
 import pandas as pd
 import re
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Define root dir
 ROOT = '/Users/sebastiandresbach/git/neurovascularCouplingVASO'
@@ -44,9 +45,14 @@ def findTR(logfile):
 # Extract upsampled timecourse
 # =============================================================================
 
+timePointList = []
+modalityList = []
+valList = []
+stimDurList = []
+jitList = []
+
 for sub in subs:
-    fig = plt.figure()
-    logFile = f'../stimulation/{sub}/ses-01/{sub}_ses-01_run-01_neurovascularCoupling.log'
+    logFile = f'/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/sub-01/ses-01/{sub}_ses-01_run-01_neurovascularCoupling.log'
     tr = findTR(logFile)
 
     # get basename of current run
@@ -68,8 +74,57 @@ for sub in subs:
     # load logfile again, starting with first trigger
     logData = pd.read_csv(f'{logFile}', sep = '\t', skiprows=firstVolRow, names = ColNames)
 
+
+    # =============================================================================
+    # Get rest timepoints
+    # =============================================================================
+
+    allStartTRs = []
+    allStopTRs = []
+
     for stimDuration in [1., 2., 4., 12., 24.]:
-    # for stimDuration in [24.]:
+
+        # initiate lists
+        trialStart = []
+        trialStop = []
+        jitterList = []
+
+        stimSwitch = False
+
+        # loop over lines and fine stimulation start and stop times
+        for index, row in logData.iterrows():
+            if not logData['event'][index] != logData['event'][index]:  # Exclude NaNs
+
+                if re.search(f'stimDur = {stimDuration}', logData['event'][index]):
+                    stimSwitch = True
+                if re.search(f'stimulation started', logData['event'][index]) and stimSwitch == True:
+                    trialStart.append(logData['startTime'][index])
+                if re.search(f'jitter', logData['event'][index]) and stimSwitch == True:
+                    jitterList.append(logData['event'][index][-3:])
+                if re.search('Trial complete', logData['event'][index]) and stimSwitch == True:
+                    trialStop.append(logData['startTime'][index])
+                    stimSwitch = False
+
+        trialStart = np.asarray(trialStart)
+        trialStop = np.asarray(trialStop)
+
+        startTRs = (trialStart / (tr/3))
+        stopTRs = (trialStop / (tr/3))
+
+        for startTR, stopTR in zip(startTRs,stopTRs):
+            allStartTRs.append(startTR)
+            allStopTRs.append(startTR + (stimDuration / (tr/3)))
+
+    allStartTRs.sort()
+    allStopTRs.sort()
+
+    allStartTRs = np.asarray(allStartTRs).astype('int')
+    allStopTRs = np.asarray(allStopTRs).astype('int')
+
+
+
+
+    for stimDuration in [1., 2., 4., 12., 24.]:
 
         # initiate lists
         trialStart = []
@@ -104,35 +159,165 @@ for sub in subs:
 
         trials = np.zeros((len(startTRs),nrTRs))
 
-
-        fig = plt.figure()
-        # plt.title(stimDuration)
-
-        # for modality in ['vaso', 'bold']:
-        for modality in ['bold']:
+        for modality in ['vaso', 'bold']:
+        # for modality in ['bold']:
 
             mriData = np.load(f'{DATADIR}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse_intemp.npy')
-
             # Because we want the % signal-change, we need the mean
             # of the voxels we are looking at.
             mask_mean = np.mean(mriData)
 
+            # # Or we can normalize to the rest priods only
+            # restTRs = np.ones(mriData.shape, dtype=bool)
+            #
+            # for startTR, stopTR in zip(allStartTRs,allStopTRs):
+            #     restTRs[startTR:stopTR] = False
+            #
+            # mask_mean = np.mean(mriData[restTRs])
+
             for i, (start, end) in enumerate(zip(startTRs, stopTRs)):
                 tmp = ((( mriData[int(start):int(end)] / mask_mean) - 1) * 100)
 
-                # print(tmp.shape)
                 trials[i,:] = tmp
-                plt.plot(tmp, linewidth=2, label = f'{stimDuration}s jitter: {jitterList[i]}')
+                if modality == 'vaso':
+                    tmp = -tmp
+                for j, item in enumerate(tmp):
+                    timePointList.append(j)
+                    modalityList.append(modality)
+                    valList.append(item)
+                    stimDurList.append(stimDuration)
+                    jitList.append(jitterList[i])
 
-            if modality == 'vaso':
-                trials = -trials
-            avg = np.mean(trials,axis=0)
 
-        plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-        plt.show()
+data = pd.DataFrame({'volume': timePointList, 'modality': modalityList, 'data': valList, 'stimDur': stimDurList, 'jitter': jitList})
+plt.style.use('dark_background')
 
+palette = {
+    'bold': 'tab:orange',
+    'vaso': 'tab:blue'}
+
+# =============================================================================
+# Plot modality means
+# =============================================================================
+
+for stimDuration in [1., 2., 4., 12., 24.]:
+    fig, (ax1) = plt.subplots(1,1,figsize=(7.5,5))
+
+    for modality in ['bold', 'vaso']:
+
+        val = np.mean(data.loc[(data['stimDur'] == stimDuration)&(data['volume'] == 0)&(data['modality'] == modality)]['data'])
+        tmp = data.loc[(data['stimDur'] == stimDuration)&(data['modality'] == modality)]
+        tmp['data'] = tmp['data'] - val
+
+        sns.lineplot(ax=ax1,
+                     data = tmp,
+                     x="volume",
+                     y="data",
+                     color=palette[modality],
+                     linewidth=3,
+                     ci=None,
+                     label=modality,
+                     )
+
+    # prepare x-ticks
+    ticks = range(0,tmp.shape[0]+1,4)
+    labels = (np.arange(0,tmp.shape[0]+1,4)*0.5).round(decimals=1).astype('int')
+
+    ax1.set_yticks(np.arange(-0.25,1.26,0.25))
+
+    ax1.yaxis.set_tick_params(labelsize=18)
+    ax1.xaxis.set_tick_params(labelsize=18)
+
+    # tweak x-axis
+    ax1.set_xticks(ticks[::2])
+    ax1.set_xticklabels(labels[::2],fontsize=18)
+    ax1.set_xlabel('Time [s]', fontsize=24)
+
+    # draw lines
+    ax1.axvspan(0, stimDuration*2, color='#e5e5e5', alpha=0.2, lw=0, label = 'stimulation')
+    # get value of first timepoint
+
+    ax1.axhline(0,linestyle='--',color='white')
+
+    legend = ax1.legend(loc='upper right', title="Modalities", fontsize=14)
+    legend.get_title().set_fontsize('16') #legend 'Title' fontsize
+
+    fig.tight_layout()
+
+    ax1.set_ylabel(r'Signal change [%]', fontsize=24)
+
+    if stimDuration == 1:
+        plt.title(f'{int(stimDuration)} second stimulation', fontsize=24,pad=10)
+    else:
+        plt.title(f'{int(stimDuration)} seconds stimulation', fontsize=24,pad=10)
+
+    plt.savefig(f'/Users/sebastiandresbach/git/neurovascularCouplingVASO/results/sub-01_{int(stimDuration)}.png', bbox_inches = "tight")
 
     plt.show()
+
+# =============================================================================
+# Plot individual jitters
+# =============================================================================
+
+
+palettes = {
+    'bold': 'Oranges',
+    'vaso': 'Blues'}
+
+data=data.sort_values(by=['jitter'])
+
+
+for stimDuration in [1., 2., 4., 12., 24.]:
+    fig, (ax1, ax2) = plt.subplots(1,2,figsize=(15,5))
+
+    tmp = data.loc[data['stimDur'] == stimDuration]
+
+    for i, (axis, modality) in enumerate(zip([ax1,ax2], ['vaso', 'bold'])):
+        val = np.mean(data.loc[(data['stimDur'] == stimDuration)&(data['volume'] == 0)&(data['modality'] == modality)]['data'])
+        tmp = data.loc[(data['stimDur'] == stimDuration)&(data['modality'] == modality)]
+        tmp['data'] = tmp['data'] - val
+        sns.lineplot(ax=axis,
+                     data=tmp.loc[tmp['modality'] == modality],
+                     x="volume",
+                     y="data",
+                     hue='jitter',
+                     linewidth=2,
+                     ci=None,
+                     palette=palettes[modality]
+                     )
+
+        # prepare x-ticks
+        ticks = range(0,tmp.shape[0]+1,4)
+        labels = (np.arange(0,tmp.shape[0]+1,4)*0.5).round(decimals=1).astype('int')
+
+        hand, lab = axis.get_legend_handles_labels()
+        # sort both labels and handles by labels
+        lab, hand = zip(*sorted(zip(lab, hand), key=lambda t: t[0]))
+
+        axis.set_yticks(np.arange(-1,2.1,0.5))
+
+        axis.yaxis.set_tick_params(labelsize=18)
+        axis.xaxis.set_tick_params(labelsize=18)
+
+        # tweak x-axis
+        axis.set_xticks(ticks[::2])
+        axis.set_xticklabels(labels[::2],fontsize=18)
+        axis.set_xlabel('Time [s]', fontsize=24)
+
+        # draw lines
+        axis.axvspan(0, stimDuration*2, color='#e5e5e5', alpha=0.1, lw=0, label = 'stimulation on')
+        axis.axhline(0,linestyle='--',color='white')
+
+        axis.legend(hand, lab,loc='upper right', title="jitters [s]", ncol=2)
+
+    fig.tight_layout()
+
+    ax1.set_ylabel(r'Signal change [%]', fontsize=24)
+    ax2.set_ylabel(r'', fontsize=24)
+    plt.savefig(f'../../results/sub-01_{int(stimDuration)}_jitters.png', bbox_inches = "tight")
+
+    plt.show()
+
 
 
 # =============================================================================

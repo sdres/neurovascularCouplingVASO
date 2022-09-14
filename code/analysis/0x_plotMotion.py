@@ -15,7 +15,7 @@ v1Palette = {
 motionPalette = ['Set1', 'Set2']
 
 for sub in ['sub-01']:
-    for ses in ['ses-02']:
+    for ses in ['ses-01']:
         runs = sorted(glob.glob(f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-*run-0*part-mag_cbv.nii.gz'))
 
         for run in runs:
@@ -69,8 +69,8 @@ for sub in ['sub-01']:
 
 # plot framewise displacements
 
-for sub in ['sub-01']:
-    for ses in ['ses-02']:
+for sub in ['sub-02']:
+    for ses in ['ses-01']:
         runs = sorted(glob.glob(f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-*run-0*part-mag_cbv.nii.gz'))
 
         for run in runs:
