@@ -1,3 +1,12 @@
+'''
+
+Standard VASO-pipeline things like:
+- temporal upsampling
+- BOLD-correction
+- QA
+
+'''
+
 import subprocess
 import glob
 import os
