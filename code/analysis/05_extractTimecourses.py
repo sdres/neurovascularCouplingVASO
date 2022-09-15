@@ -14,9 +14,6 @@ import sys
 # Define current dir
 ROOT = os.getcwd()
 
-sys.path.append(os.path.abspath('./code/analysis'))
-from findTr import *
-
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 # Define subjects to work on
@@ -54,7 +51,7 @@ jitter = 6
 factor = jitter/2
 
 for sub in subs:
-    
+
     for modality in ['vaso', 'bold']:
         timecourse = np.load(f'{DATADIR}/{sub}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse.npy')
 
