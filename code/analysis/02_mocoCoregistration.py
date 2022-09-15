@@ -16,80 +16,121 @@ import nipype.interfaces.fsl as fsl
 import itertools
 import pandas as pd
 
-root = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
-antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
-afniPath = '/Users/sebastiandresbach/abin'
+# Set some paths
+DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
+ANTSPATH = '/Users/sebastiandresbach/ANTs/install/bin'
+
+# =============================================================================
+# Do motion correction within runs
+# =============================================================================
+
+# Set subjects to work on
+subs = ['sub-02']
+# Set sessions to work on
+sessions = ['ses-01', 'ses-02']
+
+for sub in subs:
+    # Create subject-directory in derivatives if it does not exist
+    subDir = f'{DATADIR}/derivatives/{sub}'
+    if not os.path.exists(subDir):
+        os.makedirs(subDir)
+        print("Subject directory is created")
+
+    for ses in sessions:
+        # Create session-directory in derivatives if it does not exist
+        sesDir = f'{subDir}/{ses}'
+        if not os.path.exists(sesDir):
+            os.makedirs(sesDir)
+            print("Session directory is created")
+
+        # Look for individual runs within session
+        runs = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))
 
 
-for sub in ['sub-02']:
-    os.system(f'mkdir {root}/derivatives/{sub}')
-    # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-01']:
-        os.system(f'mkdir {root}/derivatives/{sub}/{ses}')
-
-        # look for individual runs
-        runs = sorted(glob.glob(f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))
-        # make folder to dump motion traces
-        outFolder = f'{root}/derivatives/{sub}/{ses}'
-        os.system(f'mkdir {outFolder}/motionParameters')
-
-        for j, run in enumerate(runs,start=1):
+        # Loop over individual runs
+        for j, run in enumerate(runs, start = 1):
+            # Get a base name that we will use
             base = os.path.basename(run).rsplit('.', 2)[0]
             print(f'Processing run {base}')
 
+            # Find modality of run
             modality = base.split('_')[-1]
 
-            nii = nb.load(run)
-            # get header and affine
-            header = nii.header
-            affine = nii.affine
-            # Load data as array
-            data = nii.get_fdata()
+            # Load data
+            nii = nb.load(run)  # Load nifti
+            header = nii.header  # Get header
+            affine = nii.affine  # Get affine
+            data = nii.get_fdata()  # Load data as array
 
-            # make folder to dump motion traces for the run
-            os.system(f'mkdir {outFolder}/motionParameters/{base}')
 
-            # initiate lists for motion traces
-            lstsubMot = [] # List for the motion value
-            lstsubMot_Nme = [] # List for the motion name (e.g. translation in x direction)
-            lstTR_sub = [] # List for name of subject. technically not needed because we are only doing it run by run
-            modalityList = [] # List for nulled/notnulled
+            # Make folder to save motion traces if it does not exist
+            motionDir = f'{sesDir}/motionParameters/{base}'
+            if not os.path.exists(motionDir):
+                os.makedirs(motionDir)
+                print("Motion directory is created")
 
-            # make moma
+            # Initiate lists for motion traces
+            lstsubMot = []  # List for the motion value
+            lstsubMot_Nme = []  # List for the motion name
+            lstTR_sub = []  # List for name of subject.
+            modalityList = []  # List for modality
+
+            # Make moma
             print('Generating mask')
-            subprocess.run(f'{afniPath}/3dAutomask -prefix {outFolder}/{base}_moma.nii -peels 3 -dilate 2 {root}/{sub}/{ses}/func/{base}.nii.gz',shell=True)
+            subprocess.run(f'{subs}/3dAutomask -prefix {sesDir}/{base}_moma.nii -peels 3 -dilate 2 {DATADIR}/{sub}/{ses}/func/{base}.nii.gz', shell=True)
 
-            # make reference image
-            reference = np.mean(data[:,:,:,4:6],axis=-1)
-            # and save it
-            img = nb.Nifti1Image(reference, header=header, affine=affine)
-            nb.save(img, f'{outFolder}/{base}_reference.nii')
+            # Make reference image from volumes 5-7
+            reference = np.mean(data[:,:,:,4:6], axis = -1)
+            # And save it
+            img = nb.Nifti1Image(reference, header = header, affine = affine)
+            nb.save(img, f'{sesDir}/{base}_reference.nii')
 
-            # separate into individual volumes
+            # Loop over and separate individual volumes
             for i in range(data.shape[-1]):
-                # overwrite volumes 0,1,2 with volumes 3,4,5
+                # Overwrite volumes 0,1,2 with volumes 3,4,5
+                # The first few volumes are not in steady state yet
                 if i <= 2:
                     vol = data[:,:,:,i+3]
                 else:
                     vol = data[:,:,:,i]
-                # Save individual volumes
-                img = nb.Nifti1Image(vol, header=header, affine=affine)
-                nb.save(img, f'{outFolder}/{base}_vol{i:03d}.nii')
-            # define mask and reference images in 'antspy-style'
-            fixed = ants.image_read(f'{outFolder}/{base}_reference.nii')
-            mask = ants.image_read(f'{outFolder}/{base}_moma.nii')
 
-            # loop over volumes to do the correction
+                # Save individual volume
+                img = nb.Nifti1Image(vol, header=header, affine=affine)
+                nb.save(img, f'{sesDir}/{base}_vol{i:03d}.nii')
+
+            # Define motion-mask and reference images in 'antspy-style'
+            mask = ants.image_read(f'{sesDir}/{base}_moma.nii')
+            fixed = ants.image_read(f'{sesDir}/{base}_reference.nii')
+
+            # Loop over volumes to do the correction
             for i in range(data.shape[-1]):
-                moving = ants.image_read(f'{outFolder}/{base}_vol{i:03d}.nii')
-                mytx = ants.registration(fixed=fixed, moving=moving, type_of_transform = 'Rigid', mask=mask)
-                # save transformation matrix for later
-                os.system(f"cp {mytx['fwdtransforms'][0]} {outFolder}/motionParameters/{base}/{base}_vol{i:03d}.mat")
-                # convert transformattion matrix into FSL format
-                os.system(f'{antsPath}/ConvertTransformFile 3 {outFolder}/motionParameters/{base}/{base}_vol{i:03d}.mat {outFolder}/motionParameters/{base}/{base}_vol{i:03d}_af.mat --convertToAffineType')
-                os.system(f'/usr/local/bin/c3d_affine_tool -ref {outFolder}/{base}_reference.nii -src {outFolder}/{base}_vol{i:03d}.nii -itk {outFolder}/motionParameters/{base}/{base}_vol{i:03d}_af.mat -ras2fsl -o {outFolder}/motionParameters/{base}/{base}_vol{i:03d}_FSL.mat -info-full')
-                # read parameters
-                tmp = fsl.AvScale(all_param=True,mat_file=f'{outFolder}/motionParameters/{base}/{base}_vol{i:03d}_FSL.mat');
+                # The current volume is the moving image
+                moving = ants.image_read(f'{sesDir}/{base}_vol{i:03d}.nii')
+
+                # Do the registration
+                mytx = ants.registration(fixed = fixed,
+                                         moving = moving,
+                                         type_of_transform = 'Rigid',
+                                         mask=mask
+                                         )
+                # Apply transformation
+                mywarpedimage = ants.apply_transforms(fixed=fixed, moving=moving,transformlist=mytx['fwdtransforms'], interpolator='bSpline')
+                # save warped image
+                ants.image_write(mywarpedimage, f'{sesDir}/{base}_vol{i:03d}_warped.nii')
+
+                # ==============================================================
+                # Tracking motion traces
+                # ==============================================================
+
+                # Save transformation matrix for later
+                os.system(f"cp {mytx['fwdtransforms'][0]} {sesDir}/motionParameters/{base}/{base}_vol{i:03d}.mat")
+
+                # Convert transformation matrix into FSL format
+                os.system(f'{ANTSPATH}/ConvertTransformFile 3 {sesDir}/motionParameters/{base}/{base}_vol{i:03d}.mat {sesDir}/motionParameters/{base}/{base}_vol{i:03d}_af.mat --convertToAffineType')
+                os.system(f'/usr/local/bin/c3d_affine_tool -ref {sesDir}/{base}_reference.nii -src {sesDir}/{base}_vol{i:03d}.nii -itk {sesDir}/motionParameters/{base}/{base}_vol{i:03d}_af.mat -ras2fsl -o {sesDir}/motionParameters/{base}/{base}_vol{i:03d}_FSL.mat -info-full')
+
+                # Read motion parameters
+                tmp = fsl.AvScale(all_param=True,mat_file=f'{sesDir}/motionParameters/{base}/{base}_vol{i:03d}_FSL.mat');
                 tmpReadout = tmp.run();
 
                 # Get the rotations (in rads) and translations (in mm) per volume
@@ -98,25 +139,35 @@ for sub in ['sub-02']:
                 # Save the rotation and translations in lists
                 lstsubMot.append(aryTmpMot)
                 lstTR_sub.append([int(i)+1 for k in range(6)])
-                lstsubMot_Nme.append([f'TX {modality}',f'TY {modality}',f'TZ {modality}',f'RX {modality}',f'RY {modality}',f'RZ {modality}'])
+                lstsubMot_Nme.append([f'TX {modality}', f'TY {modality}', f'TZ {modality}', f'RX {modality}', f'RY {modality}', f'RZ {modality}'])
                 modalityList.append([modality for k in range(6)])
 
-                clear_output(wait=True)
-                # apply transformation
-                mywarpedimage = ants.apply_transforms(fixed=fixed, moving=moving,transformlist=mytx['fwdtransforms'], interpolator='bSpline')
-                # save warped image
-                ants.image_write(mywarpedimage, f'{outFolder}/{base}_vol{i:03d}_warped.nii')
+                clear_output(wait = True)
 
-            # assemble images
+            # =================================================================
+            # Assemble motion-correted images
+            # =================================================================
+
+            # Make array for new data
             newData = np.zeros(data.shape)
-            for i in range(data.shape[-1]):
-                vol = nb.load(f'{outFolder}/{base}_vol{i:03d}_warped.nii').get_fdata()
-                newData[:,:,:,i] = vol
-            img = nb.Nifti1Image(newData, header=header, affine=affine)
-            nb.save(img, f'{outFolder}/{base}_moco.nii')
-            # remove volumes
-            os.system(f'rm {outFolder}/{base}_vol*.nii')
 
+            # Loop over volumes again
+            for i in range(data.shape[-1]):
+                # Load current motion corrected volume
+                vol = nb.load(f'{sesDir}/{base}_vol{i:03d}_warped.nii').get_fdata()
+                # Assign volume to new data
+                newData[:,:,:,i] = vol
+
+            # Save data with original header and affine
+            img = nb.Nifti1Image(newData, header = header, affine = affine)
+            nb.save(img, f'{sesDir}/{base}_moco.nii')
+
+            # Remove individual volumes
+            os.system(f'rm {sesDir}/{base}_vol*.nii')
+
+            # ==============================================================
+            # Saving motion traces
+            # ==============================================================
 
             # Make appropriate arrays from lists
             aryCurr = np.array(lstsubMot)
@@ -133,6 +184,7 @@ for sub in ['sub-02']:
             aryCurr_mod = np.array(modalityList)
             aryCurr_mod = aryCurr_mod.reshape((aryCurr_mod.size,-1))
 
+            # Save into dictionary
             data_dict = {
                 'Time/TR': aryCurr_TR_Ses[:,0],
                 'Motion_Name': aryCurr_Nme_Ses[:,0],
@@ -140,63 +192,87 @@ for sub in ['sub-02']:
                 'idx':aryIdx,
                 'modality': aryCurr_mod[:,0]}
 
-            # Save motion parameters as csv
+            # Save motion parameters to disk as csv
             pd_ses = pd.DataFrame(data=data_dict)
-            pd_ses.to_csv(f'{outFolder}/motionParameters/{base}_motionParameters.csv', index=False)
+            pd_ses.to_csv(f'{motionDir}/{base}_motionParameters.csv',
+                          index=False
+                          )
 
+# =============================================================================
+# Get run-wise T1w image in EPI space
+# =============================================================================
 
-# get T1w image in EPI space
-for sub in ['sub-02']:
-    # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-01']:
-        outFolder = f'{root}/derivatives/{sub}/{ses}'
-        # look for individual runs
-        runs = sorted(glob.glob(f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))
+# Set subjects to work on
+subs = ['sub-02']
+# Set sessions to work on
+sessions = ['ses-01', 'ses-02']
+sessions = ['ses-01']
 
+for sub in subs:
+    for ses in sessions:
+        outFolder = f'{DATADIR}/derivatives/{sub}/{ses}'
+
+        # Look for individual runs
+        runs = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))
+
+        # Divide by two because we have vaso and bold for each run
         nrRuns = int(len(runs)/2)
 
         for runNr in range(1, nrRuns+1):
-        # for runNr in range(1, 2):
-
+            # Get motion corrected data
             modalities = glob.glob(f'{outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_*_moco.nii')
-            # combining cbv and bold weighted images
-            os.system(f'{afniPath}/3dTcat -prefix {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_combined.nii  {modalities[0]} {modalities[1]} -overwrite')
+            # Combining cbv and bold weighted images
+            os.system(f'{subs}/3dTcat -prefix {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_combined.nii  {modalities[0]} {modalities[1]} -overwrite')
             # Calculating T1w image in EPI space for each run
-            os.system(f'{afniPath}/3dTstat -cvarinv -overwrite -prefix {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w.nii {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_combined.nii')
+            os.system(f'{subs}/3dTstat -cvarinv -overwrite -prefix {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w.nii {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_combined.nii')
             # Running biasfieldcorrection
-            os.system(f'{antsPath}/N4BiasFieldCorrection -d 3 -i {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w.nii -o {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w_N4Corrected.nii')
+            os.system(f'{ANTSPATH}/N4BiasFieldCorrection -d 3 -i {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w.nii -o {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w_N4Corrected.nii')
 
+# =============================================================================
+# Register run-wise T1w images to first run of ses-01
+# =============================================================================
 
-# register all T1w images to first run of ses-01
-for sub in ['sub-02']:
-    # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-01']:
-        outFolder = f'{root}/derivatives/{sub}/{ses}'
+# Set subjects to work on
+subs = ['sub-02']
+# Set sessions to work on
+sessions = ['ses-01', 'ses-02']
+sessions = ['ses-01']
+
+for sub in subs:
+    for ses in sessions:
+        outFolder = f'{DATADIR}/derivatives/{sub}/{ses}'
 
         # look for individual runs
         runs = sorted(
             glob.glob(
-            f'{root}/{sub}/{ses}/func' # folder
+            f'{DATADIR}/{sub}/{ses}/func' # folder
             + f'/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz' # files
             )
             )
 
+        # Divide by two because we have vaso and bold for each run
         nrRuns = int(len(runs)/2)
 
+        # Set name of reference image
         refImage = (
-            f'{root}/derivatives/{sub}/ses-01/'
+            f'{DATADIR}/derivatives/{sub}/ses-01/'
             + f'{sub}_ses-01_task-stimulation_run-01_part-mag_T1w_N4Corrected.nii'
             )
 
+        # Get basename of reference image
         refBase = os.path.basename(refImage).rsplit('.', 2)[0]
 
+        # Load reference image in antsPy style
         fixed = ants.image_read(refImage)
 
+        # Define motion mask
         mask = ants.image_read(
-            f'{root}/derivatives/{sub}/ses-01/'
+            f'{DATADIR}/derivatives/{sub}/ses-01/'
             + f'{sub}_ses-01_task-stimulation_run-01_part-mag_cbv_moma.nii'
             )
 
+        # Because we want to register each run to the first run of the first
+        # we want to exclude the first run of the first session
         if ses == 'ses-01':
             firstRun = 2
         if ses == 'ses-02':
@@ -204,11 +280,13 @@ for sub in ['sub-02']:
 
         for runNr in range(firstRun, nrRuns+1):
 
+            # Define moving image
             moving = ants.image_read(
                 f'{outFolder}'
                 + f'/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w_N4Corrected.nii'
                 )
 
+            # Compute transofrmation matrix
             mytx = ants.registration(
                 fixed=fixed,
                 moving=moving,
@@ -216,7 +294,7 @@ for sub in ['sub-02']:
                 mask=mask
                 )
 
-            # perform transofrmation
+            # Apply transofrmation
             mywarpedimage = ants.apply_transforms(
                 fixed=fixed,
                 moving=moving,
@@ -224,40 +302,46 @@ for sub in ['sub-02']:
                 interpolator='bSpline'
                 )
 
-            #save image
+            # Save image
             ants.image_write(
                 mywarpedimage,
                 f'{outFolder}'
                 + f'/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w_N4Corrected_registered-{refBase}.nii')
 
-            # save transform for future
+            # Get transformation name
             transform1 = (
                 f'{outFolder}'
                 + f'/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w_N4Corrected_registered-{refBase}.mat'
                 )
 
+            # Save transform for future
             os.system(f"cp {mytx['fwdtransforms'][0]} {transform1}")
 
-############################################################################
-############# Here, the coregistration of multiple runs starts #############
-############################################################################
+# =============================================================================
+# Apply between run registration
+# =============================================================================
 
-for sub in ['sub-02']:
-    # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-01']:
-        outFolder = f'{root}/derivatives/{sub}/{ses}'
+# Set subjects to work on
+subs = ['sub-02']
+# Set sessions to work on
+sessions = ['ses-01', 'ses-02']
+sessions = ['ses-01']
+
+for sub in subs:
+    for ses in sessions:
+        outFolder = f'{DATADIR}/derivatives/{sub}/{ses}'
 
         # look for individual runs
         runs = sorted(glob.glob(
-            f'{root}/{sub}/{ses}/func'
+            f'{DATADIR}/{sub}/{ses}/func'
             + f'/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'
             )
             )
 
-
+        # Divide by two because we have vaso and bold for each run
         nrRuns = int(len(runs)/2)
 
-        refImage = f'{root}/derivatives/{sub}/ses-01/{sub}_ses-01_task-stimulation_run-01_part-mag_T1w_N4Corrected.nii'
+        refImage = f'{DATADIR}/derivatives/{sub}/ses-01/{sub}_ses-01_task-stimulation_run-01_part-mag_T1w_N4Corrected.nii'
         refHeader = nb.load(refImage).header
         refAffine = nb.load(refImage).affine
 
@@ -265,7 +349,7 @@ for sub in ['sub-02']:
 
         fixed = ants.image_read(refImage)
         mask = ants.image_read(
-            f'{root}/derivatives/{sub}/ses-01'
+            f'{DATADIR}/derivatives/{sub}/ses-01'
             + f'/{sub}_ses-01_task-stimulation_run-01_part-mag_cbv_moma.nii'
             )
 
@@ -278,7 +362,7 @@ for sub in ['sub-02']:
 
             for modality in ['cbv', 'bold']:
 
-                run = f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_{modality}.nii.gz'
+                run = f'{DATADIR}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_{modality}.nii.gz'
                 transform1 = f'{outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w_N4Corrected_registered-{sub}_ses-01_task-stimulation_run-01_part-mag_T1w_N4Corrected.mat'
 
                 nii = nb.load(run)
@@ -351,13 +435,19 @@ for sub in ['sub-02']:
 
 
 
-# get registered T1w image in EPI space
-for sub in ['sub-02']:
+# =============================================================================
+# Get T1w image of registered runs
+# =============================================================================
+
+# Set subjects to work on
+subs = ['sub-02']
+
+for sub in subs:
     # for ses in ['ses-01', 'ses-02']:
     for ses in ['ses-01']:
 
         # look for individual runs
-        runs = sorted(glob.glob(f'{root}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))
+        runs = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-0*_part-mag_*.nii.gz'))
 
         nrRuns = int(len(runs)/2)
 
@@ -368,10 +458,10 @@ for sub in ['sub-02']:
 
         for runNr in range(firstRun, nrRuns+1):
 
-            modalities = glob.glob(f'{root}/derivatives/{sub}/{ses}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_*_moco_registered.nii')
+            modalities = glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_*_moco_registered.nii')
 
-            os.system(f'{afniPath}/3dTcat -prefix {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_combined.nii  {modalities[0]} {modalities[1]} -overwrite')
+            os.system(f'{subs}/3dTcat -prefix {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_combined.nii  {modalities[0]} {modalities[1]} -overwrite')
             # Calculating T1w image in EPI space for each run
-            os.system(f'{afniPath}/3dTstat -cvarinv -overwrite -prefix {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_T1w.nii {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_combined.nii')
+            os.system(f'{subs}/3dTstat -cvarinv -overwrite -prefix {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_T1w.nii {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_combined.nii')
             # Running biasfieldcorrection
-            os.system(f'{antsPath}/N4BiasFieldCorrection -d 3 -i {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_T1w.nii -o {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_T1w_N4Corrected.nii')
+            os.system(f'{ANTSPATH}/N4BiasFieldCorrection -d 3 -i {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_T1w.nii -o {outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_registered_T1w_N4Corrected.nii')
