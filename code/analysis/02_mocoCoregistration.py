@@ -1,3 +1,9 @@
+'''
+
+Doing motion correction and regestering multiple runs across sessions.
+
+'''
+
 import ants
 import os
 import glob
