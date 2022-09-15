@@ -104,8 +104,6 @@ for sub in subs:
     allStopTRs = np.asarray(allStopTRs).astype('int')
 
 
-
-
     for stimDuration in [1., 2., 4., 12., 24.]:
 
         # initiate lists
@@ -144,7 +142,7 @@ for sub in subs:
         for modality in ['vaso', 'bold']:
         # for modality in ['bold']:
 
-            mriData = np.load(f'{DATADIR}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse_intemp.npy')
+            mriData = np.load(f'{DATADIR}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse_intemp-linear.npy')
             # Because we want the % signal-change, we need the mean
             # of the voxels we are looking at.
             mask_mean = np.mean(mriData)
@@ -233,7 +231,7 @@ for stimDuration in [1., 2., 4., 12., 24.]:
     else:
         plt.title(f'{int(stimDuration)} seconds stimulation', fontsize=24,pad=10)
 
-    plt.savefig(f'/Users/sebastiandresbach/git/neurovascularCouplingVASO/results/sub-01_{int(stimDuration)}.png', bbox_inches = "tight")
+    plt.savefig(f'/Users/sebastiandresbach/git/neurovascularCouplingVASO/results/sub-01_{int(stimDuration)}_intemp-linear.png', bbox_inches = "tight")
 
     plt.show()
 
@@ -296,7 +294,7 @@ for stimDuration in [1., 2., 4., 12., 24.]:
 
     ax1.set_ylabel(r'Signal change [%]', fontsize=24)
     ax2.set_ylabel(r'', fontsize=24)
-    plt.savefig(f'../../results/sub-01_{int(stimDuration)}_jitters.png', bbox_inches = "tight")
+    plt.savefig(f'results/sub-01_{int(stimDuration)}_jitters_intemp-linear.png', bbox_inches = "tight")
 
     plt.show()
 
