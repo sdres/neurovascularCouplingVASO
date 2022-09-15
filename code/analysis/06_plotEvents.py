@@ -1,4 +1,4 @@
-''' Get event-related averages per stimulus duration '''
+''' Plotting event-related averages per stimulus duration '''
 
 import os
 import glob
