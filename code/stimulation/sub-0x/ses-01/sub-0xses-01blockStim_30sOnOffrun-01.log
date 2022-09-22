@@ -1,0 +1,480 @@
+0.8253 	WARNING 	We strongly recommend you activate the PTB sound engine in PsychoPy prefs as the preferred audio engine. Its timing is vastly superior. Your prefs are currently set to use ['sounddevice', 'PTB', 'pyo', 'pygame'] (in that order).
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+5.2014 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+5.2093 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+5.9252 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fe1692d98b0>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fe137ebcb50>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.9255 	EXP 	window1: mouseVisible = True
+5.9703 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1, 1, 1]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+6.0030 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+6.0248 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+3.0781 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun sub-0x_ses-01_run-01
+0.0001 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0219 	DATA 	Initial baseline
+
+0.7620 	DATA 	Keypress: 5
+0.7623 	DATA 	TR 2 | TR1 1 | TR2 1
+1.6341 	DATA 	Keypress: 5
+1.6345 	DATA 	TR 3 | TR1 2 | TR2 1
+2.4750 	DATA 	Keypress: 5
+2.4755 	DATA 	TR 4 | TR1 2 | TR2 2
+3.4359 	DATA 	Keypress: 5
+3.4363 	DATA 	TR 5 | TR1 3 | TR2 2
+4.3548 	DATA 	Keypress: 5
+4.3552 	DATA 	TR 6 | TR1 3 | TR2 3
+5.3159 	DATA 	Keypress: 5
+5.3163 	DATA 	TR 7 | TR1 4 | TR2 3
+6.1580 	DATA 	Keypress: 5
+6.1584 	DATA 	TR 8 | TR1 4 | TR2 4
+6.9859 	DATA 	Keypress: 5
+6.9863 	DATA 	TR 9 | TR1 5 | TR2 4
+7.8026 	DATA 	Keypress: 5
+7.8030 	DATA 	TR 10 | TR1 5 | TR2 5
+8.6677 	DATA 	Keypress: 5
+8.6682 	DATA 	TR 11 | TR1 6 | TR2 5
+9.5437 	DATA 	Keypress: 5
+9.5441 	DATA 	TR 12 | TR1 6 | TR2 6
+10.3892 	DATA 	Keypress: 5
+10.3896 	DATA 	TR 13 | TR1 7 | TR2 6
+11.2908 	DATA 	Keypress: 5
+11.2912 	DATA 	TR 14 | TR1 7 | TR2 7
+12.1250 	DATA 	Keypress: 5
+12.1254 	DATA 	TR 15 | TR1 8 | TR2 7
+13.0151 	DATA 	Keypress: 5
+13.0155 	DATA 	TR 16 | TR1 8 | TR2 8
+13.8941 	DATA 	Keypress: 5
+13.8946 	DATA 	TR 17 | TR1 9 | TR2 8
+14.7513 	DATA 	Keypress: 5
+14.7517 	DATA 	TR 18 | TR1 9 | TR2 9
+15.6862 	DATA 	Keypress: 5
+15.6866 	DATA 	Waited <psychopy.clock.Clock object at 0x7fe169a35c40> seconds for trigger
+16.2434 	EXP 	window1: mouseVisible = True
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1920.0
+PixelHeight=1200.0
+You have detected 2 out of 2 targets.
+Excellent! Keep up the good work
+4.9484 	INFO 	Loaded monitor calibration from ['2022_07_20 19:17']
+4.9578 	WARNING 	User requested fullscreen with size [1920 1200], but screen is actually [1792, 1120]. Using actual size
+5.8748 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fafc1839880>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7faf9f8d4ac0>, multiSample=False, name='window1', numSamples=2, pos=[448.0, 280.0], screen=0, size=array([3584, 2240]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.8750 	EXP 	window1: mouseVisible = True
+5.9172 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1, 1, 1]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.49999999999999994, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.9465 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+5.9671 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([1024.,  768.]), texRes=128, units='pix', win=Window(...))
+1.0439 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun sub-0x_ses-01_run-01
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0237 	DATA 	Initial baseline
+
+1.0084 	DATA 	Keypress: 5
+1.0087 	DATA 	TR 2 | TR1 1 | TR2 1
+1.9564 	DATA 	Keypress: 5
+1.9568 	DATA 	TR 3 | TR1 2 | TR2 1
+2.8051 	DATA 	Keypress: 5
+2.8055 	DATA 	TR 4 | TR1 2 | TR2 2
+3.6512 	DATA 	Keypress: 5
+3.6515 	DATA 	TR 5 | TR1 3 | TR2 2
+4.3832 	DATA 	Keypress: 5
+4.3835 	DATA 	TR 6 | TR1 3 | TR2 3
+5.2173 	DATA 	Keypress: 5
+5.2178 	DATA 	TR 7 | TR1 4 | TR2 3
+6.0985 	DATA 	Keypress: 5
+6.0988 	DATA 	TR 8 | TR1 4 | TR2 4
+6.9012 	DATA 	Keypress: 5
+6.9015 	DATA 	TR 9 | TR1 5 | TR2 4
+7.8141 	DATA 	Keypress: 5
+7.8146 	DATA 	TR 10 | TR1 5 | TR2 5
+8.6164 	DATA 	Keypress: 5
+8.6167 	DATA 	TR 11 | TR1 6 | TR2 5
+9.5063 	DATA 	Keypress: 5
+9.5068 	DATA 	TR 12 | TR1 6 | TR2 6
+10.2714 	DATA 	Keypress: 5
+10.2718 	DATA 	TR 13 | TR1 7 | TR2 6
+11.1307 	DATA 	Keypress: 5
+11.1311 	DATA 	TR 14 | TR1 7 | TR2 7
+12.1272 	DATA 	Keypress: 5
+12.1276 	DATA 	TR 15 | TR1 8 | TR2 7
+12.9028 	DATA 	Keypress: 5
+12.9032 	DATA 	TR 16 | TR1 8 | TR2 8
+13.7815 	DATA 	Keypress: 5
+13.7819 	DATA 	TR 17 | TR1 9 | TR2 8
+14.6799 	DATA 	Keypress: 5
+14.6803 	DATA 	TR 18 | TR1 9 | TR2 9
+15.5117 	DATA 	Keypress: 5
+15.5121 	DATA 	Waited 16.55666558300436 seconds for trigger
+15.5121 	DATA 	
+15.5121 	DATA 	Trial 1
+15.5121 	DATA 	stimDur = 30
+15.5121 	DATA 	restDur = 30
+
+15.5121 	DATA 	
+15.5121 	DATA 	TR 19 | TR1 10 | TR2 9
+15.5121 	DATA 	
+15.5122 	DATA 	stimulation started
+15.5122 	DATA 	
+16.2458 	DATA 	Keypress: 5
+16.2462 	DATA 	TR 20 | TR1 10 | TR2 10
+17.0625 	DATA 	Keypress: 5
+17.0628 	DATA 	TR 21 | TR1 11 | TR2 10
+17.9622 	DATA 	Keypress: 5
+17.9625 	DATA 	TR 22 | TR1 11 | TR2 11
+18.7284 	DATA 	Keypress: 5
+18.7289 	DATA 	TR 23 | TR1 12 | TR2 11
+19.4960 	DATA 	Keypress: 5
+19.4964 	DATA 	TR 24 | TR1 12 | TR2 12
+20.3624 	DATA 	Keypress: 5
+20.3628 	DATA 	TR 25 | TR1 13 | TR2 12
+21.1948 	DATA 	Keypress: 5
+21.1952 	DATA 	TR 26 | TR1 13 | TR2 13
+22.0952 	DATA 	Keypress: 5
+22.0956 	DATA 	TR 27 | TR1 14 | TR2 13
+22.9136 	DATA 	Keypress: 5
+22.9140 	DATA 	TR 28 | TR1 14 | TR2 14
+23.7637 	DATA 	Keypress: 5
+23.7778 	DATA 	TR 29 | TR1 15 | TR2 14
+24.5628 	DATA 	Keypress: 5
+24.5632 	DATA 	TR 30 | TR1 15 | TR2 15
+25.3950 	DATA 	Keypress: 5
+25.3953 	DATA 	TR 31 | TR1 16 | TR2 15
+26.2468 	DATA 	Keypress: 5
+26.2607 	DATA 	TR 32 | TR1 16 | TR2 16
+27.0433 	DATA 	Keypress: 5
+27.0436 	DATA 	TR 33 | TR1 17 | TR2 16
+27.8136 	DATA 	Keypress: 5
+27.8275 	DATA 	TR 34 | TR1 17 | TR2 17
+28.6634 	DATA 	Keypress: 5
+28.6638 	DATA 	TR 35 | TR1 18 | TR2 17
+29.3799 	DATA 	Keypress: 5
+29.3803 	DATA 	TR 36 | TR1 18 | TR2 18
+30.2101 	DATA 	Keypress: 5
+30.2104 	DATA 	TR 37 | TR1 19 | TR2 18
+30.9792 	DATA 	Keypress: 5
+30.9796 	DATA 	TR 38 | TR1 19 | TR2 19
+31.7792 	DATA 	Keypress: 5
+31.7796 	DATA 	TR 39 | TR1 20 | TR2 19
+32.6456 	DATA 	Keypress: 5
+32.6460 	DATA 	TR 40 | TR1 20 | TR2 20
+33.4955 	DATA 	Keypress: 5
+33.4959 	DATA 	TR 41 | TR1 21 | TR2 20
+34.3099 	DATA 	Keypress: 5
+34.3103 	DATA 	TR 42 | TR1 21 | TR2 21
+35.0101 	DATA 	Keypress: 5
+35.0105 	DATA 	TR 43 | TR1 22 | TR2 21
+35.8135 	DATA 	Keypress: 5
+35.8139 	DATA 	TR 44 | TR1 22 | TR2 22
+36.5800 	DATA 	Keypress: 5
+36.5804 	DATA 	TR 45 | TR1 23 | TR2 22
+37.3635 	DATA 	Keypress: 5
+37.3640 	DATA 	TR 46 | TR1 23 | TR2 23
+38.1791 	DATA 	Keypress: 5
+38.1795 	DATA 	TR 47 | TR1 24 | TR2 23
+38.9608 	DATA 	Keypress: 5
+38.9612 	DATA 	TR 48 | TR1 24 | TR2 24
+39.8133 	DATA 	Keypress: 5
+39.8138 	DATA 	TR 49 | TR1 25 | TR2 24
+40.5116 	DATA 	Keypress: 5
+40.5120 	DATA 	TR 50 | TR1 25 | TR2 25
+41.2636 	DATA 	Keypress: 5
+41.2775 	DATA 	TR 51 | TR1 26 | TR2 25
+42.0626 	DATA 	Keypress: 5
+42.0629 	DATA 	TR 52 | TR1 26 | TR2 26
+42.9299 	DATA 	Keypress: 5
+42.9304 	DATA 	TR 53 | TR1 27 | TR2 26
+43.7464 	DATA 	Keypress: 5
+43.7468 	DATA 	TR 54 | TR1 27 | TR2 27
+44.5457 	DATA 	Keypress: 5
+44.5460 	DATA 	TR 55 | TR1 28 | TR2 27
+45.4307 	DATA 	Keypress: 5
+45.4312 	DATA 	TR 56 | TR1 28 | TR2 28
+45.5289 	DATA 	
+45.5289 	DATA 	stimulation stopped
+45.5289 	DATA 	
+46.3104 	DATA 	Keypress: 5
+46.3108 	DATA 	TR 57 | TR1 29 | TR2 28
+47.1632 	DATA 	Keypress: 5
+47.1772 	DATA 	TR 58 | TR1 29 | TR2 29
+47.9617 	DATA 	Keypress: 5
+47.9804 	DATA 	TR 59 | TR1 30 | TR2 29
+48.8448 	DATA 	Keypress: 5
+48.8452 	DATA 	TR 60 | TR1 30 | TR2 30
+49.6432 	DATA 	Keypress: 5
+49.6435 	DATA 	TR 61 | TR1 31 | TR2 30
+50.4796 	DATA 	Keypress: 5
+50.4937 	DATA 	TR 62 | TR1 31 | TR2 31
+51.2798 	DATA 	Keypress: 5
+51.2803 	DATA 	TR 63 | TR1 32 | TR2 31
+52.0973 	DATA 	Keypress: 5
+52.0977 	DATA 	TR 64 | TR1 32 | TR2 32
+52.9297 	DATA 	Keypress: 5
+52.9301 	DATA 	TR 65 | TR1 33 | TR2 32
+53.7102 	DATA 	Keypress: 5
+53.7105 	DATA 	TR 66 | TR1 33 | TR2 33
+54.5268 	DATA 	Keypress: 5
+54.5272 	DATA 	TR 67 | TR1 34 | TR2 33
+55.3603 	DATA 	Keypress: 5
+55.3606 	DATA 	TR 68 | TR1 34 | TR2 34
+56.1935 	DATA 	Keypress: 5
+56.1939 	DATA 	TR 69 | TR1 35 | TR2 34
+57.0102 	DATA 	Keypress: 5
+57.0106 	DATA 	TR 70 | TR1 35 | TR2 35
+57.7978 	DATA 	Keypress: 5
+57.7983 	DATA 	TR 71 | TR1 36 | TR2 35
+58.6771 	DATA 	Keypress: 5
+58.6775 	DATA 	TR 72 | TR1 36 | TR2 36
+59.4797 	DATA 	Keypress: 5
+59.4938 	DATA 	TR 73 | TR1 37 | TR2 36
+60.2118 	DATA 	Keypress: 5
+60.2122 	DATA 	TR 74 | TR1 37 | TR2 37
+61.0766 	DATA 	Keypress: 5
+61.0770 	DATA 	TR 75 | TR1 38 | TR2 37
+61.8785 	DATA 	Keypress: 5
+61.8789 	DATA 	TR 76 | TR1 38 | TR2 38
+62.5933 	DATA 	Keypress: 5
+62.5937 	DATA 	TR 77 | TR1 39 | TR2 38
+63.3451 	DATA 	Keypress: 5
+63.3455 	DATA 	TR 78 | TR1 39 | TR2 39
+64.1788 	DATA 	Keypress: 5
+64.1792 	DATA 	TR 79 | TR1 40 | TR2 39
+65.0465 	DATA 	Keypress: 5
+65.0469 	DATA 	TR 80 | TR1 40 | TR2 40
+65.8931 	DATA 	Keypress: 5
+65.8935 	DATA 	TR 81 | TR1 41 | TR2 40
+66.7287 	DATA 	Keypress: 5
+66.7291 	DATA 	TR 82 | TR1 41 | TR2 41
+67.5865 	DATA 	Keypress: 5
+67.5870 	DATA 	TR 83 | TR1 42 | TR2 41
+68.5205 	DATA 	Keypress: 5
+68.5211 	DATA 	TR 84 | TR1 42 | TR2 42
+69.3526 	DATA 	Keypress: 5
+69.3530 	DATA 	TR 85 | TR1 43 | TR2 42
+70.2033 	DATA 	Keypress: 5
+70.2038 	DATA 	TR 86 | TR1 43 | TR2 43
+70.9527 	DATA 	Keypress: 5
+70.9531 	DATA 	TR 87 | TR1 44 | TR2 43
+71.7705 	DATA 	Keypress: 5
+71.7711 	DATA 	TR 88 | TR1 44 | TR2 44
+72.5028 	DATA 	Keypress: 5
+72.5032 	DATA 	TR 89 | TR1 45 | TR2 44
+73.3531 	DATA 	Keypress: 5
+73.3535 	DATA 	TR 90 | TR1 45 | TR2 45
+74.1203 	DATA 	Keypress: 5
+74.1209 	DATA 	TR 91 | TR1 46 | TR2 45
+74.7189 	DATA 	Target presented
+74.9705 	DATA 	Keypress: 5
+74.9709 	DATA 	TR 92 | TR1 46 | TR2 46
+75.5180 	DATA 	
+75.5180 	DATA 	Trial complete
+75.5180 	DATA 	Waiting for VASO trigger to start next trial
+75.5180 	DATA 	
+76.0028 	DATA 	Keypress: 1
+76.0032 	DATA 	Key1 pressed
+76.0032 	DATA 	Target detected
+76.2023 	DATA 	Keypress: 5
+76.2027 	DATA 	Waited 0.6846279189994675 seconds for trigger
+76.2027 	DATA 	
+76.2027 	DATA 	Trial 2
+76.2027 	DATA 	stimDur = 30
+76.2027 	DATA 	restDur = 30
+
+76.2027 	DATA 	
+76.2027 	DATA 	TR 93 | TR1 47 | TR2 46
+76.2027 	DATA 	
+76.2028 	DATA 	stimulation started
+76.2028 	DATA 	
+77.1026 	DATA 	Keypress: 5
+77.1030 	DATA 	TR 94 | TR1 47 | TR2 47
+77.9526 	DATA 	Keypress: 5
+77.9531 	DATA 	TR 95 | TR1 48 | TR2 47
+78.7522 	DATA 	Keypress: 5
+78.7526 	DATA 	TR 96 | TR1 48 | TR2 48
+79.4687 	DATA 	Keypress: 5
+79.4691 	DATA 	TR 97 | TR1 49 | TR2 48
+80.3528 	DATA 	Keypress: 5
+80.3532 	DATA 	TR 98 | TR1 49 | TR2 49
+81.1697 	DATA 	Keypress: 5
+81.1702 	DATA 	TR 99 | TR1 50 | TR2 49
+81.9859 	DATA 	Keypress: 5
+81.9864 	DATA 	TR 100 | TR1 50 | TR2 50
+82.8023 	DATA 	Keypress: 5
+82.8027 	DATA 	TR 101 | TR1 51 | TR2 50
+83.7025 	DATA 	Keypress: 5
+83.7029 	DATA 	TR 102 | TR1 51 | TR2 51
+84.6855 	DATA 	Keypress: 5
+84.6859 	DATA 	TR 103 | TR1 52 | TR2 51
+85.6526 	DATA 	Keypress: 5
+85.6530 	DATA 	TR 104 | TR1 52 | TR2 52
+86.5532 	DATA 	Keypress: 5
+86.5700 	DATA 	TR 105 | TR1 53 | TR2 52
+87.5196 	DATA 	Keypress: 5
+87.5201 	DATA 	TR 106 | TR1 53 | TR2 53
+88.4197 	DATA 	Keypress: 5
+88.4368 	DATA 	TR 107 | TR1 54 | TR2 53
+89.1696 	DATA 	Keypress: 5
+89.1701 	DATA 	TR 108 | TR1 54 | TR2 54
+89.9863 	DATA 	Keypress: 5
+89.9868 	DATA 	TR 109 | TR1 55 | TR2 54
+90.7863 	DATA 	Keypress: 5
+90.7868 	DATA 	TR 110 | TR1 55 | TR2 55
+91.6362 	DATA 	Keypress: 5
+91.6367 	DATA 	TR 111 | TR1 56 | TR2 55
+92.5359 	DATA 	Keypress: 5
+92.5364 	DATA 	TR 112 | TR1 56 | TR2 56
+93.3694 	DATA 	Keypress: 5
+93.3699 	DATA 	TR 113 | TR1 57 | TR2 56
+94.3192 	DATA 	Keypress: 5
+94.3360 	DATA 	TR 114 | TR1 57 | TR2 57
+95.2024 	DATA 	Keypress: 5
+95.2028 	DATA 	TR 115 | TR1 58 | TR2 57
+96.0198 	DATA 	Keypress: 5
+96.0203 	DATA 	TR 116 | TR1 58 | TR2 58
+96.8521 	DATA 	Keypress: 5
+96.8525 	DATA 	TR 117 | TR1 59 | TR2 58
+97.6860 	DATA 	Keypress: 5
+97.6865 	DATA 	TR 118 | TR1 59 | TR2 59
+98.5029 	DATA 	Keypress: 5
+98.5034 	DATA 	TR 119 | TR1 60 | TR2 59
+99.4019 	DATA 	Keypress: 5
+99.4023 	DATA 	TR 120 | TR1 60 | TR2 60
+100.3196 	DATA 	Keypress: 5
+100.3202 	DATA 	TR 121 | TR1 61 | TR2 60
+101.1521 	DATA 	Keypress: 5
+101.1525 	DATA 	TR 122 | TR1 61 | TR2 61
+102.0199 	DATA 	Keypress: 5
+102.0204 	DATA 	TR 123 | TR1 62 | TR2 61
+102.8864 	DATA 	Keypress: 5
+102.8869 	DATA 	TR 124 | TR1 62 | TR2 62
+103.7017 	DATA 	Keypress: 5
+103.7021 	DATA 	TR 125 | TR1 63 | TR2 62
+104.5689 	DATA 	Keypress: 5
+104.5694 	DATA 	TR 126 | TR1 63 | TR2 63
+105.4364 	DATA 	Keypress: 5
+105.4369 	DATA 	TR 127 | TR1 64 | TR2 63
+106.2176 	DATA 	
+106.2177 	DATA 	stimulation stopped
+106.2177 	DATA 	
+106.3026 	DATA 	Keypress: 5
+106.3031 	DATA 	TR 128 | TR1 64 | TR2 64
+107.1863 	DATA 	Keypress: 5
+107.1867 	DATA 	TR 129 | TR1 65 | TR2 64
+108.1685 	DATA 	Keypress: 5
+108.1688 	DATA 	TR 130 | TR1 65 | TR2 65
+109.0960 	DATA 	Keypress: 5
+109.0965 	DATA 	TR 131 | TR1 66 | TR2 65
+109.9611 	DATA 	Keypress: 5
+109.9615 	DATA 	TR 132 | TR1 66 | TR2 66
+110.7961 	DATA 	Keypress: 5
+110.7965 	DATA 	TR 133 | TR1 67 | TR2 66
+111.6466 	DATA 	Keypress: 5
+111.6470 	DATA 	TR 134 | TR1 67 | TR2 67
+112.4782 	DATA 	Keypress: 5
+112.4786 	DATA 	TR 135 | TR1 68 | TR2 67
+113.3944 	DATA 	Keypress: 5
+113.3948 	DATA 	TR 136 | TR1 68 | TR2 68
+114.2609 	DATA 	Keypress: 5
+114.2613 	DATA 	TR 137 | TR1 69 | TR2 68
+115.1095 	DATA 	Keypress: 5
+115.1099 	DATA 	TR 138 | TR1 69 | TR2 69
+116.0266 	DATA 	Keypress: 5
+116.0270 	DATA 	TR 139 | TR1 70 | TR2 69
+116.9614 	DATA 	Keypress: 5
+116.9618 	DATA 	TR 140 | TR1 70 | TR2 70
+117.7778 	DATA 	Keypress: 5
+117.7781 	DATA 	TR 141 | TR1 71 | TR2 70
+118.6615 	DATA 	Keypress: 5
+118.6619 	DATA 	TR 142 | TR1 71 | TR2 71
+119.6293 	DATA 	Keypress: 5
+119.6298 	DATA 	TR 143 | TR1 72 | TR2 71
+120.5275 	DATA 	Keypress: 5
+120.5279 	DATA 	TR 144 | TR1 72 | TR2 72
+121.4436 	DATA 	Keypress: 5
+121.4440 	DATA 	TR 145 | TR1 73 | TR2 72
+122.2759 	DATA 	Keypress: 5
+122.2763 	DATA 	TR 146 | TR1 73 | TR2 73
+123.1097 	DATA 	Keypress: 5
+123.1101 	DATA 	TR 147 | TR1 74 | TR2 73
+123.9941 	DATA 	Keypress: 5
+123.9946 	DATA 	TR 148 | TR1 74 | TR2 74
+124.8934 	DATA 	Keypress: 5
+124.8938 	DATA 	TR 149 | TR1 75 | TR2 74
+125.7941 	DATA 	Keypress: 5
+125.7944 	DATA 	TR 150 | TR1 75 | TR2 75
+126.6619 	DATA 	Keypress: 5
+126.6623 	DATA 	TR 151 | TR1 76 | TR2 75
+127.5294 	DATA 	Keypress: 5
+127.5299 	DATA 	TR 152 | TR1 76 | TR2 76
+128.3928 	DATA 	Keypress: 5
+128.3932 	DATA 	TR 153 | TR1 77 | TR2 76
+129.2604 	DATA 	Keypress: 5
+129.2795 	DATA 	TR 154 | TR1 77 | TR2 77
+130.0782 	DATA 	Keypress: 5
+130.0786 	DATA 	TR 155 | TR1 78 | TR2 77
+130.9114 	DATA 	Keypress: 5
+130.9118 	DATA 	TR 156 | TR1 78 | TR2 78
+131.7623 	DATA 	Keypress: 5
+131.7628 	DATA 	TR 157 | TR1 79 | TR2 78
+132.6426 	DATA 	Keypress: 5
+132.6429 	DATA 	TR 158 | TR1 79 | TR2 79
+133.4593 	DATA 	Keypress: 5
+133.4597 	DATA 	TR 159 | TR1 80 | TR2 79
+134.3433 	DATA 	Keypress: 5
+134.3437 	DATA 	TR 160 | TR1 80 | TR2 80
+135.2290 	DATA 	Keypress: 5
+135.2294 	DATA 	TR 161 | TR1 81 | TR2 80
+136.0279 	DATA 	Keypress: 5
+136.0283 	DATA 	TR 162 | TR1 81 | TR2 81
+136.2087 	DATA 	
+136.2087 	DATA 	Trial complete
+136.2087 	DATA 	
+136.8617 	DATA 	Keypress: 5
+136.8621 	DATA 	TR 163 | TR1 82 | TR2 81
+137.6432 	DATA 	Keypress: 5
+137.6436 	DATA 	TR 164 | TR1 82 | TR2 82
+138.4792 	DATA 	Keypress: 5
+138.4796 	DATA 	TR 165 | TR1 83 | TR2 82
+139.2787 	DATA 	Keypress: 5
+139.2791 	DATA 	TR 166 | TR1 83 | TR2 83
+140.1122 	DATA 	Keypress: 5
+140.1126 	DATA 	TR 167 | TR1 84 | TR2 83
+140.9433 	DATA 	Keypress: 5
+140.9436 	DATA 	TR 168 | TR1 84 | TR2 84
+141.8615 	DATA 	Keypress: 5
+141.8620 	DATA 	TR 169 | TR1 85 | TR2 84
+142.7290 	DATA 	Keypress: 5
+142.7295 	DATA 	TR 170 | TR1 85 | TR2 85
+143.5943 	DATA 	Keypress: 5
+143.5946 	DATA 	TR 171 | TR1 86 | TR2 85
+144.4122 	DATA 	Keypress: 5
+144.4125 	DATA 	TR 172 | TR1 86 | TR2 86
+145.2438 	DATA 	Keypress: 5
+145.2442 	DATA 	TR 173 | TR1 87 | TR2 86
+146.1439 	DATA 	Keypress: 5
+146.1442 	DATA 	TR 174 | TR1 87 | TR2 87
+146.9759 	DATA 	Target presented
+147.0099 	DATA 	Keypress: 5
+147.0103 	DATA 	TR 175 | TR1 88 | TR2 87
+147.5439 	DATA 	Keypress: 1
+147.5442 	DATA 	Key1 pressed
+147.5442 	DATA 	Target detected
+147.8434 	DATA 	Keypress: 5
+147.8437 	DATA 	TR 176 | TR1 88 | TR2 88
+148.6777 	DATA 	Keypress: 5
+148.6909 	DATA 	TR 177 | TR1 89 | TR2 88
+149.5443 	DATA 	Keypress: 5
+149.5447 	DATA 	TR 178 | TR1 89 | TR2 89
+150.3755 	DATA 	Keypress: 5
+150.3759 	DATA 	TR 179 | TR1 90 | TR2 89
+151.1756 	DATA 	Keypress: 5
+151.1760 	DATA 	TR 180 | TR1 90 | TR2 90
+152.0120 	DATA 	Keypress: 5
+152.0125 	DATA 	TR 181 | TR1 91 | TR2 90
+152.2418 	DATA 	EndOfRun sub-0x_ses-01_run-01
+
+152.2419 	DATA 	We spent 17.24133881900343 seconds waiting for triggers
+152.2419 	DATA 	RatioOfDetectedTargets 1.0
+152.2419 	DATA 	You have detected 2 out of 2 targets.
+157.0661 	DATA 	Keypress: 5
+157.8253 	EXP 	window1: mouseVisible = True
