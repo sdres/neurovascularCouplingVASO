@@ -295,7 +295,6 @@ while fmriTime.getTime() < initialRest:
                 # disable target counter until next target
                 responseSwitch = False
 
-
 # Initialize bools for target presentation
 targetSwitch = False  # Target on/off
 responseSwitch = False  # Whether reponse to target was registered
@@ -306,6 +305,7 @@ triggerSwitch = False  # wait for VASO trigger in stimulation
 
 # trialTime.reset()  # reset trialtime after initial fixation - not necessary anymore because we reset after detected VASO trigger
 targetTime.reset()  # reset target after initial fixation (no targets before)
+waitTime.reset()
 
 
 while runExp:
