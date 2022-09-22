@@ -482,7 +482,7 @@ logging.data('RatioOfDetectedTargets ' + str(DetectRatio))
 
 # Display target detection results to participant
 resultText = 'You have detected %i out of %i targets.' % (detectedTargets,
-                                                          len(targetTimes))
+                                                          targetCounter)
 
 print(resultText)
 logging.data(resultText)
