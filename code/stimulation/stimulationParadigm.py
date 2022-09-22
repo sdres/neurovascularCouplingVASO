@@ -158,13 +158,13 @@ trialTiming = pd.read_csv('/Users/sebastiandresbach/git/neurovascularCouplingVAS
 trialCounter = 0 # set counter for trials
 
 # Get duration of entire experiment
-initialRest = 15  # set inital rest
+initialRest = 30  # set inital rest
 stimDurTotal = np.sum(trialTiming['stimDur'])  # sum stimulus durations
 restDurTotal = np.sum(trialTiming['restDur'])  # sum rest durations
 jitDurTotal = np.sum(trialTiming['jitter'])  # sum jitter durations
 # Set extra rest after experiment to account for longer run durations
 # due to waiting for triggers and extra baseline
-finalRest = 50
+finalRest = 30
 
 # Calculate entire run duration
 expDurTotal = (
@@ -174,6 +174,8 @@ expDurTotal = (
     + jitDurTotal
     + finalRest
     )
+
+expDurTotalOrig = expDurTotal
 
 # Generate pseudo-random targets for attention task
 minInterval = 40  # min duration between targets
@@ -202,6 +204,7 @@ logging.setDefaultClock(fmriTime)
 
 trialTime = core.Clock()  # timer for a trial
 visStimTime = core.Clock()  # timer for visual stimulation
+waitTime = core.Clock()  # Set timer to account for waiting for triggers
 
 # Timers for the targets
 targetTime = core.Clock()  # time until next target
@@ -297,6 +300,7 @@ triggerSwitch = False  # wait for VASO trigger in stimulation
 
 # trialTime.reset()  # reset trialtime after initial fixation - not necessary anymore because we reset after detected VASO trigger
 targetTime.reset()  # reset target after initial fixation (no targets before)
+waitTime.reset()
 
 while runExp:
     # -------------------------------------------------------------------------
@@ -386,6 +390,7 @@ while runExp:
             logging.data(f'Trial complete')
             if trialCounter < (trialTiming.shape[0]-1):
                 logging.data(f'Waiting for VASO trigger to start next trial')
+                waitTime.reset()
             logging.data(f'')
             triggerSwitch = False
 
@@ -424,6 +429,9 @@ while runExp:
 
                     # only execute until we reached the last trial
                     if trialCounter < trialTiming.shape[0]:
+                        logging.data(f'Waited {waitTime.getTime()} seconds for trigger')
+                        expDurTotal = expDurTotal + waitTime.getTime()
+
                         triggerSwitch = True
                         trialTime.reset()
 
@@ -472,6 +480,9 @@ logging.data(
     + str(expInfo['session']) + '_'
     + str(expInfo['run']) + '\n'
     )
+
+waitTime = expDurTotal - expDurTotalOrig
+logging.data(f'We spent {waitTime} seconds waiting for triggers')
 
 # %%  TARGET DETECTION RESULTS
 # calculate target detection results
