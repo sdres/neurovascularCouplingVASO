@@ -76,8 +76,8 @@ logging.console.setLevel(logging.WARNING)
 # Set monitor information - CHECK WITH MPI:
 distanceMon = 99  # [99] in scanner
 widthMon = 30  # [30] in scanner
-PixW = 1920.0  # [1920.0] in scanner
-PixH = 1200.0  # [1200.0] in psychoph lab
+PixW = 1024.0  # [1024.0] at Leipyig Terra
+PixH = 768.0  # [768.0] at Leipyig Terra
 
 moni = monitors.Monitor('testMonitor', width=widthMon, distance=distanceMon)
 moni.setSizePix([PixW, PixH])  # [1920.0, 1080.0] in psychoph lab
@@ -134,7 +134,7 @@ triggerText = visual.TextStim(
     win=win,
     color='white',
     height=0.5,
-    text='Experiment will start soon. Waiting for scanner'
+    text='Experiment will start soon. \nWaiting for scanner'
     )
 
 # =============================================================================
