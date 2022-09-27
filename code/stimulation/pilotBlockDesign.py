@@ -160,7 +160,7 @@ stimFrameRate = 8  # Set stimulus frame rate in Hz
 # =============================================================================
 
 trialCounter = 0 # set counter for trials
-nrTrials = 2  # Set number of trials
+nrTrials = 10  # Set number of trials
 stimDur = 30  # Set stimulus duration in seconds
 restDur = 30  # Set rest duration in seconds
 trialDur = stimDur + restDur
