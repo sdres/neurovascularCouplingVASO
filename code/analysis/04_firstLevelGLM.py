@@ -66,47 +66,47 @@ for sub in subs:
                 tr = findTR(f'code/stimulation/{sub}/ses-01/{sub}ses-01blockStim_30sOnOffrun-03.log')
             print(f'{acquiType} tr: {tr}')
 
-        for modality in ['vaso', 'bold']:
+            for modality in ['vaso', 'bold']:
 
-            runs = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/{sub}_task-stim{acquiType}_*_{modality}_intemp.nii*'))
+                runs = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/{sub}_task-stim{acquiType}_*_{modality}_intemp.nii*'))
 
-            for run in runs:
-                base = os.path.basename(run).rsplit('.', 2)[0][:-21]
+                for run in runs:
+                    base = os.path.basename(run).rsplit('.', 2)[0][:-21]
 
-                # niiFile = f'{funcDir}/{base}_{modality}.nii.gz'
-                nii = nb.load(run)
-                data = nii.get_fdata()
-                nVols = data.shape[-1]
-                frame_times = np.arange(nVols) * tr
+                    # niiFile = f'{funcDir}/{base}_{modality}.nii.gz'
+                    nii = nb.load(run)
+                    data = nii.get_fdata()
+                    nVols = data.shape[-1]
+                    frame_times = np.arange(nVols) * tr
 
-                events = pd.read_csv(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-stim{acquiType}_run-01_part-mag_events.tsv', sep = ',')
+                    events = pd.read_csv(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-stim{acquiType}_run-01_part-mag_events.tsv', sep = ',')
 
-                design_matrix = make_first_level_design_matrix(
-                    frame_times,
-                    events,
-                    hrf_model=hrf_model,
-                    drift_model = None,
-                    high_pass= high_pass
-                    )
+                    design_matrix = make_first_level_design_matrix(
+                        frame_times,
+                        events,
+                        hrf_model=hrf_model,
+                        drift_model = None,
+                        high_pass= high_pass
+                        )
 
-                contrast_matrix = np.eye(design_matrix.shape[1])
-                basic_contrasts = dict([(column, contrast_matrix[i])
-                            for i, column in enumerate(design_matrix.columns)])
+                    contrast_matrix = np.eye(design_matrix.shape[1])
+                    basic_contrasts = dict([(column, contrast_matrix[i])
+                                for i, column in enumerate(design_matrix.columns)])
 
-                if modality == 'bold':
-                    contrasts = {'stimulation': + basic_contrasts['stimulation']
-                        }
+                    if modality == 'bold':
+                        contrasts = {'stimulation': + basic_contrasts['stimulation']
+                            }
 
-                if modality == 'vaso':
-                    contrasts = {'stimulation': - basic_contrasts['stimulation']
-                        }
-                        
-                fmri_glm = FirstLevelModel(mask_img = False, drift_model=None)
-                fmri_glm = fmri_glm.fit(nii, design_matrices = design_matrix)
+                    if modality == 'vaso':
+                        contrasts = {'stimulation': - basic_contrasts['stimulation']
+                            }
 
-                # Iterate on contrasts
-                for contrast_id, contrast_val in contrasts.items():
-                    # compute the contrasts
-                    z_map = fmri_glm.compute_contrast(
-                        contrast_val, output_type='z_score')
-                    nb.save(z_map, f'{statFolder}/{base}_{modality}_{contrast_id}.nii')
+                    fmri_glm = FirstLevelModel(mask_img = False, drift_model=None)
+                    fmri_glm = fmri_glm.fit(nii, design_matrices = design_matrix)
+
+                    # Iterate on contrasts
+                    for contrast_id, contrast_val in contrasts.items():
+                        # compute the contrasts
+                        z_map = fmri_glm.compute_contrast(
+                            contrast_val, output_type='z_score')
+                        nb.save(z_map, f'{statFolder}/{base}_{modality}_{contrast_id}.nii')
