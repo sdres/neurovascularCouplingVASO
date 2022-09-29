@@ -64,7 +64,6 @@ for sub in subs:
                 tr = findTR(f'code/stimulation/{sub}/ses-01/{sub}ses-01blockStim_30sOnOffrun-01.log')
             if acquiType == 'MultiShot':
                 tr = findTR(f'code/stimulation/{sub}/ses-01/{sub}ses-01blockStim_30sOnOffrun-03.log')
-            print(f'{acquiType} tr: {tr}')
 
             for modality in ['vaso', 'bold']:
 
