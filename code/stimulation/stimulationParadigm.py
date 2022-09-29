@@ -72,8 +72,8 @@ logging.console.setLevel(logging.WARNING)
 # Set monitor information - CHECK WITH MPI:
 distanceMon = 99  # [99] in scanner
 widthMon = 30  # [30] in scanner
-PixW = 1920.0  # [1920.0] in scanner
-PixH = 1200.0  # [1200.0] in psychoph lab
+PixW = 1024.0  # [1024.0] at Leipyig Terra
+PixH = 768.0  # [768.0] at Leipyig Terra
 
 moni = monitors.Monitor('testMonitor', width=widthMon, distance=distanceMon)
 moni.setSizePix([PixW, PixH])  # [1920.0, 1080.0] in psychoph lab
@@ -144,7 +144,8 @@ for i in range(0, 2):  # loop over frames
         pos=[0, 0],
         name=f'Movie Frame {i}',
         image=f'visual_{i}.png',
-        units='pix'
+        units='pix',
+        contrast = 0.8
         )
         )
 
@@ -154,7 +155,7 @@ stimFrameRate = 8  # Set stimulus frame rate in Hz
 # Initialize timings
 # =============================================================================
 
-trialTiming = pd.read_csv('/Users/sebastiandresbach/git/neurovascularCouplingVASO/code/stimulation/conditionTimings_TR-3.447_jitters-4_2022-08-19_11.07.csv')
+trialTiming = pd.read_csv('/media/user/scanning/neurovascularCouplingVASO/code/stimulation/conditionTimings_TR-2.509_jitters-6_2022-09-28_09.26.csv')
 trialCounter = 0 # set counter for trials
 
 # Get duration of entire experiment
