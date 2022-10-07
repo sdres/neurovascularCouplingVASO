@@ -71,6 +71,7 @@ rest_end = 30
 
 expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + rest_init + rest_end
 print(f'Total experiment time: {expDurtotal} seconds')
+print(f'Total experiment time: {expDurtotal/60} minutes')
 
 # Calculate nr of TRs to enter in scanning protocol
 TRs = expDurtotal/TR
