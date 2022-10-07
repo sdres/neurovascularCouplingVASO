@@ -13,15 +13,16 @@ import re
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# define root dir
-root = '/Users/sebastiandresbach/git/neurovascularCouplingVASO'
-# define subjects to work on
-subs = ['sub-01']
+# Define ROOT dir
+ROOT = '/Users/sebastiandresbach/git/neurovascularCouplingVASO'
+
+# Define subjects to work on
+SUBS = ['sub-01']
 
 
-for sub in subs:
+for sub in SUBS:
     # get all runs of all sessions
-    logFiles = sorted(glob.glob(f'{root}/code/stimulation/{sub}/ses-*/{sub}_ses-*_run-0*_neurovascularCoupling.log'))
+    logFiles = sorted(glob.glob(f'{ROOT}/code/stimulation/{sub}/ses-*/{sub}_ses-*_run-0*_neurovascularCoupling.log'))
 
     for logFile in logFiles:
         # get basename of current run
@@ -58,31 +59,12 @@ for sub in subs:
         # convert lists to arrays and compute stimulation durations
         durs = np.asarray(stimStop) - np.asarray(stimStart)
 
+        trials = ['stimulation']*len(durs)
+
         # make dataframe and save as text file
-        design = pd.DataFrame({'startTime': stimStart, 'duration': durs, 'mod' : np.ones(len(durs))})
-        np.savetxt(f'{root}/code/stimulation/{sub}/ses-01/{base}.txt', design.values, fmt='%1.2f')
+        design = pd.DataFrame({'onset': stimStart, 'duration': durs, 'trial_type' : trials})
 
-
-#
-#
-# # We might also want to know the distribution of inter trial intervals in order
-# # to check whether they are evenly distributed
-#
-# meanDur = np.mean(durs)
-# ITIs = []
-# for i, trial in enumerate(stimStart[:-1]):
-#     tmp = (stimStart[i+1]-trial)-meanDur
-#     ITIs.append(tmp)
-#
-# data = pd.DataFrame({'ITIs':ITIs})
-#
-# fig, ax = plt.subplots()
-# sns.histplot(data=data, x="ITIs", binwidth=0.5)
-# # sns.kdeplot(data=data, x="ITIs", bw_adjust=.25)
-# plt.title(f'Inter-Trial Intervals',fontsize=24)
-# plt.ylabel('# Trials',fontsize=24)
-# plt.yticks(fontsize=14)
-# plt.xticks(fontsize=14)
-# plt.xlabel('ITI (seconds)',fontsize=20)
-# plt.savefig(f'../results/ITIsCount.png',bbox_inches='tight')
-# plt.show()
+        design.to_csv(f'{ROOT}/{sub}/{ses}/{base}_events.tsv',
+                      sep = ' ',
+                      index = False
+                      )
