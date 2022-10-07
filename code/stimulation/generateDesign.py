@@ -8,9 +8,9 @@ import time
 FOLDER = '/Users/sebastiandresbach/github/neurovascularCouplingVASO/code/stimulation'
 
 # Pair TR (repetition time)
-TR = 2.509
+TR = 3.141
 # Number of jitters
-NR_JITTERS = 6
+NR_JITTERS = 4
 
 # Stimulus durations (in seconds)
 STIM_DURS = [1, 2, 4, 12, 24]
@@ -51,10 +51,10 @@ conditions = pd.DataFrame({'stimDur': stimDurArr,
 conditions = conditions.sample(frac=1).reset_index(drop=True)
 
 # Save the dataframe
-conditions.to_csv(
-    f'{FOLDER}/conditionTimings_TR-{TR}_jitters-{NR_JITTERS}_{dateNow}.csv',
-    index=False
-    )
+# conditions.to_csv(
+#     f'{FOLDER}/conditionTimings_TR-{TR}_jitters-{NR_JITTERS}_{dateNow}.csv',
+#     index=False
+#     )
 
 # Calculate run duration
 stimDurTotal = np.sum(conditions['stimDur'])  # total stim duration
@@ -70,7 +70,6 @@ rest_init = 30
 rest_end = 30
 
 expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + rest_init + rest_end
-print(f'Total experiment time: {expDurtotal} seconds')
 print(f'Total experiment time: {expDurtotal/60} minutes')
 
 # Calculate nr of TRs to enter in scanning protocol
