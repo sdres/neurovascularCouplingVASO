@@ -62,12 +62,12 @@ restDurTotal = np.sum(conditions['restDur'])  # total rest duration
 jitterDurTotal = np.sum(conditions['jitter'])  # total rest duration
 
 # Set initial rest (in seconds) to have a first baseline
-rest_init = 15
+rest_init = 30
 # Set final rest (in seconds) to account for the fact that we wait for scanner
 # triggers to start the stimulation on each trial. This effectively makes the
 # experiment longer and is not accounted for in the calculation above.
 # Also acts as baseline.
-rest_end = 50
+rest_end = 30
 
 expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + rest_init + rest_end
 print(f'Total experiment time: {expDurtotal} seconds')
