@@ -11,6 +11,8 @@ import time
 # Load a keyboard to enable abortion.
 defaultKeyboard = keyboard.Keyboard()
 
+currPath = os.path.dirname(os.path.abspath(__file__))
+
 # =============================================================================
 # Initial experiment settings
 # =============================================================================
@@ -155,7 +157,7 @@ stimFrameRate = 8  # Set stimulus frame rate in Hz
 # Initialize timings
 # =============================================================================
 
-trialTiming = pd.read_csv('/media/user/scanning/neurovascularCouplingVASO/code/stimulation/conditionTimings_TR-2.509_jitters-6_2022-09-28_09.26.csv')
+trialTiming = pd.read_csv(f'{currPath}/conditionTimings_TR-3.14_jitters-4_2022-10-06_21.57.csv')
 trialCounter = 0 # set counter for trials
 
 # Get duration of entire experiment
