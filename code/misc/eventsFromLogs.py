@@ -1,3 +1,9 @@
+'''
+
+Creating stimulation times from log files and saving in bids format
+
+'''
+
 import numpy as np
 import glob
 import pandas as pd
