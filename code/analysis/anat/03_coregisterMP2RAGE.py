@@ -11,12 +11,13 @@ import subprocess
 
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-subs = ['sub-03']
+subs = ['sub-05']
 
 for sub in subs:
 
     inDir = f'{ROOT}/derivatives/{sub}/anat/upsample'
     outDir = f'{ROOT}/derivatives/{sub}/anat/upsample/registration'
+
     if not os.path.exists(outDir):
         os.makedirs(outDir)
         print("Subject directory is created")
@@ -55,7 +56,6 @@ for sub in subs:
         # Save transformation
         command = f'cp {mytx["fwdtransforms"][0]} {outDir}/{base}_transform.mat'
         subprocess.run(command, shell = True)
-
 
 
     # # =========================================================================
