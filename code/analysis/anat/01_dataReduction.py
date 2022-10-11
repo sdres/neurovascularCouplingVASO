@@ -11,7 +11,7 @@ import subprocess
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-subs = ['sub-03']
+subs = ['sub-05']
 
 for sub in subs:
 
@@ -19,8 +19,6 @@ for sub in subs:
     if not os.path.exists(outDir):
         os.makedirs(outDir)
         print("Subject directory is created")
-
-
 
     # =========================================================================
     # Brain extraction
