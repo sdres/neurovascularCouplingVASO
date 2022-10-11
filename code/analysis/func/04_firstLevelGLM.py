@@ -13,99 +13,78 @@ import pandas as pd
 from nilearn.glm.first_level import FirstLevelModel
 import os
 import re
+import sys
+
+# Define current dir
+ROOT = os.getcwd()
+sys.path.append('./code/misc')
+
+from findTr import *
+
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-subs = ['sub-03']
+subs = ['sub-05']
+ses = 'ses-01'
 
 drift_model = 'Cosine'  # We use a discrete cosine transform to model signal drifts.
 high_pass = .01  # The cutoff for the drift model is 0.01 Hz.
 hrf_model = 'spm'  # The hemodynamic response function is the SPM canonical one.
 
 
-def findTR(logfile):
-    with open(logfile) as f:
-        f = f.readlines()
-
-    triggerTimes = []
-    for line in f[1:]:
-        if re.findall("Keypress: 5",line):
-            triggerTimes.append(float(re.findall("\d+\.\d+", line)[0]))
-
-    triggerTimes[0] = 0
-
-    triggersSubtracted = []
-    for n in range(len(triggerTimes)-1):
-        triggersSubtracted.append(float(triggerTimes[n+1])-float(triggerTimes[n]))
-
-    meanFirstTriggerDur = np.mean(triggersSubtracted[::2])
-    meanSecondTriggerDur = np.mean(triggersSubtracted[1::2])
-
-    # find mean trigger-time
-    meanTriggerDur = (meanFirstTriggerDur+meanSecondTriggerDur)/2
-    return meanTriggerDur
-
-
-
 for sub in subs:
 
-    funcDir = f'{ROOT}/derivatives/{sub}/func'
+    funcDir = f'{ROOT}/derivatives/{sub}'
     # make folder to dump statistocal maps
     statFolder = f'{funcDir}/statMaps'
+
     if not os.path.exists(statFolder):
         os.makedirs(statFolder)
         print("Statmap directory is created")
 
-    for ses in ['ses-01']:
+    trEff = findTR(f'code/stimulation/{sub}/ses-01/{sub}_ses-01_run-01_neurovascularCoupling.log')
+    trNom = trEff/4
 
+    for modality in ['vaso', 'bold']:
 
-        for acquiType in ['SingleShot', 'MultiShot']:
+        runs = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/{sub}_task-stimulation_*_{modality}_intemp.nii*'))
 
-            if acquiType == 'SingleShot':
-                tr = findTR(f'code/stimulation/{sub}/ses-01/{sub}ses-01blockStim_30sOnOffrun-01.log')
-            if acquiType == 'MultiShot':
-                tr = findTR(f'code/stimulation/{sub}/ses-01/{sub}ses-01blockStim_30sOnOffrun-03.log')
+        for run in runs:
+            base = os.path.basename(run).rsplit('.', 2)[0][:-21]
 
-            for modality in ['vaso', 'bold']:
+            # niiFile = f'{funcDir}/{base}_{modality}.nii.gz'
+            nii = nb.load(run)
+            data = nii.get_fdata()
+            nVols = data.shape[-1]
+            frame_times = np.arange(nVols) * trNom
 
-                runs = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/{sub}_task-stim{acquiType}_*_{modality}_intemp.nii*'))
+            events = pd.read_csv(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-01_part-mag_events.tsv', sep = ',')
 
-                for run in runs:
-                    base = os.path.basename(run).rsplit('.', 2)[0][:-21]
+            design_matrix = make_first_level_design_matrix(
+                frame_times,
+                events,
+                hrf_model=hrf_model,
+                drift_model = None,
+                high_pass= high_pass
+                )
 
-                    # niiFile = f'{funcDir}/{base}_{modality}.nii.gz'
-                    nii = nb.load(run)
-                    data = nii.get_fdata()
-                    nVols = data.shape[-1]
-                    frame_times = np.arange(nVols) * tr
+            contrast_matrix = np.eye(design_matrix.shape[1])
+            basic_contrasts = dict([(column, contrast_matrix[i])
+                        for i, column in enumerate(design_matrix.columns)])
 
-                    events = pd.read_csv(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-stim{acquiType}_run-01_part-mag_events.tsv', sep = ',')
+            if modality == 'bold':
+                contrasts = {'stimulation': + basic_contrasts['stimulation']
+                    }
 
-                    design_matrix = make_first_level_design_matrix(
-                        frame_times,
-                        events,
-                        hrf_model=hrf_model,
-                        drift_model = None,
-                        high_pass= high_pass
-                        )
+            if modality == 'vaso':
+                contrasts = {'stimulation': - basic_contrasts['stimulation']
+                    }
 
-                    contrast_matrix = np.eye(design_matrix.shape[1])
-                    basic_contrasts = dict([(column, contrast_matrix[i])
-                                for i, column in enumerate(design_matrix.columns)])
+            fmri_glm = FirstLevelModel(mask_img = False, drift_model=None)
+            fmri_glm = fmri_glm.fit(nii, design_matrices = design_matrix)
 
-                    if modality == 'bold':
-                        contrasts = {'stimulation': + basic_contrasts['stimulation']
-                            }
-
-                    if modality == 'vaso':
-                        contrasts = {'stimulation': - basic_contrasts['stimulation']
-                            }
-
-                    fmri_glm = FirstLevelModel(mask_img = False, drift_model=None)
-                    fmri_glm = fmri_glm.fit(nii, design_matrices = design_matrix)
-
-                    # Iterate on contrasts
-                    for contrast_id, contrast_val in contrasts.items():
-                        # compute the contrasts
-                        z_map = fmri_glm.compute_contrast(
-                            contrast_val, output_type='z_score')
-                        nb.save(z_map, f'{statFolder}/{base}_{modality}_{contrast_id}.nii')
+            # Iterate on contrasts
+            for contrast_id, contrast_val in contrasts.items():
+                # compute the contrasts
+                z_map = fmri_glm.compute_contrast(
+                    contrast_val, output_type='z_score')
+                nb.save(z_map, f'{statFolder}/{base}_{modality}_{contrast_id}.nii')
