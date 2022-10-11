@@ -15,6 +15,12 @@ from IPython.display import clear_output
 import nipype.interfaces.fsl as fsl
 import itertools
 import pandas as pd
+import sys
+
+sys.path.append('./code/misc')
+
+from computeT1w import *
+
 
 # Set some paths
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
