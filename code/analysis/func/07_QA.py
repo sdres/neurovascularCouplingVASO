@@ -18,7 +18,7 @@ metricList = []
 valList = []
 
 
-for sub in ['sub-01']:
+for sub in ['sub-05']:
     for modality in ['vaso', 'bold']:
         for metric in ['tSNR', 'kurt', 'skew', 'mean']:
             nii = nb.load(f'{DATADIR}/{sub}/{sub}_task-stimulation_part-mag_{modality}_intemp_{metric}.nii.gz')
@@ -54,11 +54,11 @@ for metric in ['tSNR']:
 
     plt.title(f'ROI {metric}',fontsize=24)
     # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    plt.ylabel('voxel fraction',fontsize=24)
+    plt.ylabel('voxel count',fontsize=24)
     plt.yticks([])
 
     if metric == 'tSNR':
-        ticks = np.arange(5,41,5)
+        ticks = np.arange(5,31,5)
         plt.xticks(ticks, fontsize=14)
 
     plt.xlabel(f'{metric}',fontsize=20)
@@ -68,7 +68,7 @@ for metric in ['tSNR']:
     handles = old_legend.legendHandles
     labels = [t.get_text() for t in old_legend.get_texts()]
     title = old_legend.get_title().get_text()
-    ax.legend(handles, labels, loc='upper left', title='', fontsize=18)
-    plt.savefig(f'../../results/{metric}.png',bbox_inches='tight')
+    ax.legend(handles, labels, loc='upper left', title='', fontsize=16)
+    plt.savefig(f'results/{metric}.png',bbox_inches='tight')
 
     plt.show()
