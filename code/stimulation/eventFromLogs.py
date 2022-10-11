@@ -14,17 +14,13 @@ import re
 # define ROOT dir
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # define subjects to work on
-subs = ['sub-03']
+subs = ['sub-05']
 
 for sub in subs:
     # get all runs of all sessions
     runs = sorted(glob.glob(f'{ROOT}/{sub}/ses-*/func/{sub}_ses-*_task-*_run-0*_*.nii.gz'))
 
-    for run in runs[:]:
-        if 'pilot' in run:
-            runs.remove(run)
-
-    for run in runs[::2]:
+    for run in runs:
         # get basename of current run
         base = os.path.basename(run).rsplit('.', 2)[0][:-4]
         # see session in which it was acquired
@@ -33,11 +29,8 @@ for sub in subs:
         if 'ses-02' in base:
             ses='ses-02'
 
-
-        if 'SingleShot' in base:
-            logFile = pd.read_csv(f'code/stimulation/{sub}/ses-01/{sub}ses-01blockStim_30sOnOffrun-01.log',usecols=[0])
-        if 'MultiShot' in base:
-            logFile = pd.read_csv(f'code/stimulation/{sub}/ses-01/{sub}ses-01blockStim_30sOnOffrun-03.log',usecols=[0])
+        log = f'code/stimulation/{sub}/ses-01/{sub}_ses-01_run-01_neurovascularCoupling.log'
+        logFile = pd.read_csv(log,usecols=[0])
 
         # Because the column definition will get hickups if empty colums are
         # present, we find line with first trigger to then load the file anew,
@@ -46,14 +39,14 @@ for sub in subs:
             if re.search('Keypress: 5', str(row)):
                 firstVolRow = index
                 break
+
         # define column names
         ColNames = ['startTime', 'type', 'event']
         # load logfile again, starting with first trigger
         # logFile = pd.read_csv(f'{ROOT}/derivatives/{sub}/{ses}/events/{base}.log', sep = '\t',skiprows=firstVolRow, names = ColNames)
-        if 'SingleShot' in base:
-            logFile = pd.read_csv(f'code/stimulation/{sub}/ses-01/{sub}ses-01blockStim_30sOnOffrun-01.log', sep = '\t',skiprows=firstVolRow, names = ColNames)
-        if 'MultiShot' in base:
-            logFile = pd.read_csv(f'code/stimulation/{sub}/ses-01/{sub}ses-01blockStim_30sOnOffrun-03.log', sep = '\t',skiprows=firstVolRow, names = ColNames)
+
+        logFile = pd.read_csv(log, sep = '\t',skiprows=firstVolRow, names = ColNames)
+
         # initiate lists
         stimStart = []
         stimStop = []
