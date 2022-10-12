@@ -14,7 +14,8 @@ from IPython.display import clear_output
 import nipype.interfaces.fsl as fsl
 import itertools
 import pandas as pd
-
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def my_ants_affine_to_distance(affine, unit):
 
@@ -36,152 +37,329 @@ def my_ants_affine_to_distance(affine, unit):
     return T, R
 
 
-subs = ['sub-05']
+SUBS = ['sub-05']
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
-ses = 'ses-01'
+
+# ============================================================================
+# Set global plotting parameters
+
+plt.style.use('dark_background')
+PALETTE = {'bold': 'tab:orange','cbv': 'tab:blue'}
+
+LW = 2
+motionPalette = ['Set1', 'Set2']
 
 
+# ============================================================================
+# Read motion parameters from transformation files
+# ============================================================================
 
-for sub in subs:
+for sub in SUBS:
+    print(f'Working on {sub}')
 
-    funcDir = f'{ROOT}/derivatives/{sub}/ses-01/func'
+    # =========================================================================
+    # Look for sessions
+    # Collectall runs across sessions (containing both nulled and notnulled images)
+    allRuns = sorted(glob.glob(f'{ROOT}/{sub}/ses-*/func/{sub}_ses-0*_task-*run-0*_part-mag*.nii.gz'))
 
-    # look for individual runs (containing both nulled and notnulled images)
-    runs = sorted(glob.glob(f'{ROOT}/{sub}/ses-0*/func/{sub}_ses-0*_task-*run-0*_part-mag_*.nii*'))
+    # Initialte list for sessions
+    sessions = []
+    # Find all sessions
+    for run in allRuns:
+        for i in range(1,3):  # We had a maximum of 2 sessions
+            if f'ses-0{i}' in run:
+                sessions.append(f'ses-0{i}')
+
+    # Get rid of duplicates
+    sessions = sorted(set(sessions))
+    print(f'Found data from sessions: {sessions}')
+
+    for ses in sessions:
+        funcDir = f'{ROOT}/derivatives/{sub}/{ses}/func'
+
+        # Look for individual runs (containing both nulled and notnulled images)
+        runs = sorted(glob.glob(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-*run-0*_part-mag*.nii.gz'))
+
+        for run in runs:
+            base = os.path.basename(run).rsplit('.', 2)[0]
+            print(f'Processing run {base}')
+
+            # Set folder where motion traces were dumped
+            motionDir = f'{funcDir}/motionParameters/{base}'
+
+            # Find modality of run
+            modality = base.split('_')[-1]
+
+            # Get all transformation matrices
+            mats = sorted(glob.glob(f'{motionDir}/{base}_vol*'))
+
+            Tr = []; Rt = []
+
+            for i, mat in enumerate(mats):
+
+                localtxp = ants.read_transform(mat)
+                affine = localtxp.parameters
+
+                T, R = my_ants_affine_to_distance(affine, 'rad')
+
+                Tr.append(T)
+                Rt.append(R)
+
+            # // Save motion traces intra-run as .csv
+            Tr = np.asarray(Tr)
+            Rt = np.asarray(Rt)
+
+            data_dict = {
+            'Tx': Tr[:, 0],
+            'Ty': Tr[:, 1],
+            'Tz': Tr[:, 2],
+            'Rx': Rt[:, 0],
+            'Ry': Rt[:, 1],
+            'Rz': Rt[:, 2]
+            }
+
+            pd_ses = pd.DataFrame(data=data_dict)
+            pd_ses.to_csv(os.path.join(motionDir, f'{base}_motionTraces.csv'), index = False)
 
 
-    motionTraces = []
-    motionNames = []
-    volumes = []
-    modalityList = []
-    runList = []
+# =================================================================
+# Get motion summary
+# =================================================================
 
-    # Set folder where motion traces were dumped
-    motionDir = f'{funcDir}/motionParameters'
+for sub in SUBS:
+    print(f'Working on {sub}')
 
-    for run in runs:
-        base = os.path.basename(run).rsplit('.', 2)[0]
-        print(f'Processing run {base}')
+    # =========================================================================
+    # Look for sessions
+    # Collectall runs across sessions (containing both nulled and notnulled images)
+    allRuns = sorted(glob.glob(f'{ROOT}/{sub}/ses-*/func/{sub}_ses-0*_task-*run-0*_part-mag*.nii.gz'))
 
+    # Initialte list for sessions
+    sessions = []
+    # Find all sessions
+    for run in allRuns:
+        for i in range(1,3):  # We had a maximum of 2 sessions
+            if f'ses-0{i}' in run:
+                sessions.append(f'ses-0{i}')
 
-
-        modality = base.split('_')[-1]
-        data = pd.read_csv(f'{motionDir}/{base}/{base}_{modality}_motionRegressors.csv')
-
-        for col in data.columns:
-            tmp = data[col].to_numpy()
-
-            for i, val in enumerate(tmp, start = 1):
-                motionTraces.append(val)
-                motionNames.append(f'{col} {modality}')
-                volumes.append(i)
-                modalityList.append(modality)
-                runList.append(base)
-
-    data_dict = {
-    'volume': volumes,
-    'Motion': motionTraces,
-    'name': motionNames,
-    'modality': modalityList,
-    'run': runList
-        }
-
-    pd_ses = pd.DataFrame(data=data_dict)
-    pd_ses.to_csv(os.path.join(motionDir, f'{base}_motionSummary.csv'), index=False)
+    # Get rid of duplicates
+    sessions = sorted(set(sessions))
+    print(f'Found data from sessions: {sessions}')
+    for ses in sessions:
+        funcDir = f'{ROOT}/derivatives/{sub}/{ses}/func'
 
 
+        # look for individual runs (containing both nulled and notnulled images)
+        runs = sorted(glob.glob(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-*run-0*_part-mag*.nii.gz'))
+
+        motionDir = f'{funcDir}/motionParameters'
+
+        for run in runs[::2]:
+            base = os.path.basename(run).rsplit('.', 2)[0]
+
+            parts = base.split('_')
+            tmp = parts[0]
+            for part in parts[1:-1]:
+                tmp = tmp + '_' + part
+            base = tmp
+
+            print(f'Processing run {base}')
+
+            # =========================================================================
+            # Calculating framewise displacements
+
+            fd = []
+            timepoints = []
+            subjects=[]
+            mods = []
+
+            for modality in ['cbv', 'bold']:
+
+                tmpBase = base + '_' + modality
+
+                # Set folder where motion traces were dumped
+                runMotionDir = f'{funcDir}/motionParameters/{tmpBase}'
+
+                # Load FD data
+                data = pd.read_csv(os.path.join(runMotionDir, f'{tmpBase}_motionTraces.csv'))
+
+                TX = data['Tx'].to_numpy()
+                TY = data['Ty'].to_numpy()
+                TZ = data['Tz'].to_numpy()
+                RX = data['Rx'].to_numpy()
+                RY = data['Ry'].to_numpy()
+                RZ = data['Rz'].to_numpy()
+
+                for n in range(len(TX)-1):
+                    fdVol = abs(TX[n]-TX[n+1])+abs(TY[n]-TY[n+1])+abs(TZ[n]-TZ[n+1])+abs((50*RX[n])-(50*RX[n+1]))+abs((50*RY[n])-(50*RY[n+1]))+abs((50*RZ[n])-(50*RZ[n+1]))
+                    fd.append(fdVol)
+                    timepoints.append(n)
+                    subjects.append(sub)
+                    mods.append(modality)
 
 
+            FDs = pd.DataFrame({'subject':subjects, 'volume':timepoints, 'FD':fd, 'modality': mods})
+            FDs.to_csv(os.path.join(motionDir, f'{base}_FDs.csv'), index=False)
 
-for sub in subs:
 
-    funcDir = f'{ROOT}/derivatives/{sub}/{ses}/func'
+            # =========================================================================
+            # Formatting motion traces for plotting
 
-    # look for individual runs (containing both nulled and notnulled images)
-    runs = sorted(glob.glob(f'{ROOT}/{sub}/ses-0*/func/{sub}_ses-0*_task-*run-0*_part-mag*.nii.gz'))
+            motionTraces = []
+            motionNames = []
+            volumes = []
+            modalityList = []
 
-    for run in runs:
-        base = os.path.basename(run).rsplit('.', 2)[0]
-        print(f'Processing run {base}')
+            for modality in ['cbv', 'bold']:
+
+                tmpBase = base + '_' + modality
+
+                # Set folder where motion traces were dumped
+                runMotionDir = f'{funcDir}/motionParameters/{tmpBase}'
+
+                data = pd.read_csv(os.path.join(runMotionDir, f'{tmpBase}_motionTraces.csv'))
+
+                for col in data.columns:
+                    tmp = data[col].to_numpy()
+
+                    for i, val in enumerate(tmp, start = 1):
+                        motionTraces.append(val)
+                        motionNames.append(f'{col} {modality}')
+                        volumes.append(i)
+                        modalityList.append(modality)
+
+            data_dict = {
+            'volume': volumes,
+            'Motion': motionTraces,
+            'name': motionNames,
+            'modality': modalityList
+            }
+
+            pd_ses = pd.DataFrame(data = data_dict)
+            pd_ses.to_csv(os.path.join(motionDir, f'{base}_motionSummary.csv'), index=False)
+
+
+# =================================================================
+# Plotting
+# =================================================================
+
+for sub in SUBS:
+    print(f'Working on {sub}')
+
+    # =========================================================================
+    # Look for sessions
+    # Collectall runs across sessions (containing both nulled and notnulled images)
+    allRuns = sorted(glob.glob(f'{ROOT}/{sub}/ses-*/func/{sub}_ses-0*_task-*run-0*_part-mag*.nii.gz'))
+
+    # Initialte list for sessions
+    sessions = []
+    # Find all sessions
+    for run in allRuns:
+        for i in range(1,3):  # We had a maximum of 2 sessions
+            if f'ses-0{i}' in run:
+                sessions.append(f'ses-0{i}')
+
+    # Get rid of duplicates
+    sessions = sorted(set(sessions))
+    print(f'Found data from sessions: {sessions}')
+    for ses in sessions:
+        funcDir = f'{ROOT}/derivatives/{sub}/{ses}/func'
+
+        # look for individual runs (containing both nulled and notnulled images)
+        runs = sorted(glob.glob(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-*run-0*_part-mag*.nii.gz'))
 
         # Set folder where motion traces were dumped
-        motionDir = f'{funcDir}/motionParameters/{base}'
+        motionDir = f'{funcDir}/motionParameters'
 
-        # Find modality of run
-        modality = base.split('_')[-1]
-        mats = sorted(glob.glob(f'{motionDir}/{base}_vol*'))
+        for run in runs[::2]:
+            base = os.path.basename(run).rsplit('.', 2)[0]
 
-        Tr = []; Rt = []
+            parts = base.split('_')
+            tmp = parts[0]
+            for part in parts[1:-1]:
+                tmp = tmp + '_' + part
+            base = tmp
 
-        for i, mat in enumerate(mats):
+            print(f'Processing run {base}')
 
-            localtxp = ants.read_transform(mat)
-            affine = localtxp.parameters
+            # Load motion data
+            data = pd.read_csv(os.path.join(motionDir, f'{base}_motionSummary.csv'))
 
-            T, R = my_ants_affine_to_distance(affine, 'rad')
+            # Initialize plot
+            fig, axes = plt.subplots(1, 2, sharex = True, figsize = (30, 6))
+            plt.suptitle(f'{base[:-9]} Motion Summary', fontsize = 24)
 
-            Tr.append(T)
-            Rt.append(R)
+            # Plotting translation and rotation on different axes
+            for i, type in enumerate(['T', 'R']):
 
+                # Only plot legend for rotation plot (will be on the right)
+                # Colors are the same for both plots
 
-        # // Save motion traces intra-run as .csv
-        Tr = np.asarray(Tr)
-        Rt = np.asarray(Rt)
+                if type == 'T':
+                    legend = False
+                if type == 'R':
+                    legend = True
 
-        data_dict = {
-        'Tx': Tr[:, 0],
-        'Ty': Tr[:, 1],
-        'Tz': Tr[:, 2],
-        'Rx': Rt[:, 0],
-        'Ry': Rt[:, 1],
-        'Rz': Rt[:, 2]
-        }
+                for modality, cmap in zip(['cbv', 'bold'], ['Set1','Set2']):
 
-        pd_ses = pd.DataFrame(data=data_dict)
-        pd_ses.to_csv(os.path.join(motionDir, f'{base}_{modality}_motionRegressors.csv'), index=False)
+                    if modality == 'cbv':
+                        tmpData = data.loc[(data['name'].str.contains(type)) & (-data['name'].str.contains('bold'))]
+                    else:
+                        tmpData = data.loc[(data['name'].str.contains(type)) & (data['name'].str.contains('bold'))]
 
+                    sns.lineplot(ax=axes[i], x='volume',y='Motion', data=tmpData, hue='name', palette = cmap,linewidth = LW,legend=legend)
 
+            # Set y label
+            axes[0].set_ylabel("Translation [mm]", fontsize=24)
+            axes[1].set_ylabel("Rotation [radians]", fontsize=24)
 
-for sub in subs:
+            # Colors are the same for both plots so we only need one legend
+            axes[1].legend(fontsize = 20,
+                           loc = 'center left',
+                           bbox_to_anchor = (1, 0.5)
+                           )
 
-    funcDir = f'{ROOT}/derivatives/{sub}/{ses}/func'
+            # X label is the same for both plots
+            for j in range(2):
+                axes[j].tick_params(axis = 'both', labelsize = 20)
+                axes[j].set_xlabel("Volume", fontsize = 24)
 
-    # look for individual runs (containing both nulled and notnulled images)
-    runs = sorted(glob.glob(f'{ROOT}/{sub}/ses-0*/func/{sub}_ses-0*_task-*run-0*_part-mag*.nii.gz'))
+            # Save figure
+            plt.savefig(f'results/motionParameters/{base}_motion.jpg', bbox_inches = 'tight', pad_inches = 0)
+            plt.show()
 
+            # =========================================================================
+            # Plotting FDs
 
-    for run in runs:
-        base = os.path.basename(run).rsplit('.', 2)[0][:-4]
-        print(f'Processing run {base}')
-        # Set folder where motion traces were dumped
-        motionDir = f'{funcDir}/motionParameters/{base}'
+            FDs = pd.read_csv(os.path.join(motionDir, f'{base}_FDs.csv'))
 
-        sub_FD = []
-        timepoints = []
-        subjects=[]
-        mods = []
-        runList = []
+            plt.figure(figsize=(20,5))
 
+            sns.lineplot(data=FDs,
+                         x = 'volume',
+                         y = 'FD',
+                         hue = 'modality',
+                         linewidth = LW,
+                         palette = PALETTE
+                         )
 
-        modality = base.split('_')[-1]
-
-        data = pd.read_csv(os.path.join(motionDir, f'{base}_{modality}_motionRegressors.csv'))
-
-        TX = data['Tx'].to_numpy()
-        TY = data['Ty'].to_numpy()
-        TZ = data['Tz'].to_numpy()
-        RX = data['Rx'].to_numpy()
-        RY = data['Ry'].to_numpy()
-        RZ = data['Rz'].to_numpy()
-
-        for n in range(len(TX)-4):
-            FD_trial = abs(TX[n]-TX[n+1])+abs(TY[n]-TY[n+1])+abs(TZ[n]-TZ[n+1])+abs((50*RX[n])-(50*RX[n+1]))+abs((50*RY[n])-(50*RY[n+1]))+abs((50*RZ[n])-(50*RZ[n+1]))
-            sub_FD.append(FD_trial)
-            timepoints.append(n)
-            subjects.append(sub)
-            mods.append(modality)
-            # runList.append(base)
+            if np.max(FDs['FD']) < 0.9:
+                plt.ylim(0,1)
 
 
-    FDs = pd.DataFrame({'subject':subjects, 'volume':timepoints, 'FD':sub_FD, 'modality': mods})
-    FDs.to_csv(os.path.join(motionDir, f'{base}_FDs.csv'), index=False)
+            plt.axhline(0.9, color = 'gray', linestyle = '--')
+            plt.ylabel('FD [mm]', fontsize = 24)
+            plt.xlabel('Volume', fontsize = 24)
+
+            plt.legend(fontsize = 20,
+                       loc = 'center left',
+                       bbox_to_anchor = (1, 0.5)
+                       )
+
+
+            plt.xticks(fontsize = 20)
+            plt.yticks(fontsize = 20)
+
+            plt.title(base[:-9], fontsize = 24, pad = 20)
+            plt.savefig(f'results/motionParameters/{base}_FDs.png', bbox_inches = 'tight', pad_inches = 0)
+            plt.show()
