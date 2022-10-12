@@ -17,7 +17,7 @@ ROOT = os.getcwd()
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 # Define subjects to work on
-subs = ['sub-01']
+subs = ['sub-05']
 
 # =============================================================================
 # Extract timecourses
@@ -25,19 +25,18 @@ subs = ['sub-01']
 
 for sub in subs:
     for modality in ['vaso', 'bold']:
-        run = (f'{DATADIR}/{sub}/
-               {sub}_task-stimulation_part-mag_{modality}_intemp.nii.gz'
+
+        run = f'{DATADIR}/{sub}/{sub}_task-stimulation_part-mag_{modality}_intemp.nii.gz'
 
         nii = nb.load(run)
         header = nii.header
         data = nii.get_fdata()
 
-        mask = nb.load(f'{DATADIR}/v1Mask.nii.gz').get_fdata()
+        mask = nb.load(f'{DATADIR}/{sub}/v1Mask.nii.gz').get_fdata()
 
         mask_mean = np.mean(data[:, :, :][mask.astype(bool)], axis=0)
 
-        np.save(f'{DATADIR}/
-                {sub}_task-stimulation_part-mag_{modality}_intemp_timecourse',
+        np.save(f'{DATADIR}/{sub}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse',
                 mask_mean
                 )
 
