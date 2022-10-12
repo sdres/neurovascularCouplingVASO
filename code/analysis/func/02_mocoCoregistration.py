@@ -70,60 +70,60 @@ for sub in subs:
             base = os.path.basename(run).rsplit('.', 2)[0]
             print(f'Processing run {base}')
 
-            # # Find modality of run
-            # modality = base.split('_')[-1]
-            #
-            # # Load data
-            # nii = nb.load(run)  # Load nifti
-            # header = nii.header  # Get header
-            # affine = nii.affine  # Get affine
-            # data = nii.get_fdata()  # Load data as array
-            #
-            # # Overwrite first 3 volumes with volumes 4,5,6
-            # new = np.concatenate((data[:,:,:,3:6],data[:,:,:,3:]), axis = 3)
-            # img = nb.Nifti1Image(new, header = header, affine = affine)
-            # nb.save(img, f'{sesDir}/{base}.nii.gz')
-            #
-            # # Make moma
-            # print('Generating mask')
-            # subprocess.run(f'3dAutomask -prefix {sesDir}/{base}_moma.nii.gz -peels 3 -dilate 2 {sesDir}/{base}.nii.gz', shell=True)
-            #
-            # # Make reference image from volumes 5-7
-            # reference = np.mean(data[:,:,:,3:6], axis = -1)
-            # # And save it
-            # img = nb.Nifti1Image(reference, header = header, affine = affine)
-            # nb.save(img, f'{sesDir}/{base}_reference.nii.gz')
-            #
-            # # Load reference in antsPy style
-            # fixed = ants.image_read(f'{sesDir}/{base}_reference.nii.gz')
-            #
-            # # Get motion mask
-            # mask = ants.image_read(f'{sesDir}/{base}_moma.nii.gz')
-            #
-            # # Load data in antsPy style
-            # ts = ants.image_read(f'{sesDir}/{base}.nii.gz')
-            #
-            #
-            # # Perform motion correction
-            # print(f'Starting with MOCO...')
-            # corrected = ants.motion_correction(ts, fixed = fixed, mask = mask)
-            # ants.image_write(corrected['motion_corrected'], f'{sesDir}/{base}_moco.nii.gz')
-            #
-            # # =================================================================
-            # # Saving motion traces
-            # print(f'Saving motion traces...')
-            #
-            # # Set folder for motion traces
-            # runMotionDir = f'{motionDir}/{base}'
-            # # Make folder to dump motion traces if it does not exist
-            # if not os.path.exists(runMotionDir):
-            #     os.makedirs(runMotionDir)
-            #     print("Runwise motion directory is created")
-            #
-            # # Save transformation matrix for later
-            # for vol, matrix in enumerate(corrected['motion_parameters']):
-            #     mat = matrix[0]
-            #     os.system(f"cp {mat} {runMotionDir}/{base}_vol{vol:03d}.mat")
+            # Find modality of run
+            modality = base.split('_')[-1]
+
+            # Load data
+            nii = nb.load(run)  # Load nifti
+            header = nii.header  # Get header
+            affine = nii.affine  # Get affine
+            data = nii.get_fdata()  # Load data as array
+
+            # Overwrite first 3 volumes with volumes 4,5,6
+            new = np.concatenate((data[:,:,:,3:6],data[:,:,:,3:]), axis = 3)
+            img = nb.Nifti1Image(new, header = header, affine = affine)
+            nb.save(img, f'{sesDir}/{base}.nii.gz')
+
+            # Make moma
+            print('Generating mask')
+            subprocess.run(f'3dAutomask -prefix {sesDir}/{base}_moma.nii.gz -peels 3 -dilate 2 {sesDir}/{base}.nii.gz', shell=True)
+
+            # Make reference image from volumes 5-7
+            reference = np.mean(data[:,:,:,3:6], axis = -1)
+            # And save it
+            img = nb.Nifti1Image(reference, header = header, affine = affine)
+            nb.save(img, f'{sesDir}/{base}_reference.nii.gz')
+
+            # Load reference in antsPy style
+            fixed = ants.image_read(f'{sesDir}/{base}_reference.nii.gz')
+
+            # Get motion mask
+            mask = ants.image_read(f'{sesDir}/{base}_moma.nii.gz')
+
+            # Load data in antsPy style
+            ts = ants.image_read(f'{sesDir}/{base}.nii.gz')
+
+
+            # Perform motion correction
+            print(f'Starting with MOCO...')
+            corrected = ants.motion_correction(ts, fixed = fixed, mask = mask)
+            ants.image_write(corrected['motion_corrected'], f'{sesDir}/{base}_moco.nii.gz')
+
+            # =================================================================
+            # Saving motion traces
+            print(f'Saving motion traces...')
+
+            # Set folder for motion traces
+            runMotionDir = f'{motionDir}/{base}'
+            # Make folder to dump motion traces if it does not exist
+            if not os.path.exists(runMotionDir):
+                os.makedirs(runMotionDir)
+                print("Runwise motion directory is created")
+
+            # Save transformation matrix for later
+            for vol, matrix in enumerate(corrected['motion_parameters']):
+                mat = matrix[0]
+                os.system(f"cp {mat} {runMotionDir}/{base}_vol{vol:03d}.mat")
 
             # =========================================================================
             # Compute T1w image in EPI space within run
