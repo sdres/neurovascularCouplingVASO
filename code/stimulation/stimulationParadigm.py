@@ -21,7 +21,8 @@ currPath = os.path.dirname(os.path.abspath(__file__))
 expName = 'neurovascularCouplingVASO'
 expInfo = {'participant': 'sub-01',
            'session': 'ses-01',
-           'run': 'run-01'
+           'run': 'run-01',
+           'ITI': ['long', 'short']
            }
 
 # Load a GUI in which the preset parameters can be changed.
@@ -157,7 +158,7 @@ stimFrameRate = 8  # Set stimulus frame rate in Hz
 # Initialize timings
 # =============================================================================
 
-trialTiming = pd.read_csv(f'{currPath}/conditionTimings_TR-3.14_jitters-4_2022-10-06_21.57.csv')
+trialTiming = pd.read_csv(f'{currPath}/{expInfo["participant"]}_{expInfo["session"]}_timings_TR-3.141_jitters-4_ITI-{expInfo["ITI"]}.csv')
 trialCounter = 0 # set counter for trials
 
 # Get duration of entire experiment

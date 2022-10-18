@@ -17,8 +17,13 @@ STIM_DURS = [1, 2, 4, 12, 24]
 # STIM_DURS =  [1, 2, 3, 4, 5]  # Short stimulus durations for debugging
 
 # Rest durations (in seconds)
-REST_DURS = [12, 14, 16, 20, 24]
-# REST_DURS = [2, 2, 2, 2, 2]  # Short rest durations for debugging
+REST_DURS = {'short': [12, 14, 16, 20, 24],
+             'long': [20, 22, 24, 30, 40]}
+# REST_DURS = [20, 22, 24, 30, 40]  # Long ITIs for baseline recovering
+
+sub = 'sub-06'
+ses = 'ses-03'
+ITI = 'long'
 
 # =============================================================================
 dateNow = time.strftime("%Y-%m-%d_%H.%M")
@@ -28,8 +33,8 @@ for i, stimDur in enumerate(STIM_DURS[1:]):
     for n in range(NR_JITTERS):
         stimDurArr = np.append(stimDurArr, stimDur)
 
-restDurArr = np.ones(NR_JITTERS)*REST_DURS[0]
-for i, restDur in enumerate(REST_DURS[1:]):
+restDurArr = np.ones(NR_JITTERS)*REST_DURS[ITI][0]
+for i, restDur in enumerate(REST_DURS[ITI][1:]):
     for n in range(NR_JITTERS):
         restDurArr = np.append(restDurArr, restDur)
 
@@ -51,10 +56,10 @@ conditions = pd.DataFrame({'stimDur': stimDurArr,
 conditions = conditions.sample(frac=1).reset_index(drop=True)
 
 # Save the dataframe
-# conditions.to_csv(
-#     f'{FOLDER}/conditionTimings_TR-{TR}_jitters-{NR_JITTERS}_{dateNow}.csv',
-#     index=False
-#     )
+conditions.to_csv(
+    f'{FOLDER}/{sub}_{ses}_timings_TR-{TR}_jitters-{NR_JITTERS}_ITI-{ITI}.csv',
+    index=False
+    )
 
 # Calculate run duration
 stimDurTotal = np.sum(conditions['stimDur'])  # total stim duration
@@ -70,7 +75,7 @@ rest_init = 30
 rest_end = 30
 
 expDurtotal = stimDurTotal + restDurTotal + jitterDurTotal + rest_init + rest_end
-print(f'Total experiment time: {expDurtotal/60} minutes')
+print(f'Total experiment time: {np.round(expDurtotal/60, decimals=2)} minutes')
 
 # Calculate nr of TRs to enter in scanning protocol
-TRs = expDurtotal/TR
+TRs = int(expDurtotal/TR)+1

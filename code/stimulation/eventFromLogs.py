@@ -14,7 +14,7 @@ import re
 # define ROOT dir
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # define subjects to work on
-subs = ['sub-05']
+subs = ['sub-06']
 
 for sub in subs:
     # get all runs of all sessions
