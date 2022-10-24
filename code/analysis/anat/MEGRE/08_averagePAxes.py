@@ -34,7 +34,7 @@ for sub in SUBS:
         NII_NAMES = []
 
         for dir in dirs:
-            NII_NAMES.append(f'{inDir}/{sub}_{ses}_T2s_run-01_dir-LR_part-mag_MEGRE_crop_ups2X_prepped.nii.gz')
+            NII_NAMES.append(f'{inDir}/{sub}_{ses}_T2s_run-01_dir-{dir}_part-mag_MEGRE_crop_ups2X_prepped.nii.gz')
 
 
         outName = f"sub-05_ses-T2s_dir-{axis}_part-mag_MEGRE_crop_ups2X_prepped_avg"
