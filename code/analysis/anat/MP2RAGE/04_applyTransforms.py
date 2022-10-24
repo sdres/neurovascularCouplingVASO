@@ -1,37 +1,38 @@
 '''
 
-Apply transformation to uni images.
+Apply transformation to MP2RAGE uni images.
 
 '''
 
 import ants
 import os
 import glob
-import subprocess
 
-ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
+DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-subs = ['sub-05']
+SUBS = ['sub-05']
 
-for sub in subs:
+for sub in SUBS:
 
-    inDir = f'{ROOT}/derivatives/{sub}/anat/upsample'
-    outDir = f'{ROOT}/derivatives/{sub}/anat/upsample/registration'
+    # Find uni images in all sessions
+    images = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-*/anat/upsample/*uni*.nii.gz'))
 
+    # Set and load reference image in antsPy
+    fixedFile = images[0]
+    fixed = ants.image_read(fixedFile)
 
-    # Find brain extracted inv-2 images
-    images = sorted(glob.glob(f'{inDir}/*uni*brain_up*.nii.gz'))
-    transforms = sorted(glob.glob(f'{outDir}/*transform.mat'))
+    transforms = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-*/anat/upsample/*transform.mat'))
 
-    fixed = ants.image_read(images[0])
     # =========================================================================
     # Apply transform
 
     for image, transform in zip(images[1:],transforms):
         base = os.path.basename(image).rsplit('.', 2)[0]
+        print(f'Processing {base}')
+        base, ext = image.split(os.extsep, 1)
 
         moving = ants.image_read(image)
 
         new = ants.apply_transforms(fixed, moving, transform)
 
-        ants.image_write(new, f'{outDir}/{base}_registered.nii', ri=False)
+        ants.image_write(new, f'{base}_registered.nii', ri=False)

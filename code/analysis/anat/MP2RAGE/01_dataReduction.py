@@ -10,9 +10,13 @@ import subprocess
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-SUBS = ['sub-05']
+SUBS = ['sub-06']
 
-for sub in subs:
+BBOX = {'sub-05': {'ylower': 10, 'yrange': 110, 'zlower': 123, 'zrange': 177}}
+BBOX = {'sub-06': {'ylower': 22, 'yrange': 110, 'zlower': 123, 'zrange': 177}}
+
+
+for sub in SUBS:
 
     # =========================================================================
     # Brain extraction
@@ -41,7 +45,7 @@ for sub in subs:
             print("Session output directory is created")
 
         # Find inv-2 images of session
-        inv2Images = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/anat/*inv-2*.nii.gz'))
+        inv2Images = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/*inv-2*_N4cor.nii.gz'))
 
         for image in inv2Images:
             inv2Base = os.path.basename(image).rsplit('.', 2)[0]
@@ -55,7 +59,7 @@ for sub in subs:
             subprocess.run(command, shell = True)
 
         # Find UNI images
-        uniImages = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/anat/*uni*.nii.gz'))
+        uniImages = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/*uni*_N4cor.nii.gz'))
 
         # Applying brain mask to UNI images
         for image in uniImages:
@@ -67,4 +71,42 @@ for sub in subs:
             command += f'{sesOutDir}/{inv2Base}_brain_mask.nii.gz '
             command += f'{sesOutDir}/{uniBase}_brain'
 
+            subprocess.run(command, shell = True)
+
+
+
+        # =========================================================================
+        # Cropping
+
+        images = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/*_N4cor_brain.nii.gz'))
+
+        tmpBBOX = BBOX[sub]
+
+        for image in images:
+            base = os.path.basename(image).rsplit('.', 2)[0]
+
+            command = 'fslroi '
+            command += f'{image} '
+            command += f'{sesOutDir}/{base}_crop.nii.gz '
+            command += f"0 207 {tmpBBOX['ylower']} {tmpBBOX['yrange']} {tmpBBOX['zlower']} {tmpBBOX['zrange']}"
+            # break
+            subprocess.run(command, shell = True)
+
+
+        # =========================================================================
+        # Cropping segmentation and sphere if present
+
+        images = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_*_pveseg_corrected.nii.gz'))
+        images.append(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_LH_sphere.nii.gz')
+
+        tmpBBOX = BBOX[sub]
+
+        for image in images:
+            base = os.path.basename(image).rsplit('.', 2)[0]
+
+            command = 'fslroi '
+            command += f'{image} '
+            command += f'{sesOutDir}/{base}_crop.nii.gz '
+            command += f"0 207 {tmpBBOX['ylower']} {tmpBBOX['yrange']} {tmpBBOX['zlower']} {tmpBBOX['zrange']}"
+            # break
             subprocess.run(command, shell = True)

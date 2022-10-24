@@ -18,10 +18,11 @@ sys.path.append('./code/misc')
 from findTr import *
 
 # Define data dir
-DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-05'
+DATADIR = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
 # Define subjects to work on
-subs = ['sub-05']
+subs = ['sub-05', 'sub-06']
+# sessions = ['ses-01', 'ses-02']
 
 # =============================================================================
 # Extract upsampled timecourse
@@ -33,148 +34,176 @@ valList = []
 stimDurList = []
 jitList = []
 interpList = []
+subList = []
+sesList = []
 
 for sub in subs:
-    logFile = f'code/stimulation/{sub}/ses-01/{sub}_ses-01_run-01_neurovascularCoupling.log'
+    subDir = f'{DATADIR}/{sub}'
 
-    trEff = findTR(logFile)
-    trNom = trEff/4
+    # =========================================================================
+    # Look for sessions
+    # Collectall runs across sessions (containing both nulled and notnulled images)
+    allRuns = sorted(glob.glob(f'{DATADIR}/{sub}/ses-*/func/{sub}_ses-0*_task-*run-0*_part-mag*.nii.gz'))
 
-    # get basename of current run
-    base = os.path.basename(logFile).rsplit('.', 2)[0]
-    # get logfile
-    data = pd.read_csv(f'{logFile}'
-                            ,usecols=[0])
+    # Initialte list for sessions
+    sessions = []
+    # Find all sessions
+    for run in allRuns:
+        for i in range(1,6):  # We had a maximum of 2 sessions
+            if f'ses-0{i}' in run:
+                sessions.append(f'ses-0{i}')
 
-    # Because the column definition will get hickups if empty colums are
-    # present, we find line with first trigger to then load the file anew,
-    # starting with that line
-    for index, row in data.iterrows():
-        if re.search('StartOfRun', str(row)):
-            firstVolRow = index+1
-            break
-    # define column names
-    ColNames = ['startTime', 'type', 'event']
+    # Get rid of duplicates
+    sessions = sorted(set(sessions))
+    print(f'Found data from sessions: {sessions}')
 
-    # load logfile again, starting with first trigger
-    logData = pd.read_csv(f'{logFile}', sep = '\t', skiprows=firstVolRow, names = ColNames)
+    for ses in sessions:
 
+        sesDir = f'{subDir}/{ses}/func'
 
-    # =============================================================================
-    # Get rest timepoints
-    # =============================================================================
+        logFile = f'code/stimulation/{sub}/{ses}/{sub}_{ses}_run-01_neurovascularCoupling.log'
 
-    allStartTRs = []
-    allStopTRs = []
+        trEff = findTR(logFile)
+        trNom = trEff/4
 
-    for stimDuration in [1., 2., 4., 12., 24.]:
+        # get basename of current run
+        base = os.path.basename(logFile).rsplit('.', 2)[0]
+        # get logfile
+        data = pd.read_csv(f'{logFile}'
+                                ,usecols=[0])
 
-        # initiate lists
-        trialStart = []
-        trialStop = []
-        jitterList = []
+        # Because the column definition will get hickups if empty colums are
+        # present, we find line with first trigger to then load the file anew,
+        # starting with that line
+        for index, row in data.iterrows():
+            if re.search('StartOfRun', str(row)):
+                firstVolRow = index+1
+                break
+        # define column names
+        ColNames = ['startTime', 'type', 'event']
 
-        stimSwitch = False
-
-        # loop over lines and fine stimulation start and stop times
-        for index, row in logData.iterrows():
-            if not logData['event'][index] != logData['event'][index]:  # Exclude NaNs
-
-                if re.search(f'stimDur = {stimDuration}', logData['event'][index]):
-                    stimSwitch = True
-                if re.search(f'stimulation started', logData['event'][index]) and stimSwitch == True:
-                    trialStart.append(logData['startTime'][index])
-                if re.search(f'jitter', logData['event'][index]) and stimSwitch == True:
-                    jitterList.append(logData['event'][index][-3:])
-                if re.search('Trial complete', logData['event'][index]) and stimSwitch == True:
-                    trialStop.append(logData['startTime'][index])
-                    stimSwitch = False
-
-        trialStart = np.asarray(trialStart)
-        trialStop = np.asarray(trialStop)
-
-        startTRs = trialStart / trNom
-        stopTRs = trialStop / trNom
-
-        for startTR, stopTR in zip(startTRs,stopTRs):
-            allStartTRs.append(startTR)
-            allStopTRs.append(startTR + (stimDuration / trNom))
-
-    allStartTRs.sort()
-    allStopTRs.sort()
-
-    allStartTRs = np.asarray(allStartTRs).astype('int')
-    allStopTRs = np.asarray(allStopTRs).astype('int')
+        # load logfile again, starting with first trigger
+        logData = pd.read_csv(f'{logFile}', sep = '\t', skiprows=firstVolRow, names = ColNames)
 
 
-    for stimDuration in [1., 2., 4., 12., 24.]:
+        # =============================================================================
+        # Get rest timepoints
+        # =============================================================================
 
-        # initiate lists
-        trialStart = []
-        trialStop = []
-        jitterList = []
+        allStartTRs = []
+        allStopTRs = []
 
-        stimSwitch = False
+        for stimDuration in [1., 2., 4., 12., 24.]:
 
-        # loop over lines and fine stimulation start and stop times
-        for index, row in logData.iterrows():
-            if not logData['event'][index] != logData['event'][index]:  # Exclude NaNs
+            # initiate lists
+            trialStart = []
+            trialStop = []
+            jitterList = []
 
-                if re.search(f'stimDur = {stimDuration}', logData['event'][index]):
-                    stimSwitch = True
-                if re.search(f'stimulation started', logData['event'][index]) and stimSwitch == True:
-                    trialStart.append(logData['startTime'][index])
-                if re.search(f'jitter', logData['event'][index]) and stimSwitch == True:
-                    jitterList.append(logData['event'][index][-3:])
-                if re.search('Trial complete', logData['event'][index]) and stimSwitch == True:
-                    trialStop.append(logData['startTime'][index])
-                    stimSwitch = False
+            stimSwitch = False
 
-        trialStart = np.asarray(trialStart)
-        trialStop = np.asarray(trialStop)
+            # loop over lines and fine stimulation start and stop times
+            for index, row in logData.iterrows():
+                if not logData['event'][index] != logData['event'][index]:  # Exclude NaNs
 
-        startTRs = (trialStart / (trNom))
-        stopTRs = (trialStop / (trNom))
+                    if re.search(f'stimDur = {stimDuration}', logData['event'][index]):
+                        stimSwitch = True
+                    if re.search(f'stimulation started', logData['event'][index]) and stimSwitch == True:
+                        trialStart.append(logData['startTime'][index])
+                    if re.search(f'jitter', logData['event'][index]) and stimSwitch == True:
+                        jitterList.append(logData['event'][index][-3:])
+                    if re.search('Trial complete', logData['event'][index]) and stimSwitch == True:
+                        trialStop.append(logData['startTime'][index])
+                        stimSwitch = False
 
-        nrTRs = int(np.mean(stopTRs-startTRs, axis=0))
-        stopTRs = startTRs+nrTRs
+            trialStart = np.asarray(trialStart)
+            trialStop = np.asarray(trialStop)
 
+            startTRs = trialStart / trNom
+            stopTRs = trialStop / trNom
 
-        trials = np.zeros((len(startTRs),nrTRs))
+            for startTR, stopTR in zip(startTRs,stopTRs):
+                allStartTRs.append(startTR)
+                allStopTRs.append(startTR + (stimDuration / trNom))
 
-        for modality in ['vaso', 'bold']:
-        # for modality in ['bold']:
-            mriData = np.load(f'{DATADIR}/{sub}_task-stimulation_part-mag_{modality}_intemp_timecourse.npy')
-            # Because we want the % signal-change, we need the mean
-            # of the voxels we are looking at.
-            mask_mean = np.mean(mriData)
+        allStartTRs.sort()
+        allStopTRs.sort()
 
-            # # Or we can normalize to the rest priods only
-            # restTRs = np.ones(mriData.shape, dtype=bool)
-            #
-            # for startTR, stopTR in zip(allStartTRs,allStopTRs):
-            #     restTRs[startTR:stopTR] = False
-            #
-            # mask_mean = np.mean(mriData[restTRs])
-
-            for i, (start, end) in enumerate(zip(startTRs, stopTRs)):
-                tmp = ((( mriData[int(start):int(end)] / mask_mean) - 1) * 100)
-
-                trials[i,:] = tmp
-                if modality == 'vaso':
-                    tmp = -tmp
-                for j, item in enumerate(tmp):
-                    timePointList.append(j)
-                    modalityList.append(modality)
-                    valList.append(item)
-                    stimDurList.append(stimDuration)
-                    jitList.append(jitterList[i])
-                    interpList.append(interpolationType)
+        allStartTRs = np.asarray(allStartTRs).astype('int')
+        allStopTRs = np.asarray(allStopTRs).astype('int')
 
 
-data = pd.DataFrame({'volume': timePointList, 'modality': modalityList, 'data': valList, 'stimDur': stimDurList, 'jitter': jitList, 'interpolation': interpList})
+        for stimDuration in [1., 2., 4., 12., 24.]:
 
-data.to_csv(f'/Users/sebastiandresbach/git/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',', index=False)
+            # initiate lists
+            trialStart = []
+            trialStop = []
+            jitterList = []
+
+            stimSwitch = False
+
+            # loop over lines and fine stimulation start and stop times
+            for index, row in logData.iterrows():
+                if not logData['event'][index] != logData['event'][index]:  # Exclude NaNs
+
+                    if re.search(f'stimDur = {stimDuration}', logData['event'][index]):
+                        stimSwitch = True
+                    if re.search(f'stimulation started', logData['event'][index]) and stimSwitch == True:
+                        trialStart.append(logData['startTime'][index])
+                    if re.search(f'jitter', logData['event'][index]) and stimSwitch == True:
+                        jitterList.append(logData['event'][index][-3:])
+                    if re.search('Trial complete', logData['event'][index]) and stimSwitch == True:
+                        trialStop.append(logData['startTime'][index])
+                        stimSwitch = False
+
+            trialStart = np.asarray(trialStart)
+            trialStop = np.asarray(trialStop)
+
+            startTRs = (trialStart / (trNom))
+            stopTRs = (trialStop / (trNom))
+
+            nrTRs = int(np.mean(stopTRs-startTRs, axis=0))
+            stopTRs = startTRs+nrTRs
+
+
+            trials = np.zeros((len(startTRs),nrTRs))
+
+            for modality in ['vaso', 'bold']:
+            # for modality in ['bold']:
+                mriData = np.load(f'{sesDir}/{sub}_{ses}_task-stimulation_run-avg_part-mag_{modality}_intemp_timecourse.npy')
+                # Because we want the % signal-change, we need the mean
+                # of the voxels we are looking at.
+                mask_mean = np.mean(mriData)
+
+                # # Or we can normalize to the rest priods only
+                # restTRs = np.ones(mriData.shape, dtype=bool)
+                #
+                # for startTR, stopTR in zip(allStartTRs,allStopTRs):
+                #     restTRs[startTR:stopTR] = False
+                #
+                # mask_mean = np.mean(mriData[restTRs])
+
+                for i, (start, end) in enumerate(zip(startTRs, stopTRs)):
+                    tmp = ((( mriData[int(start):int(end)] / mask_mean) - 1) * 100)
+                    # tmp = ((( mriData[int(start):int(end)] / mask_mean)) * 100)
+
+                    trials[i,:] = tmp
+                    if modality == 'vaso':
+                        tmp = -tmp
+                    for j, item in enumerate(tmp):
+                        timePointList.append(j)
+                        modalityList.append(modality)
+                        valList.append(item)
+                        stimDurList.append(stimDuration)
+                        jitList.append(jitterList[i])
+                        interpList.append(interpolationType)
+                        subList.append(sub)
+                        sesList.append(ses)
+
+
+data = pd.DataFrame({'subject': subList, 'session': sesList, 'volume': timePointList, 'modality': modalityList, 'data': valList, 'stimDur': stimDurList, 'jitter': jitList, 'interpolation': interpList})
+
+data.to_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',', index=False)
 
 plt.style.use('dark_background')
 
@@ -192,7 +221,7 @@ data.loc[(data['stimDur']==1.0)&(data['jitter']==0.0)]
 
 # for interpolationType in ['linear', 'cubic']:
 for interpolationType in ['linear']:
-    data = pd.read_csv(f'/Users/sebastiandresbach/git/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',')
+    data = pd.read_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',')
     data = data.loc[data['interpolation']==interpolationType]
 
     for stimDuration in [1., 2., 4., 12., 24.]:
@@ -200,19 +229,28 @@ for interpolationType in ['linear']:
 
         for modality in ['bold', 'vaso']:
 
-            val = np.mean(data.loc[(data['stimDur'] == stimDuration)&(data['volume'] == 0)&(data['modality'] == modality)]['data'])
+            val = np.mean(data.loc[(data['stimDur'] == stimDuration)
+                                 & (data['volume'] == 0)
+                                 & (data['modality'] == modality)]['data']
+                                 )
+
             tmp = data.loc[(data['stimDur'] == stimDuration)&(data['modality'] == modality)]
-            tmp['data'] = tmp['data'] - val
+
+            # if val > 0:
+            #     tmp['data'] = tmp['data'] - val
+            # if val < 0:
+                # tmp['data'] = tmp['data'] + val
+
             nrVols = len(np.unique(tmp['volume']))
 
             sns.lineplot(ax=ax1,
                          data = tmp,
-                         x="volume",
-                         y="data",
-                         color=palette[modality],
-                         linewidth=3,
-                         ci=None,
-                         label=modality,
+                         x = "volume",
+                         y = "data",
+                         color = palette[modality],
+                         linewidth = 3,
+                         # ci=None,
+                         label = modality,
                          )
 
         # Prepare x-ticks
@@ -247,7 +285,7 @@ for interpolationType in ['linear']:
         else:
             plt.title(f'{int(stimDuration)} seconds stimulation', fontsize=24,pad=10)
 
-        plt.savefig(f'./results/{sub}_stimDur-{int(stimDuration)}_intemp-{interpolationType}.png', bbox_inches = "tight")
+        # plt.savefig(f'./results/{sub}_stimDur-{int(stimDuration)}_intemp-{interpolationType}.png', bbox_inches = "tight")
 
         plt.show()
 
@@ -280,7 +318,7 @@ for stimDuration in [1., 2., 4., 12., 24.]:
                      y="data",
                      hue='jitter',
                      linewidth=2,
-                     ci=None,
+                     # ci=None,
                      palette=palettes[modality]
                      )
 
@@ -316,175 +354,6 @@ for stimDuration in [1., 2., 4., 12., 24.]:
 
     ax1.set_ylabel(r'Signal change [%]', fontsize=24)
     ax2.set_ylabel(r'', fontsize=24)
-    plt.savefig(f'results/{sub}_{int(stimDuration)}_jitters_intemp-linear.png', bbox_inches = "tight")
+    # plt.savefig(f'results/{sub}_{int(stimDuration)}_jitters_intemp-linear.png', bbox_inches = "tight")
 
     plt.show()
-
-
-
-# =============================================================================
-# Extract timecourse
-# =============================================================================
-
-
-for sub in subs:
-    fig = plt.figure()
-    logFile = f'../stimulation/{sub}/ses-01/{sub}_ses-01_run-01_neurovascularCoupling.log'
-    tr = findTR(logFile)
-
-    # get basename of current run
-    base = os.path.basename(logFile).rsplit('.', 2)[0]
-    # get logfile
-    data = pd.read_csv(f'{logFile}'
-                            ,usecols=[0])
-
-    # Because the column definition will get hickups if empty colums are
-    # present, we find line with first trigger to then load the file anew,
-    # starting with that line
-    for index, row in data.iterrows():
-        if re.search('StartOfRun', str(row)):
-            firstVolRow = index+1
-            break
-    # define column names
-    ColNames = ['startTime', 'type', 'event']
-
-    # load logfile again, starting with first trigger
-    logData = pd.read_csv(f'{logFile}', sep = '\t', skiprows=firstVolRow, names = ColNames)
-
-
-    # for stimDuration in [1., 2., 4., 12., 24.]:
-    for stimDuration in [2.]:
-
-        # initiate lists
-        trialStart = []
-        trialStop = []
-        jitterList = []
-
-        stimSwitch = False
-        # loop over lines and fine stimulation start and stop times
-        for index, row in logData.iterrows():
-            if not logData['event'][index] != logData['event'][index]:  # Exclude NaNs
-                if re.search(f'stimDur = {stimDuration}', logData['event'][index]):
-                    trialStart.append(logData['startTime'][index])
-                    stimSwitch = True
-                if re.search(f'jitter', logData['event'][index]) and stimSwitch == True:
-                    jitterList.append(logData['event'][index][-3:])
-                if re.search('Trial complete', logData['event'][index]) and stimSwitch == True:
-                    trialStop.append(logData['startTime'][index])
-                    stimSwitch = False
-
-
-
-        trialStart = np.asarray(trialStart)
-        trialStop = np.asarray(trialStop)
-
-        startTRs = (trialStart / trNom)
-        stopTRs = (trialStop / trNom)
-
-        nrTRs = int(np.mean(stopTRs-startTRs, axis=0))
-        stopTRs = startTRs+nrTRs
-
-
-        trials = np.zeros((len(startTRs),nrTRs))
-
-
-        fig = plt.figure()
-        # plt.title(stimDuration)
-
-        # for modality in ['vaso', 'bold']:
-        for modality in ['vaso']:
-
-            run = f'{DATADIR}/sub-01_task-stimulation_part-mag_{modality}_intemp.nii.gz'
-
-            nii = nb.load(run)
-            header = nii.header
-            data = nii.get_fdata()
-
-            mask = nb.load(f'{DATADIR}/v1Mask.nii.gz').get_fdata()
-
-            # Because we want the % signal-change, we need the mean
-            # of the voxels we are looking at.
-            mask_mean = np.mean(data[:, :, :][mask.astype(bool)])
-
-            for i, (start, end) in enumerate(zip(startTRs, stopTRs)):
-                tmp = np.mean((((data[:, :, :, int(start):int(end)][mask.astype(bool)]) / mask_mean)- 1) * 100,axis=0)
-                # print(tmp.shape)
-                trials[i,:] = tmp
-                plt.plot(tmp, linewidth=2, label = f'{stimDuration}s jitter: {jitterList[i]}')
-
-            if modality == 'vaso':
-                trials = -trials
-            avg = np.mean(trials,axis=0)
-
-        plt.legend()
-        plt.show()
-
-
-    plt.show()
-
-
-
-
-
-startTRs
-stopTRs
-
-for sub in ['sub-01']:
-    for modality in ['cbv', 'bold']:
-
-        outFolder = f'{ROOT}/derivatives/{sub}/'
-
-        # find all runs of participant
-        allRuns = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/ses-0*/{sub}_ses-0*_task-stimulation_run-0*_part-mag_{modality}_moco_registered.nii'))
-        firstRun = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/ses-01/{sub}_ses-01_task-stimulation_run-01_part-mag_{modality}_moco.nii'))
-        allRuns.insert(0, firstRun[0])
-        nrRuns = len(allRuns)
-
-        # find highest number of volumes
-        highstVolNr = 0
-
-        for run in allRuns:
-            nii = nb.load(run)
-            header = nii.header
-            dataShape = header.get_data_shape()
-            nrVolumes = dataShape[-1]
-            if nrVolumes > highstVolNr:
-                highstVolNr = nrVolumes
-
-        newShape = (
-            dataShape[0],
-            dataShape[1],
-            dataShape[2],
-            highstVolNr
-            )
-        newData = np.zeros(newShape)
-        divisor = np.zeros(newShape)
-
-        for run in allRuns:
-            nii = nb.load(run)
-            header = nii.header
-            data = nii.get_fdata()
-            nrVolumes = data.shape[-1]
-
-
-            newData[:,:,:,:nrVolumes] += data
-            divisor[:,:,:,:nrVolumes] += 1
-
-        newData = newData/divisor
-
-        nii = nb.load(allRuns[0])
-        header = nii.header
-        affine = nii.affine
-
-        # save image
-        img = nb.Nifti1Image(newData, header=header, affine=affine)
-        nb.save(img, f'{outFolder}/{sub}_task-stimulation_part-mag_{modality}.nii')
-
-
-modalities = glob.glob(f'{outFolder}/{sub}_task-stimulation_part-mag_*.nii')
-# combining cbv and bold weighted images
-os.system(f'{afniPath}/3dTcat -prefix {outFolder}/{sub}_task-stimulation_part-mag_combined.nii  {modalities[0]} {modalities[1]} -overwrite')
-# Calculating T1w image in EPI space for each run
-os.system(f'{afniPath}/3dTstat -cvarinv -overwrite -prefix {outFolder}/{sub}_task-stimulation_part-mag_T1w.nii {outFolder}/{sub}_task-stimulation_part-mag_combined.nii')
-# Running biasfieldcorrection
-os.system(f'{antsPath}/N4BiasFieldCorrection -d 3 -i {outFolder}/{sub}_task-stimulation_part-mag_T1w.nii -o {outFolder}/{sub}_task-stimulation_part-mag_T1w_N4Corrected.nii')

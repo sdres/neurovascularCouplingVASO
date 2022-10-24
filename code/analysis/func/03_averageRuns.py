@@ -3,21 +3,40 @@ import glob
 import nibabel as nb
 import numpy as np
 import subprocess
+import sys
 
-root = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
+sys.path.append('./code/misc')
+
+from computeT1w import *
+
+DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 afniPath = '/Users/sebastiandresbach/abin'
 antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
+SUBS = ['sub-05']
+SESSIONS = ['ses-03']
 
-for sub in ['sub-03']:
-    outFolder = f'{root}/derivatives/{sub}/'
-    for acquiType in ['SingleShot', 'MultiShot']:
+for sub in SUBS:
+    # Create subject-directory in derivatives if it does not exist
+    subDir = f'{DATADIR}/derivatives/{sub}'
+
+    for ses in SESSIONS:
+        # Create session-directory in derivatives if it does not exist
+        sesDir = f'{subDir}/{ses}/func'
+
+        # Look for individual runs within session
+        runs = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/func/{sub}_{ses}_task-stim*_run-0*_part-mag_*.nii.gz'))
+
+        outFolder = f'{DATADIR}/derivatives/{sub}/{ses}/func'
+
         for modality in ['cbv', 'bold']:
 
             # find all runs of participant
-            allRuns = sorted(glob.glob(f'{root}/derivatives/{sub}/ses-0*/{sub}_ses-0*_task-stim{acquiType}_run-0*_part-mag_{modality}_moco_registered.nii'))
-            firstRun = sorted(glob.glob(f'{root}/derivatives/{sub}/ses-01/{sub}_ses-01_task-stim{acquiType}_run-01_part-mag_{modality}_moco.nii'))
-            allRuns.insert(0, firstRun[0])
+            allRuns = sorted(glob.glob(f'{outFolder}/{sub}_{ses}_task-stimulation_run-0*_part-mag_{modality}_moco-reg.nii'))
+            if ses == 'ses-01':
+                firstRun = sorted(glob.glob(f'{outFolder}/{sub}_{ses}_task-stimulation_run-01_part-mag_{modality}_moco.nii.gz'))
+                allRuns.insert(0, firstRun[0])
+
             nrRuns = len(allRuns)
 
             # find highest number of volumes
@@ -58,14 +77,17 @@ for sub in ['sub-03']:
 
             # save image
             img = nb.Nifti1Image(newData, header=header, affine=affine)
-            nb.save(img, f'{outFolder}/{sub}_task-stim{acquiType}_part-mag_{modality}.nii')
+            nb.save(img, f'{outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_{modality}.nii')
 
 
-        modalities = glob.glob(f'{outFolder}/{sub}_task-stim{acquiType}_part-mag_*.nii')
-        print(modalities)
-        # combining cbv and bold weighted images
-        os.system(f'{afniPath}/3dTcat -prefix {outFolder}/{sub}_task-stim{acquiType}_part-mag_combined.nii  {modalities[0]} {modalities[1]} -overwrite')
-        # Calculating T1w image in EPI space for each run
-        os.system(f'{afniPath}/3dTstat -cvarinv -overwrite -prefix {outFolder}/{sub}_task-stim{acquiType}_part-mag_T1w.nii {outFolder}/{sub}_task-stim{acquiType}_part-mag_combined.nii')
-        # Running biasfieldcorrection
-        os.system(f'{antsPath}/N4BiasFieldCorrection -d 3 -i {outFolder}/{sub}_task-stim{acquiType}_part-mag_T1w.nii -o {outFolder}/{sub}_task-stim{acquiType}_part-mag_T1w_N4Corrected.nii')
+        modalities = glob.glob(f'{outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_*.nii')
+
+        t1w = computeT1w(modalities[0], modalities[1])
+
+        # Get header and affine
+        header = nb.load(modalities[0]).header
+        affine = nb.load(modalities[0]).affine
+
+        # And save the image
+        img = nb.Nifti1Image(t1w, header = header, affine = affine)
+        nb.save(img, f'{outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_T1w.nii')

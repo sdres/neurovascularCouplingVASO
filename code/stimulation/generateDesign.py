@@ -21,8 +21,8 @@ REST_DURS = {'short': [12, 14, 16, 20, 24],
              'long': [20, 22, 24, 30, 40]}
 # REST_DURS = [20, 22, 24, 30, 40]  # Long ITIs for baseline recovering
 
-sub = 'sub-06'
-ses = 'ses-03'
+sub = 'sub-08'
+ses = 'ses-01'
 ITI = 'long'
 
 # =============================================================================
@@ -79,3 +79,4 @@ print(f'Total experiment time: {np.round(expDurtotal/60, decimals=2)} minutes')
 
 # Calculate nr of TRs to enter in scanning protocol
 TRs = int(expDurtotal/TR)+1
+print(f'We need at least {TRs} trs')

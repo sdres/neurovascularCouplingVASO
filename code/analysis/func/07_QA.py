@@ -18,7 +18,7 @@ metricList = []
 valList = []
 
 
-for sub in ['sub-05']:
+for sub in ['sub-06']:
     for modality in ['vaso', 'bold']:
         for metric in ['tSNR', 'kurt', 'skew', 'mean']:
             nii = nb.load(f'{DATADIR}/{sub}/{sub}_task-stimulation_part-mag_{modality}_intemp_{metric}.nii.gz')
@@ -34,6 +34,7 @@ for sub in ['sub-05']:
                 valList.append(val[0])
 
 data = pd.DataFrame({'voxel':voxelList, 'metric': metricList, 'modality': modalityList, 'data':valList})
+data.to_csv(f'results/')
 
 plt.style.use('dark_background')
 
@@ -42,33 +43,33 @@ palette = {
     'bold': 'tab:orange',
     'vaso': 'tab:blue'}
 
+for sub in ['sub-06']:
+    for metric in ['tSNR']:
 
-for metric in ['tSNR']:
 
+        tmp = data.loc[data['metric']==metric]
 
-    tmp = data.loc[data['metric']==metric]
+        fig, ax = plt.subplots()
 
-    fig, ax = plt.subplots()
+        sns.kdeplot(data = tmp ,x = 'data', hue='modality',linewidth=2, palette=palette)
 
-    sns.kdeplot(data = tmp ,x = 'data', hue='modality',linewidth=2, palette=palette)
+        plt.title(f'ROI {metric}',fontsize=24)
+        # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        plt.ylabel('voxel count',fontsize=24)
+        plt.yticks([])
 
-    plt.title(f'ROI {metric}',fontsize=24)
-    # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    plt.ylabel('voxel count',fontsize=24)
-    plt.yticks([])
+        if metric == 'tSNR':
+            ticks = np.arange(5,31,5)
+            plt.xticks(ticks, fontsize=14)
 
-    if metric == 'tSNR':
-        ticks = np.arange(5,31,5)
-        plt.xticks(ticks, fontsize=14)
+        plt.xlabel(f'{metric}',fontsize=20)
 
-    plt.xlabel(f'{metric}',fontsize=20)
+        #legend hack
+        old_legend = ax.legend_
+        handles = old_legend.legendHandles
+        labels = [t.get_text() for t in old_legend.get_texts()]
+        title = old_legend.get_title().get_text()
+        ax.legend(handles, labels, loc='upper left', title='', fontsize=16)
+        plt.savefig(f'results/{sub}_{metric}.png',bbox_inches='tight')
 
-    #legend hack
-    old_legend = ax.legend_
-    handles = old_legend.legendHandles
-    labels = [t.get_text() for t in old_legend.get_texts()]
-    title = old_legend.get_title().get_text()
-    ax.legend(handles, labels, loc='upper left', title='', fontsize=16)
-    plt.savefig(f'results/{metric}.png',bbox_inches='tight')
-
-    plt.show()
+        plt.show()

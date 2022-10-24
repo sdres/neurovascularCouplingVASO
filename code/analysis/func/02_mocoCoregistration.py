@@ -34,7 +34,7 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 subs = ['sub-05']
 # Set sessions to work on
 # sessions = ['ses-01', 'ses-02']
-sessions = ['ses-01']
+sessions = ['ses-03']
 
 
 for sub in subs:
@@ -151,7 +151,7 @@ for sub in subs:
 subs = ['sub-05']
 # Set sessions to work on
 sessions = ['ses-01', 'ses-02']
-sessions = ['ses-01']
+sessions = ['ses-03']
 
 for sub in subs:
     for ses in sessions:
@@ -176,9 +176,9 @@ for sub in subs:
 
         # Set name of reference image
         refImage = (
-            f'{DATADIR}/derivatives/{sub}/ses-01/func/'
-            + f'{base}_T1w.nii'
-            )
+            sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-01/func/'
+            + f'{sub}_ses-01_*_run-01_*_T1w.nii'
+            )))[0]
 
         # Get basename of reference image
         refBase = os.path.basename(refImage).rsplit('.', 2)[0]
@@ -249,17 +249,18 @@ for sub in subs:
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-05']
+subs = ['sub-06']
 # Set sessions to work on
 sessions = ['ses-01', 'ses-02']
-sessions = ['ses-01']
+sessions = ['ses-02']
 
 for sub in subs:
     for ses in sessions:
         outFolder = f'{DATADIR}/derivatives/{sub}/{ses}/func'
+
         for modality in ['cbv', 'bold']:
 
-            # look for individual runs
+            # Look for individual runs
             runs = sorted(glob.glob(
                 f'{DATADIR}/{sub}/{ses}/func'
                 + f'/{sub}_{ses}_task-stim*_run-0*_part-mag_{modality}.nii.gz'
@@ -268,14 +269,24 @@ for sub in subs:
 
             nrRuns = int(len(runs))
 
-            refBase = os.path.basename(runs[0]).rsplit('.', 2)[0].split('_')
+            # Set name of reference image
+            refImage = (
+                sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-01/func/'
+                + f'{sub}_ses-01_*_run-01_*_T1w.nii'
+                )))[0]
+            # refImage = (f'{DATADIR}/derivatives/{sub}/ses-01/func/'
+            #     + f'{sub}_ses-01_*_run-01_*_T1w.nii'
+            #     )))[0]
+
+            # Get basename of reference image
+            refBase = os.path.basename(refImage).rsplit('.', 2)[0].split('_')
             tmp = refBase[0]
             for subString in refBase[1:-1]:
                 tmp = tmp + f'_{subString}'
 
             refBase = tmp
 
-            refImage = f'{DATADIR}/derivatives/{sub}/ses-01/func/{refBase}_T1w.nii'
+            # refImage = f'{DATADIR}/derivatives/{sub}/ses-01/func/{refBase}_T1w.nii'
             refHeader = nb.load(refImage).header
             refAffine = nb.load(refImage).affine
 
@@ -287,11 +298,11 @@ for sub in subs:
                 )
 
             if ses == 'ses-01':
-                firstRun = 2
+                firstRunId = 1
             if ses == 'ses-02':
-                firstRun = 1
+                firstRunId = 0
 
-            for run in runs[1:]:
+            for run in runs[firstRunId:]:
 
                 runBase = os.path.basename(run).rsplit('.', 2)[0].split('_')
                 tmp = runBase[0]
@@ -308,33 +319,33 @@ for sub in subs:
                 # Load data as array
                 data = nii.get_fdata()
 
-                # separate into individual volumes
+                # Separate into individual volumes
                 for i in range(data.shape[-1]):
-                    # overwrite volumes 0,1,2 with volumes 3,4,5
+                    # Overwrite volumes 0,1,2 with volumes 3,4,5
                     if i <= 2:
                         vol = data[:,:,:,i+3]
                     else:
                         vol = data[:,:,:,i]
 
                     # Save individual volumes
-                    img = nb.Nifti1Image(vol, header=header, affine=affine)
+                    img = nb.Nifti1Image(vol, header = header, affine = affine)
                     nb.save(img,
                     f'{outFolder}'
                     + f'/{runBase}_{modality}_vol{i:03d}.nii')
 
-                # loop over volumes to do the correction
+                # Loop over volumes to do the correction
                 for i in range(data.shape[-1]):
                     moving = ants.image_read(
                         f'{outFolder}'
                         + f'/{runBase}_{modality}_vol{i:03d}.nii')
 
-                    # get within run transoformation matrix
+                    # Get within run transoformation matrix
                     transformWithin = f'{outFolder}/motionParameters/{runBase}_{modality}/{runBase}_{modality}_vol{i:03d}.mat'
 
                     # apply transofrmation matrices
                     mywarpedimage = ants.apply_transforms(
-                        fixed=fixed,
-                        moving=moving,
+                        fixed = fixed,
+                        moving = moving,
                         transformlist = [transformWithin, transformBetween],
                         interpolator = 'bSpline'
                         )
@@ -376,16 +387,21 @@ for sub in subs:
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-05']
+subs = ['sub-06']
+sessions = ['ses-02']
 
 for sub in subs:
     # for ses in ['ses-01', 'ses-02']:
-    for ses in ['ses-01']:
+    for ses in sessions:
         # look for individual runs
         runs = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/func/{sub}_{ses}_task-stim*_run-0*_part-mag_*.nii.gz'))
 
         nrRuns = int(len(runs)/2)
 
+        if ses == 'ses-01':
+            firstRun = 2
+        if ses == 'ses-02':
+            firstRun = 1
 
         for runNr in range(firstRun, nrRuns+1):
 
@@ -394,18 +410,9 @@ for sub in subs:
             t1w = computeT1w(modalities[0], modalities[1])
 
             # Get header and affine
-            header = nb.load(tmpRuns[0]).header
-            affine = nb.load(tmpRuns[0]).affine
+            header = nb.load(modalities[0]).header
+            affine = nb.load(modalities[0]).affine
 
             # And save the image
             img = nb.Nifti1Image(t1w, header = header, affine = affine)
             nb.save(img, f'{outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w_reg.nii')
-
-            #
-            #
-            #
-            # os.system(f'3dTcat -prefix {outFolder}/{sub}_{ses}_task-stim*_run-0{runNr}_part-mag_registered_combined.nii  {modalities[0]} {modalities[1]} -overwrite')
-            # # Calculating T1w image in EPI space for each run
-            # os.system(f'3dTstat -cvarinv -overwrite -prefix {outFolder}/{sub}_{ses}_task-stim*_run-0{runNr}_part-mag_registered_T1w.nii {outFolder}/{sub}_{ses}_task-stim*_run-0{runNr}_part-mag_registered_combined.nii')
-            # # Running biasfieldcorrection
-            # os.system(f'N4BiasFieldCorrection -d 3 -i {outFolder}/{sub}_{ses}_task-stim*_run-0{runNr}_part-mag_registered_T1w.nii -o {outFolder}/{sub}_{ses}_task-stim*_run-0{runNr}_part-mag_registered_T1w_N4Corrected.nii')

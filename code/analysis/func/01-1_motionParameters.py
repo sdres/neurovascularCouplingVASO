@@ -66,7 +66,7 @@ for sub in SUBS:
     sessions = []
     # Find all sessions
     for run in allRuns:
-        for i in range(1,3):  # We had a maximum of 2 sessions
+        for i in range(1,6):  # We had a maximum of 2 sessions
             if f'ses-0{i}' in run:
                 sessions.append(f'ses-0{i}')
 
@@ -138,7 +138,7 @@ for sub in SUBS:
     sessions = []
     # Find all sessions
     for run in allRuns:
-        for i in range(1,3):  # We had a maximum of 2 sessions
+        for i in range(1,6):  # We had a maximum of 2 sessions
             if f'ses-0{i}' in run:
                 sessions.append(f'ses-0{i}')
 
@@ -255,7 +255,7 @@ for sub in SUBS:
     sessions = []
     # Find all sessions
     for run in allRuns:
-        for i in range(1,3):  # We had a maximum of 2 sessions
+        for i in range(1,6):  # We had a maximum of 2 sessions
             if f'ses-0{i}' in run:
                 sessions.append(f'ses-0{i}')
 

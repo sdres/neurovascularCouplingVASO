@@ -4,35 +4,35 @@ import os
 import numpy as np
 import nibabel as nb
 import glob
-ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
+
+DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 SUBS = ['sub-05']
+UPFACT = 4
 
 for sub in SUBS:
-    inDir = f'{ROOT}/derivatives/{sub}/anat/upsample'
-    outDir = f'{ROOT}/derivatives/{sub}/anat/upsample/registration'
+
+    # Find uni images in all sessions
+    images = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-*/anat/upsample/*uni*_registered.nii'))
+    image1 = f'{DATADIR}/derivatives/{sub}/ses-01/anat/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups{UPFACT}X.nii.gz'
 
 
-    image1 = f'{inDir}/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_brain_ups2X.nii.gz'
-
-    images = sorted(glob.glob(f'{outDir}/*uni*.nii'))
-
-    OUT_NAME = f'{inDir}/{sub}_ses-01_uni_part-mag_avg_MP2RAGE_brain_ups2X'
+    outDir = f'{ROOT}/derivatives/{sub}/anat'
+    outName = f'{sub}_uni_part-mag_avg_MP2RAGE_brain_ups{UPFACT}X'
 
     # =============================================================================
     print("MP2RAGE Step 05: Average.")
 
     # Load first file
     nii = nb.load(image1)
-    data = np.squeeze(nii.get_fdata()) * 0
+    data = np.squeeze(nii.get_fdata())
 
     for i in images:
         nii = nb.load(i)
         data += np.squeeze(nii.get_fdata())
-    print("  Nr nifti files:{}".format(len(images)+1))
-    data /= len(images)+1
+    data /= (len(images) + 1)
 
     # Save
     img = nb.Nifti1Image(data, affine=nii.affine, header=nii.header)
-    nb.save(img, os.path.join(inDir, "{}.nii.gz".format(OUT_NAME)))
+    nb.save(img, os.path.join(outDir, "{}.nii.gz".format(outName)))
 
-    print('Finished.')
+    print(f'Finished with {sub}.')

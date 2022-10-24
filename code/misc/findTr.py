@@ -43,6 +43,6 @@ def findTR(logfile):
     meanSecondTriggerDur = np.mean(triggersSubtracted[1::2])
 
     # Find mean trigger-time for a pair TR
-    meanTriggerDur = (meanFirstTriggerDur+meanSecondTriggerDur)/2
+    meanTriggerDur = (meanFirstTriggerDur+meanSecondTriggerDur)
 
     return meanTriggerDur
