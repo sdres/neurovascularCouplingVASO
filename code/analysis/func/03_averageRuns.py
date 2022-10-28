@@ -1,3 +1,11 @@
+'''
+
+Averages runs with the same stimulation protocol to boost SNR.
+Runs with short ITIs are averaged within a session.
+Runs with long ITIs are averaged across sessions.
+
+'''
+
 import os
 import glob
 import nibabel as nb
