@@ -31,8 +31,8 @@ ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 afniPath = '/Users/sebastiandresbach/abin'
 antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
-SUBS = ['sub-05']
-SESSIONS = ['ses-03']
+SUBS = ['sub-08']
+SESSIONS = ['ses-01']
 
 for sub in SUBS:
     # Create subject-directory in derivatives if it does not exist
@@ -45,7 +45,7 @@ for sub in SUBS:
         outFolder = f'{ROOT}/derivatives/{sub}/{ses}/func'
 
         tr = findTR(f'code/stimulation/{sub}/{ses}/{sub}_{ses}_run-01_neurovascularCoupling.log')
-        tr = tr*2
+        tr = tr
         print(f'Effective TR: {tr} seconds')
         tr = tr/UPFACTOR
         print(f'Nominal TR will be: {tr} seconds')

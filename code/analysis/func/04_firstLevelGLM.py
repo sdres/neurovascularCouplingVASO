@@ -24,7 +24,7 @@ from findTr import *
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
 subs = ['sub-05', 'sub-06']
-subs = ['sub-06']
+subs = ['sub-08']
 
 drift_model = 'Cosine'  # We use a discrete cosine transform to model signal drifts.
 high_pass = .01  # The cutoff for the drift model is 0.01 Hz.

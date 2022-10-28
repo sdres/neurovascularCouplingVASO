@@ -31,10 +31,10 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-05']
+subs = ['sub-08']
 # Set sessions to work on
 # sessions = ['ses-01', 'ses-02']
-sessions = ['ses-03']
+sessions = ['ses-01']
 
 
 for sub in subs:
@@ -148,10 +148,10 @@ for sub in subs:
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-05']
+subs = ['sub-08']
 # Set sessions to work on
 sessions = ['ses-01', 'ses-02']
-sessions = ['ses-03']
+sessions = ['ses-01']
 
 for sub in subs:
     for ses in sessions:
@@ -249,10 +249,10 @@ for sub in subs:
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-06']
+subs = ['sub-05']
 # Set sessions to work on
 sessions = ['ses-01', 'ses-02']
-sessions = ['ses-02']
+sessions = ['ses-05']
 
 for sub in subs:
     for ses in sessions:
@@ -299,7 +299,7 @@ for sub in subs:
 
             if ses == 'ses-01':
                 firstRunId = 1
-            if ses == 'ses-02':
+            else:
                 firstRunId = 0
 
             for run in runs[firstRunId:]:
@@ -387,8 +387,8 @@ for sub in subs:
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-06']
-sessions = ['ses-02']
+subs = ['sub-05']
+sessions = ['ses-05']
 
 for sub in subs:
     # for ses in ['ses-01', 'ses-02']:
@@ -400,7 +400,7 @@ for sub in subs:
 
         if ses == 'ses-01':
             firstRun = 2
-        if ses == 'ses-02':
+        else:
             firstRun = 1
 
         for runNr in range(firstRun, nrRuns+1):
