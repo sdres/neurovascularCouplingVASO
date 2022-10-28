@@ -10,14 +10,14 @@ import glob
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # Set subs to work on
-SUBS = ['sub-05']
+SUBS = ['sub-06']
 
 # =============================================================================
 # Processing
 
 for sub in SUBS:
     # Collecting files
-    NII_NAMES = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/anat/{sub}_{ses}_T2s_run-01_dir-*_echo-*_part-mag_MEGRE.nii.gz'))
+    NII_NAMES = sorted(glob.glob(f'{DATADIR}/{sub}/ses-*/anat/{sub}_ses-*_T2s_run-01_dir-*_echo-*_part-mag_MEGRE.nii.gz'))
 
     # Find MEGRE session of participant
     for i in range(1,6):
@@ -45,6 +45,11 @@ for sub in SUBS:
     RANGE_X = [65, 365]  # xmin xsize
     RANGE_Y = [0, -1]  # ymin ysize
     RANGE_Z = [50, 150]  # zmin zsize
+
+    # # sub-06
+    RANGE_X = [60, 370]  # xmin xsize
+    RANGE_Y = [0, -1]  # ymin ysize
+    RANGE_Z = [55, 170]  # zmin zsize
 
     # =============================================================================
     for i, f in enumerate(NII_NAMES):

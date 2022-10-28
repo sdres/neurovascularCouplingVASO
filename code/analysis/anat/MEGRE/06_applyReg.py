@@ -9,7 +9,7 @@ import glob
 # =============================================================================
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # Set subs to work on
-SUBS = ['sub-05']
+SUBS = ['sub-06']
 DIRECTIONS = ['PA', 'RL', 'LR']
 
 # =============================================================================
@@ -24,7 +24,7 @@ for sub in SUBS:
             if f'ses-0{i}' in NII_NAMES[0]:
                 ses = f'ses-0{i}'
 
-    inDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat/megre/05_upsampleEchos'
+    inDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat/megre/05_upsampleEchoes'
     # Create output directory
     outDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat/megre/06_applyReg'
     if not os.path.exists(outDir):
@@ -32,7 +32,7 @@ for sub in SUBS:
         print("Output directory is created")
 
 
-    REFERENCE = f"{DATADIR}/derivatives/{sub}/{ses}/anat/megre/upsample/{sub}_{ses}_T2s_run-01_dir-AP_echo-avg_part-mag_MEGRE_crop_ups2X.nii.gz"
+    REFERENCE = f"{DATADIR}/derivatives/{sub}/{ses}/anat/megre/03_upsample/{sub}_{ses}_T2s_run-01_dir-AP_echo-avg_part-mag_MEGRE_crop_ups2X.nii.gz"
 
     for dir in DIRECTIONS:
         NII_NAMES = sorted(glob.glob(f'{inDir}/*{dir}*'))
@@ -40,7 +40,6 @@ for sub in SUBS:
 
         # =============================================================================
         print(f"Processing {dir}: Apply registration to each echo.")
-
 
         for i in range(0, len(NII_NAMES)):
             # -------------------------------------------------------------------------
