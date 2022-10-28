@@ -34,7 +34,7 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 subs = ['sub-05']
 # Set sessions to work on
 # sessions = ['ses-01', 'ses-02']
-sessions = ['ses-04']
+sessions = ['ses-05']
 
 
 for sub in subs:
@@ -143,15 +143,16 @@ for sub in subs:
                 img = nb.Nifti1Image(t1w, header = header, affine = affine)
                 nb.save(img, f'{sesDir}/{sub}_{ses}_task-stimulation_run-0{tmp}_part-mag_T1w.nii')
 
+
 # =============================================================================
 # Register run-wise T1w images to first run of ses-01
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-08']
+subs = ['sub-05']
 # Set sessions to work on
 sessions = ['ses-01', 'ses-02']
-sessions = ['ses-01']
+sessions = ['ses-05']
 
 for sub in subs:
     for ses in sessions:
