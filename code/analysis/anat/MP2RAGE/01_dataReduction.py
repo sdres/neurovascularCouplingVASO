@@ -10,10 +10,11 @@ import subprocess
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-SUBS = ['sub-06']
+SUBS = ['sub-07']
 
 BBOX = {'sub-05': {'ylower': 10, 'yrange': 110, 'zlower': 123, 'zrange': 177}}
 BBOX = {'sub-06': {'ylower': 22, 'yrange': 110, 'zlower': 123, 'zrange': 177}}
+BBOX = {'sub-07': {'ylower': 15, 'yrange': 115, 'zlower': 120, 'zrange': 180}}
 
 
 for sub in SUBS:
@@ -92,21 +93,21 @@ for sub in SUBS:
             # break
             subprocess.run(command, shell = True)
 
-
-        # =========================================================================
-        # Cropping segmentation and sphere if present
-
-        images = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_*_pveseg_corrected.nii.gz'))
-        images.append(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_LH_sphere.nii.gz')
-
-        tmpBBOX = BBOX[sub]
-
-        for image in images:
-            base = os.path.basename(image).rsplit('.', 2)[0]
-
-            command = 'fslroi '
-            command += f'{image} '
-            command += f'{sesOutDir}/{base}_crop.nii.gz '
-            command += f"0 207 {tmpBBOX['ylower']} {tmpBBOX['yrange']} {tmpBBOX['zlower']} {tmpBBOX['zrange']}"
-            # break
-            subprocess.run(command, shell = True)
+        # 
+        # # =========================================================================
+        # # Cropping segmentation and sphere if present
+        #
+        # images = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_*_pveseg_corrected.nii.gz'))
+        # images.append(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_LH_sphere.nii.gz')
+        #
+        # tmpBBOX = BBOX[sub]
+        #
+        # for image in images:
+        #     base = os.path.basename(image).rsplit('.', 2)[0]
+        #
+        #     command = 'fslroi '
+        #     command += f'{image} '
+        #     command += f'{sesOutDir}/{base}_crop.nii.gz '
+        #     command += f"0 207 {tmpBBOX['ylower']} {tmpBBOX['yrange']} {tmpBBOX['zlower']} {tmpBBOX['zrange']}"
+        #     # break
+        #     subprocess.run(command, shell = True)
