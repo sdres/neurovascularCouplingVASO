@@ -21,8 +21,9 @@ from findTr import *
 DATADIR = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
 # Define subjects to work on
-subs = ['sub-05', 'sub-06']
-# sessions = ['ses-01', 'ses-02']
+subs = ['sub-05', 'sub-06','sub-07','sub-08']
+# subs = ['sub-08']
+# sessions = ['ses-01']
 
 # =============================================================================
 # Extract upsampled timecourse
@@ -38,6 +39,7 @@ subList = []
 sesList = []
 
 for sub in subs:
+    print(f'Processing {sub}')
     subDir = f'{DATADIR}/{sub}'
 
     # =========================================================================
@@ -56,7 +58,7 @@ for sub in subs:
     # Get rid of duplicates
     sessions = sorted(set(sessions))
     print(f'Found data from sessions: {sessions}')
-
+    # sessions = ['ses-03']
     for ses in sessions:
 
         sesDir = f'{subDir}/{ses}/func'
@@ -196,12 +198,12 @@ for sub in subs:
                         valList.append(item)
                         stimDurList.append(stimDuration)
                         jitList.append(jitterList[i])
-                        interpList.append(interpolationType)
+                        # interpList.append(interpolationType)
                         subList.append(sub)
                         sesList.append(ses)
 
 
-data = pd.DataFrame({'subject': subList, 'session': sesList, 'volume': timePointList, 'modality': modalityList, 'data': valList, 'stimDur': stimDurList, 'jitter': jitList, 'interpolation': interpList})
+data = pd.DataFrame({'subject': subList, 'session': sesList, 'volume': timePointList, 'modality': modalityList, 'data': valList, 'stimDur': stimDurList, 'jitter': jitList})
 
 data.to_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',', index=False)
 
@@ -212,9 +214,6 @@ palette = {
     'vaso': 'tab:blue'}
 
 
-data.loc[(data['stimDur']==1.0)&(data['jitter']==0.0)]
-
-
 # =============================================================================
 # Plot modality means
 # =============================================================================
@@ -222,7 +221,7 @@ data.loc[(data['stimDur']==1.0)&(data['jitter']==0.0)]
 # for interpolationType in ['linear', 'cubic']:
 for interpolationType in ['linear']:
     data = pd.read_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',')
-    data = data.loc[data['interpolation']==interpolationType]
+    # data = data.loc[data['interpolation']==interpolationType]
 
     for stimDuration in [1., 2., 4., 12., 24.]:
         fig, (ax1) = plt.subplots(1,1,figsize=(7.5,5))
@@ -240,8 +239,11 @@ for interpolationType in ['linear']:
             #     tmp['data'] = tmp['data'] - val
             # if val < 0:
                 # tmp['data'] = tmp['data'] + val
-
+            tmp['data'] = tmp['data'] - val
             nrVols = len(np.unique(tmp['volume']))
+
+            # ax1.set_xticks(np.arange(-1.5,3.6))
+            ax1.set_ylim(-1.5,3.5)
 
             sns.lineplot(ax=ax1,
                          data = tmp,
@@ -257,7 +259,7 @@ for interpolationType in ['linear']:
         ticks = np.linspace(0, nrVols, 10)
         labels = (np.linspace(0, nrVols, 10)*trNom).round(decimals=1)
 
-        ax1.set_yticks(np.arange(-0.25, 3.51, 0.5))
+        # ax1.set_yticks(np.arange(-0.25, 3.51, 0.5))
 
         ax1.yaxis.set_tick_params(labelsize=18)
         ax1.xaxis.set_tick_params(labelsize=18)
@@ -285,7 +287,7 @@ for interpolationType in ['linear']:
         else:
             plt.title(f'{int(stimDuration)} seconds stimulation', fontsize=24,pad=10)
 
-        # plt.savefig(f'./results/{sub}_stimDur-{int(stimDuration)}_intemp-{interpolationType}.png', bbox_inches = "tight")
+        # plt.savefig(f'./results/allSubs_stimDur-{int(stimDuration)}.png', bbox_inches = "tight")
 
         plt.show()
 
