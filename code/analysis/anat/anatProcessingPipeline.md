@@ -40,8 +40,14 @@ segmentation centers
 sub-05
 sub-06 LH itksnap whole brain 88 45 151
 
-
 crop sphere
+
+
+sub-05
+fslroi sub-05_LH_sphere_ups4X.nii.gz test 263 162 35 162 79 158
+
+
+
 sub-06
 fslroi sub-06_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X_sphere.nii.gz sub-06_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X_sphere_crop.nii.gz 271 162 7 162 31 159
 

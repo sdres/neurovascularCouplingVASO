@@ -21,12 +21,13 @@ subs = ['sub-06']
 for sub in subs:
 
     subFolder = f'{DATADIR}/{sub}/ses-01/anat/upsample'
+    # subFolder = f'{DATADIR}/{sub}/segmentation'
     # Segmentation file
-    FILE = f'{subFolder}/sub-06_ses-01_uni_part-mag_run-01_MP2RAGE_brain_pveseg_corrected_crop_ups4X_sphere_crop.nii.gz'
+    FILE = f'{subFolder}/wmgmcsf.nii.gz'
 
     # Integer labels for tissue classes
-    WM = 2
-    GM = 3
+    WM = 3
+    GM = 2
 
     # Output suffix
     SUFFIX = "polished"
