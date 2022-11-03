@@ -112,8 +112,8 @@ for stimDuration in [1, 2, 4, 12, 24]:
 
 
 palettes = {
-    'bold': 'Oranges',
-    'vaso': 'Blues'}
+    'bold': ['#ff7f0e', '#ff9436', '#ffaa5e', '#ffbf86','#ffd4af'],
+    'vaso': ['#1f77b4', '#2a92da', '#55a8e2', '#7fbee9', '#aad4f0']}
 
 for modality in ['bold', 'vaso']:
     fig, ax = plt.subplots()
