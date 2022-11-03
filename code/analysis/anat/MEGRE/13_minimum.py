@@ -6,7 +6,7 @@ from nibabel import load, Nifti1Image, save
 
 nii = load('/path/to/file.nii.gz')
 
-w = 10  # window, total width is double of this number
+w = 4  # window, total width is double of this number
 
 data = (nii.get_fdata()).astype("int")
 dims = data.shape
