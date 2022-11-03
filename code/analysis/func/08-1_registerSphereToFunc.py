@@ -11,7 +11,7 @@ import glob
 import os
 import subprocess
 
-subs = ['sub-06']
+subs = ['sub-05']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -27,7 +27,7 @@ for sub in subs:
 
 
 
-    moving = f'{anatDir}/upsample/sub-06_LH_sphere_ups4X.nii.gz'
+    moving = f'{anatDir}/upsample/{sub}_LH_sphere_ups4X.nii.gz'
     fixed = f'{funcDir}/{sub}_ses-01_task-stimulation_run-avg_part-mag_T1w.nii'
 
 
@@ -44,7 +44,10 @@ for sub in subs:
 
 
     # Mask T1w data as a test
-    command = 'fslmaths /Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-01/func/sub-06_ses-01_task-stimulation_run-avg_part-mag_T1w.nii -mul /Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-01/anat/upsample/sub-06_LH_sphere_ups4X_registered.nii /Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-01/func/sub-06_ses-01_task-stimulation_run-avg_part-mag_T1w_masked-sphere'
+    command = f'fslmaths {DATADIR}/{sub}/ses-01/func/{sub}_ses-01_task-stimulation_run-avg_part-mag_T1w.nii '
+    command += f'-mul {DATADIR}/{sub}/ses-01/anat/upsample/{sub}_LH_sphere_ups4X_registered.nii '
+    command += f'{DATADIR}/{sub}/ses-01/func/{sub}_ses-01_task-stimulation_run-avg_part-mag_T1w_masked-sphere'
+
     subprocess.run(command,shell=True)
 
     # =========================================================================
@@ -81,7 +84,7 @@ for sub in subs:
     command = 'fslroi '
     command += f'{inFile} '
     command += f'{outFile} '
-    # command += '263 162 35 162 79 158'
-    command += '271 162 7 162 31 159'
+    command += '263 162 35 162 79 158' # sub-05
+    # command += '271 162 7 162 31 159'  # Sub-06
 
     subprocess.run(command,shell=True)
