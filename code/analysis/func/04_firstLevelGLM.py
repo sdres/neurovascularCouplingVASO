@@ -124,6 +124,10 @@ for sub in subs:
                 drift_model = None,
                 high_pass= high_pass
                 )
+
+            
+
+
             designMatrices.append(design_matrix)
 
         # Set up contrasts
@@ -172,11 +176,6 @@ for sub in subs:
                 contrast_val, output_type='z_score')
             nb.save(z_map, f'{statFolder}/{sub}_{modality}_{contrast_id}.nii')
 
-plot_design_matrix(design_matrix)
-test = np.zeros(len(design_matrix['stim_12s'].to_numpy()))
-
-for stimDur in [1,2,4,12,24]:
-    test += design_matrix[f'stim_{stimDur}s'].to_numpy()
 #
 # files = glob.glob(f'{statFolder}/*.nii')
 # for file in files:
