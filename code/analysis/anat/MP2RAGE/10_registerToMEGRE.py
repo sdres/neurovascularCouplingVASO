@@ -102,8 +102,8 @@ command += f'-o {regFolder}/peri_registered.nii'
 # Run command
 subprocess.run(command,shell=True)
 
-moving = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-01/anat/upsample/peri_uncrop.nii.gz'
-# moving = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre/vesselsROI.nii.gz'
+# moving = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-01/anat/upsample/peri_uncrop.nii.gz'
+moving = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre/finalVeins.nii.gz'
 basename, ext = moving.split(os.extsep, 1)
 fixed = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-01/anat/upsample/sub-06_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
 
