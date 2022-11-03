@@ -11,7 +11,7 @@ import glob
 import os
 import subprocess
 
-subs = ['sub-06']
+subs = ['sub-05']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
