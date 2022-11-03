@@ -21,8 +21,8 @@ REST_DURS = {'short': [12, 14, 16, 20, 24],
              'long': [20, 22, 24, 30, 40]}
 # REST_DURS = [20, 22, 24, 30, 40]  # Long ITIs for baseline recovering
 
-sub = 'sub-08'
-ses = 'ses-01'
+sub = 'sub-07'
+ses = 'ses-02'
 ITI = 'long'
 
 # =============================================================================
