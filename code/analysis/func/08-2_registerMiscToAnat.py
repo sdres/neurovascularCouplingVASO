@@ -3,7 +3,8 @@ import glob
 import os
 import subprocess
 import nibabel as nb
-subs = ['sub-06']
+
+subs = ['sub-05']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -56,15 +57,15 @@ for sub in subs:
         command = 'fslroi '
         command += f'{inFile} '
         command += f'{outFile} '
-        # command += '263 162 35 162 79 158'
-        command += '271 162 7 162 31 159'
+        command += '263 162 35 162 79 158'
+        # command += '271 162 7 162 31 159'
 
         subprocess.run(command,shell=True)
 
 
     # register timeseries
     eraDir = f'{DATADIR}/{sub}/ERAs'  # Location of functional data
-    eras = sorted(glob.glob(f'{eraDir}/*after.nii.gz'))
+    eras = sorted(glob.glob(f'{eraDir}/*masked.nii.gz'))
     outFolder = f'{eraDir}/frames'
 
     # Make output folder if it does not exist already
@@ -127,7 +128,12 @@ for sub in subs:
             command = 'fslroi '
             command += f'{inFile} '
             command += f'{outFile} '
-            # command += '263 162 35 162 79 158'
-            command += '271 162 7 162 31 159'
+            command += '263 162 35 162 79 158'
+            # command += '271 162 7 162 31 159'
 
             subprocess.run(command,shell=True)
+
+
+            # Delete large registered file
+            command = f'rm {inFile}'
+            subprocess.run(command, shell = True)
