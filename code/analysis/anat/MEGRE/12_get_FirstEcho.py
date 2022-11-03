@@ -38,7 +38,7 @@ for sub in SUBS:
 
     data = nii.get_fdata()
 
-    for echo in range(2):
+    for echo in range(2,3):
         print(f'Getting echo {echo}')
         tmp = data[...,echo]
 
