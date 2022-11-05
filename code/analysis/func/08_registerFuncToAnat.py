@@ -11,7 +11,7 @@ import glob
 import os
 import subprocess
 
-subs = ['sub-05']
+subs = ['sub-08']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -20,7 +20,7 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivat
 for sub in subs:
 
     # Defining folders
-    funcDir = f'{DATADIR}/{sub}/ses-01/func'  # Location of functional data
+    funcDir = f'{DATADIR}/{sub}/'  # Location of functional data
     anatDir = f'{DATADIR}/{sub}/ses-01/anat'  # Location of anatomical data
 
     regFolder = f'{anatDir}/registrationFiles'  # Folder where output will be saved
@@ -34,7 +34,7 @@ for sub in subs:
 
     moving = glob.glob(f'{anatDir}/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz')[0]
 
-    fixed = f'{funcDir}/{sub}_ses-01_task-stimulation_run-avg_part-mag_T1w.nii'
+    fixed = f'{funcDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_T1w.nii'
 
     # Set up ants command
     command = 'antsRegistration '
@@ -74,7 +74,7 @@ for sub in subs:
     # Take care: fixed and moving are flipped
     fixed = glob.glob(f'{anatDir}/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz')[0]
 
-    moving = f'{funcDir}/{sub}_ses-01_task-stimulation_run-avg_part-mag_T1w.nii'
+    moving = f'{funcDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_T1w.nii'
 
     command = 'antsApplyTransforms '
     command += f'--interpolation BSpline[5] '

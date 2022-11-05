@@ -12,13 +12,13 @@ import glob
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 UPFACT = 4
 
-SUBS = ['sub-07']
+SUBS = ['sub-05']
 
 for sub in SUBS:
 
     # =============================================================================
-    inDir = f"{DATADIR}/derivatives/{sub}/{ses}/anat"
-    outDir = f"{DATADIR}/derivatives/{sub}/{ses}/anat/upsample"
+    inDir = f"{DATADIR}/derivatives/{sub}/ses-01/anat"
+    outDir = f"{DATADIR}/derivatives/{sub}/ses-01/anat/upsample"
 
     if not os.path.exists(outDir):
         os.makedirs(outDir)
@@ -44,7 +44,7 @@ for sub in SUBS:
     # subprocess.run(command1, shell=True)
 
     # Find inv-2 images in all sessions
-    images = sorted(glob.glob(f'{DATADIR}/{sub}/ses-*/anat/*inv-2*.nii.gz'))
+    images = sorted(glob.glob(f'{DATADIR}/{sub}/ses-01/anat/*inv-2*.nii.gz'))
 
     # Initiate list for sessions
     sessions = []
@@ -66,48 +66,48 @@ for sub in SUBS:
             os.makedirs(upsampleOutDir)
             print("Upsampling output directory is created")
 
-        for imageType in ['uni', 'inv-2']:
-            files = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_*_{imageType}_*_N4cor_brain_crop.nii.gz'))
+        # for imageType in ['uni', 'inv-2']:
+        #     files = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_*_{imageType}_*_N4cor_brain_crop.nii.gz'))
+        #
+        #     # =============================================================================
+        #     print(f'Upsample {imageType}.')
+        #
+        #     for i, f in enumerate(files):
+        #         # Prepare output
+        #         basename, ext = f.split(os.extsep, 1)
+        #         basename = os.path.basename(basename)
+        #         out_file = os.path.join(upsampleOutDir, f"{basename}_ups{UPFACT}X.nii.gz")
+        #
+        #         # Prepare command
+        #         command2 = "c3d {} ".format(f)
+        #         command2 += "-interpolation Cubic "
+        #         command2 += f"-resample {UPFACT}00% "
+        #         command2 += "-o {}".format(out_file)
+        #
+        #         # Execute command
+        #         subprocess.run(command2, shell=True)
 
-            # =============================================================================
-            print(f'Upsample {imageType}.')
 
-            for i, f in enumerate(files):
-                # Prepare output
-                basename, ext = f.split(os.extsep, 1)
-                basename = os.path.basename(basename)
-                out_file = os.path.join(upsampleOutDir, f"{basename}_ups{UPFACT}X.nii.gz")
+    # =============================================================================
+    # Upsample ROIs
 
-                # Prepare command
-                command2 = "c3d {} ".format(f)
-                command2 += "-interpolation Cubic "
-                command2 += f"-resample {UPFACT}00% "
-                command2 += "-o {}".format(out_file)
+    roiDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat'
+    images = sorted(glob.glob(f'{roiDir}/*RH_sphere.nii.gz'))
 
-                # Execute command
-                subprocess.run(command2, shell=True)
+    for i, f in enumerate(images):
+        # Prepare output
+        basename, ext = f.split(os.extsep, 1)
+        basename = os.path.basename(basename)
+        out_file = os.path.join(roiDir, f"{basename}_ups{UPFACT}X.nii.gz")
 
+        # Prepare command
+        command2 = "c3d {} ".format(f)
+        command2 += "-interpolation NearestNeighbor "
+        command2 += f"-resample {UPFACT}00% "
+        command2 += "-o {}".format(out_file)
 
-    # # =============================================================================
-    # # Upsample ROIs
-    #
-    # roiDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat'
-    # images = sorted(glob.glob(f'{roiDir}/*sphere_crop.nii.gz'))
-    #
-    # for i, f in enumerate(images):
-    #     # Prepare output
-    #     basename, ext = f.split(os.extsep, 1)
-    #     basename = os.path.basename(basename)
-    #     out_file = os.path.join(roiDir, f"{basename}_ups{UPFACT}X.nii.gz")
-    #
-    #     # Prepare command
-    #     command2 = "c3d {} ".format(f)
-    #     command2 += "-interpolation NearestNeighbor "
-    #     command2 += f"-resample {UPFACT}00% "
-    #     command2 += "-o {}".format(out_file)
-    #
-    #     # Execute command
-    #     subprocess.run(command2, shell=True)
+        # Execute command
+        subprocess.run(command2, shell=True)
     #
     # # =============================================================================
     # # Upsample segmentation

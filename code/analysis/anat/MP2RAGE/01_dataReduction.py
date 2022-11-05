@@ -10,11 +10,12 @@ import subprocess
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-SUBS = ['sub-07']
+SUBS = ['sub-05']
 
 BBOX = {'sub-05': {'ylower': 10, 'yrange': 110, 'zlower': 123, 'zrange': 177}}
 BBOX = {'sub-06': {'ylower': 22, 'yrange': 110, 'zlower': 123, 'zrange': 177}}
 BBOX = {'sub-07': {'ylower': 15, 'yrange': 115, 'zlower': 120, 'zrange': 180}}
+BBOX = {'sub-08': {'ylower': 25, 'yrange': 125, 'zlower': 115, 'zrange': 155}}
 
 
 for sub in SUBS:
@@ -93,7 +94,7 @@ for sub in SUBS:
             # break
             subprocess.run(command, shell = True)
 
-        # 
+        #
         # # =========================================================================
         # # Cropping segmentation and sphere if present
         #

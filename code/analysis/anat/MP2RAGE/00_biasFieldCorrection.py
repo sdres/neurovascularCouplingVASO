@@ -12,7 +12,7 @@ import ants
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-SUBS = ['sub-07']
+SUBS = ['sub-08']
 
 for sub in SUBS:
 

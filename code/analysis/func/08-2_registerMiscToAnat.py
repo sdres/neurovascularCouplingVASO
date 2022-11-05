@@ -4,7 +4,7 @@ import os
 import subprocess
 import nibabel as nb
 
-subs = ['sub-05']
+subs = ['sub-08']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -57,8 +57,10 @@ for sub in subs:
         command = 'fslroi '
         command += f'{inFile} '
         command += f'{outFile} '
-        command += '263 162 35 162 79 158'
+        # command += '263 162 35 162 79 158'
         # command += '271 162 7 162 31 159'
+        command += '275 162 15 162 47 158'
+        # 'sub-08': {'xlower': 275, 'xrange': 162, 'ylower': 15, 'yrange': 162, 'zlower': 47, 'zrange': 158}
 
         subprocess.run(command,shell=True)
 
