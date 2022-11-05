@@ -1,0 +1,1266 @@
+MonitorDistance=99cm
+MonitorWidth=30cm
+PixelWidth=1024.0
+PixelHeight=768.0
+You have detected 9 out of 9 targets.
+Excellent! Keep up the good work
+14.8849 	INFO 	Loaded monitor calibration from ['2021_05_26 17:55']
+15.3519 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fbb6b8ec2e8>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fbb61689cf8>, multiSample=False, name='window1', numSamples=2, pos=[0.0, 0.0], screen=0, size=array([1024,  768]), stencilBits=0, stereo=False, units='deg', useFBO=False, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+15.3519 	EXP 	window1: mouseVisible = True
+15.4140 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+15.4436 	EXP 	Created Movie Frame 0 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([0.8, 0.8, 0.8]), colorSpace='rgb', contrast=0.8, depth=0, flipHoriz=False, flipVert=False, image='visual_0.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 0', opacity=1, ori=0.0, pos=array([0., 0.]), size=array([1024,  768]), texRes=128, units='pix', win=Window(...))
+15.4676 	EXP 	Created Movie Frame 1 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([0.8, 0.8, 0.8]), colorSpace='rgb', contrast=0.8, depth=0, flipHoriz=False, flipVert=False, image='visual_1.png', interpolate=False, mask=None, maskParams=None, name='Movie Frame 1', opacity=1, ori=0.0, pos=array([0., 0.]), size=array([1024,  768]), texRes=128, units='pix', win=Window(...))
+45.9306 	DATA 	Keypress: 5
+0.0000 	DATA 	StartOfRun sub-06_ses-01_run-05
+0.0000 	DATA 	TR 1 | TR1 1 | TR2 0
+0.0112 	DATA 	Initial baseline
+
+1.5499 	DATA 	Keypress: 5
+1.5500 	DATA 	TR 2 | TR1 1 | TR2 1
+3.1221 	DATA 	Keypress: 5
+3.1221 	DATA 	TR 3 | TR1 2 | TR2 1
+4.6732 	DATA 	Keypress: 5
+4.6733 	DATA 	TR 4 | TR1 2 | TR2 2
+6.2454 	DATA 	Keypress: 5
+6.2455 	DATA 	TR 5 | TR1 3 | TR2 2
+7.7966 	DATA 	Keypress: 5
+7.7967 	DATA 	TR 6 | TR1 3 | TR2 3
+9.3690 	DATA 	Keypress: 5
+9.3690 	DATA 	TR 7 | TR1 4 | TR2 3
+10.9200 	DATA 	Keypress: 5
+10.9201 	DATA 	TR 8 | TR1 4 | TR2 4
+12.4922 	DATA 	Keypress: 5
+12.4923 	DATA 	TR 9 | TR1 5 | TR2 4
+14.0434 	DATA 	Keypress: 5
+14.0434 	DATA 	TR 10 | TR1 5 | TR2 5
+15.6156 	DATA 	Keypress: 5
+15.6156 	DATA 	TR 11 | TR1 6 | TR2 5
+17.1668 	DATA 	Keypress: 5
+17.1669 	DATA 	TR 12 | TR1 6 | TR2 6
+18.7390 	DATA 	Keypress: 5
+18.7391 	DATA 	TR 13 | TR1 7 | TR2 6
+20.2902 	DATA 	Keypress: 5
+20.2902 	DATA 	TR 14 | TR1 7 | TR2 7
+21.8624 	DATA 	Keypress: 5
+21.8624 	DATA 	TR 15 | TR1 8 | TR2 7
+23.4136 	DATA 	Keypress: 5
+23.4136 	DATA 	TR 16 | TR1 8 | TR2 8
+24.9856 	DATA 	Keypress: 5
+24.9856 	DATA 	TR 17 | TR1 9 | TR2 8
+26.5370 	DATA 	Keypress: 5
+26.5370 	DATA 	TR 18 | TR1 9 | TR2 9
+28.1091 	DATA 	Keypress: 5
+28.1092 	DATA 	TR 19 | TR1 10 | TR2 9
+29.6603 	DATA 	Keypress: 5
+29.6604 	DATA 	TR 20 | TR1 10 | TR2 10
+31.2424 	DATA 	Keypress: 5
+31.2425 	DATA 	Waited 1.242480993270874 seconds for trigger
+31.2439 	DATA 	
+31.2439 	DATA 	Trial 1
+31.2439 	DATA 	stimDur = 1.0
+31.2439 	DATA 	jitter = 0.0
+31.2439 	DATA 	restDur = 12.0
+
+31.2439 	DATA 	
+31.2439 	DATA 	TR 21 | TR1 11 | TR2 10
+31.2439 	DATA 	
+31.2440 	DATA 	stimulation started
+31.2440 	DATA 	
+32.2589 	DATA 	
+32.2590 	DATA 	stimulation stopped
+32.2590 	DATA 	
+32.7922 	DATA 	Keypress: 5
+32.7922 	DATA 	TR 22 | TR1 11 | TR2 11
+34.3586 	DATA 	Keypress: 5
+34.3587 	DATA 	TR 23 | TR1 12 | TR2 11
+35.9087 	DATA 	Keypress: 5
+35.9087 	DATA 	TR 24 | TR1 12 | TR2 12
+37.4917 	DATA 	Keypress: 5
+37.4917 	DATA 	TR 25 | TR1 13 | TR2 12
+39.0416 	DATA 	Keypress: 5
+39.0416 	DATA 	TR 26 | TR1 13 | TR2 13
+40.6081 	DATA 	Keypress: 5
+40.6081 	DATA 	TR 27 | TR1 14 | TR2 13
+42.1580 	DATA 	Keypress: 5
+42.1580 	DATA 	TR 28 | TR1 14 | TR2 14
+43.7411 	DATA 	Keypress: 5
+43.7412 	DATA 	TR 29 | TR1 15 | TR2 14
+44.2579 	DATA 	
+44.2579 	DATA 	Trial complete
+44.2579 	DATA 	Waiting for VASO trigger to start next trial
+44.2579 	DATA 	
+45.2910 	DATA 	Keypress: 5
+45.2911 	DATA 	TR 30 | TR1 15 | TR2 15
+46.8575 	DATA 	Keypress: 5
+46.8576 	DATA 	Waited 2.5996639728546143 seconds for trigger
+46.8583 	DATA 	
+46.8583 	DATA 	Trial 2
+46.8583 	DATA 	stimDur = 24.0
+46.8584 	DATA 	jitter = 0.0
+46.8584 	DATA 	restDur = 24.0
+
+46.8584 	DATA 	
+46.8584 	DATA 	TR 31 | TR1 16 | TR2 15
+46.8584 	DATA 	
+46.8584 	DATA 	stimulation started
+46.8584 	DATA 	
+48.4075 	DATA 	Keypress: 5
+48.4075 	DATA 	TR 32 | TR1 16 | TR2 16
+49.9739 	DATA 	Keypress: 5
+49.9740 	DATA 	TR 33 | TR1 17 | TR2 16
+51.5245 	DATA 	Keypress: 5
+51.5404 	DATA 	TR 34 | TR1 17 | TR2 17
+53.1070 	DATA 	Keypress: 5
+53.1070 	DATA 	TR 35 | TR1 18 | TR2 17
+54.6569 	DATA 	Keypress: 5
+54.6569 	DATA 	TR 36 | TR1 18 | TR2 18
+56.2234 	DATA 	Keypress: 5
+56.2234 	DATA 	TR 37 | TR1 19 | TR2 18
+57.7733 	DATA 	Keypress: 5
+57.7733 	DATA 	TR 38 | TR1 19 | TR2 19
+59.3564 	DATA 	Keypress: 5
+59.3565 	DATA 	TR 39 | TR1 20 | TR2 19
+60.9063 	DATA 	Keypress: 5
+60.9064 	DATA 	TR 40 | TR1 20 | TR2 20
+62.4728 	DATA 	Keypress: 5
+62.4728 	DATA 	TR 41 | TR1 21 | TR2 20
+64.0229 	DATA 	Keypress: 5
+64.0230 	DATA 	TR 42 | TR1 21 | TR2 21
+65.5892 	DATA 	Keypress: 5
+65.5892 	DATA 	TR 43 | TR1 22 | TR2 21
+67.1557 	DATA 	Keypress: 5
+67.1558 	DATA 	TR 44 | TR1 22 | TR2 22
+68.7223 	DATA 	Keypress: 5
+68.7223 	DATA 	TR 45 | TR1 23 | TR2 22
+70.2722 	DATA 	Keypress: 5
+70.2722 	DATA 	TR 46 | TR1 23 | TR2 23
+70.8720 	DATA 	
+70.8720 	DATA 	stimulation stopped
+70.8720 	DATA 	
+71.8386 	DATA 	Keypress: 5
+71.8386 	DATA 	TR 47 | TR1 24 | TR2 23
+73.3884 	DATA 	Keypress: 5
+73.3885 	DATA 	TR 48 | TR1 24 | TR2 24
+74.9716 	DATA 	Keypress: 5
+74.9717 	DATA 	TR 49 | TR1 25 | TR2 24
+76.5216 	DATA 	Keypress: 5
+76.5216 	DATA 	TR 50 | TR1 25 | TR2 25
+78.0880 	DATA 	Keypress: 5
+78.0880 	DATA 	TR 51 | TR1 26 | TR2 25
+79.6379 	DATA 	Keypress: 5
+79.6379 	DATA 	TR 52 | TR1 26 | TR2 26
+81.2210 	DATA 	Keypress: 5
+81.2211 	DATA 	TR 53 | TR1 27 | TR2 26
+82.7711 	DATA 	Keypress: 5
+82.7711 	DATA 	TR 54 | TR1 27 | TR2 27
+84.3374 	DATA 	Keypress: 5
+84.3375 	DATA 	TR 55 | TR1 28 | TR2 27
+85.8873 	DATA 	Keypress: 5
+85.8874 	DATA 	TR 56 | TR1 28 | TR2 28
+87.4540 	DATA 	Keypress: 5
+87.4540 	DATA 	TR 57 | TR1 29 | TR2 28
+89.0204 	DATA 	Keypress: 5
+89.0204 	DATA 	TR 58 | TR1 29 | TR2 29
+90.5868 	DATA 	Keypress: 5
+90.5869 	DATA 	TR 59 | TR1 30 | TR2 29
+92.1367 	DATA 	Keypress: 5
+92.1368 	DATA 	TR 60 | TR1 30 | TR2 30
+93.7032 	DATA 	Keypress: 5
+93.7033 	DATA 	TR 61 | TR1 31 | TR2 30
+94.8699 	DATA 	
+94.8699 	DATA 	Trial complete
+94.8700 	DATA 	Waiting for VASO trigger to start next trial
+94.8700 	DATA 	
+95.2531 	DATA 	Keypress: 5
+95.2531 	DATA 	TR 62 | TR1 31 | TR2 31
+96.8363 	DATA 	Keypress: 5
+96.8363 	DATA 	Waited 1.9663639068603516 seconds for trigger
+96.8371 	DATA 	
+96.8371 	DATA 	Trial 3
+96.8371 	DATA 	stimDur = 24.0
+96.8371 	DATA 	jitter = 2.355
+96.8371 	DATA 	restDur = 24.0
+
+96.8371 	DATA 	
+96.8371 	DATA 	TR 63 | TR1 32 | TR2 31
+98.3862 	DATA 	Keypress: 5
+98.3862 	DATA 	TR 64 | TR1 32 | TR2 32
+99.2027 	DATA 	
+99.2027 	DATA 	stimulation started
+99.2027 	DATA 	
+99.9527 	DATA 	Keypress: 5
+99.9528 	DATA 	TR 65 | TR1 33 | TR2 32
+101.5027 	DATA 	Keypress: 5
+101.5028 	DATA 	TR 66 | TR1 33 | TR2 33
+103.0698 	DATA 	Keypress: 5
+103.0857 	DATA 	TR 67 | TR1 34 | TR2 33
+104.6357 	DATA 	Keypress: 5
+104.6357 	DATA 	TR 68 | TR1 34 | TR2 34
+106.2022 	DATA 	Keypress: 5
+106.2022 	DATA 	TR 69 | TR1 35 | TR2 34
+107.7520 	DATA 	Keypress: 5
+107.7521 	DATA 	TR 70 | TR1 35 | TR2 35
+108.1187 	DATA 	Target presented
+108.5693 	DATA 	Keypress: 1
+108.5853 	DATA 	Key1 pressed
+108.5853 	DATA 	Target detected
+109.3185 	DATA 	Keypress: 5
+109.3186 	DATA 	TR 71 | TR1 36 | TR2 35
+110.8684 	DATA 	Keypress: 5
+110.8684 	DATA 	TR 72 | TR1 36 | TR2 36
+112.4516 	DATA 	Keypress: 5
+112.4516 	DATA 	TR 73 | TR1 37 | TR2 36
+114.0015 	DATA 	Keypress: 5
+114.0016 	DATA 	TR 74 | TR1 37 | TR2 37
+115.5680 	DATA 	Keypress: 5
+115.5680 	DATA 	TR 75 | TR1 38 | TR2 37
+117.1179 	DATA 	Keypress: 5
+117.1179 	DATA 	TR 76 | TR1 38 | TR2 38
+118.7010 	DATA 	Keypress: 5
+118.7011 	DATA 	TR 77 | TR1 39 | TR2 38
+120.2509 	DATA 	Keypress: 5
+120.2510 	DATA 	TR 78 | TR1 39 | TR2 39
+121.8174 	DATA 	Keypress: 5
+121.8175 	DATA 	TR 79 | TR1 40 | TR2 39
+123.2006 	DATA 	
+123.2006 	DATA 	stimulation stopped
+123.2006 	DATA 	
+123.3672 	DATA 	Keypress: 5
+123.3673 	DATA 	TR 80 | TR1 40 | TR2 40
+124.9337 	DATA 	Keypress: 5
+124.9337 	DATA 	TR 81 | TR1 41 | TR2 40
+126.4842 	DATA 	Keypress: 5
+126.5002 	DATA 	TR 82 | TR1 41 | TR2 41
+128.0668 	DATA 	Keypress: 5
+128.0668 	DATA 	TR 83 | TR1 42 | TR2 41
+129.6167 	DATA 	Keypress: 5
+129.6167 	DATA 	TR 84 | TR1 42 | TR2 42
+131.1831 	DATA 	Keypress: 5
+131.1832 	DATA 	TR 85 | TR1 43 | TR2 42
+132.7330 	DATA 	Keypress: 5
+132.7331 	DATA 	TR 86 | TR1 43 | TR2 43
+134.3162 	DATA 	Keypress: 5
+134.3163 	DATA 	TR 87 | TR1 44 | TR2 43
+135.8661 	DATA 	Keypress: 5
+135.8661 	DATA 	TR 88 | TR1 44 | TR2 44
+137.4326 	DATA 	Keypress: 5
+137.4326 	DATA 	TR 89 | TR1 45 | TR2 44
+138.9825 	DATA 	Keypress: 5
+138.9825 	DATA 	TR 90 | TR1 45 | TR2 45
+140.5656 	DATA 	Keypress: 5
+140.5657 	DATA 	TR 91 | TR1 46 | TR2 45
+142.1155 	DATA 	Keypress: 5
+142.1155 	DATA 	TR 92 | TR1 46 | TR2 46
+143.6820 	DATA 	Keypress: 5
+143.6821 	DATA 	TR 93 | TR1 47 | TR2 46
+145.2318 	DATA 	Keypress: 5
+145.2318 	DATA 	TR 94 | TR1 47 | TR2 47
+146.7984 	DATA 	Keypress: 5
+146.7985 	DATA 	TR 95 | TR1 48 | TR2 47
+147.1983 	DATA 	
+147.1983 	DATA 	Trial complete
+147.1983 	DATA 	Waiting for VASO trigger to start next trial
+147.1984 	DATA 	
+148.3484 	DATA 	Keypress: 5
+148.3484 	DATA 	TR 96 | TR1 48 | TR2 48
+148.7649 	DATA 	Target presented
+149.3982 	DATA 	Keypress: 1
+149.3982 	DATA 	Key1 pressed
+149.3982 	DATA 	Target detected
+149.9315 	DATA 	Keypress: 5
+149.9315 	DATA 	Waited 2.73315691947937 seconds for trigger
+149.9323 	DATA 	
+149.9323 	DATA 	Trial 4
+149.9323 	DATA 	stimDur = 4.0
+149.9323 	DATA 	jitter = 0.0
+149.9323 	DATA 	restDur = 16.0
+
+149.9323 	DATA 	
+149.9323 	DATA 	TR 97 | TR1 49 | TR2 48
+149.9323 	DATA 	
+149.9323 	DATA 	stimulation started
+149.9323 	DATA 	
+151.4814 	DATA 	Keypress: 5
+151.4814 	DATA 	TR 98 | TR1 49 | TR2 49
+153.0479 	DATA 	Keypress: 5
+153.0480 	DATA 	TR 99 | TR1 50 | TR2 49
+153.9478 	DATA 	
+153.9478 	DATA 	stimulation stopped
+153.9478 	DATA 	
+154.5977 	DATA 	Keypress: 5
+154.5977 	DATA 	TR 100 | TR1 50 | TR2 50
+156.1809 	DATA 	Keypress: 5
+156.1810 	DATA 	TR 101 | TR1 51 | TR2 50
+157.7307 	DATA 	Keypress: 5
+157.7308 	DATA 	TR 102 | TR1 51 | TR2 51
+159.2973 	DATA 	Keypress: 5
+159.2973 	DATA 	TR 103 | TR1 52 | TR2 51
+160.8472 	DATA 	Keypress: 5
+160.8472 	DATA 	TR 104 | TR1 52 | TR2 52
+162.4137 	DATA 	Keypress: 5
+162.4137 	DATA 	TR 105 | TR1 53 | TR2 52
+163.9802 	DATA 	Keypress: 5
+163.9802 	DATA 	TR 106 | TR1 53 | TR2 53
+165.5469 	DATA 	Keypress: 5
+165.5469 	DATA 	TR 107 | TR1 54 | TR2 53
+167.0966 	DATA 	Keypress: 5
+167.0966 	DATA 	TR 108 | TR1 54 | TR2 54
+168.6631 	DATA 	Keypress: 5
+168.6632 	DATA 	TR 109 | TR1 55 | TR2 54
+169.9463 	DATA 	
+169.9463 	DATA 	Trial complete
+169.9463 	DATA 	Waiting for VASO trigger to start next trial
+169.9463 	DATA 	
+170.2129 	DATA 	Keypress: 5
+170.2130 	DATA 	TR 110 | TR1 55 | TR2 55
+171.7962 	DATA 	Keypress: 5
+171.7962 	DATA 	Waited 1.8499109745025635 seconds for trigger
+171.7970 	DATA 	
+171.7970 	DATA 	Trial 5
+171.7970 	DATA 	stimDur = 1.0
+171.7970 	DATA 	jitter = 2.355
+171.7970 	DATA 	restDur = 12.0
+
+171.7970 	DATA 	
+171.7970 	DATA 	TR 111 | TR1 56 | TR2 55
+173.3460 	DATA 	Keypress: 5
+173.3460 	DATA 	TR 112 | TR1 56 | TR2 56
+174.1625 	DATA 	
+174.1625 	DATA 	stimulation started
+174.1625 	DATA 	
+174.9126 	DATA 	Keypress: 5
+174.9126 	DATA 	TR 113 | TR1 57 | TR2 56
+175.1625 	DATA 	
+175.1625 	DATA 	stimulation stopped
+175.1625 	DATA 	
+176.4624 	DATA 	Keypress: 5
+176.4624 	DATA 	TR 114 | TR1 57 | TR2 57
+178.0456 	DATA 	Keypress: 5
+178.0456 	DATA 	TR 115 | TR1 58 | TR2 57
+179.5954 	DATA 	Keypress: 5
+179.5955 	DATA 	TR 116 | TR1 58 | TR2 58
+181.1620 	DATA 	Keypress: 5
+181.1620 	DATA 	TR 117 | TR1 59 | TR2 58
+182.7118 	DATA 	Keypress: 5
+182.7118 	DATA 	TR 118 | TR1 59 | TR2 59
+184.2784 	DATA 	Keypress: 5
+184.2784 	DATA 	TR 119 | TR1 60 | TR2 59
+185.8288 	DATA 	Keypress: 5
+185.8448 	DATA 	TR 120 | TR1 60 | TR2 60
+187.1614 	DATA 	
+187.1614 	DATA 	Trial complete
+187.1614 	DATA 	Waiting for VASO trigger to start next trial
+187.1614 	DATA 	
+187.4114 	DATA 	Keypress: 5
+187.4114 	DATA 	Waited 0.25004005432128906 seconds for trigger
+187.4122 	DATA 	
+187.4122 	DATA 	Trial 6
+187.4122 	DATA 	stimDur = 24.0
+187.4122 	DATA 	jitter = 0.785
+187.4122 	DATA 	restDur = 24.0
+
+187.4122 	DATA 	
+187.4122 	DATA 	TR 121 | TR1 61 | TR2 60
+188.2113 	DATA 	
+188.2113 	DATA 	stimulation started
+188.2113 	DATA 	
+188.9613 	DATA 	Keypress: 5
+188.9613 	DATA 	TR 122 | TR1 61 | TR2 61
+190.5278 	DATA 	Keypress: 5
+190.5279 	DATA 	TR 123 | TR1 62 | TR2 61
+192.0776 	DATA 	Keypress: 5
+192.0777 	DATA 	TR 124 | TR1 62 | TR2 62
+193.6609 	DATA 	Keypress: 5
+193.6609 	DATA 	TR 125 | TR1 63 | TR2 62
+195.2107 	DATA 	Keypress: 5
+195.2107 	DATA 	TR 126 | TR1 63 | TR2 63
+196.7773 	DATA 	Keypress: 5
+196.7774 	DATA 	TR 127 | TR1 64 | TR2 63
+198.3271 	DATA 	Keypress: 5
+198.3271 	DATA 	TR 128 | TR1 64 | TR2 64
+199.8938 	DATA 	Keypress: 5
+199.8938 	DATA 	TR 129 | TR1 65 | TR2 64
+201.4601 	DATA 	Keypress: 5
+201.4602 	DATA 	TR 130 | TR1 65 | TR2 65
+203.0267 	DATA 	Keypress: 5
+203.0267 	DATA 	TR 131 | TR1 66 | TR2 65
+204.5765 	DATA 	Keypress: 5
+204.5766 	DATA 	TR 132 | TR1 66 | TR2 66
+206.1431 	DATA 	Keypress: 5
+206.1431 	DATA 	TR 133 | TR1 67 | TR2 66
+207.6929 	DATA 	Keypress: 5
+207.6929 	DATA 	TR 134 | TR1 67 | TR2 67
+209.2761 	DATA 	Keypress: 5
+209.2762 	DATA 	TR 135 | TR1 68 | TR2 67
+210.8259 	DATA 	Keypress: 5
+210.8260 	DATA 	TR 136 | TR1 68 | TR2 68
+210.8926 	DATA 	Target presented
+211.4426 	DATA 	Keypress: 1
+211.4426 	DATA 	Key1 pressed
+211.4426 	DATA 	Target detected
+212.2091 	DATA 	
+212.2091 	DATA 	stimulation stopped
+212.2091 	DATA 	
+212.3924 	DATA 	Keypress: 5
+212.3925 	DATA 	TR 137 | TR1 69 | TR2 68
+213.9423 	DATA 	Keypress: 5
+213.9423 	DATA 	TR 138 | TR1 69 | TR2 69
+215.5255 	DATA 	Keypress: 5
+215.5256 	DATA 	TR 139 | TR1 70 | TR2 69
+217.0753 	DATA 	Keypress: 5
+217.0754 	DATA 	TR 140 | TR1 70 | TR2 70
+218.6419 	DATA 	Keypress: 5
+218.6419 	DATA 	TR 141 | TR1 71 | TR2 70
+220.1917 	DATA 	Keypress: 5
+220.1917 	DATA 	TR 142 | TR1 71 | TR2 71
+221.7583 	DATA 	Keypress: 5
+221.7583 	DATA 	TR 143 | TR1 72 | TR2 71
+223.3087 	DATA 	Keypress: 5
+223.3247 	DATA 	TR 144 | TR1 72 | TR2 72
+224.8913 	DATA 	Keypress: 5
+224.8914 	DATA 	TR 145 | TR1 73 | TR2 72
+226.4412 	DATA 	Keypress: 5
+226.4412 	DATA 	TR 146 | TR1 73 | TR2 73
+228.0077 	DATA 	Keypress: 5
+228.0077 	DATA 	TR 147 | TR1 74 | TR2 73
+229.5575 	DATA 	Keypress: 5
+229.5576 	DATA 	TR 148 | TR1 74 | TR2 74
+231.1408 	DATA 	Keypress: 5
+231.1408 	DATA 	TR 149 | TR1 75 | TR2 74
+232.6907 	DATA 	Keypress: 5
+232.6907 	DATA 	TR 150 | TR1 75 | TR2 75
+234.2571 	DATA 	Keypress: 5
+234.2572 	DATA 	TR 151 | TR1 76 | TR2 75
+235.8069 	DATA 	Keypress: 5
+235.8070 	DATA 	TR 152 | TR1 76 | TR2 76
+236.2071 	DATA 	
+236.2071 	DATA 	Trial complete
+236.2071 	DATA 	Waiting for VASO trigger to start next trial
+236.2071 	DATA 	
+237.3741 	DATA 	Keypress: 5
+237.3901 	DATA 	Waited 1.1829581260681152 seconds for trigger
+237.3909 	DATA 	
+237.3909 	DATA 	Trial 7
+237.3909 	DATA 	stimDur = 12.0
+237.3909 	DATA 	jitter = 2.355
+237.3909 	DATA 	restDur = 20.0
+
+237.3909 	DATA 	
+237.3909 	DATA 	TR 153 | TR1 77 | TR2 76
+238.9400 	DATA 	Keypress: 5
+238.9401 	DATA 	TR 154 | TR1 77 | TR2 77
+239.7566 	DATA 	
+239.7566 	DATA 	stimulation started
+239.7566 	DATA 	
+240.5066 	DATA 	Keypress: 5
+240.5066 	DATA 	TR 155 | TR1 78 | TR2 77
+242.0564 	DATA 	Keypress: 5
+242.0565 	DATA 	TR 156 | TR1 78 | TR2 78
+243.6229 	DATA 	Keypress: 5
+243.6230 	DATA 	TR 157 | TR1 79 | TR2 78
+245.1728 	DATA 	Keypress: 5
+245.1729 	DATA 	TR 158 | TR1 79 | TR2 79
+246.7562 	DATA 	Keypress: 5
+246.7562 	DATA 	TR 159 | TR1 80 | TR2 79
+248.3059 	DATA 	Keypress: 5
+248.3059 	DATA 	TR 160 | TR1 80 | TR2 80
+249.8724 	DATA 	Keypress: 5
+249.8725 	DATA 	TR 161 | TR1 81 | TR2 80
+251.4223 	DATA 	Keypress: 5
+251.4223 	DATA 	TR 162 | TR1 81 | TR2 81
+251.7555 	DATA 	
+251.7555 	DATA 	stimulation stopped
+251.7555 	DATA 	
+253.0054 	DATA 	Keypress: 5
+253.0054 	DATA 	TR 163 | TR1 82 | TR2 81
+254.5552 	DATA 	Keypress: 5
+254.5553 	DATA 	TR 164 | TR1 82 | TR2 82
+256.1218 	DATA 	Keypress: 5
+256.1218 	DATA 	TR 165 | TR1 83 | TR2 82
+257.6716 	DATA 	Keypress: 5
+257.6717 	DATA 	TR 166 | TR1 83 | TR2 83
+259.2382 	DATA 	Keypress: 5
+259.2382 	DATA 	TR 167 | TR1 84 | TR2 83
+260.8047 	DATA 	Keypress: 5
+260.8047 	DATA 	TR 168 | TR1 84 | TR2 84
+262.3712 	DATA 	Keypress: 5
+262.3713 	DATA 	TR 169 | TR1 85 | TR2 84
+263.9210 	DATA 	Keypress: 5
+263.9211 	DATA 	TR 170 | TR1 85 | TR2 85
+265.4876 	DATA 	Keypress: 5
+265.4877 	DATA 	TR 171 | TR1 86 | TR2 85
+267.0374 	DATA 	Keypress: 5
+267.0374 	DATA 	TR 172 | TR1 86 | TR2 86
+268.6206 	DATA 	Keypress: 5
+268.6207 	DATA 	TR 173 | TR1 87 | TR2 86
+270.1705 	DATA 	Keypress: 5
+270.1705 	DATA 	TR 174 | TR1 87 | TR2 87
+271.7370 	DATA 	Keypress: 5
+271.7371 	DATA 	TR 175 | TR1 88 | TR2 87
+271.7537 	DATA 	
+271.7537 	DATA 	Trial complete
+271.7537 	DATA 	Waiting for VASO trigger to start next trial
+271.7537 	DATA 	
+273.2868 	DATA 	Keypress: 5
+273.2869 	DATA 	TR 176 | TR1 88 | TR2 88
+273.4035 	DATA 	Target presented
+273.8368 	DATA 	Keypress: 1
+273.8368 	DATA 	Key1 pressed
+273.8368 	DATA 	Target detected
+274.8701 	DATA 	Keypress: 5
+274.8701 	DATA 	Waited 3.116425037384033 seconds for trigger
+274.8709 	DATA 	
+274.8709 	DATA 	Trial 8
+274.8709 	DATA 	stimDur = 1.0
+274.8709 	DATA 	jitter = 0.785
+274.8709 	DATA 	restDur = 12.0
+
+274.8709 	DATA 	
+274.8709 	DATA 	TR 177 | TR1 89 | TR2 88
+275.6699 	DATA 	
+275.6700 	DATA 	stimulation started
+275.6700 	DATA 	
+276.4200 	DATA 	Keypress: 5
+276.4200 	DATA 	TR 178 | TR1 89 | TR2 89
+276.6699 	DATA 	
+276.6699 	DATA 	stimulation stopped
+276.6699 	DATA 	
+277.9865 	DATA 	Keypress: 5
+277.9865 	DATA 	TR 179 | TR1 90 | TR2 89
+279.5361 	DATA 	Keypress: 5
+279.5362 	DATA 	TR 180 | TR1 90 | TR2 90
+281.1029 	DATA 	Keypress: 5
+281.1029 	DATA 	TR 181 | TR1 91 | TR2 90
+282.6527 	DATA 	Keypress: 5
+282.6527 	DATA 	TR 182 | TR1 91 | TR2 91
+284.2359 	DATA 	Keypress: 5
+284.2359 	DATA 	TR 183 | TR1 92 | TR2 91
+285.7857 	DATA 	Keypress: 5
+285.7858 	DATA 	TR 184 | TR1 92 | TR2 92
+287.3523 	DATA 	Keypress: 5
+287.3523 	DATA 	TR 185 | TR1 93 | TR2 92
+288.6686 	DATA 	
+288.6686 	DATA 	Trial complete
+288.6687 	DATA 	Waiting for VASO trigger to start next trial
+288.6687 	DATA 	
+288.9021 	DATA 	Keypress: 5
+288.9021 	DATA 	TR 186 | TR1 93 | TR2 93
+290.4853 	DATA 	Keypress: 5
+290.4854 	DATA 	Waited 1.8167009353637695 seconds for trigger
+290.4861 	DATA 	
+290.4861 	DATA 	Trial 9
+290.4861 	DATA 	stimDur = 24.0
+290.4861 	DATA 	jitter = 1.57
+290.4861 	DATA 	restDur = 24.0
+
+290.4861 	DATA 	
+290.4862 	DATA 	TR 187 | TR1 94 | TR2 93
+292.0351 	DATA 	Keypress: 5
+292.0352 	DATA 	TR 188 | TR1 94 | TR2 94
+292.0685 	DATA 	
+292.0685 	DATA 	stimulation started
+292.0685 	DATA 	
+293.6018 	DATA 	Keypress: 5
+293.6018 	DATA 	TR 189 | TR1 95 | TR2 94
+295.1516 	DATA 	Keypress: 5
+295.1516 	DATA 	TR 190 | TR1 95 | TR2 95
+296.7188 	DATA 	Keypress: 5
+296.7347 	DATA 	TR 191 | TR1 96 | TR2 95
+298.2846 	DATA 	Keypress: 5
+298.2847 	DATA 	TR 192 | TR1 96 | TR2 96
+299.8512 	DATA 	Keypress: 5
+299.8512 	DATA 	TR 193 | TR1 97 | TR2 96
+301.4010 	DATA 	Keypress: 5
+301.4010 	DATA 	TR 194 | TR1 97 | TR2 97
+302.9676 	DATA 	Keypress: 5
+302.9676 	DATA 	TR 195 | TR1 98 | TR2 97
+304.5174 	DATA 	Keypress: 5
+304.5175 	DATA 	TR 196 | TR1 98 | TR2 98
+306.1006 	DATA 	Keypress: 5
+306.1007 	DATA 	TR 197 | TR1 99 | TR2 98
+307.6505 	DATA 	Keypress: 5
+307.6505 	DATA 	TR 198 | TR1 99 | TR2 99
+309.2170 	DATA 	Keypress: 5
+309.2171 	DATA 	TR 199 | TR1 100 | TR2 99
+310.7668 	DATA 	Keypress: 5
+310.7669 	DATA 	TR 200 | TR1 100 | TR2 100
+312.3341 	DATA 	Keypress: 5
+312.3500 	DATA 	TR 201 | TR1 101 | TR2 100
+313.8999 	DATA 	Keypress: 5
+313.8999 	DATA 	TR 202 | TR1 101 | TR2 101
+315.3331 	DATA 	Target presented
+315.4664 	DATA 	Keypress: 5
+315.4665 	DATA 	TR 203 | TR1 102 | TR2 101
+315.7830 	DATA 	Keypress: 1
+315.7830 	DATA 	Key1 pressed
+315.7830 	DATA 	Target detected
+316.0663 	DATA 	
+316.0663 	DATA 	stimulation stopped
+316.0663 	DATA 	
+317.0162 	DATA 	Keypress: 5
+317.0162 	DATA 	TR 204 | TR1 102 | TR2 102
+318.5827 	DATA 	Keypress: 5
+318.5828 	DATA 	TR 205 | TR1 103 | TR2 102
+320.1332 	DATA 	Keypress: 5
+320.1492 	DATA 	TR 206 | TR1 103 | TR2 103
+321.7158 	DATA 	Keypress: 5
+321.7158 	DATA 	TR 207 | TR1 104 | TR2 103
+323.2656 	DATA 	Keypress: 5
+323.2657 	DATA 	TR 208 | TR1 104 | TR2 104
+324.8322 	DATA 	Keypress: 5
+324.8322 	DATA 	TR 209 | TR1 105 | TR2 104
+326.3820 	DATA 	Keypress: 5
+326.3821 	DATA 	TR 210 | TR1 105 | TR2 105
+327.9652 	DATA 	Keypress: 5
+327.9653 	DATA 	TR 211 | TR1 106 | TR2 105
+329.5151 	DATA 	Keypress: 5
+329.5151 	DATA 	TR 212 | TR1 106 | TR2 106
+331.0816 	DATA 	Keypress: 5
+331.0817 	DATA 	TR 213 | TR1 107 | TR2 106
+332.6314 	DATA 	Keypress: 5
+332.6315 	DATA 	TR 214 | TR1 107 | TR2 107
+334.1980 	DATA 	Keypress: 5
+334.1981 	DATA 	TR 215 | TR1 108 | TR2 107
+335.7645 	DATA 	Keypress: 5
+335.7645 	DATA 	TR 216 | TR1 108 | TR2 108
+337.3312 	DATA 	Keypress: 5
+337.3312 	DATA 	TR 217 | TR1 109 | TR2 108
+338.8809 	DATA 	Keypress: 5
+338.8809 	DATA 	TR 218 | TR1 109 | TR2 109
+340.0641 	DATA 	
+340.0641 	DATA 	Trial complete
+340.0641 	DATA 	Waiting for VASO trigger to start next trial
+340.0641 	DATA 	
+340.4474 	DATA 	Keypress: 5
+340.4475 	DATA 	Waited 0.38335514068603516 seconds for trigger
+340.4482 	DATA 	
+340.4482 	DATA 	Trial 10
+340.4482 	DATA 	stimDur = 2.0
+340.4482 	DATA 	jitter = 0.785
+340.4482 	DATA 	restDur = 14.0
+
+340.4483 	DATA 	
+340.4483 	DATA 	TR 219 | TR1 110 | TR2 109
+341.2473 	DATA 	
+341.2473 	DATA 	stimulation started
+341.2473 	DATA 	
+341.9974 	DATA 	Keypress: 5
+341.9974 	DATA 	TR 220 | TR1 110 | TR2 110
+343.2472 	DATA 	
+343.2472 	DATA 	stimulation stopped
+343.2472 	DATA 	
+343.5804 	DATA 	Keypress: 5
+343.5805 	DATA 	TR 221 | TR1 111 | TR2 110
+345.1304 	DATA 	Keypress: 5
+345.1305 	DATA 	TR 222 | TR1 111 | TR2 111
+346.6968 	DATA 	Keypress: 5
+346.6969 	DATA 	TR 223 | TR1 112 | TR2 111
+348.2467 	DATA 	Keypress: 5
+348.2468 	DATA 	TR 224 | TR1 112 | TR2 112
+349.8298 	DATA 	Keypress: 5
+349.8299 	DATA 	TR 225 | TR1 113 | TR2 112
+351.3796 	DATA 	Keypress: 5
+351.3797 	DATA 	TR 226 | TR1 113 | TR2 113
+352.9463 	DATA 	Keypress: 5
+352.9463 	DATA 	TR 227 | TR1 114 | TR2 113
+354.4961 	DATA 	Keypress: 5
+354.4963 	DATA 	TR 228 | TR1 114 | TR2 114
+356.0626 	DATA 	Keypress: 5
+356.0627 	DATA 	TR 229 | TR1 115 | TR2 114
+357.2458 	DATA 	
+357.2458 	DATA 	Trial complete
+357.2458 	DATA 	Waiting for VASO trigger to start next trial
+357.2459 	DATA 	
+357.6133 	DATA 	Keypress: 5
+357.6291 	DATA 	TR 230 | TR1 115 | TR2 115
+358.1958 	DATA 	Target presented
+358.6957 	DATA 	Keypress: 1
+358.6958 	DATA 	Key1 pressed
+358.6958 	DATA 	Target detected
+359.1957 	DATA 	Keypress: 5
+359.1958 	DATA 	Waited 1.9499080181121826 seconds for trigger
+359.1965 	DATA 	
+359.1965 	DATA 	Trial 11
+359.1965 	DATA 	stimDur = 4.0
+359.1965 	DATA 	jitter = 0.785
+359.1965 	DATA 	restDur = 16.0
+
+359.1965 	DATA 	
+359.1965 	DATA 	TR 231 | TR1 116 | TR2 115
+359.9956 	DATA 	
+359.9956 	DATA 	stimulation started
+359.9956 	DATA 	
+360.7456 	DATA 	Keypress: 5
+360.7457 	DATA 	TR 232 | TR1 116 | TR2 116
+362.3121 	DATA 	Keypress: 5
+362.3122 	DATA 	TR 233 | TR1 117 | TR2 116
+363.8620 	DATA 	Keypress: 5
+363.8621 	DATA 	TR 234 | TR1 117 | TR2 117
+363.9953 	DATA 	
+363.9953 	DATA 	stimulation stopped
+363.9953 	DATA 	
+365.4451 	DATA 	Keypress: 5
+365.4452 	DATA 	TR 235 | TR1 118 | TR2 117
+366.9950 	DATA 	Keypress: 5
+366.9950 	DATA 	TR 236 | TR1 118 | TR2 118
+368.5615 	DATA 	Keypress: 5
+368.5616 	DATA 	TR 237 | TR1 119 | TR2 118
+370.1114 	DATA 	Keypress: 5
+370.1114 	DATA 	TR 238 | TR1 119 | TR2 119
+371.6785 	DATA 	Keypress: 5
+371.6945 	DATA 	TR 239 | TR1 120 | TR2 119
+373.2444 	DATA 	Keypress: 5
+373.2445 	DATA 	TR 240 | TR1 120 | TR2 120
+374.8109 	DATA 	Keypress: 5
+374.8110 	DATA 	TR 241 | TR1 121 | TR2 120
+376.3608 	DATA 	Keypress: 5
+376.3609 	DATA 	TR 242 | TR1 121 | TR2 121
+377.9273 	DATA 	Keypress: 5
+377.9273 	DATA 	TR 243 | TR1 122 | TR2 121
+379.4772 	DATA 	Keypress: 5
+379.4772 	DATA 	TR 244 | TR1 122 | TR2 122
+379.9938 	DATA 	
+379.9938 	DATA 	Trial complete
+379.9938 	DATA 	Waiting for VASO trigger to start next trial
+379.9938 	DATA 	
+381.0604 	DATA 	Keypress: 5
+381.0604 	DATA 	Waited 1.0666160583496094 seconds for trigger
+381.0612 	DATA 	
+381.0612 	DATA 	Trial 12
+381.0612 	DATA 	stimDur = 2.0
+381.0612 	DATA 	jitter = 0.0
+381.0612 	DATA 	restDur = 14.0
+
+381.0612 	DATA 	
+381.0612 	DATA 	TR 245 | TR1 123 | TR2 122
+381.0612 	DATA 	
+381.0612 	DATA 	stimulation started
+381.0612 	DATA 	
+382.6103 	DATA 	Keypress: 5
+382.6104 	DATA 	TR 246 | TR1 123 | TR2 123
+383.0769 	DATA 	
+383.0769 	DATA 	stimulation stopped
+383.0769 	DATA 	
+384.1767 	DATA 	Keypress: 5
+384.1768 	DATA 	TR 247 | TR1 124 | TR2 123
+385.7266 	DATA 	Keypress: 5
+385.7267 	DATA 	TR 248 | TR1 124 | TR2 124
+387.3098 	DATA 	Keypress: 5
+387.3098 	DATA 	TR 249 | TR1 125 | TR2 124
+388.8597 	DATA 	Keypress: 5
+388.8597 	DATA 	TR 250 | TR1 125 | TR2 125
+390.4261 	DATA 	Keypress: 5
+390.4262 	DATA 	TR 251 | TR1 126 | TR2 125
+391.9761 	DATA 	Keypress: 5
+391.9761 	DATA 	TR 252 | TR1 126 | TR2 126
+393.5427 	DATA 	Keypress: 5
+393.5427 	DATA 	TR 253 | TR1 127 | TR2 126
+395.1091 	DATA 	Keypress: 5
+395.1091 	DATA 	TR 254 | TR1 127 | TR2 127
+396.6756 	DATA 	Keypress: 5
+396.6756 	DATA 	TR 255 | TR1 128 | TR2 127
+397.0755 	DATA 	
+397.0755 	DATA 	Trial complete
+397.0756 	DATA 	Waiting for VASO trigger to start next trial
+397.0756 	DATA 	
+398.2256 	DATA 	Keypress: 5
+398.2257 	DATA 	TR 256 | TR1 128 | TR2 128
+399.7920 	DATA 	Keypress: 5
+399.7920 	DATA 	Waited 2.716454029083252 seconds for trigger
+399.7928 	DATA 	
+399.7928 	DATA 	Trial 13
+399.7928 	DATA 	stimDur = 4.0
+399.7928 	DATA 	jitter = 1.57
+399.7928 	DATA 	restDur = 16.0
+
+399.7928 	DATA 	
+399.7928 	DATA 	TR 257 | TR1 129 | TR2 128
+401.3419 	DATA 	Keypress: 5
+401.3419 	DATA 	TR 258 | TR1 129 | TR2 129
+401.3751 	DATA 	
+401.3751 	DATA 	stimulation started
+401.3751 	DATA 	
+402.9251 	DATA 	Keypress: 5
+402.9251 	DATA 	TR 259 | TR1 130 | TR2 129
+404.4749 	DATA 	Keypress: 5
+404.4750 	DATA 	TR 260 | TR1 130 | TR2 130
+405.3750 	DATA 	
+405.3750 	DATA 	stimulation stopped
+405.3750 	DATA 	
+406.0414 	DATA 	Keypress: 5
+406.0414 	DATA 	TR 261 | TR1 131 | TR2 130
+407.5913 	DATA 	Keypress: 5
+407.5913 	DATA 	TR 262 | TR1 131 | TR2 131
+408.6912 	DATA 	Target presented
+409.1745 	DATA 	Keypress: 5
+409.1745 	DATA 	Keypress: 1
+409.1746 	DATA 	TR 263 | TR1 132 | TR2 131
+409.1746 	DATA 	Key1 pressed
+409.1746 	DATA 	Target detected
+410.7243 	DATA 	Keypress: 5
+410.7244 	DATA 	TR 264 | TR1 132 | TR2 132
+412.2908 	DATA 	Keypress: 5
+412.2909 	DATA 	TR 265 | TR1 133 | TR2 132
+413.8407 	DATA 	Keypress: 5
+413.8408 	DATA 	TR 266 | TR1 133 | TR2 133
+415.4072 	DATA 	Keypress: 5
+415.4073 	DATA 	TR 267 | TR1 134 | TR2 133
+416.9573 	DATA 	Keypress: 5
+416.9573 	DATA 	TR 268 | TR1 134 | TR2 134
+418.5403 	DATA 	Keypress: 5
+418.5403 	DATA 	TR 269 | TR1 135 | TR2 134
+420.0902 	DATA 	Keypress: 5
+420.0902 	DATA 	TR 270 | TR1 135 | TR2 135
+421.3733 	DATA 	
+421.3733 	DATA 	Trial complete
+421.3734 	DATA 	Waiting for VASO trigger to start next trial
+421.3734 	DATA 	
+421.6566 	DATA 	Keypress: 5
+421.6567 	DATA 	Waited 0.283322811126709 seconds for trigger
+421.6574 	DATA 	
+421.6575 	DATA 	Trial 14
+421.6575 	DATA 	stimDur = 12.0
+421.6575 	DATA 	jitter = 0.785
+421.6575 	DATA 	restDur = 20.0
+
+421.6575 	DATA 	
+421.6575 	DATA 	TR 271 | TR1 136 | TR2 135
+422.4565 	DATA 	
+422.4566 	DATA 	stimulation started
+422.4566 	DATA 	
+423.2066 	DATA 	Keypress: 5
+423.2066 	DATA 	TR 272 | TR1 136 | TR2 136
+424.7899 	DATA 	Keypress: 5
+424.7899 	DATA 	TR 273 | TR1 137 | TR2 136
+426.3396 	DATA 	Keypress: 5
+426.3397 	DATA 	TR 274 | TR1 137 | TR2 137
+427.9061 	DATA 	Keypress: 5
+427.9062 	DATA 	TR 275 | TR1 138 | TR2 137
+429.4560 	DATA 	Keypress: 5
+429.4561 	DATA 	TR 276 | TR1 138 | TR2 138
+431.0225 	DATA 	Keypress: 5
+431.0226 	DATA 	TR 277 | TR1 139 | TR2 138
+432.5891 	DATA 	Keypress: 5
+432.5891 	DATA 	TR 278 | TR1 139 | TR2 139
+434.1557 	DATA 	Keypress: 5
+434.1557 	DATA 	TR 279 | TR1 140 | TR2 139
+434.4555 	DATA 	
+434.4555 	DATA 	stimulation stopped
+434.4555 	DATA 	
+435.7054 	DATA 	Keypress: 5
+435.7054 	DATA 	TR 280 | TR1 140 | TR2 140
+437.2719 	DATA 	Keypress: 5
+437.2719 	DATA 	TR 281 | TR1 141 | TR2 140
+438.8218 	DATA 	Keypress: 5
+438.8218 	DATA 	TR 282 | TR1 141 | TR2 141
+440.4049 	DATA 	Keypress: 5
+440.4050 	DATA 	TR 283 | TR1 142 | TR2 141
+441.9548 	DATA 	Keypress: 5
+441.9549 	DATA 	TR 284 | TR1 142 | TR2 142
+443.5214 	DATA 	Keypress: 5
+443.5214 	DATA 	TR 285 | TR1 143 | TR2 142
+445.0712 	DATA 	Keypress: 5
+445.0712 	DATA 	TR 286 | TR1 143 | TR2 143
+446.6544 	DATA 	Keypress: 5
+446.6544 	DATA 	TR 287 | TR1 144 | TR2 143
+448.2042 	DATA 	Keypress: 5
+448.2043 	DATA 	TR 288 | TR1 144 | TR2 144
+449.7708 	DATA 	Keypress: 5
+449.7708 	DATA 	TR 289 | TR1 145 | TR2 144
+451.3206 	DATA 	Keypress: 5
+451.3207 	DATA 	TR 290 | TR1 145 | TR2 145
+452.8871 	DATA 	Keypress: 5
+452.8872 	DATA 	TR 291 | TR1 146 | TR2 145
+454.4537 	DATA 	Keypress: 5
+454.4537 	DATA 	TR 292 | TR1 146 | TR2 146
+454.4537 	DATA 	
+454.4537 	DATA 	Trial complete
+454.4538 	DATA 	Waiting for VASO trigger to start next trial
+454.4538 	DATA 	
+456.0202 	DATA 	Keypress: 5
+456.0202 	DATA 	Waited 1.5664641857147217 seconds for trigger
+456.0210 	DATA 	
+456.0210 	DATA 	Trial 15
+456.0210 	DATA 	stimDur = 12.0
+456.0210 	DATA 	jitter = 1.57
+456.0210 	DATA 	restDur = 20.0
+
+456.0210 	DATA 	
+456.0210 	DATA 	TR 293 | TR1 147 | TR2 146
+457.5701 	DATA 	Keypress: 5
+457.5701 	DATA 	TR 294 | TR1 147 | TR2 147
+457.6033 	DATA 	
+457.6033 	DATA 	stimulation started
+457.6033 	DATA 	
+459.1366 	DATA 	Keypress: 5
+459.1367 	DATA 	TR 295 | TR1 148 | TR2 147
+460.6865 	DATA 	Keypress: 5
+460.6866 	DATA 	TR 296 | TR1 148 | TR2 148
+462.2697 	DATA 	Keypress: 5
+462.2697 	DATA 	TR 297 | TR1 149 | TR2 148
+463.8196 	DATA 	Keypress: 5
+463.8196 	DATA 	TR 298 | TR1 149 | TR2 149
+465.3861 	DATA 	Keypress: 5
+465.3861 	DATA 	TR 299 | TR1 150 | TR2 149
+466.9358 	DATA 	Keypress: 5
+466.9359 	DATA 	TR 300 | TR1 150 | TR2 150
+468.5024 	DATA 	Keypress: 5
+468.5025 	DATA 	TR 301 | TR1 151 | TR2 150
+469.6023 	DATA 	
+469.6023 	DATA 	stimulation stopped
+469.6023 	DATA 	
+470.0689 	DATA 	Keypress: 5
+470.0690 	DATA 	TR 302 | TR1 151 | TR2 151
+471.6353 	DATA 	Keypress: 5
+471.6353 	DATA 	TR 303 | TR1 152 | TR2 151
+473.1853 	DATA 	Keypress: 5
+473.1854 	DATA 	TR 304 | TR1 152 | TR2 152
+474.7518 	DATA 	Keypress: 5
+474.7518 	DATA 	TR 305 | TR1 153 | TR2 152
+476.3017 	DATA 	Keypress: 5
+476.3017 	DATA 	TR 306 | TR1 153 | TR2 153
+477.8848 	DATA 	Keypress: 5
+477.8849 	DATA 	TR 307 | TR1 154 | TR2 153
+479.4347 	DATA 	Keypress: 5
+479.4348 	DATA 	TR 308 | TR1 154 | TR2 154
+481.0012 	DATA 	Keypress: 5
+481.0013 	DATA 	TR 309 | TR1 155 | TR2 154
+482.5512 	DATA 	Keypress: 5
+482.5513 	DATA 	TR 310 | TR1 155 | TR2 155
+484.1343 	DATA 	Keypress: 5
+484.1344 	DATA 	TR 311 | TR1 156 | TR2 155
+485.6841 	DATA 	Keypress: 5
+485.6842 	DATA 	TR 312 | TR1 156 | TR2 156
+487.2508 	DATA 	Keypress: 5
+487.2508 	DATA 	TR 313 | TR1 157 | TR2 156
+488.8005 	DATA 	Keypress: 5
+488.8006 	DATA 	TR 314 | TR1 157 | TR2 157
+489.1005 	DATA 	Target presented
+489.5504 	DATA 	Keypress: 1
+489.5505 	DATA 	Key1 pressed
+489.5505 	DATA 	Target detected
+489.6004 	DATA 	
+489.6005 	DATA 	Trial complete
+489.6005 	DATA 	Waiting for VASO trigger to start next trial
+489.6005 	DATA 	
+490.3670 	DATA 	Keypress: 5
+490.3671 	DATA 	Waited 0.7665760517120361 seconds for trigger
+490.3678 	DATA 	
+490.3678 	DATA 	Trial 16
+490.3678 	DATA 	stimDur = 2.0
+490.3678 	DATA 	jitter = 1.57
+490.3678 	DATA 	restDur = 14.0
+
+490.3678 	DATA 	
+490.3678 	DATA 	TR 315 | TR1 158 | TR2 157
+491.9175 	DATA 	Keypress: 5
+491.9335 	DATA 	TR 316 | TR1 158 | TR2 158
+491.9502 	DATA 	
+491.9502 	DATA 	stimulation started
+491.9502 	DATA 	
+493.5003 	DATA 	Keypress: 5
+493.5003 	DATA 	TR 317 | TR1 159 | TR2 158
+493.9501 	DATA 	
+493.9501 	DATA 	stimulation stopped
+493.9501 	DATA 	
+495.0500 	DATA 	Keypress: 5
+495.0500 	DATA 	TR 318 | TR1 159 | TR2 159
+496.6165 	DATA 	Keypress: 5
+496.6165 	DATA 	TR 319 | TR1 160 | TR2 159
+498.1663 	DATA 	Keypress: 5
+498.1664 	DATA 	TR 320 | TR1 160 | TR2 160
+499.7495 	DATA 	Keypress: 5
+499.7495 	DATA 	TR 321 | TR1 161 | TR2 160
+501.2994 	DATA 	Keypress: 5
+501.2994 	DATA 	TR 322 | TR1 161 | TR2 161
+502.8659 	DATA 	Keypress: 5
+502.8659 	DATA 	TR 323 | TR1 162 | TR2 161
+504.4157 	DATA 	Keypress: 5
+504.4157 	DATA 	TR 324 | TR1 162 | TR2 162
+505.9989 	DATA 	Keypress: 5
+505.9990 	DATA 	TR 325 | TR1 163 | TR2 162
+507.5488 	DATA 	Keypress: 5
+507.5489 	DATA 	TR 326 | TR1 163 | TR2 163
+507.9487 	DATA 	
+507.9487 	DATA 	Trial complete
+507.9487 	DATA 	Waiting for VASO trigger to start next trial
+507.9487 	DATA 	
+509.1153 	DATA 	Keypress: 5
+509.1154 	DATA 	Waited 1.1666500568389893 seconds for trigger
+509.1161 	DATA 	
+509.1161 	DATA 	Trial 17
+509.1162 	DATA 	stimDur = 2.0
+509.1162 	DATA 	jitter = 2.355
+509.1162 	DATA 	restDur = 14.0
+
+509.1162 	DATA 	
+509.1162 	DATA 	TR 327 | TR1 164 | TR2 163
+510.6652 	DATA 	Keypress: 5
+510.6653 	DATA 	TR 328 | TR1 164 | TR2 164
+511.4817 	DATA 	
+511.4818 	DATA 	stimulation started
+511.4818 	DATA 	
+512.2318 	DATA 	Keypress: 5
+512.2318 	DATA 	TR 329 | TR1 165 | TR2 164
+513.4816 	DATA 	
+513.4816 	DATA 	stimulation stopped
+513.4816 	DATA 	
+513.7816 	DATA 	Keypress: 5
+513.7816 	DATA 	TR 330 | TR1 165 | TR2 165
+515.3648 	DATA 	Keypress: 5
+515.3648 	DATA 	TR 331 | TR1 166 | TR2 165
+516.9146 	DATA 	Keypress: 5
+516.9147 	DATA 	TR 332 | TR1 166 | TR2 166
+518.4812 	DATA 	Keypress: 5
+518.4812 	DATA 	TR 333 | TR1 167 | TR2 166
+520.0310 	DATA 	Keypress: 5
+520.0311 	DATA 	TR 334 | TR1 167 | TR2 167
+521.6142 	DATA 	Keypress: 5
+521.6142 	DATA 	TR 335 | TR1 168 | TR2 167
+523.1641 	DATA 	Keypress: 5
+523.1641 	DATA 	TR 336 | TR1 168 | TR2 168
+524.7306 	DATA 	Keypress: 5
+524.7306 	DATA 	TR 337 | TR1 169 | TR2 168
+526.2805 	DATA 	Keypress: 5
+526.2805 	DATA 	TR 338 | TR1 169 | TR2 169
+527.4803 	DATA 	
+527.4803 	DATA 	Trial complete
+527.4803 	DATA 	Waiting for VASO trigger to start next trial
+527.4803 	DATA 	
+527.8470 	DATA 	Keypress: 5
+527.8470 	DATA 	Waited 0.36669492721557617 seconds for trigger
+527.8478 	DATA 	
+527.8478 	DATA 	Trial 18
+527.8478 	DATA 	stimDur = 1.0
+527.8478 	DATA 	jitter = 1.57
+527.8478 	DATA 	restDur = 12.0
+
+527.8478 	DATA 	
+527.8478 	DATA 	TR 339 | TR1 170 | TR2 169
+529.4135 	DATA 	Keypress: 5
+529.4135 	DATA 	TR 340 | TR1 170 | TR2 170
+529.4301 	DATA 	
+529.4301 	DATA 	stimulation started
+529.4301 	DATA 	
+530.4301 	DATA 	
+530.4301 	DATA 	stimulation stopped
+530.4301 	DATA 	
+530.9800 	DATA 	Keypress: 5
+530.9801 	DATA 	TR 341 | TR1 171 | TR2 170
+532.2132 	DATA 	Target presented
+532.5299 	DATA 	Keypress: 5
+532.5299 	DATA 	TR 342 | TR1 171 | TR2 171
+532.6798 	DATA 	Keypress: 1
+532.6799 	DATA 	Key1 pressed
+532.6799 	DATA 	Target detected
+534.0964 	DATA 	Keypress: 5
+534.0965 	DATA 	TR 343 | TR1 172 | TR2 171
+535.6463 	DATA 	Keypress: 5
+535.6463 	DATA 	TR 344 | TR1 172 | TR2 172
+537.2296 	DATA 	Keypress: 5
+537.2296 	DATA 	TR 345 | TR1 173 | TR2 172
+538.7794 	DATA 	Keypress: 5
+538.7795 	DATA 	TR 346 | TR1 173 | TR2 173
+540.3458 	DATA 	Keypress: 5
+540.3459 	DATA 	TR 347 | TR1 174 | TR2 173
+541.8957 	DATA 	Keypress: 5
+541.8957 	DATA 	TR 348 | TR1 174 | TR2 174
+542.4289 	DATA 	
+542.4289 	DATA 	Trial complete
+542.4289 	DATA 	Waiting for VASO trigger to start next trial
+542.4289 	DATA 	
+543.4628 	DATA 	Keypress: 5
+543.4788 	DATA 	Waited 1.0498769283294678 seconds for trigger
+543.4796 	DATA 	
+543.4796 	DATA 	Trial 19
+543.4796 	DATA 	stimDur = 12.0
+543.4796 	DATA 	jitter = 0.0
+543.4796 	DATA 	restDur = 20.0
+
+543.4796 	DATA 	
+543.4796 	DATA 	TR 349 | TR1 175 | TR2 174
+543.4796 	DATA 	
+543.4796 	DATA 	stimulation started
+543.4796 	DATA 	
+545.0288 	DATA 	Keypress: 5
+545.0288 	DATA 	TR 350 | TR1 175 | TR2 175
+546.5953 	DATA 	Keypress: 5
+546.5954 	DATA 	TR 351 | TR1 176 | TR2 175
+548.1452 	DATA 	Keypress: 5
+548.1452 	DATA 	TR 352 | TR1 176 | TR2 176
+549.7117 	DATA 	Keypress: 5
+549.7118 	DATA 	TR 353 | TR1 177 | TR2 176
+551.2622 	DATA 	Keypress: 5
+551.2782 	DATA 	TR 354 | TR1 177 | TR2 177
+552.8447 	DATA 	Keypress: 5
+552.8448 	DATA 	TR 355 | TR1 178 | TR2 177
+554.3947 	DATA 	Keypress: 5
+554.3948 	DATA 	TR 356 | TR1 178 | TR2 178
+555.4944 	DATA 	
+555.4944 	DATA 	stimulation stopped
+555.4945 	DATA 	
+555.9611 	DATA 	Keypress: 5
+555.9611 	DATA 	TR 357 | TR1 179 | TR2 178
+557.5109 	DATA 	Keypress: 5
+557.5110 	DATA 	TR 358 | TR1 179 | TR2 179
+559.0941 	DATA 	Keypress: 5
+559.0942 	DATA 	TR 359 | TR1 180 | TR2 179
+560.6440 	DATA 	Keypress: 5
+560.6440 	DATA 	TR 360 | TR1 180 | TR2 180
+562.2105 	DATA 	Keypress: 5
+562.2106 	DATA 	TR 361 | TR1 181 | TR2 180
+563.7603 	DATA 	Keypress: 5
+563.7604 	DATA 	TR 362 | TR1 181 | TR2 181
+565.3269 	DATA 	Keypress: 5
+565.3269 	DATA 	TR 363 | TR1 182 | TR2 181
+566.8934 	DATA 	Keypress: 5
+566.8934 	DATA 	TR 364 | TR1 182 | TR2 182
+568.4599 	DATA 	Keypress: 5
+568.4600 	DATA 	TR 365 | TR1 183 | TR2 182
+570.0098 	DATA 	Keypress: 5
+570.0098 	DATA 	TR 366 | TR1 183 | TR2 183
+571.5763 	DATA 	Keypress: 5
+571.5764 	DATA 	TR 367 | TR1 184 | TR2 183
+573.1262 	DATA 	Keypress: 5
+573.1262 	DATA 	TR 368 | TR1 184 | TR2 184
+574.7094 	DATA 	Keypress: 5
+574.7095 	DATA 	TR 369 | TR1 185 | TR2 184
+575.4926 	DATA 	
+575.4926 	DATA 	Trial complete
+575.4926 	DATA 	
+576.2592 	DATA 	Keypress: 5
+576.2592 	DATA 	TR 370 | TR1 185 | TR2 185
+577.8257 	DATA 	Keypress: 5
+577.8258 	DATA 	Waited 35.39683294296265 seconds for trigger
+577.8265 	DATA 	
+577.8266 	DATA 	Trial 20
+577.8266 	DATA 	stimDur = 4.0
+577.8266 	DATA 	jitter = 2.355
+577.8266 	DATA 	restDur = 16.0
+
+577.8266 	DATA 	
+577.8266 	DATA 	TR 371 | TR1 186 | TR2 185
+579.3756 	DATA 	Keypress: 5
+579.3756 	DATA 	TR 372 | TR1 186 | TR2 186
+580.1921 	DATA 	
+580.1921 	DATA 	stimulation started
+580.1921 	DATA 	
+580.9589 	DATA 	Keypress: 5
+580.9589 	DATA 	TR 373 | TR1 187 | TR2 186
+582.5087 	DATA 	Keypress: 5
+582.5087 	DATA 	TR 374 | TR1 187 | TR2 187
+584.0753 	DATA 	Keypress: 5
+584.0753 	DATA 	TR 375 | TR1 188 | TR2 187
+584.1918 	DATA 	
+584.1918 	DATA 	stimulation stopped
+584.1918 	DATA 	
+585.6250 	DATA 	Keypress: 5
+585.6251 	DATA 	TR 376 | TR1 188 | TR2 188
+587.1917 	DATA 	Keypress: 5
+587.1917 	DATA 	TR 377 | TR1 189 | TR2 188
+588.7420 	DATA 	Keypress: 5
+588.7582 	DATA 	TR 378 | TR1 189 | TR2 189
+590.3246 	DATA 	Keypress: 5
+590.3247 	DATA 	TR 379 | TR1 190 | TR2 189
+591.8744 	DATA 	Keypress: 5
+591.8745 	DATA 	TR 380 | TR1 190 | TR2 190
+593.4410 	DATA 	Keypress: 5
+593.4410 	DATA 	TR 381 | TR1 191 | TR2 190
+594.9908 	DATA 	Keypress: 5
+594.9909 	DATA 	TR 382 | TR1 191 | TR2 191
+596.5740 	DATA 	Keypress: 5
+596.5741 	DATA 	TR 383 | TR1 192 | TR2 191
+598.1239 	DATA 	Keypress: 5
+598.1239 	DATA 	TR 384 | TR1 192 | TR2 192
+599.6904 	DATA 	Keypress: 5
+599.6905 	DATA 	TR 385 | TR1 193 | TR2 192
+600.1903 	DATA 	
+600.1903 	DATA 	Trial complete
+600.1903 	DATA 	
+601.2403 	DATA 	Keypress: 5
+601.2403 	DATA 	TR 386 | TR1 193 | TR2 193
+602.8074 	DATA 	Keypress: 5
+602.8234 	DATA 	TR 387 | TR1 194 | TR2 193
+604.3733 	DATA 	Keypress: 5
+604.3733 	DATA 	TR 388 | TR1 194 | TR2 194
+605.9399 	DATA 	Keypress: 5
+605.9399 	DATA 	TR 389 | TR1 195 | TR2 194
+607.4899 	DATA 	Keypress: 5
+607.4899 	DATA 	TR 390 | TR1 195 | TR2 195
+609.0562 	DATA 	Keypress: 5
+609.0563 	DATA 	TR 391 | TR1 196 | TR2 195
+610.6061 	DATA 	Keypress: 5
+610.6061 	DATA 	TR 392 | TR1 196 | TR2 196
+612.1893 	DATA 	Keypress: 5
+612.1893 	DATA 	TR 393 | TR1 197 | TR2 196
+613.7391 	DATA 	Keypress: 5
+613.7392 	DATA 	TR 394 | TR1 197 | TR2 197
+615.3057 	DATA 	Keypress: 5
+615.3057 	DATA 	TR 395 | TR1 198 | TR2 197
+616.8555 	DATA 	Keypress: 5
+616.8556 	DATA 	TR 396 | TR1 198 | TR2 198
+618.4387 	DATA 	Keypress: 5
+618.4388 	DATA 	TR 397 | TR1 199 | TR2 198
+619.9885 	DATA 	Keypress: 5
+619.9886 	DATA 	TR 398 | TR1 199 | TR2 199
+621.5552 	DATA 	Keypress: 5
+621.5553 	DATA 	TR 399 | TR1 200 | TR2 199
+623.1049 	DATA 	Keypress: 5
+623.1050 	DATA 	TR 400 | TR1 200 | TR2 200
+624.6715 	DATA 	Keypress: 5
+624.6715 	DATA 	TR 401 | TR1 201 | TR2 200
+626.2380 	DATA 	Keypress: 5
+626.2380 	DATA 	TR 402 | TR1 201 | TR2 201
+627.8045 	DATA 	Keypress: 5
+627.8046 	DATA 	TR 403 | TR1 202 | TR2 201
+629.3543 	DATA 	Keypress: 5
+629.3543 	DATA 	TR 404 | TR1 202 | TR2 202
+630.9209 	DATA 	Keypress: 5
+630.9210 	DATA 	TR 405 | TR1 203 | TR2 202
+632.4706 	DATA 	Keypress: 5
+632.4706 	DATA 	TR 406 | TR1 203 | TR2 203
+634.0539 	DATA 	Keypress: 5
+634.0540 	DATA 	TR 407 | TR1 204 | TR2 203
+635.6038 	DATA 	Keypress: 5
+635.6038 	DATA 	TR 408 | TR1 204 | TR2 204
+637.1704 	DATA 	Keypress: 5
+637.1704 	DATA 	TR 409 | TR1 205 | TR2 204
+638.7202 	DATA 	Keypress: 5
+638.7202 	DATA 	TR 410 | TR1 205 | TR2 205
+640.3033 	DATA 	Keypress: 5
+640.3033 	DATA 	TR 411 | TR1 206 | TR2 205
+641.8532 	DATA 	Keypress: 5
+641.8533 	DATA 	TR 412 | TR1 206 | TR2 206
+643.4198 	DATA 	Keypress: 5
+643.4198 	DATA 	TR 413 | TR1 207 | TR2 206
+644.9696 	DATA 	Keypress: 5
+644.9696 	DATA 	TR 414 | TR1 207 | TR2 207
+646.5361 	DATA 	Keypress: 5
+646.5362 	DATA 	TR 415 | TR1 208 | TR2 207
+648.0860 	DATA 	Keypress: 5
+648.0861 	DATA 	TR 416 | TR1 208 | TR2 208
+649.6692 	DATA 	Keypress: 5
+649.6693 	DATA 	TR 417 | TR1 209 | TR2 208
+651.2190 	DATA 	Keypress: 5
+651.2191 	DATA 	TR 418 | TR1 209 | TR2 209
+652.7856 	DATA 	Keypress: 5
+652.7856 	DATA 	TR 419 | TR1 210 | TR2 209
+654.3354 	DATA 	Keypress: 5
+654.3355 	DATA 	TR 420 | TR1 210 | TR2 210
+655.9186 	DATA 	Keypress: 5
+655.9187 	DATA 	TR 421 | TR1 211 | TR2 210
+657.4684 	DATA 	Keypress: 5
+657.4685 	DATA 	TR 422 | TR1 211 | TR2 211
+659.0350 	DATA 	Keypress: 5
+659.0351 	DATA 	TR 423 | TR1 212 | TR2 211
+660.5848 	DATA 	Keypress: 5
+660.5849 	DATA 	TR 424 | TR1 212 | TR2 212
+662.1514 	DATA 	Keypress: 5
+662.1514 	DATA 	TR 425 | TR1 213 | TR2 212
+663.0346 	DATA 	EndOfRun sub-06_ses-01_run-05
+
+663.0346 	DATA 	We spent 63.47065758705139 seconds waiting for triggers
+663.0346 	DATA 	RatioOfDetectedTargets 1.0
+663.0346 	DATA 	You have detected 9 out of 9 targets.
+667.8570 	DATA 	Keypress: 5
+668.1085 	EXP 	window1: mouseVisible = True
