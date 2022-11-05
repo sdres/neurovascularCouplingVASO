@@ -24,6 +24,6 @@ docker run --rm -it \
 -o /base/Nifti/ \
 -f /base/Nifti/code/heudiconvHeuristic.py \
 -s 08 \
--ss 02 \
+-ss 03 \
 -c dcm2niix \
 -b --overwrite
