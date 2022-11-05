@@ -17,7 +17,8 @@ import seaborn as sns
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
 # Set subjects to work on
-subs = ['sub-06']
+subs = ['sub-05','sub-06','sub-08']
+subs = ['sub-05']
 
 MODALITIES = ['bold', 'vaso']
 
@@ -37,13 +38,13 @@ for sub in subs:
     # roiFolder = f'{DATADIR}/{sub}/rois'
 
 
-    depthFile = f'{segFolder}/{sub}_rim_layers_equivol.nii.gz'
+    depthFile = glob.glob(f'{segFolder}/{sub}_rim-RH_layers_equivol.nii*')[0]
     depthNii = nb.load(depthFile)
     depthData = depthNii.get_fdata()
     layers = np.unique(depthData)[1:]
 
     # roisData = nb.load(f'{roiFolder}/sub-05_vaso_stimulation_registered_crop_largestCluster_bin_UVD_max_filter.nii.gz').get_fdata()
-    roisData = nb.load(f'{segFolder}/sub-06_rim_perimeter_chunk.nii.gz').get_fdata()
+    roisData = nb.load(glob.glob(f'{segFolder}/{sub}_rim-RH_perimeter_chunk.nii*')[0]).get_fdata()
     roiIdx = roisData == 1
 
     for stimDuration in [1, 2, 4, 12, 24]:
@@ -80,35 +81,35 @@ palette = {
     'vaso': 'tab:blue'}
 
 
-for stimDuration in [1, 2, 4, 12, 24]:
-    fig, ax = plt.subplots()
-
-    tmp = data.loc[data['stim']==stimDuration]
-
-    sns.lineplot(data=tmp, x='depth', y='value', hue='modality', linewidth=2, palette = palette)
-
-    lim = ax.get_ylim()
-    lim[0].round()
-
-    ax.set_yticks(np.linspace(lim[0].round(), lim[1].round(),5).astype('int'))
-
-    plt.ylabel(f'z-score', fontsize=24)
-
-    # plt.title(f"{sub} {roi}-ROI {modality}", fontsize=24, pad=20)
-    plt.xlabel('WM                                CSF', fontsize=24)
-    plt.xticks([])
-    yLimits = ax.get_ylim()
-    # plt.ylim(0,yLimits[1])
-
-    plt.yticks(fontsize=18)
-
-    # ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-
-    plt.legend(loc='upper left')
-
-
-    # plt.savefig(f'{root}/Group_V1_{stimType}_zScoreProfile.png', bbox_inches = "tight")
-    plt.show()
+# for stimDuration in [1, 2, 4, 12, 24]:
+#     fig, ax = plt.subplots()
+#
+#     tmp = data.loc[data['stim']==stimDuration]
+#
+#     sns.lineplot(data=tmp, x='depth', y='value', hue='modality', linewidth=2, palette = palette)
+#
+#     lim = ax.get_ylim()
+#     lim[0].round()
+#
+#     ax.set_yticks(np.linspace(lim[0].round(), lim[1].round(),5).astype('int'))
+#
+#     plt.ylabel(f'z-score', fontsize=24)
+#
+#     # plt.title(f"{sub} {roi}-ROI {modality}", fontsize=24, pad=20)
+#     plt.xlabel('WM                                CSF', fontsize=24)
+#     plt.xticks([])
+#     yLimits = ax.get_ylim()
+#     # plt.ylim(0,yLimits[1])
+#
+#     plt.yticks(fontsize=18)
+#
+#     # ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+#
+#     plt.legend(loc='upper left')
+#
+#
+#     # plt.savefig(f'{root}/Group_V1_{stimType}_zScoreProfile.png', bbox_inches = "tight")
+#     plt.show()
 
 
 palettes = {
@@ -147,5 +148,5 @@ for modality in ['bold', 'vaso']:
     title = legend.get_title()
     title.set_fontsize(14)
 
-    plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-06_{modality}_zScoreProfile.png', bbox_inches = "tight")
+    # plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-06_{modality}_zScoreProfile.png', bbox_inches = "tight")
     plt.show()
