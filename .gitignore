@@ -127,4 +127,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+
+# Personal config Seb
+results
 .DS_Store
