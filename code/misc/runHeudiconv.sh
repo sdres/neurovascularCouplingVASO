@@ -23,7 +23,7 @@ docker run --rm -it \
 -d /base/DICOM/sub-{subject}/ses-{session}/*/*.dcm \
 -o /base/Nifti/ \
 -f /base/Nifti/code/heudiconvHeuristic.py \
--s 08 \
+-s 07 \
 -ss 03 \
 -c dcm2niix \
 -b --overwrite
