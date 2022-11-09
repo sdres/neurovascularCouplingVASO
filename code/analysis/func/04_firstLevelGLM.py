@@ -24,7 +24,7 @@ from findTr import *
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
 subs = ['sub-05', 'sub-06']
-subs = ['sub-08']
+subs = ['sub-07']
 
 drift_model = 'Cosine'  # We use a discrete cosine transform to model signal drifts.
 high_pass = .01  # The cutoff for the drift model is 0.01 Hz.
@@ -43,19 +43,32 @@ for sub in subs:
 
     # Check for sessions with long ITI
     longITIses = 0
-    allRuns = sorted(glob.glob(f'{funcDir}/ses-*/func/{sub}_ses-*_task-stimulation_run-01_part-mag_cbv_moco.nii.gz'))
+    allRuns = sorted(glob.glob(f'{funcDir}/ses-*/func/{sub}_ses-*_task-stimulation_run-01_part-mag_cbv.nii.gz'))
+
     for run in allRuns:
+        base = os.path.basename(run).rsplit('.', 2)[0]
         nii = nb.load(run)
         nrTRs = nii.header['dim'][4]
+
         if nrTRs > 240:
             longITIses = longITIses+1
+
+            for j in range(1,6):
+                if f'ses-0{j}' in base:
+                    print(f'found ses-0{ses} in {base}')
+                    ses = f'ses-0{j}'
+
+            eventFileLong = f'{ROOT}/{sub}/ses-0{ses}/func/{base}_events.tsv'
+            trEff = findTR(f'code/stimulation/{sub}/ses-01/{sub}_ses-01_run-01_neurovascularCoupling.log')
+            trNom = trEff/4
 
     if longITIses == 2:
         skipLongITI = True
     else:
         skipLongITI = False
 
-    for modality in ['vaso', 'bold']:
+    # for modality in ['vaso', 'bold']:
+    for modality in ['vaso']:
         print(f'Processing {modality}')
 
         if skipLongITI and len(allRuns) == 2:
@@ -115,7 +128,8 @@ for sub in subs:
             nVols = data.shape[-1]
             frame_times = np.arange(nVols) * trNom
 
-            events = pd.read_csv(eventFileLong, sep = ',')
+            events = pd.read_csv('/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/sub-07/ses-03/func/sub-07_ses-03_task-stimulation_run-01_part-mag_cbv_events.tsv'
+, sep = ',')
 
             design_matrix = make_first_level_design_matrix(
                 frame_times,
@@ -125,7 +139,7 @@ for sub in subs:
                 high_pass= high_pass
                 )
 
-            
+
 
 
             designMatrices.append(design_matrix)
