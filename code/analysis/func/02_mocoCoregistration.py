@@ -31,10 +31,10 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-08']
+subs = ['sub-07']
 # Set sessions to work on
-# sessions = ['ses-01', 'ses-02']
-sessions = ['ses-02']
+sessions = ['ses-02', 'ses-03']
+# sessions = ['ses-03']
 
 
 for sub in subs:
@@ -394,6 +394,8 @@ sessions = ['ses-05']
 for sub in subs:
     # for ses in ['ses-01', 'ses-02']:
     for ses in sessions:
+        outFolder = f'{DATADIR}/derivatives/{sub}/{ses}/func'
+
         # look for individual runs
         runs = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/func/{sub}_{ses}_task-stim*_run-0*_part-mag_*.nii.gz'))
 

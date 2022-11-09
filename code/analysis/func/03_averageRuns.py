@@ -21,8 +21,8 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 afniPath = '/Users/sebastiandresbach/abin'
 antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
-SUBS = ['sub-08']
-SESSIONS = ['ses-01','ses-02']
+SUBS = ['sub-07']
+SESSIONS = ['ses-01','ses-02','ses-03']
 
 for sub in SUBS:
     # Create subject-directory in derivatives if it does not exist
