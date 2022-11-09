@@ -17,8 +17,9 @@ import seaborn as sns
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
 # Set subjects to work on
-subs = ['sub-05','sub-06','sub-08']
-subs = ['sub-05']
+subs = ['sub-05','sub-06','sub-07','sub-08']
+# subs = ['sub-06','sub-07']
+# subs = ['sub-06']
 
 MODALITIES = ['bold', 'vaso']
 
@@ -38,19 +39,21 @@ for sub in subs:
     # roiFolder = f'{DATADIR}/{sub}/rois'
 
 
-    depthFile = glob.glob(f'{segFolder}/{sub}_rim-RH_layers_equivol.nii*')[0]
+    depthFile = glob.glob(f'{segFolder}/{sub}_rim-*H*layers_equivol.nii*')[0]
     depthNii = nb.load(depthFile)
     depthData = depthNii.get_fdata()
     layers = np.unique(depthData)[1:]
 
     # roisData = nb.load(f'{roiFolder}/sub-05_vaso_stimulation_registered_crop_largestCluster_bin_UVD_max_filter.nii.gz').get_fdata()
-    roisData = nb.load(glob.glob(f'{segFolder}/{sub}_rim-RH_perimeter_chunk.nii*')[0]).get_fdata()
+    # roisData = nb.load(glob.glob(f'{segFolder}/{sub}_*perimeter_chunk.nii*')[0]).get_fdata()
+    roisData = nb.load(glob.glob(f'{segFolder}/{sub}_rim-*H_perimeter_chunk.nii*')[0]).get_fdata()
+
     roiIdx = roisData == 1
 
     for stimDuration in [1, 2, 4, 12, 24]:
         for modality in MODALITIES:
 
-            stimData = nb.load(f'{statFolder}/{sub}_{modality}_stim_{stimDuration}s_registered_crop.nii.gz').get_fdata()
+            stimData = nb.load(glob.glob(f'{statFolder}/{sub}_{modality}_stim_{stimDuration}s_registered_crop-toShpere*H.nii.gz')[0]).get_fdata()
 
             # stimData = stimData[roiIdx.astype('bool')]
             # depth = depthData[roiIdx.astype('bool')]
@@ -119,7 +122,7 @@ palettes = {
 for modality in ['bold', 'vaso']:
     fig, ax = plt.subplots()
 
-    tmp = data.loc[data['modality']==modality]
+    tmp = data.loc[(data['modality']==modality)]
 
     sns.lineplot(data=tmp, x='depth', y='value', hue='stim', linewidth=2, palette = palettes[modality])
 
@@ -148,5 +151,5 @@ for modality in ['bold', 'vaso']:
     title = legend.get_title()
     title.set_fontsize(14)
 
-    # plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-06_{modality}_zScoreProfile.png', bbox_inches = "tight")
+    plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-all_{modality}_zScoreProfile.png', bbox_inches = "tight")
     plt.show()
