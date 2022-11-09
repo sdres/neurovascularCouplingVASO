@@ -31,10 +31,10 @@ ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 afniPath = '/Users/sebastiandresbach/abin'
 antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
-SUBS = ['sub-08']
+SUBS = ['sub-07']
 
 SESSIONS = ['ses-01','ses-03','ses-04','ses-05']
-SESSIONS = ['ses-01','ses-02']
+SESSIONS = ['ses-02','ses-03']
 
 for sub in SUBS:
     # Create subject-directory in derivatives if it does not exist
@@ -59,14 +59,14 @@ for sub in SUBS:
 
         outFolder = f'{ROOT}/derivatives/{sub}/{ses}/func'
 
-        if skipLongITI:
-            # Load first run to see whether it had a long ITI
-            firstRun = f'{outFolder}/{sub}_{ses}_task-stimulation_run-01_part-mag_cbv_moco.nii.gz'
-            nii = nb.load(firstRun)
-            nrTRs = nii.header['dim'][4]
-            if nrTRs > 240:
-                print(f'Skipping sessions with long ITIs')
-                continue
+        # if skipLongITI:
+        #     # Load first run to see whether it had a long ITI
+        #     firstRun = f'{outFolder}/{sub}_{ses}_task-stimulation_run-01_part-mag_cbv_moco.nii.gz'
+        #     nii = nb.load(firstRun)
+        #     nrTRs = nii.header['dim'][4]
+        #     if nrTRs > 240:
+        #         print(f'Skipping sessions with long ITIs')
+        #         continue
 
 
         tr = findTR(f'code/stimulation/{sub}/{ses}/{sub}_{ses}_run-01_neurovascularCoupling.log')
