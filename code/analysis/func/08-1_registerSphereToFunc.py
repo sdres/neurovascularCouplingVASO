@@ -27,9 +27,8 @@ for sub in subs:
 
 
 
-    moving = f'{anatDir}/upsample/{sub}_LH_sphere_ups4X.nii.gz'
+    moving = f'{anatDir}/upsample/{sub}_RH_sphere_ups4X.nii.gz'
     fixed = f'{funcDir}/{sub}_ses-01_task-stimulation_run-avg_part-mag_T1w.nii'
-
 
     # Prepare command to apply transform and check quality
     command = 'antsApplyTransforms '
