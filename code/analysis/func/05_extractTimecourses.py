@@ -58,7 +58,7 @@ for sub in subs:
 # Extract voxel wise timecourses
 # =============================================================================
 
-SUBS = ['sub-05']
+SUBS = ['sub-07']
 STIMDURS = [1, 2, 4, 12, 24]
 # STIMDURS = [24]
 EVENTDURS = {'shortITI': np.array([11, 14, 18, 32, 48]),
@@ -67,7 +67,7 @@ EVENTDURS = {'shortITI': np.array([11, 14, 18, 32, 48]),
 # EVENTDURS = np.array([48])
 # EVENTDURS = np.array([64])
 
-MODALITIES = ['vaso', 'bold']
+MODALITIES = ['bold']
 # MODALITIES = ['bold']
 
 for sub in SUBS:
@@ -176,8 +176,8 @@ for file in files:
 
 # Test whether extracted ERAS give same results
 
-SUBS = ['sub-05','sub-06']
-SUBS = ['sub-06']
+SUBS = ['sub-05','sub-06','sub-07']
+# SUBS = ['sub-07']
 
 timePointList = []
 modalityList = []
@@ -191,13 +191,13 @@ for sub in SUBS:
 
     segFolder = f'{DATADIR}/{sub}/ses-01/anat/upsample'
 
-    depthFile = f'{segFolder}/3layers_layers_equivol.nii'
+    depthFile = glob.glob(f'{segFolder}/3layers_layers_equivol.nii*')[0]
     depthNii = nb.load(depthFile)
     depthData = depthNii.get_fdata()
     layers = np.unique(depthData)[1:]
 
     # roisData = nb.load(f'{roiFolder}/sub-05_vaso_stimulation_registered_crop_largestCluster_bin_UVD_max_filter.nii.gz').get_fdata()
-    roisData = nb.load(f'{segFolder}/{sub}_rim_perimeter_chunk.nii.gz').get_fdata()
+    roisData = nb.load(glob.glob(f'{segFolder}/{sub}_rim*_perimeter_chunk.nii*')[0]).get_fdata()
     roiIdx = roisData == 1
 
 
@@ -224,7 +224,9 @@ for sub in SUBS:
 
                     if modality == 'bold':
                         valList.append(val)
-                    if modality == 'vaso':
+                    elif (modality == 'vaso') and (sub=='sub-05'):
+                        valList.append(-val)
+                    elif modality == 'vaso':
                         valList.append(val)
 
                     subList.append(sub)
@@ -266,7 +268,23 @@ data = pd.DataFrame({'subject': subList, 'volume': timePointList, 'modality': mo
 
 data.to_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responsestest.csv', sep = ',', index=False)
 
+# Demean data for each participant
+test = data.loc[(data['stimDur'] == stimDuration)&(data['layer'] == layer)&(data['modality'] == modality)&(data['subject'] == 'sub-05')]
 
+demean = pd.DataFrame()
+
+for sub in ['sub-05','sub-06','sub-07']:
+    for modality in data['modality'].unique():
+        for layer in data['layer'].unique():
+            for stimDur in data['stimDur'].unique():
+                tmp = data.loc[(data['stimDur'] == stimDur)&(data['layer'] == layer)&(data['modality'] == modality)&(data['subject'] == sub)]
+                tmp['data'] = tmp['data']-np.mean(tmp['data'])
+                demean = demean.append(tmp)
+
+
+
+import seaborn as sns
+plt.style.use('dark_background')
 
 palettesLayers = {'vaso':['#55a8e2','#aad4f0','#ffffff','#FF0000'],
 'bold':['#ff8c26', '#ffd4af','#ffffff','#FF0000']}
@@ -284,20 +302,21 @@ for interpolationType in ['linear']:
 
             # for modality in ['bold', 'vaso']:
 
-            for layer in [1,2,3,4]:
+            for layer in [1,2,3]:
 
-                val = np.mean(data.loc[(data['stimDur'] == stimDuration)
-                                     & (data['volume'] == 0)
-                                     & (data['layer'] == layer)]['data']
-                                     )
 
-                tmp = data.loc[(data['stimDur'] == stimDuration)&(data['layer'] == layer)&(data['modality'] == modality)&(data['subject'] == 'sub-06')]
 
+                # tmp = data.loc[(data['stimDur'] == stimDuration)&(data['layer'] == layer)&(data['modality'] == modality)&(data['subject'] == 'sub-08')]
+                # tmp = data.loc[(data['stimDur'] == stimDuration)&(data['layer'] == layer)&(data['modality'] == modality)]
+                tmp = demean.loc[(demean['stimDur'] == stimDuration)&(demean['layer'] == layer)&(demean['modality'] == modality)]
+                # tmp = demean.loc[(demean['stimDur'] == stimDuration)&(demean['layer'] == layer)&(demean['modality'] == modality)&(demean['subject'] == 'sub-05')]
+
+                val = np.mean(tmp.loc[(tmp['volume'] == 0)]['data'])
                 # if val > 0:
                 #     tmp['data'] = tmp['data'] - val
                 # if val < 0:
                     # tmp['data'] = tmp['data'] + val
-                # tmp['data'] = tmp['data'] - val
+                tmp['data'] = tmp['data'] - val
                 nrVols = len(np.unique(tmp['volume']))
 
                 # ax1.set_xticks(np.arange(-1.5,3.6))
