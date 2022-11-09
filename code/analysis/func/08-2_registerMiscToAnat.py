@@ -4,11 +4,16 @@ import os
 import subprocess
 import nibabel as nb
 
-subs = ['sub-08']
+subs = ['sub-05']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
+BBOX = {'sub-05': {'RH': {'xlower': 435, 'xrange': 162, 'ylower': 55, 'yrange': 162, 'zlower': 95, 'zrange': 158}},
+        'sub-06': {'LH':{'xlower': 271, 'xrange': 162, 'ylower': 7, 'yrange': 162, 'zlower': 31, 'zrange': 159}},
+        'sub-07': {'LH':{'xlower': 271, 'xrange': 166, 'ylower': 35, 'yrange': 158, 'zlower': 23, 'zrange': 166}},
+        'sub-08': {'LH':{'xlower': 275, 'xrange': 162, 'ylower': 15, 'yrange': 162, 'zlower': 47, 'zrange': 158}}
+        }
 
 for sub in subs:
 
@@ -26,25 +31,25 @@ for sub in subs:
         # Apply inverse transform
         # =========================================================================
 
-        # Take care: fixed and moving are flipped
-        fixed = glob.glob(f'{anatDir}/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz')[0]
-
+        # # Take care: fixed and moving are flipped
+        # fixed = glob.glob(f'{anatDir}/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz')[0]
+        #
         moving = statMap
-
-        command = 'antsApplyTransforms '
-        command += f'--interpolation BSpline[5] '
-        command += f'-d 3 '
-        command += f'-i {moving} '
-        command += f'-r {fixed} '
-        command += f'-t {regFolder}/registered1_1InverseWarp.nii.gz '
-        # IMPORTANT: We take the inverse transform!!!
-        command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
-        command += f'-o {moving.split(".")[0]}_registered.nii.gz'
-
-        subprocess.run(command,shell=True)
-
-        command = f'fslmaths {moving.split(".")[0]}_registered.nii.gz -mul 1 {moving.split(".")[0]}_registered.nii.gz -odt float'
-        subprocess.run(command,shell=True)
+        #
+        # command = 'antsApplyTransforms '
+        # command += f'--interpolation BSpline[5] '
+        # command += f'-d 3 '
+        # command += f'-i {moving} '
+        # command += f'-r {fixed} '
+        # command += f'-t {regFolder}/registered1_1InverseWarp.nii.gz '
+        # # IMPORTANT: We take the inverse transform!!!
+        # command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
+        # command += f'-o {moving.split(".")[0]}_registered.nii.gz'
+        #
+        # subprocess.run(command,shell=True)
+        #
+        # command = f'fslmaths {moving.split(".")[0]}_registered.nii.gz -mul 1 {moving.split(".")[0]}_registered.nii.gz -odt float'
+        # subprocess.run(command,shell=True)
 
         # =========================================================================
         # Crop map
@@ -52,24 +57,25 @@ for sub in subs:
 
         inFile = f'{moving.split(".")[0]}_registered.nii.gz'
         base = inFile.split('.')[0]
-        outFile = f'{base}_crop.nii.gz'
+        # outFile = f'{base}_crop.nii.gz'
 
-        command = 'fslroi '
-        command += f'{inFile} '
-        command += f'{outFile} '
-        # command += '263 162 35 162 79 158'
-        # command += '271 162 7 162 31 159'
-        command += '275 162 15 162 47 158'
-        # 'sub-08': {'xlower': 275, 'xrange': 162, 'ylower': 15, 'yrange': 162, 'zlower': 47, 'zrange': 158}
+        for hemi in ['LH']:
+            tmpBox = BBOX[sub][hemi]
+            outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
 
-        subprocess.run(command,shell=True)
+            command = 'fslroi '
+            command += f'{inFile} '
+            command += f'{outFile} '
+            command += f"{tmpBox['xlower']} {tmpBox['xrange']} {tmpBox['ylower']} {tmpBox['yrange']} {tmpBox['zlower']} {tmpBox['zrange']}"
+
+            subprocess.run(command,shell=True)
 
 
     # register timeseries
     eraDir = f'{DATADIR}/{sub}/ERAs'  # Location of functional data
     eras = sorted(glob.glob(f'{eraDir}/*masked.nii.gz'))
     outFolder = f'{eraDir}/frames'
-
+    tmpBox = BBOX['sub-05']['RH']
     # Make output folder if it does not exist already
     if not os.path.exists(outFolder):
         os.makedirs(outFolder)
@@ -86,6 +92,9 @@ for sub in subs:
 
         for i in range(data.shape[-1]):
             outName = f'{outFolder}/{basename}_frame{i:02d}.nii.gz'
+            if os.path.exists(outName):
+                print(f'file exists')
+                continue
             frame = data[...,i]
             img = nb.Nifti1Image(frame, header=header,affine=affine)
             nb.save(img, outName)
@@ -94,7 +103,7 @@ for sub in subs:
             # Mask with sphere
             command = 'fslmaths '
             command += f'{outName} '
-            command += f'-mul {anatDir}/upsample/{sub}_LH_sphere_ups4X_registered.nii '
+            command += f'-mul {anatDir}/upsample/{sub}_RH_sphere_ups4X_registered.nii '
             command += f'{outName}'
 
             subprocess.run(command,shell=True)
@@ -130,8 +139,8 @@ for sub in subs:
             command = 'fslroi '
             command += f'{inFile} '
             command += f'{outFile} '
-            command += '263 162 35 162 79 158'
-            # command += '271 162 7 162 31 159'
+
+            command += f"{tmpBox['xlower']} {tmpBox['xrange']} {tmpBox['ylower']} {tmpBox['yrange']} {tmpBox['zlower']} {tmpBox['zrange']}"
 
             subprocess.run(command,shell=True)
 
