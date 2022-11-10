@@ -37,7 +37,7 @@ def my_ants_affine_to_distance(affine, unit):
     return T, R
 
 
-SUBS = ['sub-08']
+SUBS = ['sub-07']
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
 # ============================================================================
