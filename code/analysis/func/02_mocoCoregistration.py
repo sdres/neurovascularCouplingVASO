@@ -31,10 +31,10 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-07']
+subs = ['sub-08']
 # Set sessions to work on
 sessions = ['ses-02', 'ses-03']
-# sessions = ['ses-03']
+sessions = ['ses-03']
 
 
 for sub in subs:
@@ -149,10 +149,10 @@ for sub in subs:
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-05']
-# Set sessions to work on
-sessions = ['ses-01', 'ses-02']
-sessions = ['ses-05']
+# subs = ['sub-05']
+# # Set sessions to work on
+# sessions = ['ses-01', 'ses-02']
+# sessions = ['ses-05']
 
 for sub in subs:
     for ses in sessions:
@@ -249,11 +249,11 @@ for sub in subs:
 # Apply between run registration
 # =============================================================================
 
-# Set subjects to work on
-subs = ['sub-05']
-# Set sessions to work on
-sessions = ['ses-01', 'ses-02']
-sessions = ['ses-04']
+# # Set subjects to work on
+# subs = ['sub-05']
+# # Set sessions to work on
+# sessions = ['ses-01', 'ses-02']
+# sessions = ['ses-04']
 
 for sub in subs:
     for ses in sessions:
@@ -388,8 +388,8 @@ for sub in subs:
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-05']
-sessions = ['ses-05']
+# subs = ['sub-05']
+# sessions = ['ses-05']
 
 for sub in subs:
     # for ses in ['ses-01', 'ses-02']:
