@@ -9,7 +9,7 @@ import glob
 # =============================================================================
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # Set subs to work on
-SUBS = ['sub-06']
+SUBS = ['sub-09']
 
 # =============================================================================
 # Processing

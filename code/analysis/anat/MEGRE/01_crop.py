@@ -10,7 +10,7 @@ import glob
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # Set subs to work on
-SUBS = ['sub-06']
+SUBS = ['sub-09']
 
 # =============================================================================
 # Processing
@@ -51,6 +51,17 @@ for sub in SUBS:
     RANGE_Y = [0, -1]  # ymin ysize
     RANGE_Z = [55, 170]  # zmin zsize
 
+
+    # # sub-08
+    RANGE_X = [70, 360]  # xmin xsize
+    RANGE_Y = [55, 145]  # ymin ysize
+    RANGE_Z = [0, -1]  # zmin zsize
+
+    # # sub-09
+    RANGE_X = [55, 365]  # xmin xsize
+    RANGE_Y = [0, -1]  # ymin ysize
+    RANGE_Z = [45, 165]  # zmin zsize
+    
     # =============================================================================
     for i, f in enumerate(NII_NAMES):
         print("  Processing file {} ...".format(i+1))
