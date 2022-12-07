@@ -14,7 +14,12 @@ import re
 # define ROOT dir
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # define subjects to work on
-subs = ['sub-05','sub-06','sub-07','sub-08']
+subs = ['sub-05','sub-06','sub-07','sub-08','sub-09']
+
+subList = []
+runList = []
+targetDetectedList = []
+
 
 for sub in subs:
     # # get all runs of all sessions
@@ -84,3 +89,17 @@ for sub in subs:
             print(targetDetected)
             print(log)
             print(f'detected {count+1} missed targets in a row')
+
+        # Count missed targets
+        detectedRatio = (len(targetTimes) - targetDetected.count(-1))/len(targetTimes)
+
+        subList.append(sub)
+        runList.append(log.split('/')[-1][:20])
+        targetDetectedList.append(detectedRatio)
+
+data = pd.DataFrame({'subject':subList, 'run':runList, 'ratio':targetDetectedList})
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+
+sns.displot(data = data, x='ratio', bins=5)

@@ -19,7 +19,7 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivat
 # Set subjects to work on
 subs = ['sub-05','sub-06','sub-07','sub-08']
 # subs = ['sub-06','sub-07']
-# subs = ['sub-06']
+subs = ['sub-05']
 
 MODALITIES = ['bold', 'vaso']
 
@@ -39,14 +39,14 @@ for sub in subs:
     # roiFolder = f'{DATADIR}/{sub}/rois'
 
 
-    depthFile = glob.glob(f'{segFolder}/{sub}_rim-*H*layers_equivol.nii*')[0]
+    depthFile = glob.glob(f'{segFolder}/{sub}_rim-RH*layers_equivol.nii*')[0]
     depthNii = nb.load(depthFile)
     depthData = depthNii.get_fdata()
     layers = np.unique(depthData)[1:]
 
     # roisData = nb.load(f'{roiFolder}/sub-05_vaso_stimulation_registered_crop_largestCluster_bin_UVD_max_filter.nii.gz').get_fdata()
     # roisData = nb.load(glob.glob(f'{segFolder}/{sub}_*perimeter_chunk.nii*')[0]).get_fdata()
-    roisData = nb.load(glob.glob(f'{segFolder}/{sub}_rim-*H_perimeter_chunk.nii*')[0]).get_fdata()
+    roisData = nb.load(glob.glob(f'{segFolder}/{sub}_rim-RH_perimeter_chunk.nii*')[0]).get_fdata()
 
     roiIdx = roisData == 1
 
@@ -151,5 +151,5 @@ for modality in ['bold', 'vaso']:
     title = legend.get_title()
     title.set_fontsize(14)
 
-    plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-all_{modality}_zScoreProfile.png', bbox_inches = "tight")
+    # plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-all_{modality}_zScoreProfile.png', bbox_inches = "tight")
     plt.show()

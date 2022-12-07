@@ -273,7 +273,7 @@ for interpolationType in ['linear']:
                 ax1.set_ylim(-8.1,12.1)
             # Prepare x-ticks
             ticks = np.linspace(0, nrVols, 10)
-            labels = (np.linspace(0, nrVols, 10)*0.7808410714285715).round(decimals=1)
+            labels = (ticks * 0.7808410714285715).round(decimals=1)
 
             # ax1.set_yticks(np.arange(-0.25, 3.51, 0.5))
 

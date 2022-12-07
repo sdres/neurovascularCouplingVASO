@@ -12,8 +12,12 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivat
 BBOX = {'sub-05': {'RH': {'xlower': 435, 'xrange': 162, 'ylower': 55, 'yrange': 162, 'zlower': 95, 'zrange': 158}},
         'sub-06': {'LH':{'xlower': 271, 'xrange': 162, 'ylower': 7, 'yrange': 162, 'zlower': 31, 'zrange': 159}},
         'sub-07': {'LH':{'xlower': 271, 'xrange': 166, 'ylower': 35, 'yrange': 158, 'zlower': 23, 'zrange': 166}},
-        'sub-08': {'LH':{'xlower': 275, 'xrange': 162, 'ylower': 15, 'yrange': 162, 'zlower': 47, 'zrange': 158}}
+        'sub-08': {'LH':{'xlower': 275, 'xrange': 162, 'ylower': 15, 'yrange': 162, 'zlower': 47, 'zrange': 158}},
+        'sub-09': {'RH':{'xlower': 415, 'xrange': 162, 'ylower': 11, 'yrange': 162, 'zlower': 91, 'zrange': 158},
+                   'LH':{'xlower': 303, 'xrange': 162, 'ylower': 0, 'yrange': 162, 'zlower': 59, 'zrange': 158}}
         }
+
+
 
 for sub in subs:
 
@@ -31,25 +35,25 @@ for sub in subs:
         # Apply inverse transform
         # =========================================================================
 
-        # # Take care: fixed and moving are flipped
-        # fixed = glob.glob(f'{anatDir}/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz')[0]
-        #
+        # Take care: fixed and moving are flipped
+        fixed = glob.glob(f'{anatDir}/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz')[0]
+
         moving = statMap
-        #
-        # command = 'antsApplyTransforms '
-        # command += f'--interpolation BSpline[5] '
-        # command += f'-d 3 '
-        # command += f'-i {moving} '
-        # command += f'-r {fixed} '
-        # command += f'-t {regFolder}/registered1_1InverseWarp.nii.gz '
-        # # IMPORTANT: We take the inverse transform!!!
-        # command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
-        # command += f'-o {moving.split(".")[0]}_registered.nii.gz'
-        #
-        # subprocess.run(command,shell=True)
-        #
-        # command = f'fslmaths {moving.split(".")[0]}_registered.nii.gz -mul 1 {moving.split(".")[0]}_registered.nii.gz -odt float'
-        # subprocess.run(command,shell=True)
+
+        command = 'antsApplyTransforms '
+        command += f'--interpolation BSpline[5] '
+        command += f'-d 3 '
+        command += f'-i {moving} '
+        command += f'-r {fixed} '
+        command += f'-t {regFolder}/registered1_1InverseWarp.nii.gz '
+        # IMPORTANT: We take the inverse transform!!!
+        command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
+        command += f'-o {moving.split(".")[0]}_registered.nii.gz'
+
+        subprocess.run(command,shell=True)
+
+        command = f'fslmaths {moving.split(".")[0]}_registered.nii.gz -mul 1 {moving.split(".")[0]}_registered.nii.gz -odt float'
+        subprocess.run(command,shell=True)
 
         # =========================================================================
         # Crop map
@@ -59,7 +63,7 @@ for sub in subs:
         base = inFile.split('.')[0]
         # outFile = f'{base}_crop.nii.gz'
 
-        for hemi in ['LH']:
+        for hemi in ['RH']:
             tmpBox = BBOX[sub][hemi]
             outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
 
@@ -75,7 +79,7 @@ for sub in subs:
     eraDir = f'{DATADIR}/{sub}/ERAs'  # Location of functional data
     eras = sorted(glob.glob(f'{eraDir}/*masked.nii.gz'))
     outFolder = f'{eraDir}/frames'
-    tmpBox = BBOX['sub-05']['RH']
+    tmpBox = BBOX[sub]['RH']
     # Make output folder if it does not exist already
     if not os.path.exists(outFolder):
         os.makedirs(outFolder)
@@ -95,6 +99,7 @@ for sub in subs:
             if os.path.exists(outName):
                 print(f'file exists')
                 continue
+
             frame = data[...,i]
             img = nb.Nifti1Image(frame, header=header,affine=affine)
             nb.save(img, outName)

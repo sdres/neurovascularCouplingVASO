@@ -11,7 +11,7 @@ import glob
 import os
 import subprocess
 
-subs = ['sub-05']
+subs = ['sub-09']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -83,7 +83,8 @@ for sub in subs:
     command = 'fslroi '
     command += f'{inFile} '
     command += f'{outFile} '
-    command += '263 162 35 162 79 158' # sub-05
+    # command += '263 162 35 162 79 158' # sub-05
     # command += '271 162 7 162 31 159'  # Sub-06
+    command =  '415 162 11 162 91 158'  # sub-09
 
     subprocess.run(command,shell=True)

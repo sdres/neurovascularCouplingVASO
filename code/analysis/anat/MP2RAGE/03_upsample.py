@@ -12,7 +12,7 @@ import glob
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 UPFACT = 4
 
-SUBS = ['sub-05']
+SUBS = ['sub-09']
 
 for sub in SUBS:
 
@@ -67,38 +67,39 @@ for sub in SUBS:
             print("Upsampling output directory is created")
 
         # for imageType in ['uni', 'inv-2']:
-        #     files = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_*_{imageType}_*_N4cor_brain_crop.nii.gz'))
-        #
-        #     # =============================================================================
-        #     print(f'Upsample {imageType}.')
-        #
-        #     for i, f in enumerate(files):
-        #         # Prepare output
-        #         basename, ext = f.split(os.extsep, 1)
-        #         basename = os.path.basename(basename)
-        #         out_file = os.path.join(upsampleOutDir, f"{basename}_ups{UPFACT}X.nii.gz")
-        #
-        #         # Prepare command
-        #         command2 = "c3d {} ".format(f)
-        #         command2 += "-interpolation Cubic "
-        #         command2 += f"-resample {UPFACT}00% "
-        #         command2 += "-o {}".format(out_file)
-        #
-        #         # Execute command
-        #         subprocess.run(command2, shell=True)
+        for imageType in ['uni']:
+            files = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_*_{imageType}_*_N4cor_brain_crop.nii.gz'))
+
+            # =============================================================================
+            print(f'Upsample {imageType}.')
+
+            for i, f in enumerate(files):
+                # Prepare output
+                basename, ext = f.split(os.extsep, 1)
+                basename = os.path.basename(basename)
+                out_file = os.path.join(upsampleOutDir, f"{basename}_ups{UPFACT}X.nii.gz")
+
+                # Prepare command
+                command2 = "c3d {} ".format(f)
+                command2 += "-interpolation Cubic "
+                command2 += f"-resample {UPFACT}00% "
+                command2 += "-o {}".format(out_file)
+
+                # Execute command
+                subprocess.run(command2, shell=True)
 
 
     # =============================================================================
     # Upsample ROIs
 
     roiDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat'
-    images = sorted(glob.glob(f'{roiDir}/*RH_sphere.nii.gz'))
+    images = sorted(glob.glob(f'{roiDir}/*LH_sphere.nii.gz'))
 
     for i, f in enumerate(images):
         # Prepare output
         basename, ext = f.split(os.extsep, 1)
         basename = os.path.basename(basename)
-        out_file = os.path.join(roiDir, f"{basename}_ups{UPFACT}X.nii.gz")
+        out_file = os.path.join(upsampleOutDir, f"{basename}_ups{UPFACT}X.nii.gz")
 
         # Prepare command
         command2 = "c3d {} ".format(f)
