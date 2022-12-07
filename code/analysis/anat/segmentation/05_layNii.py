@@ -15,7 +15,7 @@ import numpy as np
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
 # Set subjects to work on
-subs = ['sub-05']
+subs = ['sub-09']
 # Set sessions to work on
 # sessions = ['ses-01']
 #
@@ -32,10 +32,10 @@ subs = ['sub-05']
 
 
 for sub in subs:
-    subDir = f'{DATADIR}/{sub}/segmentation'
+    subDir = f'{DATADIR}/{sub}'
 
     # Set rim file
-    rimFile = f'{subDir}/{sub}_uni_part-mag_avg_MP2RAGE_brain_ups4X_LH_sphere_crop_pveseg_corrected_polished_cleanBorders_polished_corrected_polished.nii.gz'
+    rimFile = f'{subDir}/ses-01/anat/upsample/{sub}_rim-LH.nii.gz'
 
     # =========================================================================
     # LN2_LAYERS
@@ -69,12 +69,12 @@ for sub in subs:
 
     # =========================================================================
     # LN2_Multilaterate
-    cpFile = f'{subDir}/cp.nii.gz'
+    cpFile = f'{subDir}/ses-01/anat/upsample/sub-09_rim-LH_midGM_equivol_cp.nii.gz'
 
     command = f'LN2_MULTILATERATE '
     command += f'-rim {rimFile} '
     command += f'-control_points {cpFile} '
-    command += f'-radius 8'
+    command += f'-radius 3'
 
     subprocess.run(command, shell = True)
 

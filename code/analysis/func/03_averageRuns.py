@@ -21,15 +21,16 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 afniPath = '/Users/sebastiandresbach/abin'
 antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
-SUBS = ['sub-07']
-SESSIONS = ['ses-01','ses-02','ses-03']
+SUBS = ['sub-05']
+SESSIONS = ['ses-01','ses-03','ses-04','ses-05']
+# SESSIONS = ['ses-03']
 
 for sub in SUBS:
     # Create subject-directory in derivatives if it does not exist
     subDir = f'{DATADIR}/derivatives/{sub}'
 
     # ==========================================================================
-    # Average within sessions (short ITI)
+    # Average within sessions
     # ==========================================================================
 
     for ses in SESSIONS:

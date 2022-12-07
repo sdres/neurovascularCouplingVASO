@@ -31,10 +31,10 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # =============================================================================
 
 # Set subjects to work on
-subs = ['sub-08']
+subs = ['sub-09']
 # Set sessions to work on
-sessions = ['ses-02', 'ses-03']
-sessions = ['ses-03']
+sessions = ['ses-04', 'ses-05']
+# sessions = ['ses-03']
 
 
 for sub in subs:

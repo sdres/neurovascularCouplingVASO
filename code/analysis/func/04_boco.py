@@ -25,16 +25,16 @@ ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 afniPath = '/Users/sebastiandresbach/abin'
 layniiPath = '/Users/sebastiandresbach/git/laynii'
 
-UPFACTOR = 4
+UPFACTOR = 4  # Must be an even number so that nulled and not-nulled timecourses can match
 
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 afniPath = '/Users/sebastiandresbach/abin'
 antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
-SUBS = ['sub-07']
+SUBS = ['sub-06']
 
-SESSIONS = ['ses-01','ses-03','ses-04','ses-05']
-SESSIONS = ['ses-02','ses-03']
+SESSIONS = ['ses-01','ses-02','ses-03','ses-05']
+# SESSIONS = ['ses-05']
 
 for sub in SUBS:
     # Create subject-directory in derivatives if it does not exist
@@ -81,7 +81,7 @@ for sub in SUBS:
             # =====================================================================
             # Temporal upsampling
             # =====================================================================
-
+            print(f'Temporally upsampling data with a factor of {UPFACTOR}.')
             command = f'{afniPath}/3dUpsample '
             command += f'-overwrite '
             command += f'-datum short '
@@ -90,8 +90,8 @@ for sub in SUBS:
             command += f'-input {outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_{modality}.nii'
             subprocess.call(command, shell=True)
 
-
             # fix TR in header
+            print('Fixing TR in header.')
             subprocess.call(
                 f'3drefit -TR {tr} '
                 + f'{outFolder}'
@@ -99,11 +99,16 @@ for sub in SUBS:
                 shell=True
                 )
 
-            # =====================================================================
-            # Duplicate first BOLD timepoint to match timing between cbv and bold
-            # =====================================================================
-
+            # ==================================================================
+            # Multiply first BOLD timepoint to match timing between cbv and bold
+            # ==================================================================
             if modality == 'bold':
+                print('Multiply first BOLD volume.')
+
+                # The number of volumes we have to prepend depends on the
+                # upsampling factor.
+                nrPrepend = int(UPFACTOR/2)
+
                 nii = nb.load(
                     f'{outFolder}'
                     + f'/{sub}_{ses}_task-stimulation_run-avg_part-mag_{modality}_intemp.nii.gz'
@@ -117,11 +122,11 @@ for sub in SUBS:
                 # Make new array
                 newData = np.zeros(data.shape)
 
-                for i in range(data.shape[-1]-1):
-                    if i == 0:
-                        newData[:,:,:,i]=data[:,:,:,i]
+                for i in range(data.shape[-1]):
+                    if i < nrPrepend:
+                        newData[:,:,:,i] = data[:,:,:,0]
                     else:
-                        newData[:,:,:,i]=data[:,:,:,i-1]
+                        newData[:,:,:,i]=data[:,:,:,i-nrPrepend]
 
                 # Save data
                 img = nb.Nifti1Image(newData.astype(int), header=header, affine=affine)
@@ -133,17 +138,20 @@ for sub in SUBS:
         # BOLD-correction
         # ==========================================================================
 
+        print('Doing BOCO...')
         cbvFile = f'{outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_cbv_intemp.nii.gz'
         boldFile = f'{outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_bold_intemp.nii.gz'
 
         # Load data
         nii1 = nb.load(cbvFile).get_fdata()  # Load cbv data
         nii2 = nb.load(boldFile).get_fdata()  # Load BOLD data
+
         header = nb.load(cbvFile).header  # Get header
         affine = nb.load(cbvFile).affine  # Get affine
 
         # Divide VASO by BOLD for actual BOCO
-        new = np.divide(nii1[:,:,:,:-1], nii2[:,:,:,:-1])
+        # new = np.divide(nii1[:,:,:,:-1], nii2[:,:,:,:-1])
+        new = np.divide(nii1, nii2)
 
         # Clip range to -1.5 and 1.5. Values should be between 0 and 1 anyway.
         new[new > 1.5] = 1.5
@@ -159,7 +167,10 @@ for sub in SUBS:
         # ==========================================================================
         # QA
         # ==========================================================================
+        print('\n')
+        print('Getting QA...')
         for modality in ['bold_intemp', 'vaso_intemp']:
+
             subprocess.run(
                 f'{layniiPath}/LN_SKEW '
                 + f'-input {outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_{modality}.nii.gz',
@@ -177,107 +188,110 @@ for sub in SUBS:
             shell=True
             )
 
-
-    if skipLongITI:
-
-        # for modality in ['bold']:
-        for modality in ['bold', 'cbv']:
-
-            # =====================================================================
-            # Temporal upsampling
-            # =====================================================================
-
-            command = f'{afniPath}/3dUpsample '
-            command += f'-overwrite '
-            command += f'-datum short '
-            command += f'-prefix {subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}_intemp.nii.gz '
-            command += f'-n {UPFACTOR} '
-            command += f'-input {subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}.nii'
-            subprocess.call(command, shell=True)
+    print(f'Done with {sub}')
 
 
-            # fix TR in header
-            subprocess.call(
-                f'3drefit -TR {tr} '
-                + f'{subDir}'
-                + f'/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}_intemp.nii.gz',
-                shell=True
-                )
 
-            # =====================================================================
-            # Duplicate first BOLD timepoint to match timing between cbv and bold
-            # =====================================================================
-
-            if modality == 'bold':
-                nii = nb.load(
-                    f'{subDir}'
-                    + f'/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}_intemp.nii.gz'
-                    )
-
-                # Load data
-                data = nii.get_fdata()  # Get data
-                header = nii.header  # Get header
-                affine = nii.affine  # Get affine
-
-                # Make new array
-                newData = np.zeros(data.shape)
-
-                for i in range(data.shape[-1]-1):
-                    if i == 0:
-                        newData[:,:,:,i]=data[:,:,:,i]
-                    else:
-                        newData[:,:,:,i]=data[:,:,:,i-1]
-
-                # Save data
-                img = nb.Nifti1Image(newData.astype(int), header=header, affine=affine)
-                nb.save(img, f'{subDir}'
-                    + f'/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}_intemp.nii.gz'
-                    )
-
-        # ==========================================================================
-        # BOLD-correction
-        # ==========================================================================
-
-        cbvFile = f'{subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_cbv_intemp.nii.gz'
-        boldFile = f'{subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_bold_intemp.nii.gz'
-
-        # Load data
-        nii1 = nb.load(cbvFile).get_fdata()  # Load cbv data
-        nii2 = nb.load(boldFile).get_fdata()  # Load BOLD data
-        header = nb.load(cbvFile).header  # Get header
-        affine = nb.load(cbvFile).affine  # Get affine
-
-        # Divide VASO by BOLD for actual BOCO
-        new = np.divide(nii1[:,:,:,:-1], nii2[:,:,:,:-1])
-
-        # Clip range to -1.5 and 1.5. Values should be between 0 and 1 anyway.
-        new[new > 1.5] = 1.5
-        new[new < -1.5] = -1.5
-
-        # Save bold-corrected VASO image
-        img = nb.Nifti1Image(new, header=header, affine=affine)
-        nb.save(
-            img, f'{subDir}'
-            + f'/{sub}_ses-avg_task-stimulation_run-avg_part-mag_vaso_intemp.nii.gz'
-            )
-
-        # ==========================================================================
-        # QA
-        # ==========================================================================
-        for modality in ['bold_intemp', 'vaso_intemp']:
-            subprocess.run(
-                f'{layniiPath}/LN_SKEW '
-                + f'-input {subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}.nii.gz',
-                shell=True
-                )
-
-        # FSL has some hickups with values between 0 and 1. Therefore, we multiply
-        # by 100.
-        subprocess.run(
-            f'fslmaths '
-            + f'{subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_vaso_intemp.nii.gz '
-            + f'-mul 100 '
-            + f'{subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_vaso_intemp.nii.gz '
-            + f'-odt short',
-            shell=True
-            )
+    # if skipLongITI:
+    #
+    #     # for modality in ['bold']:
+    #     for modality in ['bold', 'cbv']:
+    #
+    #         # =====================================================================
+    #         # Temporal upsampling
+    #         # =====================================================================
+    #
+    #         command = f'{afniPath}/3dUpsample '
+    #         command += f'-overwrite '
+    #         command += f'-datum short '
+    #         command += f'-prefix {subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}_intemp.nii.gz '
+    #         command += f'-n {UPFACTOR} '
+    #         command += f'-input {subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}.nii'
+    #         subprocess.call(command, shell=True)
+    #
+    #
+    #         # fix TR in header
+    #         subprocess.call(
+    #             f'3drefit -TR {tr} '
+    #             + f'{subDir}'
+    #             + f'/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}_intemp.nii.gz',
+    #             shell=True
+    #             )
+    #
+    #         # =====================================================================
+    #         # Duplicate first BOLD timepoint to match timing between cbv and bold
+    #         # =====================================================================
+    #
+    #         if modality == 'bold':
+    #             nii = nb.load(
+    #                 f'{subDir}'
+    #                 + f'/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}_intemp.nii.gz'
+    #                 )
+    #
+    #             # Load data
+    #             data = nii.get_fdata()  # Get data
+    #             header = nii.header  # Get header
+    #             affine = nii.affine  # Get affine
+    #
+    #             # Make new array
+    #             newData = np.zeros(data.shape)
+    #
+    #             for i in range(data.shape[-1]-1):
+    #                 if i == 0:
+    #                     newData[:,:,:,i]=data[:,:,:,i]
+    #                 else:
+    #                     newData[:,:,:,i]=data[:,:,:,i-1]
+    #
+    #             # Save data
+    #             img = nb.Nifti1Image(newData.astype(int), header=header, affine=affine)
+    #             nb.save(img, f'{subDir}'
+    #                 + f'/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}_intemp.nii.gz'
+    #                 )
+    #
+    #     # ==========================================================================
+    #     # BOLD-correction
+    #     # ==========================================================================
+    #
+    #     cbvFile = f'{subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_cbv_intemp.nii.gz'
+    #     boldFile = f'{subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_bold_intemp.nii.gz'
+    #
+    #     # Load data
+    #     nii1 = nb.load(cbvFile).get_fdata()  # Load cbv data
+    #     nii2 = nb.load(boldFile).get_fdata()  # Load BOLD data
+    #     header = nb.load(cbvFile).header  # Get header
+    #     affine = nb.load(cbvFile).affine  # Get affine
+    #
+    #     # Divide VASO by BOLD for actual BOCO
+    #     new = np.divide(nii1[:,:,:,:-1], nii2[:,:,:,:-1])
+    #
+    #     # Clip range to -1.5 and 1.5. Values should be between 0 and 1 anyway.
+    #     new[new > 1.5] = 1.5
+    #     new[new < -1.5] = -1.5
+    #
+    #     # Save bold-corrected VASO image
+    #     img = nb.Nifti1Image(new, header=header, affine=affine)
+    #     nb.save(
+    #         img, f'{subDir}'
+    #         + f'/{sub}_ses-avg_task-stimulation_run-avg_part-mag_vaso_intemp.nii.gz'
+    #         )
+    #
+    #     # ==========================================================================
+    #     # QA
+    #     # ==========================================================================
+    #     for modality in ['bold_intemp', 'vaso_intemp']:
+    #         subprocess.run(
+    #             f'{layniiPath}/LN_SKEW '
+    #             + f'-input {subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}.nii.gz',
+    #             shell=True
+    #             )
+    #
+    #     # FSL has some hickups with values between 0 and 1. Therefore, we multiply
+    #     # by 100.
+    #     subprocess.run(
+    #         f'fslmaths '
+    #         + f'{subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_vaso_intemp.nii.gz '
+    #         + f'-mul 100 '
+    #         + f'{subDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_vaso_intemp.nii.gz '
+    #         + f'-odt short',
+    #         shell=True
+    #         )
