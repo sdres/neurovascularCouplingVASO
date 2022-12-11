@@ -6,7 +6,7 @@ import numpy as np
 import nibabel as nb
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
-SUBS = ['sub-05']
+SUBS = ['sub-09']
 
 for sub in SUBS:
     # Find MEGRE session
@@ -99,6 +99,13 @@ for sub in SUBS:
     # Run command
     subprocess.run(command,shell=True)
 
+    #
+
+
+
+
+
+    moving = f'{DATADIR}/{sub}/ses-01/anat/upsample/sub-09_rim-LH_perimeter_chunk_uncrop.nii.gz'
 
     # Prepare command to apply transform and check quality
     command = 'antsApplyTransforms '
@@ -108,23 +115,24 @@ for sub in SUBS:
     command += f'-r {fixed} '
     # command += f'-t {regFolder}/registered1_1Warp.nii.gz '
     command += f'-t {regFolder}/registered1_0GenericAffine.mat '
-    command += f'-o {regFolder}/peri_registered.nii'
+    command += f'-o {regFolder}/sub-09_rim-LH_perimeter_chunk_uncrop_registered.nii.gz'
     # Run command
     subprocess.run(command,shell=True)
 
     # moving = '{DATADIR}/{sub}/ses-01/anat/upsample/peri_uncrop.nii.gz'
-    moving = f'{DATADIR}/{sub}/{megreSes}/anat/megre/finalVeins.nii.gz'
+    moving = f'{DATADIR}/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz'
     basename, ext = moving.split(os.extsep, 1)
-    fixed = f'{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
+    fixed = f'{DATADIR}/sub-06/ses-01/anat/upsample/sub-06_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
+    regFolder = f"{DATADIR}/sub-06/ses-01/anat/07_register_to_T2s"
 
     # register vessels
     command = 'antsApplyTransforms '
-    command += f'--interpolation MultiLabel '
+    command += f'--interpolation BSpline[5] '
     command += f'-d 3 -i {moving} '
     command += f'-r {fixed} '
     # command += f'-t {regFolder}/registered1_1Warp.nii.gz '
     command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
-    command += f'-o {basename}_registered.nii'
+    command += f'-o {basename}_registered.nii.gz'
     # Run command
     subprocess.run(command,shell=True)
 

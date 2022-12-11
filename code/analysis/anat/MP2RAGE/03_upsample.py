@@ -67,7 +67,7 @@ for sub in SUBS:
             print("Upsampling output directory is created")
 
         # for imageType in ['uni', 'inv-2']:
-        for imageType in ['uni']:
+        for imageType in ['inv-2']:
             files = sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/{ses}/anat/{sub}_*_{imageType}_*_N4cor_brain_crop.nii.gz'))
 
             # =============================================================================

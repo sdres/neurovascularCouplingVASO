@@ -4,7 +4,8 @@ import os
 import subprocess
 import nibabel as nb
 
-subs = ['sub-05']
+subs = ['sub-09', 'sub-08']
+subs = ['sub-07']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -29,6 +30,9 @@ for sub in subs:
 
     # register maps
     statMaps = sorted(glob.glob(f'{mapDir}/*.nii'))
+
+
+
 
     for statMap in statMaps:
         # =========================================================================
@@ -60,10 +64,13 @@ for sub in subs:
         # =========================================================================
 
         inFile = f'{moving.split(".")[0]}_registered.nii.gz'
-        base = inFile.split('.')[0]
-        # outFile = f'{base}_crop.nii.gz'
+        inFile = f'{DATADIR}/{sub}/sub-07_ses-avg_task-stimulation_run-avg_part-mag_T1w_registered.nii'
 
-        for hemi in ['RH']:
+
+        base = inFile.split('.')[0]
+        outFile = f'{base}_crop.nii.gz'
+
+        for hemi in ['LH']:
             tmpBox = BBOX[sub][hemi]
             outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
 
@@ -79,7 +86,7 @@ for sub in subs:
     eraDir = f'{DATADIR}/{sub}/ERAs'  # Location of functional data
     eras = sorted(glob.glob(f'{eraDir}/*masked.nii.gz'))
     outFolder = f'{eraDir}/frames'
-    tmpBox = BBOX[sub]['RH']
+    tmpBox = BBOX[sub]['LH']
     # Make output folder if it does not exist already
     if not os.path.exists(outFolder):
         os.makedirs(outFolder)

@@ -8,11 +8,12 @@ import os
 import subprocess
 import glob
 
-SUBS = ['sub-09']
+SUBS = ['sub-06']
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
 BBOX = {'sub-05': {'RH': {'xlower': 435, 'xrange': 162, 'ylower': 55, 'yrange': 162, 'zlower': 95, 'zrange': 158}},
+        'sub-06': {'LH':{'xlower': 271, 'xrange': 162, 'ylower': 7, 'yrange': 162, 'zlower': 31, 'zrange': 159}},
         'sub-07': {'LH':{'xlower': 271, 'xrange': 166, 'ylower': 35, 'yrange': 158, 'zlower': 23, 'zrange': 166}},
         'sub-08': {'LH':{'xlower': 275, 'xrange': 162, 'ylower': 15, 'yrange': 162, 'zlower': 47, 'zrange': 158}},
         'sub-09': {'RH':{'xlower': 415, 'xrange': 162, 'ylower': 11, 'yrange': 162, 'zlower': 91, 'zrange': 158},
@@ -26,9 +27,11 @@ for sub in SUBS:
 
     # Find upsampled UNI images in first sessions
     image = glob.glob(f'{DATADIR}/{sub}/ses-01/anat/upsample/*uni*ups4X.nii.gz')[0]
+    image = glob.glob(f'/Users/sebastiandresbach/Desktop/forFaruk/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_registered.nii.gz')[0]
     base = image.split('.')[0]
 
-    for hemi in ['RH','LH']:
+    # for hemi in ['RH','LH']:
+    for hemi in ['LH']:
         tmpBBOX = BBOX[sub][hemi]
 
 
@@ -73,4 +76,3 @@ for sub in SUBS:
         command += f"{tmpBBOX['xlower']} {tmpBBOX['xrange']} {tmpBBOX['ylower']} {tmpBBOX['yrange']} {tmpBBOX['zlower']} {tmpBBOX['zrange']}"
         # break
         subprocess.run(command, shell = True)
-        
