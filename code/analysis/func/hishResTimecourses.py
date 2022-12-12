@@ -145,7 +145,7 @@ for order in orders:
 # for ses in ['ses-01','ses-02','ses-03','ses-05']:
 # for ses in ['ses-03','ses-05']:
 subs = ['sub-05','sub-06','sub-07','sub-08']
-subs = ['sub-06']
+# subs = ['sub-06']
 # boldJitters = {0.785: 1.570, 0.0: 2.355, 1.57: 0, 2.355: 0.785}
 # sort in oppisite order
 
@@ -251,10 +251,8 @@ for sub in subs:
                                 boldVol = int(re.findall(r"\d+", logFile['event'][index])[-1])  # because of 0-indexing of data
                                 starts.append(boldVol)
                                 stimSwitch = False
-
                 if modality == 'bold':
                     jitters = [boldJitters[truncate(i, 3)] for i in jitters]
-
                 length = int(np.round(EVENTDURS[iti][k]/(tr*4)))+1
 
                 # print(f'stimdur: {stimDur}, ITI: {iti}, extracting {length} timpoints')
@@ -262,8 +260,9 @@ for sub in subs:
                 for i, start in enumerate(starts):
 
                     tmp = sigChange[start:start+length]
+                    # tmp = sigChange[start:start+length]
 
-                    tmp = tmp - np.mean(tmp)
+                    # tmp = tmp - np.mean(tmp)
 
                     newStart = int(np.round(jitters[i]/tr))
 
@@ -324,11 +323,13 @@ plt.style.use('dark_background')
 for modality in ['bold', 'cbv']:
 # for modality in ['bold']:
     for k, stimDur in enumerate([1,2,4,12,24]):
-        # tmp = noOutliers.loc[(noOutliers['duration']==stimDur)&(noOutliers['modality']==modality)]
-        tmp = data.loc[(data['duration']==stimDur)&(data['modality']==modality)]
+        tmp = noOutliers.loc[(noOutliers['duration']==stimDur)&(noOutliers['modality']==modality)]
+        # tmp = data.loc[(data['duration']==stimDur)&(data['modality']==modality)]
         maxVol = np.amax(tmp['volume'])
         # tmp = data.loc[(data['duration']==stimDur)]
+
         fig, ax = plt.subplots(1,1,figsize=(7.5,5))
+
         sns.scatterplot(data=tmp, x="volume", y="val", hue='run', legend=False)
         # Plot mean
         sns.lineplot(data = tmp,
@@ -339,7 +340,7 @@ for modality in ['bold', 'cbv']:
                      )
 
 
-        plt.ylim(-4,5)
+        # plt.ylim(-4,5)
         ax.set_ylabel('Signal change [%]', fontsize=24)
 
         # Prepare ticks for x axis
@@ -364,7 +365,7 @@ cbvMean = np.zeros(len(data['volume'].unique()))
 volumes = np.sort(data['volume'].unique())
 
 for i, vol in enumerate(volumes):
-    tmp = data.loc[(data['volume']==vol)&(data['modality']=='cbv')&(data['duration']==24)]
+    tmp = data.loc[(data['volume']==vol)&(data['modality']=='cbv')&(data['duration']==2)]
     tmpVals = np.asarray(tmp['val'])
     tmpMean = np.mean(tmpVals)
     cbvMean[i] = tmpMean
@@ -374,7 +375,7 @@ plt.plot(cbvMean)
 boldMean = np.zeros(len(data['volume'].unique()))
 volumes = np.sort(data['volume'].unique())
 for i, vol in enumerate(volumes):
-    tmp = data.loc[(data['volume']==vol)&(data['modality']=='bold')&(data['duration']==24)]
+    tmp = data.loc[(data['volume']==vol)&(data['modality']=='bold')&(data['duration']==2)]
     tmpVals = np.asarray(tmp['val'])
     tmpMean = np.mean(tmpVals)
     boldMean[i] = tmpMean
@@ -382,7 +383,7 @@ for i, vol in enumerate(volumes):
 vaso = np.divide(cbvMean,boldMean)
 
 plt.plot(-vaso, label='vaso')
-# plt.plot(boldMeanSmooth, label='bold')
+plt.plot(boldMean, label='bold')
 # plt.plot(cbvMeanSmooth, label='nulled')
-plt.ylim(-3,3)
+# plt.ylim(-3,3)
 plt.legend()

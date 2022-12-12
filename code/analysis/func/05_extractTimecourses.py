@@ -58,7 +58,7 @@ for sub in subs:
 # Extract voxel wise timecourses
 # =============================================================================
 
-SUBS = ['sub-05']
+SUBS = ['sub-08']
 STIMDURS = [1, 2, 4, 12, 24]
 # STIMDURS = [24]
 EVENTDURS = {'shortITI': np.array([11, 14, 18, 32, 48]),
@@ -68,7 +68,7 @@ EVENTDURS = {'shortITI': np.array([11, 14, 18, 32, 48]),
 # EVENTDURS = np.array([64])
 
 MODALITIES = ['vaso']
-# MODALITIES = ['bold']
+MODALITIES = ['vaso','bold']
 
 for sub in SUBS:
     eraDir = f'{DATADIR}/{sub}/ERAs'  # Location of functional data

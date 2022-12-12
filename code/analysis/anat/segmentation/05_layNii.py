@@ -74,7 +74,7 @@ for sub in subs:
     command = f'LN2_MULTILATERATE '
     command += f'-rim {rimFile} '
     command += f'-control_points {cpFile} '
-    command += f'-radius 3'
+    command += f'-radius 1'
 
     subprocess.run(command, shell = True)
 
