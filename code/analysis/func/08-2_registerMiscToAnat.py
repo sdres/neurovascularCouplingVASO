@@ -5,7 +5,7 @@ import subprocess
 import nibabel as nb
 
 subs = ['sub-09', 'sub-08']
-subs = ['sub-07']
+subs = ['sub-08']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -64,7 +64,7 @@ for sub in subs:
         # =========================================================================
 
         inFile = f'{moving.split(".")[0]}_registered.nii.gz'
-        inFile = f'{DATADIR}/{sub}/sub-07_ses-avg_task-stimulation_run-avg_part-mag_T1w_registered.nii'
+        inFile = f'{DATADIR}/{sub}/sub-08_ses-avg_task-stimulation_run-avg_part-mag_T1w_registered.nii'
 
 
         base = inFile.split('.')[0]
