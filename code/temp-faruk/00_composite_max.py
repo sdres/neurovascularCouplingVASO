@@ -4,12 +4,15 @@ import os
 import numpy as np
 import nibabel as nb
 
+# FOLDER = '/home/faruk/data2/temp-seb_data/megre'
+FOLDER = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre'
+
 NII_NAMES = [
-    '/home/faruk/data2/temp-seb_data/megre/08_average/sub-05_ses-T2s_dir-Mx_part-mag_MEGRE_crop_ups2X_prepped_avg.nii.gz',
-    '/home/faruk/data2/temp-seb_data/megre/08_average/sub-05_ses-T2s_dir-My_part-mag_MEGRE_crop_ups2X_prepped_avg.nii.gz'
+    f'{FOLDER}/08_average/sub-05_ses-T2s_dir-Mx_part-mag_MEGRE_crop_ups2X_prepped_avg.nii.gz',
+    f'{FOLDER}/08_average/sub-05_ses-T2s_dir-My_part-mag_MEGRE_crop_ups2X_prepped_avg.nii.gz'
     ]
 
-OUTDIR = "/home/faruk/data2/temp-seb_data/megre/99_faruk"
+OUTDIR = f"{FOLDER}/99_faruk"
 OUT_NAME = "sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_max"
 
 # =============================================================================
