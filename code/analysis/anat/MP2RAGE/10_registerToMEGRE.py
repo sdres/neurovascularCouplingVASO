@@ -6,7 +6,7 @@ import numpy as np
 import nibabel as nb
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
-SUBS = ['sub-09']
+SUBS = ['sub-06']
 
 for sub in SUBS:
     # Find MEGRE session
@@ -118,9 +118,10 @@ for sub in SUBS:
     command += f'-o {regFolder}/sub-09_rim-LH_perimeter_chunk_uncrop_registered.nii.gz'
     # Run command
     subprocess.run(command,shell=True)
-
     # moving = '{DATADIR}/{sub}/ses-01/anat/upsample/peri_uncrop.nii.gz'
-    moving = f'{DATADIR}/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz'
+# moving = f'{DATADIR}/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz'
+
+    moving = f'{DATADIR}/sub-06/ses-04/anat/megre/99_Faruk/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_max.nii.gz'
     basename, ext = moving.split(os.extsep, 1)
     fixed = f'{DATADIR}/sub-06/ses-01/anat/upsample/sub-06_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
     regFolder = f"{DATADIR}/sub-06/ses-01/anat/07_register_to_T2s"
@@ -134,7 +135,7 @@ for sub in SUBS:
     command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
     command += f'-o {basename}_registered.nii.gz'
     # Run command
-    subprocess.run(command,shell=True)
+    subprocess.run(command, shell = True)
 
 
     # crop vessels to sphere
