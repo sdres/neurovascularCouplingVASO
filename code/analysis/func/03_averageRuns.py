@@ -21,8 +21,8 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 afniPath = '/Users/sebastiandresbach/abin'
 antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
-SUBS = ['sub-05']
-SESSIONS = ['ses-01','ses-03','ses-04','ses-05']
+SUBS = ['sub-07']
+SESSIONS = ['ses-01','ses-02','ses-03','ses-04']
 # SESSIONS = ['ses-03']
 
 for sub in SUBS:
@@ -170,14 +170,14 @@ for sub in SUBS:
         nb.save(img, f'{DATADIR}/derivatives/{sub}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_{modality}.nii')
 
 
-    modalities = glob.glob(f'{DATADIR}/derivatives/{sub}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_*.nii')
-
-    t1w = computeT1w(modalities[0], modalities[1])
-
-    # Get header and affine
-    header = nb.load(modalities[0]).header
-    affine = nb.load(modalities[0]).affine
-
-    # And save the image
-    img = nb.Nifti1Image(t1w, header = header, affine = affine)
-    nb.save(img, f'{DATADIR}/derivatives/{sub}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_T1w.nii')
+    # modalities = glob.glob(f'{DATADIR}/derivatives/{sub}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_*.nii')
+    #
+    # t1w = computeT1w(modalities[0], modalities[1])
+    #
+    # # Get header and affine
+    # header = nb.load(modalities[0]).header
+    # affine = nb.load(modalities[0]).affine
+    #
+    # # And save the image
+    # img = nb.Nifti1Image(t1w, header = header, affine = affine)
+    # nb.save(img, f'{DATADIR}/derivatives/{sub}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_T1w.nii')

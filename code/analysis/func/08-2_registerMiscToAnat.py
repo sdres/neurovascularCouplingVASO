@@ -4,20 +4,20 @@ import os
 import subprocess
 import nibabel as nb
 
-subs = ['sub-09', 'sub-08']
-subs = ['sub-08']
+subs = ['sub-05', 'sub-07']
+# subs = ['sub-07']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
-BBOX = {'sub-05': {'RH': {'xlower': 435, 'xrange': 162, 'ylower': 55, 'yrange': 162, 'zlower': 95, 'zrange': 158}},
+BBOX = {'sub-05': {'RH': {'xlower': 435, 'xrange': 162, 'ylower': 55, 'yrange': 162, 'zlower': 95, 'zrange': 158},
+                   'LH': {'xlower': 263, 'xrange': 162, 'ylower': 35, 'yrange': 162, 'zlower': 79, 'zrange': 158}},
         'sub-06': {'LH':{'xlower': 271, 'xrange': 162, 'ylower': 7, 'yrange': 162, 'zlower': 31, 'zrange': 159}},
         'sub-07': {'LH':{'xlower': 271, 'xrange': 166, 'ylower': 35, 'yrange': 158, 'zlower': 23, 'zrange': 166}},
         'sub-08': {'LH':{'xlower': 275, 'xrange': 162, 'ylower': 15, 'yrange': 162, 'zlower': 47, 'zrange': 158}},
         'sub-09': {'RH':{'xlower': 415, 'xrange': 162, 'ylower': 11, 'yrange': 162, 'zlower': 91, 'zrange': 158},
                    'LH':{'xlower': 303, 'xrange': 162, 'ylower': 0, 'yrange': 162, 'zlower': 59, 'zrange': 158}}
         }
-
 
 
 for sub in subs:
@@ -31,9 +31,6 @@ for sub in subs:
     # register maps
     statMaps = sorted(glob.glob(f'{mapDir}/*.nii'))
 
-
-
-
     for statMap in statMaps:
         # =========================================================================
         # Apply inverse transform
@@ -44,42 +41,42 @@ for sub in subs:
 
         moving = statMap
 
-        command = 'antsApplyTransforms '
-        command += f'--interpolation BSpline[5] '
-        command += f'-d 3 '
-        command += f'-i {moving} '
-        command += f'-r {fixed} '
-        command += f'-t {regFolder}/registered1_1InverseWarp.nii.gz '
-        # IMPORTANT: We take the inverse transform!!!
-        command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
-        command += f'-o {moving.split(".")[0]}_registered.nii.gz'
-
-        subprocess.run(command,shell=True)
-
-        command = f'fslmaths {moving.split(".")[0]}_registered.nii.gz -mul 1 {moving.split(".")[0]}_registered.nii.gz -odt float'
-        subprocess.run(command,shell=True)
+        # command = 'antsApplyTransforms '
+        # command += f'--interpolation BSpline[5] '
+        # command += f'-d 3 '
+        # command += f'-i {moving} '
+        # command += f'-r {fixed} '
+        # command += f'-t {regFolder}/registered1_1InverseWarp.nii.gz '
+        # # IMPORTANT: We take the inverse transform!!!
+        # command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
+        # command += f'-o {moving.split(".")[0]}_registered.nii.gz'
+        #
+        # subprocess.run(command,shell=True)
+        #
+        # command = f'fslmaths {moving.split(".")[0]}_registered.nii.gz -mul 1 {moving.split(".")[0]}_registered.nii.gz -odt float'
+        # subprocess.run(command,shell=True)
 
         # =========================================================================
         # Crop map
         # =========================================================================
 
-        inFile = f'{moving.split(".")[0]}_registered.nii.gz'
-        inFile = f'{DATADIR}/{sub}/sub-08_ses-avg_task-stimulation_run-avg_part-mag_T1w_registered.nii'
-
-
-        base = inFile.split('.')[0]
-        outFile = f'{base}_crop.nii.gz'
-
-        for hemi in ['LH']:
-            tmpBox = BBOX[sub][hemi]
-            outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
-
-            command = 'fslroi '
-            command += f'{inFile} '
-            command += f'{outFile} '
-            command += f"{tmpBox['xlower']} {tmpBox['xrange']} {tmpBox['ylower']} {tmpBox['yrange']} {tmpBox['zlower']} {tmpBox['zrange']}"
-
-            subprocess.run(command,shell=True)
+        # inFile = f'{moving.split(".")[0]}_registered.nii.gz'
+        # # inFile = f'{DATADIR}/{sub}/sub-07_ses-avg_task-stimulation_run-avg_part-mag_T1w_registered.nii'
+        #
+        #
+        # base = inFile.split('.')[0]
+        # outFile = f'{base}_crop.nii.gz'
+        #
+        # for hemi in ['LH']:
+        #     tmpBox = BBOX[sub][hemi]
+        #     outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
+        #
+        #     command = 'fslroi '
+        #     command += f'{inFile} '
+        #     command += f'{outFile} '
+        #     command += f"{tmpBox['xlower']} {tmpBox['xrange']} {tmpBox['ylower']} {tmpBox['yrange']} {tmpBox['zlower']} {tmpBox['zrange']}"
+        #
+        #     subprocess.run(command,shell=True)
 
 
     # register timeseries
@@ -115,7 +112,7 @@ for sub in subs:
             # Mask with sphere
             command = 'fslmaths '
             command += f'{outName} '
-            command += f'-mul {anatDir}/upsample/{sub}_RH_sphere_ups4X_registered.nii '
+            command += f'-mul {anatDir}/upsample/{sub}_LH_sphere_ups4X_registered.nii '
             command += f'{outName}'
 
             subprocess.run(command,shell=True)

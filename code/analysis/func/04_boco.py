@@ -31,9 +31,9 @@ ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 afniPath = '/Users/sebastiandresbach/abin'
 antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
-SUBS = ['sub-06']
+SUBS = ['sub-07']
 
-SESSIONS = ['ses-01','ses-02','ses-03','ses-05']
+SESSIONS = ['ses-01','ses-02','ses-03','ses-04']
 # SESSIONS = ['ses-05']
 
 for sub in SUBS:

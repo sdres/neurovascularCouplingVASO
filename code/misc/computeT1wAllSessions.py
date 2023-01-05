@@ -10,8 +10,8 @@ import glob
 
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
-nulledFiles = sorted(glob.glob(f'{ROOT}/sub-08/ses-0*/func/sub-08_ses-0*_task-stimulation_run-avg_part-mag_cbv.nii'))
-notnulledFiles = sorted(glob.glob(f'{ROOT}/sub-08/ses-0*/func/sub-08_ses-0*_task-stimulation_run-avg_part-mag_bold.nii'))
+nulledFiles = sorted(glob.glob(f'{ROOT}/sub-07/ses-0*/func/sub-07_ses-0*_task-stimulation_run-avg_part-mag_cbv.nii'))
+notnulledFiles = sorted(glob.glob(f'{ROOT}/sub-07/ses-0*/func/sub-07_ses-0*_task-stimulation_run-avg_part-mag_bold.nii'))
 
 test = computeT1w(nulledFiles,notnulledFiles)
 # Get header and affine
@@ -20,7 +20,7 @@ affine = nb.load(nulledFiles[0]).affine
 
 # And save the image
 img = nb.Nifti1Image(test, header = header, affine = affine)
-nb.save(img, f'{ROOT}/sub-08/sub-08_ses-avg_task-stimulation_run-avg_part-mag_T1w.nii')
+nb.save(img, f'{ROOT}/sub-07/sub-07_ses-avg_task-stimulation_run-avg_part-mag_T1w.nii')
 
 
 def computeT1w(nulledFiles, notnulledFiles, detrend = False):

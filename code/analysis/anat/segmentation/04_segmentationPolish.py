@@ -15,7 +15,7 @@ from scipy.ndimage import gaussian_filter
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
 # Set subjects to work on
-subs = ['sub-09']
+subs = ['sub-05']
 
 
 for sub in subs:
@@ -23,11 +23,11 @@ for sub in subs:
     subFolder = f'{DATADIR}/{sub}/ses-01/anat/upsample'
     # subFolder = f'{DATADIR}/{sub}/segmentation'
     # Segmentation file
-    FILE = f'{subFolder}/LH_gmwm1.nii.gz'
+    FILE = f'{subFolder}/gmwm-LH2.nii.gz'
 
     # Integer labels for tissue classes
-    WM = 3
-    GM = 2
+    WM = 2
+    GM = 3
 
     # Output suffix
     SUFFIX = "polished"

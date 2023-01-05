@@ -119,7 +119,8 @@ for sub in SUBS:
     # Run command
     subprocess.run(command,shell=True)
     # moving = '{DATADIR}/{sub}/ses-01/anat/upsample/peri_uncrop.nii.gz'
-# moving = f'{DATADIR}/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz'
+
+    # moving = f'{DATADIR}/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s.nii.gz'
 
     moving = f'{DATADIR}/sub-06/ses-04/anat/megre/99_Faruk/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_max.nii.gz'
     basename, ext = moving.split(os.extsep, 1)
@@ -133,7 +134,7 @@ for sub in SUBS:
     command += f'-r {fixed} '
     # command += f'-t {regFolder}/registered1_1Warp.nii.gz '
     command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
-    command += f'-o {basename}_registered.nii.gz'
+    command += f'-o {basename}_test_registered.nii.gz'
     # Run command
     subprocess.run(command, shell = True)
 
