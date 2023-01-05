@@ -8,11 +8,12 @@ import os
 import subprocess
 import glob
 
-SUBS = ['sub-06']
+SUBS = ['sub-05']
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
-BBOX = {'sub-05': {'RH': {'xlower': 435, 'xrange': 162, 'ylower': 55, 'yrange': 162, 'zlower': 95, 'zrange': 158}},
+BBOX = {'sub-05': {'RH': {'xlower': 435, 'xrange': 162, 'ylower': 55, 'yrange': 162, 'zlower': 95, 'zrange': 158},
+                   'LH': {'xlower': 263, 'xrange': 162, 'ylower': 35, 'yrange': 162, 'zlower': 79, 'zrange': 158}},
         'sub-06': {'LH':{'xlower': 271, 'xrange': 162, 'ylower': 7, 'yrange': 162, 'zlower': 31, 'zrange': 159}},
         'sub-07': {'LH':{'xlower': 271, 'xrange': 166, 'ylower': 35, 'yrange': 158, 'zlower': 23, 'zrange': 166}},
         'sub-08': {'LH':{'xlower': 275, 'xrange': 162, 'ylower': 15, 'yrange': 162, 'zlower': 47, 'zrange': 158}},
@@ -27,7 +28,7 @@ for sub in SUBS:
 
     # Find upsampled UNI images in first sessions
     image = glob.glob(f'{DATADIR}/{sub}/ses-01/anat/upsample/*uni*ups4X.nii.gz')[0]
-    image = glob.glob(f'/Users/sebastiandresbach/Desktop/forFaruk/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_registered.nii.gz')[0]
+    # image = glob.glob(f'/Users/sebastiandresbach/Desktop/forFaruk/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_registered.nii.gz')[0]
     base = image.split('.')[0]
 
     # for hemi in ['RH','LH']:
