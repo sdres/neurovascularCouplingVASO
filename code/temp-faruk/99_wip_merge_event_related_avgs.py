@@ -4,8 +4,12 @@ import os
 import subprocess
 import numpy as np
 import nibabel as nb
+import glob
 
 # =============================================================================
+FOLDER = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ERAs/frames'
+NII_NAMES = sorted(glob.glob(f'{FOLDER}/sub-06_task-stimulation_run-avg_part-mag_vaso_intemp_era-24s_sigChange_masked_frame*_registered_crop.nii.gz'))
+
 NII_NAMES = [
     '/home/faruk/data2/temp_OHBM_2023_1/cropped/ERAs/sub-06_task-stimulation_run-avg_part-mag_bold_intemp_era-2s_sigChange_masked_frame00_registered_crop.nii.gz',
     '/home/faruk/data2/temp_OHBM_2023_1/cropped/ERAs/sub-06_task-stimulation_run-avg_part-mag_bold_intemp_era-2s_sigChange_masked_frame01_registered_crop.nii.gz',
