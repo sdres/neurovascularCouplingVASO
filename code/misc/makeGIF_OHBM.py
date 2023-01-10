@@ -16,7 +16,7 @@ SF = 2400/1000
 
 
 
-template = f'/Users/sebastiandresbach/Desktop/neurovascularCouplingFigures/OHBM/fig1-2.png'
+template = f'/Users/sebastiandresbach/Desktop/neurovascularCouplingFigures/OHBM/fig1-1.png'
 image = io.imread(template)
 
 for modality in ['bold']:
@@ -124,6 +124,7 @@ from imageio import imsave
 
 
 # compress images
+
 import subprocess
 images = sorted(glob.glob(f'/Users/sebastiandresbach/Desktop/gifFrames/*small.png'))
 
@@ -190,6 +191,7 @@ startsHorizontal = [207, 605, 1004, 1403, 1802]
 
 template = f'/Users/sebastiandresbach/Desktop/neurovascularCouplingFigures/OHBM/fig1-1.png'
 image = io.imread(template)
+maxFrames = len(glob.glob(f'/Users/sebastiandresbach/Desktop/items/vaso_24/Scree*.png'))
 
 for frame in range(maxFrames):
 # for frame in range(2):
