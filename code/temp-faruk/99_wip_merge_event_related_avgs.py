@@ -40,7 +40,6 @@ NII_NAMES = [
     ]
 
 OUTDIR = "/home/faruk/data2/temp_OHBM_2023_1/cropped/ERAs_4D"
-OUTNAME = "sub-06_task-stimulation_run-avg_part-mag_bold_intemp_era-2s_sigChange_masked_registered_crop.nii.gz"
 OUTDIR = FOLDER
 OUTNAME = "sub-06_task-stimulation_run-avg_part-mag_vaso_intemp_era-24s_sigChange_masked_registered_crop.nii.gz"
 
