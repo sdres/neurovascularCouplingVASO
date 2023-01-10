@@ -5,7 +5,7 @@ import subprocess
 import nibabel as nb
 
 subs = ['sub-05', 'sub-07']
-# subs = ['sub-07']
+subs = ['sub-06']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -61,22 +61,22 @@ for sub in subs:
         # =========================================================================
 
         # inFile = f'{moving.split(".")[0]}_registered.nii.gz'
-        # # inFile = f'{DATADIR}/{sub}/sub-07_ses-avg_task-stimulation_run-avg_part-mag_T1w_registered.nii'
-        #
-        #
-        # base = inFile.split('.')[0]
-        # outFile = f'{base}_crop.nii.gz'
-        #
-        # for hemi in ['LH']:
-        #     tmpBox = BBOX[sub][hemi]
-        #     outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
-        #
-        #     command = 'fslroi '
-        #     command += f'{inFile} '
-        #     command += f'{outFile} '
-        #     command += f"{tmpBox['xlower']} {tmpBox['xrange']} {tmpBox['ylower']} {tmpBox['yrange']} {tmpBox['zlower']} {tmpBox['zrange']}"
-        #
-        #     subprocess.run(command,shell=True)
+        inFile = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_registered.nii.gz'
+
+
+        base = inFile.split('.')[0]
+        outFile = f'{base}_crop.nii.gz'
+        
+        for hemi in ['LH']:
+            tmpBox = BBOX[sub][hemi]
+            outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
+
+            command = 'fslroi '
+            command += f'{inFile} '
+            command += f'{outFile} '
+            command += f"{tmpBox['xlower']} {tmpBox['xrange']} {tmpBox['ylower']} {tmpBox['yrange']} {tmpBox['zlower']} {tmpBox['zrange']}"
+
+            subprocess.run(command,shell=True)
 
 
     # register timeseries
