@@ -246,6 +246,12 @@ for interpolationType in ['linear']:
 
                 tmp = data.loc[(data['stimDur'] == stimDuration)&(data['tissue'] == tissue)&(data['modality'] == modality)&(data['subject'] == 'sub-06')]
 
+                val = np.mean(tmp.loc[(tmp['volume'] == 0)]['data'])
+                # if val > 0:
+                #     tmp['data'] = tmp['data'] - val
+                # if val < 0:
+                    # tmp['data'] = tmp['data'] + val
+                tmp['data'] = tmp['data'] - val
                 # if val > 0:
                 #     tmp['data'] = tmp['data'] - val
                 # if val < 0:
