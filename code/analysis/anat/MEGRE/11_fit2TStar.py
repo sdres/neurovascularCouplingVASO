@@ -8,7 +8,7 @@ import glob
 # =============================================================================
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # Set subs to work on
-SUBS = ['sub-09']
+SUBS = ['sub-08']
 
 TEs = np.arange(1,7)*3.8
 
