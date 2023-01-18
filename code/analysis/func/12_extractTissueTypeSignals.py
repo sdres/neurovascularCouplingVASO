@@ -69,7 +69,7 @@ for sub in SUBS:
     # img = nb.Nifti1Image(vessels, affine = vesselNii.affine, header = vesselNii.header)
     # nb.save(img, f'{DATADIR}/{sub}/ses-04/anat/megre/vesselsmulti.nii.gz')
 
-    roisData = nb.load(f'{segFolder}/{sub}_rim_perimeter_chunk.nii.gz').get_fdata()
+    roisData = nb.load(f'{segFolder}/{sub}_rim-LH_perimeter_chunk.nii.gz').get_fdata()
     roisData = np.where(roisData == 1, 1, 0)
 
     # Before adding our ROI-GM to the vessels, we have to mask out vessel voxels
