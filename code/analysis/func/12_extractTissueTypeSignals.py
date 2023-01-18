@@ -291,8 +291,8 @@ for interpolationType in ['linear']:
 
             ax1.axhline(0,linestyle = '--', color = 'white')
 
-            legend = ax1.legend(loc='upper right', title="Tissue", fontsize=14)
-            legend.get_title().set_fontsize('16') #legend 'Title' fontsize
+            legend = ax1.legend(loc='upper right', title="Tissue", fontsize=18)
+            legend.get_title().set_fontsize('18') #legend 'Title' fontsize
 
             fig.tight_layout()
 
