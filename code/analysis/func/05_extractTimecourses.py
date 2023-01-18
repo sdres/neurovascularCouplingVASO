@@ -180,7 +180,7 @@ for file in files:
 
 # Test whether extracted ERAS give same results
 
-SUBS = ['sub-05','sub-06','sub-07','sub-09']
+SUBS = ['sub-06','sub-07','sub-09']
 # SUBS = ['sub-09']
 
 timePointList = []
@@ -359,8 +359,8 @@ for interpolationType in ['linear']:
 
             ax1.axhline(0,linestyle = '--', color = 'white')
 
-            legend = ax1.legend(loc='upper right', title="Layer", fontsize=14)
-            legend.get_title().set_fontsize('16') #legend 'Title' fontsize
+            legend = ax1.legend(loc='upper right', title="Layer", fontsize=18)
+            legend.get_title().set_fontsize('18') #legend 'Title' fontsize
 
             fig.tight_layout()
 
@@ -371,9 +371,96 @@ for interpolationType in ['linear']:
             else:
                 plt.title(f'{int(stimDuration)} seconds stimulation', fontsize=24,pad=10)
 
-            # plt.savefig(f'./results/{sub}_stimDur-{int(stimDuration)}_{modality}_ERA-layers.png', bbox_inches = "tight")
+            plt.savefig(f'./results/group_stimDur-{int(stimDuration)}_{modality}_ERA-layers.png', bbox_inches = "tight")
 
             plt.show()
+
+
+# =============================================================================
+# plot single subs
+# =============================================================================
+
+
+for sub in ['sub-06']:
+    # for interpolationType in ['linear', 'cubic']:
+    for interpolationType in ['linear']:
+        # data = pd.read_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',')
+        # data = data.loc[data['interpolation']==interpolationType]
+        for modality in ['bold', 'vaso']:
+        # for modality in ['vaso']:
+
+            for stimDuration in [1., 2., 4., 12., 24.]:
+                fig, (ax1) = plt.subplots(1,1,figsize=(7.5,5))
+
+                # for modality in ['bold', 'vaso']:
+
+                for layer in [1,2,3]:
+
+                    # tmp = data.loc[(data['stimDur'] == stimDuration)&(data['layer'] == layer)&(data['modality'] == modality)&(data['subject'] == 'sub-08')]
+                    # tmp = data.loc[(data['stimDur'] == stimDuration)&(data['layer'] == layer)&(data['modality'] == modality)]
+                    tmp = demean.loc[(demean['stimDur'] == stimDuration)&(demean['layer'] == layer)&(demean['modality'] == modality)&(demean['subject'] == sub)]
+                    # tmp = demean.loc[(demean['stimDur'] == stimDuration)&(demean['layer'] == layer)&(demean['modality'] == modality)&(demean['subject'] == 'sub-05')]
+
+                    val = np.mean(tmp.loc[(tmp['volume'] == 0)]['data'])
+                    # if val > 0:
+                    #     tmp['data'] = tmp['data'] - val
+                    # if val < 0:
+                        # tmp['data'] = tmp['data'] + val
+                    tmp['data'] = tmp['data'] - val
+                    nrVols = len(np.unique(tmp['volume']))
+
+                    # ax1.set_xticks(np.arange(-1.5,3.6))
+                    if modality == 'vaso':
+                        ax1.set_ylim(-1.1,5.1)
+                    if modality == 'bold':
+                        ax1.set_ylim(-3.1,8.1)
+
+                    sns.lineplot(ax=ax1,
+                                 data = tmp,
+                                 x = "volume",
+                                 y = "data",
+                                 color = palettesLayers[modality][layer-1],
+                                 linewidth = 3,
+                                 # ci=None,
+                                 label = layerNames[layer-1],
+                                 )
+
+                # Prepare x-ticks
+                ticks = np.linspace(0, nrVols, 10)
+                labels = (np.linspace(0, nrVols, 10)*0.7808410714285715).round(decimals=1)
+
+                # ax1.set_yticks(np.arange(-0.25, 3.51, 0.5))
+
+                ax1.yaxis.set_tick_params(labelsize=18)
+                ax1.xaxis.set_tick_params(labelsize=18)
+
+                # tweak x-axis
+                ax1.set_xticks(ticks[::2])
+                ax1.set_xticklabels(labels[::2],fontsize=18)
+                ax1.set_xlabel('Time [s]', fontsize=24)
+
+                # draw lines
+                ax1.axvspan(0, stimDuration / 0.7808410714285715, color='#e5e5e5', alpha=0.2, lw=0, label = 'stimulation')
+                # get value of first timepoint
+
+                ax1.axhline(0,linestyle = '--', color = 'white')
+
+                legend = ax1.legend(loc='upper right', title="Layer", fontsize=18)
+                legend.get_title().set_fontsize('18') #legend 'Title' fontsize
+
+                fig.tight_layout()
+
+                ax1.set_ylabel(r'Signal change [%]', fontsize=24)
+
+                if stimDuration == 1:
+                    plt.title(f'{int(stimDuration)} second stimulation', fontsize=24,pad=10)
+                else:
+                    plt.title(f'{int(stimDuration)} seconds stimulation', fontsize=24,pad=10)
+
+                plt.savefig(f'./results/{sub}_stimDur-{int(stimDuration)}_{modality}_ERA-layers.png', bbox_inches = "tight")
+
+                plt.show()
+
 
 
 
