@@ -7,13 +7,10 @@ Doing motion correction and regestering multiple runs across sessions.
 import ants
 import os
 import glob
-from nipype.interfaces import afni
 import nibabel as nb
 import numpy as np
 import subprocess
-from IPython.display import clear_output
 import nipype.interfaces.fsl as fsl
-import itertools
 import pandas as pd
 import sys
 
@@ -21,10 +18,8 @@ sys.path.append('./code/misc')
 
 from computeT1w import *
 
-
 # Set some paths
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
-# ANTSPATH = '/Users/sebastiandresbach/ANTs/install/bin'
 
 # =============================================================================
 # Do motion correction within runs
@@ -84,11 +79,11 @@ for sub in subs:
             img = nb.Nifti1Image(new, header = header, affine = affine)
             nb.save(img, f'{sesDir}/{base}.nii.gz')
 
-            # Make moma
+            # Make automatic motion mask
             print('Generating mask')
             subprocess.run(f'3dAutomask -prefix {sesDir}/{base}_moma.nii.gz -peels 3 -dilate 2 {sesDir}/{base}.nii.gz', shell=True)
 
-            # Make reference image from volumes 5-7
+            # Make reference image
             reference = np.mean(data[:,:,:,3:6], axis = -1)
             # And save it
             img = nb.Nifti1Image(reference, header = header, affine = affine)
@@ -100,9 +95,8 @@ for sub in subs:
             # Get motion mask
             mask = ants.image_read(f'{sesDir}/{base}_moma.nii.gz')
 
-            # Load data in antsPy style
+            # Load timeseries data in antsPy style
             ts = ants.image_read(f'{sesDir}/{base}.nii.gz')
-
 
             # Perform motion correction
             print(f'Starting with MOCO...')
@@ -268,6 +262,7 @@ for sub in subs:
                 )
                 )
 
+            # Find the number of runs within the session
             nrRuns = int(len(runs))
 
             # Set name of reference image
@@ -275,9 +270,6 @@ for sub in subs:
                 sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-01/func/'
                 + f'{sub}_ses-01_*_run-01_*_T1w.nii'
                 )))[0]
-            # refImage = (f'{DATADIR}/derivatives/{sub}/ses-01/func/'
-            #     + f'{sub}_ses-01_*_run-01_*_T1w.nii'
-            #     )))[0]
 
             # Get basename of reference image
             refBase = os.path.basename(refImage).rsplit('.', 2)[0].split('_')
@@ -287,32 +279,41 @@ for sub in subs:
 
             refBase = tmp
 
-            # refImage = f'{DATADIR}/derivatives/{sub}/ses-01/func/{refBase}_T1w.nii'
+            # Get header and affine of reference image to easily assign later
             refHeader = nb.load(refImage).header
             refAffine = nb.load(refImage).affine
 
+            # Load reference image in antspy style
             fixed = ants.image_read(refImage)
 
+            # Load motion mask of reference image in antspy style
             mask = ants.image_read(
                 f'{DATADIR}/derivatives/{sub}/ses-01/func'
                 + f'/{refBase}_{modality}_moma.nii.gz'
                 )
 
+            # In the first session, we register to the first run, therefore
+            # it would be omitted
             if ses == 'ses-01':
                 firstRunId = 1
             else:
                 firstRunId = 0
 
+            # Loop over runs
             for run in runs[firstRunId:]:
 
+                # Get the base name of the run
                 runBase = os.path.basename(run).rsplit('.', 2)[0].split('_')
                 tmp = runBase[0]
                 for subString in runBase[1:-1]:
                     tmp = tmp + f'_{subString}'
                 runBase = tmp
 
+                # Load registration matrix between run and reference
                 transformBetween = f'{outFolder}/{runBase}_T1w_registered-{refBase}_T1w.mat'
 
+                # =============================================================
+                # Separate run into individual volumes
                 nii = nb.load(run)
                 # get header and affine
                 header = nii.header
@@ -320,7 +321,7 @@ for sub in subs:
                 # Load data as array
                 data = nii.get_fdata()
 
-                # Separate into individual volumes
+                # Loop over volumes
                 for i in range(data.shape[-1]):
                     # Overwrite volumes 0,1,2 with volumes 3,4,5
                     if i <= 2:
@@ -334,16 +335,17 @@ for sub in subs:
                     f'{outFolder}'
                     + f'/{runBase}_{modality}_vol{i:03d}.nii')
 
-                # Loop over volumes to do the correction
+                # Loop over the volumes we just created to do the correction
                 for i in range(data.shape[-1]):
+                    # Load volume
                     moving = ants.image_read(
                         f'{outFolder}'
                         + f'/{runBase}_{modality}_vol{i:03d}.nii')
 
-                    # Get within run transoformation matrix
+                    # Get within run transoformation matrix of the volume
                     transformWithin = f'{outFolder}/motionParameters/{runBase}_{modality}/{runBase}_{modality}_vol{i:03d}.mat'
 
-                    # apply transofrmation matrices
+                    # Apply transofrmation matrices
                     mywarpedimage = ants.apply_transforms(
                         fixed = fixed,
                         moving = moving,
@@ -351,13 +353,14 @@ for sub in subs:
                         interpolator = 'bSpline'
                         )
 
-                    # save warped image
+                    # Save warped image
                     ants.image_write(mywarpedimage,
                         f'{outFolder}'
                         + f'/{runBase}_{modality}_vol{i:03d}_warped.nii'
                         )
 
-                # assemble images
+                # =============================================================
+                # Assemble images of run
                 newData = np.zeros(data.shape)
                 for i in range(data.shape[-1]):
                     vol = nb.load(
@@ -378,10 +381,8 @@ for sub in subs:
                     + f'/{runBase}_{modality}_moco-reg.nii'
                     )
 
-                # remove indvididual volumes
+                # Remove indvididual volumes
                 os.system(f'rm {outFolder}/{runBase}_{modality}_vol*.nii')
-
-
 
 # =============================================================================
 # Get T1w image of registered runs
@@ -392,11 +393,10 @@ for sub in subs:
 # sessions = ['ses-05']
 
 for sub in subs:
-    # for ses in ['ses-01', 'ses-02']:
     for ses in sessions:
         outFolder = f'{DATADIR}/derivatives/{sub}/{ses}/func'
 
-        # look for individual runs
+        # Look for individual runs
         runs = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/func/{sub}_{ses}_task-stim*_run-0*_part-mag_*.nii.gz'))
 
         nrRuns = int(len(runs)/2)
