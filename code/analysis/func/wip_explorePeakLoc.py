@@ -67,15 +67,15 @@ for sub in subs:
 
             for layer in layers:
 
-                idxColumn = columnData == column
+                # idxColumn = columnData == column
                 idxLayer = layerData == layer
-                idxTotal = idxColumn * idxLayer
+                # idxTotal = idxColumn * idxLayer
+                #
+                # val = np.mean(activationData[idxTotal])
+                # nrVox = np.sum(idxTotal)
 
-                val = np.mean(activationData[idxTotal])
-                nrVox = np.sum(idxTotal)
 
-
-                vals = activationData[idxLayer]
+                # vals = activationData[idxLayer]
                 val = np.mean(activationData[idxLayer])
                 # val = np.mean(activationData[idxTotal])
                 layerList.append(int(layer))
@@ -83,7 +83,7 @@ for sub in subs:
                 subList.append(sub)
                 modalityList.append(modality)
                 stimDurList.append(stimDur)
-                columnList.append(int(column))
+                # columnList.append(int(column))
 
                     # for i, val in enumerate(vals):
                     #     layerList.append(int(layer))
