@@ -17,7 +17,7 @@ import seaborn as sns
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
 
 # Set subjects to work on
-subs = ['sub-05','sub-06','sub-07','sub-08']
+subs = ['sub-05','sub-06','sub-07','sub-09']
 # subs = ['sub-06','sub-07']
 subs = ['sub-09']
 
@@ -123,6 +123,41 @@ for modality in ['bold', 'vaso']:
     fig, ax = plt.subplots()
 
     tmp = data.loc[(data['modality']==modality)]
+
+    sns.lineplot(data=tmp, x='depth', y='value', hue='stim', linewidth=2, palette = palettes[modality])
+
+    lim = ax.get_ylim()
+    lim[0].round()
+
+    ax.set_yticks(np.linspace(lim[0].round(), lim[1].round(),5).astype('int'))
+
+    plt.ylabel(f'z-score', fontsize=20)
+
+    # plt.title(f"Activation across stimulus durations", fontsize=20, pad=20)
+    plt.title(f"{modality}", fontsize=24, pad=20)
+    plt.xlabel('WM                                          CSF', fontsize=20)
+    plt.xticks([])
+    yLimits = ax.get_ylim()
+    # plt.ylim(0,yLimits[1])
+
+    plt.yticks(fontsize=18)
+
+    # ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+    plt.legend(loc='upper left')
+    legend = plt.legend(title='Stim dur [s]', fontsize=14, loc = 'center left',
+                           bbox_to_anchor = (1, 0.5))
+
+    title = legend.get_title()
+    title.set_fontsize(14)
+
+    # plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-all_{modality}_zScoreProfile.png', bbox_inches = "tight")
+    plt.show()
+
+for modality in ['bold', 'vaso']:
+    fig, ax = plt.subplots()
+
+    tmp = data.loc[(data['modality']==modality)&(data['subject']=='sub-06')]
 
     sns.lineplot(data=tmp, x='depth', y='value', hue='stim', linewidth=2, palette = palettes[modality])
 
