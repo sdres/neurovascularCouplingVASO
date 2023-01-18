@@ -268,9 +268,9 @@ for interpolationType in ['linear']:
                              label = tissue,
                              )
             if modality == 'vaso':
-                ax1.set_ylim(-5.1,7.1)
+                ax1.set_ylim(-3.1,7.1)
             if modality == 'bold':
-                ax1.set_ylim(-8.1,12.1)
+                ax1.set_ylim(-3.1,14.1)
             # Prepare x-ticks
             ticks = np.linspace(0, nrVols, 10)
             labels = (ticks * 0.7808410714285715).round(decimals=1)
