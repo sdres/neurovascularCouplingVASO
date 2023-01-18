@@ -5,7 +5,7 @@ import subprocess
 import nibabel as nb
 
 subs = ['sub-05', 'sub-07']
-subs = ['sub-06']
+subs = ['sub-08']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -62,11 +62,15 @@ for sub in subs:
 
         # inFile = f'{moving.split(".")[0]}_registered.nii.gz'
         inFile = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_registered.nii.gz'
+        inFile = f'{anatDir}/upsample/sub-08_ses-01_inv-2_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
+        inFile = f'{anatDir}/upsample/sub-06_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
+
+        inFile = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-08/ses-04/anat/megre/99_faruk/sub-08_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_max_registered.nii.gz'
 
 
         base = inFile.split('.')[0]
         outFile = f'{base}_crop.nii.gz'
-        
+
         for hemi in ['LH']:
             tmpBox = BBOX[sub][hemi]
             outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
