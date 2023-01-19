@@ -144,14 +144,13 @@ for order in orders:
 
 # for ses in ['ses-01','ses-02','ses-03','ses-05']:
 # for ses in ['ses-03','ses-05']:
-subs = ['sub-05','sub-06','sub-07','sub-08']
-# subs = ['sub-06']
+subs = ['sub-05','sub-06','sub-07','sub-08','sub-09']
+# subs = ['sub-09']
 # boldJitters = {0.785: 1.570, 0.0: 2.355, 1.57: 0, 2.355: 0.785}
 # sort in oppisite order
 
-# boldJitters = {0.0: 2.355, 0.785: 1.570, 1.57: 0, 2.355: 0.785}
-
-boldJitters = {0.0: 2.355, 0.785: 1.570, 1.57: 0.785, 2.355: 0}
+boldJitters = {0.0: 1.570, 0.785: 0.785, 1.57: 0, 2.355: 2.355}
+cbvJitters = {0.0: 0.0, 0.785: 2.355, 1.57: 1.570, 2.355: 0.785}
 
 
 EVENTDURS = {'shortITI': np.array([11, 14, 18, 32, 48]),
@@ -221,8 +220,9 @@ for sub in subs:
             timecourse = np.mean(runData[:, :, :][maskData.astype(bool)], axis=0)
 
             mean = np.mean(timecourse, axis = -1)
-            # sigChange = (np.divide(timecourse, mean) - 1) * 100
-            sigChange = (np.divide(timecourse, mean)) * 100
+            mean = np.mean(np.concatenate((timecourse[:11],timecourse[-21:])), axis = -1)
+            sigChange = (np.divide(timecourse, mean) - 1) * 100
+            # sigChange = (np.divide(timecourse, mean)) * 100
 
             for k, stimDur in enumerate([1,2,4,12,24]):
             # for k, stimDur in enumerate([1]):
@@ -246,21 +246,41 @@ for sub in subs:
                             if re.search('jitter', logFile['event'][index]):
                                 currJitter = float(re.findall(r"\d+\.\d+", logFile['event'][index])[0])
                                 jitters.append(currJitter)
-                            if re.search('TR1', logFile['event'][index]):
-                                # boldVol = int(re.findall(r"\d+", logFile['event'][index])[-1])-1  # because of 0-indexing of data
-                                boldVol = int(re.findall(r"\d+", logFile['event'][index])[-1])  # because of 0-indexing of data
-                                starts.append(boldVol)
-                                stimSwitch = False
+
+                            if modality == 'bold':
+                                if re.search('TR2', logFile['event'][index]):
+                                    # boldVol = int(re.findall(r"\d+", logFile['event'][index])[-1])-1  # because of 0-indexing of data
+                                    if currJitter <= 2:
+                                        boldVol = int(re.findall(r"\d+", logFile['event'][index])[-1])  # because of 0-indexing of data
+                                        starts.append(boldVol)
+                                        stimSwitch = False
+                                    if currJitter >= 2:
+                                        boldVol = int(re.findall(r"\d+", logFile['event'][index])[-1])+1  # because of 0-indexing of data
+                                        starts.append(boldVol)
+                                        stimSwitch = False
+                            if modality == 'cbv':
+                                if re.search('TR1', logFile['event'][index]):
+                                    if currJitter <= 0.5:
+                                        cbvVol = int(re.findall(r"\d+", logFile['event'][index])[-1])-1  # because of 0-indexing of data
+                                        starts.append(cbvVol)
+                                        stimSwitch = False
+                                    if currJitter >= 0.5:
+                                        cbvVol = int(re.findall(r"\d+", logFile['event'][index])[-1])  # because of 0-indexing of data
+                                        starts.append(cbvVol)
+                                        stimSwitch = False
                 if modality == 'bold':
                     jitters = [boldJitters[truncate(i, 3)] for i in jitters]
+                if modality == 'cbv':
+                    jitters = [cbvJitters[truncate(i, 3)] for i in jitters]
+
                 length = int(np.round(EVENTDURS[iti][k]/(tr*4)))+1
 
                 # print(f'stimdur: {stimDur}, ITI: {iti}, extracting {length} timpoints')
 
                 for i, start in enumerate(starts):
 
-                    tmp = sigChange[start:start+length]
                     # tmp = sigChange[start:start+length]
+                    tmp = timecourse[start:start+length]
 
                     # tmp = tmp - np.mean(tmp)
 
@@ -275,7 +295,6 @@ for sub in subs:
                         stimDurList.append(stimDur)
                         modalityList.append(modality)
 
-            # plt.plot(tmp,label=jitters[i])
 
 
 data = pd.DataFrame({'run':runList, 'val': valList, 'volume':timepointList, 'duration': stimDurList, 'modality': modalityList})
@@ -323,11 +342,9 @@ plt.style.use('dark_background')
 for modality in ['bold', 'cbv']:
 # for modality in ['bold']:
     for k, stimDur in enumerate([1,2,4,12,24]):
-        tmp = noOutliers.loc[(noOutliers['duration']==stimDur)&(noOutliers['modality']==modality)]
-        # tmp = data.loc[(data['duration']==stimDur)&(data['modality']==modality)]
+        # tmp = noOutliers.loc[(noOutliers['duration']==stimDur)&(noOutliers['modality']==modality)]
+        tmp = data.loc[(data['duration']==stimDur)&(data['modality']==modality)]
         maxVol = np.amax(tmp['volume'])
-        # tmp = data.loc[(data['duration']==stimDur)]
-
         fig, ax = plt.subplots(1,1,figsize=(7.5,5))
 
         sns.scatterplot(data=tmp, x="volume", y="val", hue='run', legend=False)
@@ -338,7 +355,6 @@ for modality in ['bold', 'cbv']:
                      linewidth = 3,
                      color = '#ff8c26'
                      )
-
 
         # plt.ylim(-4,5)
         ax.set_ylabel('Signal change [%]', fontsize=24)
@@ -353,7 +369,6 @@ for modality in ['bold', 'cbv']:
         ax.yaxis.set_tick_params(labelsize=18)
         ax.xaxis.set_tick_params(labelsize=18)
 
-        # plt.title(f'{int(stimDuration)} second stimulation', fontsize=24,pad=10)
 
         plt.title(f'{modality} {stimDur}s second stimulation', fontsize=24,pad=10)
         # plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
@@ -365,17 +380,16 @@ cbvMean = np.zeros(len(data['volume'].unique()))
 volumes = np.sort(data['volume'].unique())
 
 for i, vol in enumerate(volumes):
-    tmp = data.loc[(data['volume']==vol)&(data['modality']=='cbv')&(data['duration']==2)]
+    tmp = data.loc[(data['volume']==vol)&(data['modality']=='cbv')&(data['duration']==24)]
     tmpVals = np.asarray(tmp['val'])
     tmpMean = np.mean(tmpVals)
     cbvMean[i] = tmpMean
 
-plt.plot(cbvMean)
 
 boldMean = np.zeros(len(data['volume'].unique()))
 volumes = np.sort(data['volume'].unique())
 for i, vol in enumerate(volumes):
-    tmp = data.loc[(data['volume']==vol)&(data['modality']=='bold')&(data['duration']==2)]
+    tmp = data.loc[(data['volume']==vol)&(data['modality']=='bold')&(data['duration']==24)]
     tmpVals = np.asarray(tmp['val'])
     tmpMean = np.mean(tmpVals)
     boldMean[i] = tmpMean
