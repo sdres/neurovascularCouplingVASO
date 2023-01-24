@@ -20,10 +20,10 @@ docker run --rm -it \
 # step 3
 docker run --rm -it \
 -v /Users/sebastiandresbach/data/neurovascularCouplingVASO:/base nipy/heudiconv:latest \
--d /base/DICOM/sub-{subject}/ses-{session}/*/*.dcm \
+-d /base/DICOM/sub-{subject}/ses-{session}/*/*.ima \
 -o /base/Nifti/ \
 -f /base/Nifti/code/heudiconvHeuristic.py \
 -s 07 \
--ss 03 \
+-ss 05 \
 -c dcm2niix \
 -b --overwrite
