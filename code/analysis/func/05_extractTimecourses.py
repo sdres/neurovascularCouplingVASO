@@ -169,6 +169,7 @@ for sub in SUBS:
             img = nb.Nifti1Image(tmp, header = header, affine = affine)
             nb.save(img, f'{DATADIR}/{sub}/ERAs/{sub}_task-stimulation_run-avg_part-mag_{modality}_intemp_era-{stimDur}s_sigChange.nii.gz')
 
+
 sub = 'sub-07'
 eraDir = f'{DATADIR}/{sub}/ERAs'  # Location of functional data
 
@@ -181,7 +182,7 @@ for file in files:
 # Test whether extracted ERAS give same results
 
 SUBS = ['sub-06','sub-07','sub-09']
-# SUBS = ['sub-09']
+SUBS = ['sub-06']
 
 timePointList = []
 modalityList = []
@@ -206,11 +207,12 @@ for sub in SUBS:
 
 
     for stimDuration in [1, 2, 4, 12, 24]:
-    # for stimDuration in [24]:
+    # for stimDuration in [1, 12]:
 
-        for modality in ['vaso', 'bold']:
-        # for modality in ['bold']:
-            frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_task-stimulation_run-avg_part-mag_{modality}_intemp_era-{stimDuration}s_sigChange_masked_frame*_registered_crop.nii.gz'))
+        # for modality in ['vaso', 'bold']:
+        for modality in ['bold']:
+            # frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_task-stimulation_run-avg_part-mag_{modality}_intemp_era-{stimDuration}s_sigChange_masked_frame*_registered_crop.nii.gz'))
+            frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_task-stimulation_run-avg_part-mag_{modality}_highRes_era-{stimDuration}s_sigChange_frame*_registered_crop.nii.gz'))
             # file = f'{DATADIR}/{sub}/ERAs/frames/sub-06_task-stimulation_run-avg_part-mag_bold_intemp_era-12s_sigChange-after_frame12_registered_crop.nii.gz'
 
             for j,frame in enumerate(frames):
@@ -299,8 +301,8 @@ layerNames = ['deep', 'middle', 'superficial','vein']
 for interpolationType in ['linear']:
     # data = pd.read_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',')
     # data = data.loc[data['interpolation']==interpolationType]
-    for modality in ['bold', 'vaso']:
-    # for modality in ['vaso']:
+    # for modality in ['bold', 'vaso']:
+    for modality in ['bold']:
 
         for stimDuration in [1., 2., 4., 12., 24.]:
             fig, (ax1) = plt.subplots(1,1,figsize=(7.5,5))
@@ -371,7 +373,7 @@ for interpolationType in ['linear']:
             else:
                 plt.title(f'{int(stimDuration)} seconds stimulation', fontsize=24,pad=10)
 
-            plt.savefig(f'./results/group_stimDur-{int(stimDuration)}_{modality}_ERA-layers.png', bbox_inches = "tight")
+            # plt.savefig(f'./results/group_stimDur-{int(stimDuration)}_{modality}_ERA-layers.png', bbox_inches = "tight")
 
             plt.show()
 

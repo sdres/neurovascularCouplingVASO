@@ -19,7 +19,7 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivat
 # Set subjects to work on
 subs = ['sub-05','sub-06','sub-07','sub-09']
 # subs = ['sub-06','sub-07']
-subs = ['sub-09']
+subs = ['sub-08']
 
 MODALITIES = ['bold', 'vaso']
 
@@ -134,6 +134,8 @@ for modality in ['bold', 'vaso']:
     plt.ylabel(f'z-score', fontsize=20)
 
     # plt.title(f"Activation across stimulus durations", fontsize=20, pad=20)
+
+
     plt.title(f"{modality}", fontsize=24, pad=20)
     plt.xlabel('WM                                          CSF', fontsize=20)
     plt.xticks([])
@@ -151,7 +153,7 @@ for modality in ['bold', 'vaso']:
     title = legend.get_title()
     title.set_fontsize(14)
 
-    # plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-all_{modality}_zScoreProfile.png', bbox_inches = "tight")
+    plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-all_{modality}_zScoreProfile.png', bbox_inches = "tight")
     plt.show()
 
 for modality in ['bold', 'vaso']:

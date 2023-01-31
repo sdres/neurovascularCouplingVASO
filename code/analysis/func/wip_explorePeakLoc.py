@@ -17,8 +17,9 @@ plt.style.use('dark_background')
 
 # Set subjects to work on
 subs = ['sub-05','sub-06','sub-07','sub-09']
-subs = ['sub-05']
+subs = ['sub-06']
 
+# Initiate lists
 subList = []
 layerList = []
 valList = []
@@ -26,6 +27,7 @@ voxelList = []
 modalityList = []
 stimDurList = []
 columnList = []
+
 
 for sub in subs:
     ROOT = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/{sub}'
@@ -63,35 +65,33 @@ for sub in subs:
             columns = np.unique(columnData)[1:]
             layers = np.unique(layerData)[1:]
 
-            # for column in columns:
+            for column in columns:
 
-            for layer in layers:
+                for layer in layers:
 
-                # idxColumn = columnData == column
-                idxLayer = layerData == layer
-                # idxTotal = idxColumn * idxLayer
-                #
-                # val = np.mean(activationData[idxTotal])
-                # nrVox = np.sum(idxTotal)
+                    idxColumn = columnData == column
+                    idxLayer = layerData == layer
+                    idxTotal = idxColumn * idxLayer
 
+                    val = np.mean(activationData[idxTotal])
+                    # nrVox = np.sum(idxTotal)
 
-                # vals = activationData[idxLayer]
-                val = np.mean(activationData[idxLayer])
-                # val = np.mean(activationData[idxTotal])
-                layerList.append(int(layer))
-                valList.append(val)
-                subList.append(sub)
-                modalityList.append(modality)
-                stimDurList.append(stimDur)
-                # columnList.append(int(column))
+                    # vals = activationData[idxLayer]
+                    # val = np.mean(activationData[idxLayer])
+                    layerList.append(int(layer))
+                    valList.append(val)
+                    subList.append(sub)
+                    modalityList.append(modality)
+                    stimDurList.append(stimDur)
+                    columnList.append(int(column))
 
-                    # for i, val in enumerate(vals):
-                    #     layerList.append(int(layer))
-                    #     valList.append(val)
-                    #     voxelList.append(i)
+                        # for i, val in enumerate(vals):
+                        #     layerList.append(int(layer))
+                        #     valList.append(val)
+                        #     voxelList.append(i)
 
 # data = pd.DataFrame({'layer':layerList, 'val': valList, 'idx': voxelList})
-data = pd.DataFrame({'sub':subList,'layer':layerList, 'val': valList, 'modality':modalityList, 'stimDur':stimDurList})
+# data = pd.DataFrame({'sub':subList,'layer':layerList, 'val': valList, 'modality':modalityList, 'stimDur':stimDurList})
 data = pd.DataFrame({'sub':subList,'layer':layerList, 'val': valList, 'modality':modalityList, 'stimDur':stimDurList, 'column':columnList})
 
 for modality in ['bold', 'vaso']:
@@ -101,13 +101,32 @@ for modality in ['bold', 'vaso']:
     plt.show()
 
 
-for column in columns:
+yLims = {'vaso': [-1,7], 'bold':[-2,20]}
 
-    for modality in ['bold', 'vaso']:
+for modality in ['bold', 'vaso']:
+    for column in columns:
+        fig, ax = plt.subplots(1,1,figsize=(7.5,5))
+
         # tmp = data.loc[data['modality']== modality]
-        tmp = data.loc[(data['modality']== modality)&(data['column']== column)&(data['sub']== 'sub-05')]
-        sns.lineplot(data=tmp, x='layer', y = 'val', hue='stimDur')
-        plt.title(f'{modality} {column}')
+        tmp = data.loc[(data['modality']== modality)&(data['column']== column)&(data['sub']== 'sub-06')]
+        sns.lineplot(data=tmp, x='layer', y = 'val', hue='stimDur', palette='Pastel1', linewidth = 2)
+        # plt.title(f'{modality} {column}')
+
+        ax.set_yticks(np.linspace(yLims[modality][0], yLims[modality][1],5).astype('int'))
+
+        plt.ylabel(f'Z-Score', fontsize=20)
+
+        plt.xlabel('WM                                                      CSF', fontsize=20)
+        plt.xticks([])
+        yLimits = ax.get_ylim()
+
+        plt.yticks(fontsize=18)
+        plt.legend(loc='upper left')
+        legend = plt.legend(title='Stim dur [s]',title_fontsize=18, fontsize=14, loc = 'center left',
+                               bbox_to_anchor = (1, 0.5))
+
+        plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-06_{modality}_col-{column}zScoreProfile.png', bbox_inches = "tight")
+
         plt.show()
 
 

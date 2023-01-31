@@ -5,7 +5,7 @@ import subprocess
 import nibabel as nb
 
 subs = ['sub-05', 'sub-07']
-subs = ['sub-08']
+subs = ['sub-09', 'sub-05','sub-07']
 
 # Define data dir
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
@@ -28,64 +28,64 @@ for sub in subs:
     regFolder = f'{anatDir}/registrationFiles'  # Folder where output will be saved
 
 
-    # register maps
-    statMaps = sorted(glob.glob(f'{mapDir}/*.nii'))
-
-    for statMap in statMaps:
-        # =========================================================================
-        # Apply inverse transform
-        # =========================================================================
-
-        # Take care: fixed and moving are flipped
-        fixed = glob.glob(f'{anatDir}/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz')[0]
-
-        moving = statMap
-
-        # command = 'antsApplyTransforms '
-        # command += f'--interpolation BSpline[5] '
-        # command += f'-d 3 '
-        # command += f'-i {moving} '
-        # command += f'-r {fixed} '
-        # command += f'-t {regFolder}/registered1_1InverseWarp.nii.gz '
-        # # IMPORTANT: We take the inverse transform!!!
-        # command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
-        # command += f'-o {moving.split(".")[0]}_registered.nii.gz'
-        #
-        # subprocess.run(command,shell=True)
-        #
-        # command = f'fslmaths {moving.split(".")[0]}_registered.nii.gz -mul 1 {moving.split(".")[0]}_registered.nii.gz -odt float'
-        # subprocess.run(command,shell=True)
-
-        # =========================================================================
-        # Crop map
-        # =========================================================================
-
-        # inFile = f'{moving.split(".")[0]}_registered.nii.gz'
-        inFile = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_registered.nii.gz'
-        inFile = f'{anatDir}/upsample/sub-08_ses-01_inv-2_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
-        inFile = f'{anatDir}/upsample/sub-06_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
-
-        inFile = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-08/ses-04/anat/megre/99_faruk/sub-08_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_max_registered.nii.gz'
-
-
-        base = inFile.split('.')[0]
-        outFile = f'{base}_crop.nii.gz'
-
-        for hemi in ['LH']:
-            tmpBox = BBOX[sub][hemi]
-            outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
-
-            command = 'fslroi '
-            command += f'{inFile} '
-            command += f'{outFile} '
-            command += f"{tmpBox['xlower']} {tmpBox['xrange']} {tmpBox['ylower']} {tmpBox['yrange']} {tmpBox['zlower']} {tmpBox['zrange']}"
-
-            subprocess.run(command,shell=True)
+    # # register maps
+    # statMaps = sorted(glob.glob(f'{mapDir}/*.nii'))
+    #
+    # for statMap in statMaps:
+    #     # =========================================================================
+    #     # Apply inverse transform
+    #     # =========================================================================
+    #
+    #     # Take care: fixed and moving are flipped
+    #     fixed = glob.glob(f'{anatDir}/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz')[0]
+    #
+    #     moving = statMap
+    #
+    #     # command = 'antsApplyTransforms '
+    #     # command += f'--interpolation BSpline[5] '
+    #     # command += f'-d 3 '
+    #     # command += f'-i {moving} '
+    #     # command += f'-r {fixed} '
+    #     # command += f'-t {regFolder}/registered1_1InverseWarp.nii.gz '
+    #     # # IMPORTANT: We take the inverse transform!!!
+    #     # command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
+    #     # command += f'-o {moving.split(".")[0]}_registered.nii.gz'
+    #     #
+    #     # subprocess.run(command,shell=True)
+    #     #
+    #     # command = f'fslmaths {moving.split(".")[0]}_registered.nii.gz -mul 1 {moving.split(".")[0]}_registered.nii.gz -odt float'
+    #     # subprocess.run(command,shell=True)
+    #
+    #     # =========================================================================
+    #     # Crop map
+    #     # =========================================================================
+    #
+    #     # inFile = f'{moving.split(".")[0]}_registered.nii.gz'
+    #     inFile = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_T2s_registered.nii.gz'
+    #     inFile = f'{anatDir}/upsample/sub-08_ses-01_inv-2_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
+    #     inFile = f'{anatDir}/upsample/sub-06_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
+    #
+    #     inFile = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-08/ses-04/anat/megre/99_faruk/sub-08_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_max_registered.nii.gz'
+    #
+    #
+    #     base = inFile.split('.')[0]
+    #     outFile = f'{base}_crop.nii.gz'
+    #
+    #     for hemi in ['LH']:
+    #         tmpBox = BBOX[sub][hemi]
+    #         outFile = f'{base}_crop-toShpere{hemi}.nii.gz'
+    #
+    #         command = 'fslroi '
+    #         command += f'{inFile} '
+    #         command += f'{outFile} '
+    #         command += f"{tmpBox['xlower']} {tmpBox['xrange']} {tmpBox['ylower']} {tmpBox['yrange']} {tmpBox['zlower']} {tmpBox['zrange']}"
+    #
+    #         subprocess.run(command,shell=True)
 
 
     # register timeseries
     eraDir = f'{DATADIR}/{sub}/ERAs'  # Location of functional data
-    eras = sorted(glob.glob(f'{eraDir}/*masked.nii.gz'))
+    eras = sorted(glob.glob(f'{eraDir}/*highRes*.nii.gz'))
     outFolder = f'{eraDir}/frames'
     tmpBox = BBOX[sub]['LH']
     # Make output folder if it does not exist already
