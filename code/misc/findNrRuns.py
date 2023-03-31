@@ -8,7 +8,7 @@ import glob
 
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-SUBS = ['sub-05', 'sub-06', 'sub-07','sub-08','sub-09']
+SUBS = ['sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09']
 
 dict = {}
 
