@@ -9,17 +9,17 @@ import glob
 import pandas as pd
 import os
 import re
-
-
-# define ROOT dir
+import seaborn as sns
+import matplotlib.pyplot as plt
+# Define ROOT dir
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # define subjects to work on
-subs = ['sub-05','sub-06','sub-07','sub-08','sub-09']
+subs = ['sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09']
+plt.style.use('dark_background')
 
 subList = []
 runList = []
 targetDetectedList = []
-
 
 for sub in subs:
     # # get all runs of all sessions
@@ -65,7 +65,6 @@ for sub in subs:
         for index, row in logFile.iterrows():
             if not logFile['event'][index] != logFile['event'][index]:
 
-
                 if (re.search('Target presented', logFile['event'][index])) and targetSwitch:
                     targetDetected.append(-1)
 
@@ -97,9 +96,37 @@ for sub in subs:
         runList.append(log.split('/')[-1][:20])
         targetDetectedList.append(detectedRatio)
 
-data = pd.DataFrame({'subject':subList, 'run':runList, 'ratio':targetDetectedList})
-import seaborn as sns
-import matplotlib.pyplot as plt
+data = pd.DataFrame({'subject': subList, 'run': runList, 'ratio': targetDetectedList})
+
+ratios = []
+counts = []
+
+for ratio in data['ratio'].unique():
+    tmp = data.loc[data['ratio'] == ratio]
+    ratios.append(np.round(ratio,2))
+    counts.append(len(tmp))
+
+data2 = pd.DataFrame({'ratio': ratios, 'count': counts})
+
+fig, (ax1) = plt.subplots(1, 1, figsize=(7.5, 5))
+splot = sns.barplot(data=data2, x='ratio', y='count', linewidth=1, edgecolor="1", color='tab:red')
+for p in splot.patches:
+    splot.annotate(format(p.get_height(), '.0f'),
+                   (p.get_x() + p.get_width() / 2., p.get_height()),
+                   ha='center', va='center',
+                   xytext=(0, 9),
+                   textcoords='offset points',
+                   fontsize=14)
+plt.ylim(0, 90)
+ax1.set_ylabel(r'#runs', fontsize=24)
+ax1.set_xlabel(r'Ratio detected', fontsize=24)
+ax1.yaxis.set_tick_params(labelsize=18)
+ax1.xaxis.set_tick_params(labelsize=18)
+fig.tight_layout()
+plt.savefig(f'./results/targetsDetectedVsUndetected.png', bbox_inches="tight")
+
+plt.show()
 
 
-sns.displot(data = data, x='ratio', bins=5)
+# sns.displot(data=data, x='ratio', bins=20)
+# data.loc[data['ratio'] <= 0.78]
