@@ -1,21 +1,17 @@
-'''
+"""
 
 Read and plot motion traces
 
-'''
+"""
 
 import ants
 import os
 import glob
-import nibabel as nb
 import numpy as np
-import subprocess
-from IPython.display import clear_output
-import nipype.interfaces.fsl as fsl
-import itertools
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 
 def my_ants_affine_to_distance(affine, unit):
 
@@ -37,14 +33,14 @@ def my_ants_affine_to_distance(affine, unit):
     return T, R
 
 
-SUBS = ['sub-09']
+SUBS = ['sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09']
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
 # ============================================================================
 # Set global plotting parameters
 
 plt.style.use('dark_background')
-PALETTE = {'bold': 'tab:orange','cbv': 'tab:blue'}
+PALETTE = {'bold': 'tab:orange', 'cbv': 'tab:blue'}
 
 LW = 2
 motionPalette = ['Set1', 'Set2']
@@ -66,7 +62,7 @@ for sub in SUBS:
     sessions = []
     # Find all sessions
     for run in allRuns:
-        for i in range(1,6):  # We had a maximum of 2 sessions
+        for i in range(1, 6):  # We had a maximum of 2 sessions
             if f'ses-0{i}' in run:
                 sessions.append(f'ses-0{i}')
 
@@ -93,7 +89,8 @@ for sub in SUBS:
             # Get all transformation matrices
             mats = sorted(glob.glob(f'{motionDir}/{base}_vol*'))
 
-            Tr = []; Rt = []
+            Tr = []
+            Rt = []
 
             for i, mat in enumerate(mats):
 
@@ -110,17 +107,16 @@ for sub in SUBS:
             Rt = np.asarray(Rt)
 
             data_dict = {
-            'Tx': Tr[:, 0],
-            'Ty': Tr[:, 1],
-            'Tz': Tr[:, 2],
-            'Rx': Rt[:, 0],
-            'Ry': Rt[:, 1],
-            'Rz': Rt[:, 2]
+                'Tx': Tr[:, 0],
+                'Ty': Tr[:, 1],
+                'Tz': Tr[:, 2],
+                'Rx': Rt[:, 0],
+                'Ry': Rt[:, 1],
+                'Rz': Rt[:, 2]
             }
 
             pd_ses = pd.DataFrame(data=data_dict)
-            pd_ses.to_csv(os.path.join(motionDir, f'{base}_motionTraces.csv'), index = False)
-
+            pd_ses.to_csv(os.path.join(motionDir, f'{base}_motionTraces.csv'), index=False)
 
 # =================================================================
 # Get motion summary
@@ -138,7 +134,7 @@ for sub in SUBS:
     sessions = []
     # Find all sessions
     for run in allRuns:
-        for i in range(1,6):  # We had a maximum of 2 sessions
+        for i in range(1, 6):  # We had a maximum of 2 sessions
             if f'ses-0{i}' in run:
                 sessions.append(f'ses-0{i}')
 
@@ -147,7 +143,6 @@ for sub in SUBS:
     print(f'Found data from sessions: {sessions}')
     for ses in sessions:
         funcDir = f'{ROOT}/derivatives/{sub}/{ses}/func'
-
 
         # look for individual runs (containing both nulled and notnulled images)
         runs = sorted(glob.glob(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-*run-0*_part-mag*.nii.gz'))
@@ -170,7 +165,7 @@ for sub in SUBS:
 
             fd = []
             timepoints = []
-            subjects=[]
+            subjects = []
             mods = []
 
             for modality in ['cbv', 'bold']:
@@ -197,10 +192,8 @@ for sub in SUBS:
                     subjects.append(sub)
                     mods.append(modality)
 
-
-            FDs = pd.DataFrame({'subject':subjects, 'volume':timepoints, 'FD':fd, 'modality': mods})
+            FDs = pd.DataFrame({'subject': subjects, 'volume': timepoints, 'FD': fd, 'modality': mods})
             FDs.to_csv(os.path.join(motionDir, f'{base}_FDs.csv'), index=False)
-
 
             # =========================================================================
             # Formatting motion traces for plotting
@@ -222,22 +215,21 @@ for sub in SUBS:
                 for col in data.columns:
                     tmp = data[col].to_numpy()
 
-                    for i, val in enumerate(tmp, start = 1):
+                    for i, val in enumerate(tmp, start=1):
                         motionTraces.append(val)
                         motionNames.append(f'{col} {modality}')
                         volumes.append(i)
                         modalityList.append(modality)
 
             data_dict = {
-            'volume': volumes,
-            'Motion': motionTraces,
-            'name': motionNames,
-            'modality': modalityList
+                'volume': volumes,
+                'Motion': motionTraces,
+                'name': motionNames,
+                'modality': modalityList
             }
 
-            pd_ses = pd.DataFrame(data = data_dict)
+            pd_ses = pd.DataFrame(data=data_dict)
             pd_ses.to_csv(os.path.join(motionDir, f'{base}_motionSummary.csv'), index=False)
-
 
 # =================================================================
 # Plotting
@@ -255,7 +247,7 @@ for sub in SUBS:
     sessions = []
     # Find all sessions
     for run in allRuns:
-        for i in range(1,6):  # We had a maximum of 2 sessions
+        for i in range(1, 6):  # We had a maximum of 2 sessions
             if f'ses-0{i}' in run:
                 sessions.append(f'ses-0{i}')
 
@@ -286,8 +278,8 @@ for sub in SUBS:
             data = pd.read_csv(os.path.join(motionDir, f'{base}_motionSummary.csv'))
 
             # Initialize plot
-            fig, axes = plt.subplots(1, 2, sharex = True, figsize = (30, 6))
-            plt.suptitle(f'{base[:-9]} Motion Summary', fontsize = 24)
+            fig, axes = plt.subplots(1, 2, sharex=True, figsize=(30, 6))
+            plt.suptitle(f'{base[:-9]} Motion Summary', fontsize=24)
 
             # Plotting translation and rotation on different axes
             for i, type in enumerate(['T', 'R']):
@@ -300,32 +292,40 @@ for sub in SUBS:
                 if type == 'R':
                     legend = True
 
-                for modality, cmap in zip(['cbv', 'bold'], ['Set1','Set2']):
+                for modality, cmap in zip(['cbv', 'bold'], ['Set1', 'Set2']):
 
                     if modality == 'cbv':
                         tmpData = data.loc[(data['name'].str.contains(type)) & (-data['name'].str.contains('bold'))]
                     else:
                         tmpData = data.loc[(data['name'].str.contains(type)) & (data['name'].str.contains('bold'))]
 
-                    sns.lineplot(ax=axes[i], x='volume',y='Motion', data=tmpData, hue='name', palette = cmap,linewidth = LW,legend=legend)
+                    sns.lineplot(ax=axes[i],
+                                 x='volume',
+                                 y='Motion',
+                                 data=tmpData,
+                                 hue='name',
+                                 palette=cmap,
+                                 linewidth=LW,
+                                 legend=legend
+                                 )
 
             # Set y label
             axes[0].set_ylabel("Translation [mm]", fontsize=24)
             axes[1].set_ylabel("Rotation [radians]", fontsize=24)
 
-            # Colors are the same for both plots so we only need one legend
-            axes[1].legend(fontsize = 20,
-                           loc = 'center left',
-                           bbox_to_anchor = (1, 0.5)
+            # Colors are the same for both plots, so we only need one legend
+            axes[1].legend(fontsize=20,
+                           loc='center left',
+                           bbox_to_anchor=(1, 0.5)
                            )
 
             # X label is the same for both plots
             for j in range(2):
-                axes[j].tick_params(axis = 'both', labelsize = 20)
-                axes[j].set_xlabel("Volume", fontsize = 24)
+                axes[j].tick_params(axis='both', labelsize=20)
+                axes[j].set_xlabel("Volume", fontsize=24)
 
             # Save figure
-            plt.savefig(f'results/motionParameters/{base}_motion.jpg', bbox_inches = 'tight', pad_inches = 0)
+            plt.savefig(f'results/motionParameters/{base}_motion.jpg', bbox_inches='tight', pad_inches=0)
             plt.show()
 
             # =========================================================================
@@ -333,33 +333,31 @@ for sub in SUBS:
 
             FDs = pd.read_csv(os.path.join(motionDir, f'{base}_FDs.csv'))
 
-            plt.figure(figsize=(20,5))
+            plt.figure(figsize=(20, 5))
 
             sns.lineplot(data=FDs,
-                         x = 'volume',
-                         y = 'FD',
-                         hue = 'modality',
-                         linewidth = LW,
-                         palette = PALETTE
+                         x='volume',
+                         y='FD',
+                         hue='modality',
+                         linewidth=LW,
+                         palette=PALETTE
                          )
 
             if np.max(FDs['FD']) < 0.9:
-                plt.ylim(0,1)
+                plt.ylim(0, 1)
 
+            plt.axhline(0.9, color='gray', linestyle='--')
+            plt.ylabel('FD [mm]', fontsize=24)
+            plt.xlabel('Volume', fontsize=24)
 
-            plt.axhline(0.9, color = 'gray', linestyle = '--')
-            plt.ylabel('FD [mm]', fontsize = 24)
-            plt.xlabel('Volume', fontsize = 24)
-
-            plt.legend(fontsize = 20,
-                       loc = 'center left',
-                       bbox_to_anchor = (1, 0.5)
+            plt.legend(fontsize=20,
+                       loc='center left',
+                       bbox_to_anchor=(1, 0.5)
                        )
 
+            plt.xticks(fontsize=20)
+            plt.yticks(fontsize=20)
 
-            plt.xticks(fontsize = 20)
-            plt.yticks(fontsize = 20)
-
-            plt.title(base[:-9], fontsize = 24, pad = 20)
-            plt.savefig(f'results/motionParameters/{base}_FDs.png', bbox_inches = 'tight', pad_inches = 0)
+            plt.title(base[:-9], fontsize=24, pad=20)
+            plt.savefig(f'results/motionParameters/{base}_FDs.png', bbox_inches='tight', pad_inches=0)
             plt.show()
