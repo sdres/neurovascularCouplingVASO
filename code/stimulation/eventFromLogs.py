@@ -1,8 +1,8 @@
-'''
+"""
 
 Generating event-files.tsv to be stored with data from log files
 
-'''
+"""
 
 import numpy as np
 import glob
@@ -30,7 +30,7 @@ for sub in subs:
                 ses = f'ses-0{i}'
 
         log = f'code/stimulation/{sub}/{ses}/{sub}_{ses}_run-01_neurovascularCoupling.log'
-        logFile = pd.read_csv(log,usecols=[0])
+        logFile = pd.read_csv(log, usecols=[0])
 
         # Because the column definition will get hickups if empty colums are
         # present, we find line with first trigger to then load the file anew,
@@ -45,7 +45,7 @@ for sub in subs:
         # load logfile again, starting with first trigger
         # logFile = pd.read_csv(f'{ROOT}/derivatives/{sub}/{ses}/events/{base}.log', sep = '\t',skiprows=firstVolRow, names = ColNames)
 
-        logFile = pd.read_csv(log, sep = '\t',skiprows=firstVolRow, names = ColNames)
+        logFile = pd.read_csv(log, sep='\t', skiprows=firstVolRow, names=ColNames)
 
         # initiate lists
         stimStart = []
@@ -68,6 +68,6 @@ for sub in subs:
         stim = [f'stim {stimDur}s' for stimDur in stimDurs]
 
         # make dataframe and save as text file
-        design = pd.DataFrame({'onset': stimStart, 'duration': durs, 'trial_type' : stim})
+        design = pd.DataFrame({'onset': stimStart, 'duration': durs, 'trial_type': stim})
         for modality in ['bold', 'cbv']:
-            design.to_csv(f'{ROOT}/{sub}/{ses}/func/{base}_{modality}_events.tsv',index=False)
+            design.to_csv(f'{ROOT}/{sub}/{ses}/func/{base}_{modality}_events.tsv', index=False)
