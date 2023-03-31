@@ -1,8 +1,8 @@
-'''
+"""
 
 Doing motion correction and regestering multiple runs across sessions.
 
-'''
+"""
 
 import ants
 import os
@@ -10,12 +10,8 @@ import glob
 import nibabel as nb
 import numpy as np
 import subprocess
-import nipype.interfaces.fsl as fsl
-import pandas as pd
 import sys
-
 sys.path.append('./code/misc')
-
 from computeT1w import *
 
 # Set some paths
@@ -49,7 +45,6 @@ for sub in subs:
         # Look for individual runs within session
         runs = sorted(glob.glob(f'{DATADIR}/{sub}/{ses}/func/{sub}_{ses}_task-stim*_run-0*_part-mag_*.nii.gz'))
 
-
         # Set folder for motion traces
         motionDir = f'{sesDir}/motionParameters'
         # Make folder to dump motion traces if it does not exist
@@ -57,9 +52,8 @@ for sub in subs:
             os.makedirs(motionDir)
             print("Motion directory is created")
 
-
         # Loop over individual runs
-        for j, run in enumerate(runs, start = 1):
+        for j, run in enumerate(runs, start=1):
 
             # Get a base name that we will use
             base = os.path.basename(run).rsplit('.', 2)[0]
@@ -75,18 +69,19 @@ for sub in subs:
             data = nii.get_fdata()  # Load data as array
 
             # Overwrite first 3 volumes with volumes 4,5,6
-            new = np.concatenate((data[:,:,:,3:6],data[:,:,:,3:]), axis = 3)
-            img = nb.Nifti1Image(new, header = header, affine = affine)
+            new = np.concatenate((data[..., 3:6], data[..., 3:]), axis=3)
+            img = nb.Nifti1Image(new, header=header, affine=affine)
             nb.save(img, f'{sesDir}/{base}.nii.gz')
 
             # Make automatic motion mask
             print('Generating mask')
-            subprocess.run(f'3dAutomask -prefix {sesDir}/{base}_moma.nii.gz -peels 3 -dilate 2 {sesDir}/{base}.nii.gz', shell=True)
+            command = f'3dAutomask -prefix {sesDir}/{base}_moma.nii.gz -peels 3 -dilate 2 {sesDir}/{base}.nii.gz'
+            subprocess.run(command, shell=True)
 
             # Make reference image
-            reference = np.mean(data[:,:,:,3:6], axis = -1)
+            reference = np.mean(data[..., 3:6], axis=-1)
             # And save it
-            img = nb.Nifti1Image(reference, header = header, affine = affine)
+            img = nb.Nifti1Image(reference, header=header, affine=affine)
             nb.save(img, f'{sesDir}/{base}_reference.nii.gz')
 
             # Load reference in antsPy style
@@ -100,7 +95,7 @@ for sub in subs:
 
             # Perform motion correction
             print(f'Starting with MOCO...')
-            corrected = ants.motion_correction(ts, fixed = fixed, mask = mask)
+            corrected = ants.motion_correction(ts, fixed=fixed, mask=mask)
             ants.image_write(corrected['motion_corrected'], f'{sesDir}/{base}_moco.nii.gz')
 
             # =================================================================
@@ -122,7 +117,7 @@ for sub in subs:
             # =========================================================================
             # Compute T1w image in EPI space within run
             # When bold and cbv parts are motion corrected
-            if j%2 == 0:
+            if j % 2 == 0:
                 print(f'Computing T1w image')
                 tmp = int(j / 2)
                 tmpRuns = sorted(glob.glob(f'{sesDir}/{sub}_{ses}_*_run-0{tmp}_*_moco.nii.gz'))
@@ -134,7 +129,7 @@ for sub in subs:
                 affine = nb.load(tmpRuns[0]).affine
 
                 # And save the image
-                img = nb.Nifti1Image(t1w, header = header, affine = affine)
+                img = nb.Nifti1Image(t1w, header=header, affine=affine)
                 nb.save(img, f'{sesDir}/{sub}_{ses}_task-stimulation_run-0{tmp}_part-mag_T1w.nii')
 
 
@@ -155,8 +150,8 @@ for sub in subs:
         # look for individual runs
         runs = sorted(
             glob.glob(
-            f'{DATADIR}/{sub}/{ses}/func' # folder
-            + f'/{sub}_{ses}_task-stim*_run-0*_part-mag_*.nii.gz' # files
+                f'{DATADIR}/{sub}/{ses}/func'  # Folder
+                + f'/{sub}_{ses}_task-stim*_run-0*_part-mag_*.nii.gz'  # files
             )
             )
 
@@ -172,8 +167,7 @@ for sub in subs:
         # Set name of reference image
         refImage = (
             sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-01/func/'
-            + f'{sub}_ses-01_*_run-01_*_T1w.nii'
-            )))[0]
+                             f'{sub}_ses-01_*_run-01_*_T1w.nii')))[0]
 
         # Get basename of reference image
         refBase = os.path.basename(refImage).rsplit('.', 2)[0]
@@ -184,8 +178,8 @@ for sub in subs:
         # Define motion mask
         mask = ants.image_read(
             sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-01/func/'
-            + f'{sub}_ses-01_task-stim*_run-01_part-mag_cbv_moma.nii.gz'))[0]
-            )
+                             f'{sub}_ses-01_task-stim*_run-01_part-mag_cbv_moma.nii.gz'))[0]
+        )
 
         # Because we want to register each run to the first run of the first
         # we want to exclude the first run of the first session
@@ -208,7 +202,7 @@ for sub in subs:
                 + f'/{base}_T1w.nii'
                 )
 
-            # Compute transofrmation matrix
+            # Compute transformation matrix
             mytx = ants.registration(
                 fixed=fixed,
                 moving=moving,
@@ -216,7 +210,7 @@ for sub in subs:
                 mask=mask
                 )
 
-            # Apply transofrmation
+            # Apply transformation
             mywarpedimage = ants.apply_transforms(
                 fixed=fixed,
                 moving=moving,
@@ -267,9 +261,7 @@ for sub in subs:
 
             # Set name of reference image
             refImage = (
-                sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-01/func/'
-                + f'{sub}_ses-01_*_run-01_*_T1w.nii'
-                )))[0]
+                sorted(glob.glob(f'{DATADIR}/derivatives/{sub}/ses-01/func/{sub}_ses-01_*_run-01_*_T1w.nii')))[0]
 
             # Get basename of reference image
             refBase = os.path.basename(refImage).rsplit('.', 2)[0].split('_')
@@ -325,63 +317,50 @@ for sub in subs:
                 for i in range(data.shape[-1]):
                     # Overwrite volumes 0,1,2 with volumes 3,4,5
                     if i <= 2:
-                        vol = data[:,:,:,i+3]
+                        vol = data[..., i+3]
                     else:
-                        vol = data[:,:,:,i]
+                        vol = data[..., i]
 
                     # Save individual volumes
-                    img = nb.Nifti1Image(vol, header = header, affine = affine)
-                    nb.save(img,
-                    f'{outFolder}'
-                    + f'/{runBase}_{modality}_vol{i:03d}.nii')
+                    img = nb.Nifti1Image(vol, header=header, affine=affine)
+                    nb.save(img, f'{outFolder}/{runBase}_{modality}_vol{i:03d}.nii')
 
                 # Loop over the volumes we just created to do the correction
                 for i in range(data.shape[-1]):
                     # Load volume
-                    moving = ants.image_read(
-                        f'{outFolder}'
-                        + f'/{runBase}_{modality}_vol{i:03d}.nii')
+                    moving = ants.image_read(f'{outFolder}/{runBase}_{modality}_vol{i:03d}.nii')
 
-                    # Get within run transoformation matrix of the volume
-                    transformWithin = f'{outFolder}/motionParameters/{runBase}_{modality}/{runBase}_{modality}_vol{i:03d}.mat'
+                    # Get within run transformation matrix of the volume
+                    transformWithin = f'{outFolder}/motionParameters' \
+                                      f'/{runBase}_{modality}/{runBase}_{modality}_vol{i:03d}.mat'
 
-                    # Apply transofrmation matrices
+                    # Apply transformation matrices
                     mywarpedimage = ants.apply_transforms(
-                        fixed = fixed,
-                        moving = moving,
-                        transformlist = [transformWithin, transformBetween],
-                        interpolator = 'bSpline'
+                        fixed=fixed,
+                        moving=moving,
+                        transformlist=[transformWithin, transformBetween],
+                        interpolator='bSpline'
                         )
 
                     # Save warped image
-                    ants.image_write(mywarpedimage,
-                        f'{outFolder}'
-                        + f'/{runBase}_{modality}_vol{i:03d}_warped.nii'
-                        )
+                    ants.image_write(mywarpedimage, f'{outFolder}/{runBase}_{modality}_vol{i:03d}_warped.nii')
 
                 # =============================================================
                 # Assemble images of run
                 newData = np.zeros(data.shape)
                 for i in range(data.shape[-1]):
                     vol = nb.load(
-                    f'{outFolder}'
-                    + f'/{runBase}_{modality}_vol{i:03d}_warped.nii'
+                        f'{outFolder}'
+                        + f'/{runBase}_{modality}_vol{i:03d}_warped.nii'
                     ).get_fdata()
 
-                    newData[:,:,:,i] = vol
+                    newData[..., i] = vol
 
-                img = nb.Nifti1Image(newData,
-                    header=refHeader,
-                    affine=refAffine
-                    )
+                img = nb.Nifti1Image(newData, header=refHeader, affine=refAffine)
 
-                nb.save(
-                    img,
-                    f'{outFolder}'
-                    + f'/{runBase}_{modality}_moco-reg.nii'
-                    )
+                nb.save(img, f'{outFolder}/{runBase}_{modality}_moco-reg.nii')
 
-                # Remove indvididual volumes
+                # Remove individual volumes
                 os.system(f'rm {outFolder}/{runBase}_{modality}_vol*.nii')
 
 # =============================================================================
@@ -417,5 +396,5 @@ for sub in subs:
             affine = nb.load(modalities[0]).affine
 
             # And save the image
-            img = nb.Nifti1Image(t1w, header = header, affine = affine)
+            img = nb.Nifti1Image(t1w, header=header, affine=affine)
             nb.save(img, f'{outFolder}/{sub}_{ses}_task-stimulation_run-0{runNr}_part-mag_T1w_reg.nii')
