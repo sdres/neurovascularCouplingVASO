@@ -28,7 +28,9 @@ for sub in subs:
     # Apply inverse transform
     # =========================================================================
 
-    statMaps = sorted(glob.glob(f'{DATADIR}/{sub}/statMaps/*s.nii'))
+    statMaps = sorted(glob.glob(f'{DATADIR}/{sub}/statMaps/*vaso*s_test.nii.gz'))
+    # statMaps = sorted(glob.glob(f'{DATADIR}/{sub}/statMaps/*.gfeat/cope*.feat/stats/zstat*'))
+
     for statMap in statMaps:
 
         # Take care: fixed and moving are flipped
@@ -46,7 +48,7 @@ for sub in subs:
         command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
         command += f'-o {moving.split(".")[0]}_registered.nii'
 
-        subprocess.run(command,shell=True)
+        subprocess.run(command, shell=True)
 
         # =========================================================================
         # Crop map
@@ -62,4 +64,4 @@ for sub in subs:
         # command += '263 162 35 162 79 158'
         command += '271 162 7 162 31 159'
 
-        subprocess.run(command,shell=True)
+        subprocess.run(command, shell=True)

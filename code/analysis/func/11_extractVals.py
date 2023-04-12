@@ -19,10 +19,9 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivat
 # Set subjects to work on
 subs = ['sub-05','sub-06','sub-07','sub-09']
 # subs = ['sub-06','sub-07']
-subs = ['sub-08']
+# subs = ['sub-06']
 
 MODALITIES = ['bold', 'vaso']
-
 
 subList = []
 depthList = []
@@ -133,28 +132,22 @@ for modality in ['bold', 'vaso']:
 
     plt.ylabel(f'z-score', fontsize=20)
 
-    # plt.title(f"Activation across stimulus durations", fontsize=20, pad=20)
-
-
     plt.title(f"{modality}", fontsize=24, pad=20)
     plt.xlabel('WM                                          CSF', fontsize=20)
     plt.xticks([])
     yLimits = ax.get_ylim()
-    # plt.ylim(0,yLimits[1])
 
     plt.yticks(fontsize=18)
 
-    # ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-
     plt.legend(loc='upper left')
-    legend = plt.legend(title='Stim dur [s]', fontsize=14, loc = 'center left',
-                           bbox_to_anchor = (1, 0.5))
+    legend = plt.legend(title='Stim dur [s]', fontsize=14, loc = 'center left', bbox_to_anchor=(1, 0.5))
 
     title = legend.get_title()
     title.set_fontsize(14)
-
+    plt.tight_layout()
     plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-all_{modality}_zScoreProfile.png', bbox_inches = "tight")
     plt.show()
+
 
 for modality in ['bold', 'vaso']:
     fig, ax = plt.subplots()
@@ -179,8 +172,6 @@ for modality in ['bold', 'vaso']:
 
     plt.yticks(fontsize=18)
 
-    # ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-
     plt.legend(loc='upper left')
     legend = plt.legend(title='Stim dur [s]', fontsize=14, loc = 'center left',
                            bbox_to_anchor = (1, 0.5))
@@ -188,5 +179,6 @@ for modality in ['bold', 'vaso']:
     title = legend.get_title()
     title.set_fontsize(14)
 
-    # plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-all_{modality}_zScoreProfile.png', bbox_inches = "tight")
+    plt.tight_layout()
+    plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-06_{modality}_zScoreProfile_fsl.png', bbox_inches = "tight")
     plt.show()
