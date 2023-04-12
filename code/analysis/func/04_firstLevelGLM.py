@@ -12,42 +12,37 @@ import glob
 import pandas as pd
 from nilearn.glm.first_level import FirstLevelModel
 import os
-import re
 import sys
-import subprocess
-# Define current dir
-ROOT = os.getcwd()
-sys.path.append('./code/misc')
 
+# Define current dir
+sys.path.append('/Users/sebastiandresbach/github/neurovascularCouplingVASO/code/misc')
 from findTr import *
+
+os.chdir('/Users/sebastiandresbach/github/neurovascularCouplingVASO')
 
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-subs = ['sub-05', 'sub-06']
-subs = ['sub-07']
+subs = ['sub-06', 'sub-07', 'sub-08', 'sub-09']
 
 drift_model = 'Cosine'  # We use a discrete cosine transform to model signal drifts.
 high_pass = .01  # The cutoff for the drift model is 0.01 Hz.
 hrf_model = 'spm'  # The hemodynamic response function is the SPM canonical one.
 
-# ses = 'ses-01'
 for sub in subs:
 
     funcDir = f'{ROOT}/derivatives/{sub}'
-    # make folder to dump statistocal maps
-    statFolder = f'{funcDir}/statMaps'
+    # make folder to dump statistical maps
+    statFolder = f'{funcDir}/statMaps/glm_nilearn'
 
     if not os.path.exists(statFolder):
         os.makedirs(statFolder)
         print("Statmap directory is created")
 
-
     for modality in ['vaso', 'bold']:
-    # for modality in ['vaso']:
-    # for modality in ['bold']:
         print(f'Processing {modality}')
 
-        runs = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/*/func/{sub}_ses-*_task-stimulation_run-avg_part-mag_{modality}_intemp.nii*'))
+        runs = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/*/func/'
+                                f'{sub}_ses-*_task-stimulation_run-avg_part-mag_{modality}_intemp_trunc.nii*'))
 
         designMatrices = []
         niis = []
@@ -56,7 +51,7 @@ for sub in subs:
             base = os.path.basename(run).rsplit('.', 2)[0][:-21]
             print(f'Processing {base}')
 
-            for i in range(1,10):
+            for i in range(1, 10):
                 if f'ses-0{i}' in base:
                     ses = f'ses-0{i}'
 
@@ -74,57 +69,56 @@ for sub in subs:
             # frame_times = np.arange(nVols) * trNom*4
             frame_times = np.arange(nVols) * trNom
 
-            events = pd.read_csv(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-01_part-mag_cbv_events.tsv', sep = ',')
+            events = pd.read_csv(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-01_part-mag_cbv_events.tsv',
+                                 sep=','
+                                 )
 
             design_matrix = make_first_level_design_matrix(
                 frame_times,
                 events,
                 hrf_model=hrf_model,
-                drift_model = None,
-                high_pass= high_pass
+                drift_model=None,
+                high_pass=high_pass
                 )
             designMatrices.append(design_matrix)
 
-
+        # ====================================================================
         # Set up contrasts
         contrast_matrix = np.eye(design_matrix.shape[1])
-        basic_contrasts = dict([(column, contrast_matrix[i])
-                    for i, column in enumerate(design_matrix.columns)])
+        basic_contrasts = dict([(column, contrast_matrix[i]) for i, column in enumerate(design_matrix.columns)])
 
         if modality == 'bold':
-            contrasts = {'stimulation': + basic_contrasts['stim_1s']
-                                        + basic_contrasts['stim_2s']
-                                        + basic_contrasts['stim_4s']
-                                        + basic_contrasts['stim_12s']
-                                        + basic_contrasts['stim_24s'],
-
-                                        'stim_1s': + basic_contrasts['stim_1s'],
-                                        'stim_2s': + basic_contrasts['stim_2s'],
-                                        'stim_4s': + basic_contrasts['stim_4s'],
-                                        'stim_12s': + basic_contrasts['stim_12s'],
-                                        'stim_24s': + basic_contrasts['stim_24s']
-
-                        }
+            contrasts = {'stimulation':
+                         + basic_contrasts['stim 1s']
+                         + basic_contrasts['stim 2s']
+                         + basic_contrasts['stim 4s']
+                         + basic_contrasts['stim 12s']
+                         + basic_contrasts['stim 24s'],
+                         'stim_1s': + basic_contrasts['stim 1s'],
+                         'stim_2s': + basic_contrasts['stim 2s'],
+                         'stim_4s': + basic_contrasts['stim 4s'],
+                         'stim_12s': + basic_contrasts['stim 12s'],
+                         'stim_24s': + basic_contrasts['stim 24s']
+                         }
 
         if modality == 'vaso':
-            contrasts = {'stimulation': - basic_contrasts['stim_1s']
-                                        - basic_contrasts['stim_2s']
-                                        - basic_contrasts['stim_4s']
-                                        - basic_contrasts['stim_12s']
-                                        - basic_contrasts['stim_24s'],
-
-                                        'stim_1s': - basic_contrasts['stim_1s'],
-                                        'stim_2s': - basic_contrasts['stim_2s'],
-                                        'stim_4s': - basic_contrasts['stim_4s'],
-                                        'stim_12s': - basic_contrasts['stim_12s'],
-                                        'stim_24s': - basic_contrasts['stim_24s']
-
-            }
+            contrasts = {'stimulation':
+                         - basic_contrasts['stim 1s']
+                         - basic_contrasts['stim 2s']
+                         - basic_contrasts['stim 4s']
+                         - basic_contrasts['stim 12s']
+                         - basic_contrasts['stim 24s'],
+                         'stim_1s': - basic_contrasts['stim 1s'],
+                         'stim_2s': - basic_contrasts['stim 2s'],
+                         'stim_4s': - basic_contrasts['stim 4s'],
+                         'stim_12s': - basic_contrasts['stim 12s'],
+                         'stim_24s': - basic_contrasts['stim 24s']
+                         }
 
         # run GLM
         print('Fitting GLM...')
-        fmri_glm = FirstLevelModel(mask_img = False, drift_model=None)
-        fmri_glm = fmri_glm.fit(niis, design_matrices = designMatrices)
+        fmri_glm = FirstLevelModel(mask_img=False, drift_model=None)
+        fmri_glm = fmri_glm.fit(niis, design_matrices=designMatrices)
 
         # Iterate on contrasts
         print('Computing contrasts...')
