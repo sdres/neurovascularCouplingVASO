@@ -1,11 +1,10 @@
-'''
+"""
 
 Running first level GLM in FSL using Nilearn
 
-'''
+"""
 
 import nibabel as nb
-import nilearn
 import numpy as np
 from nilearn.glm.first_level import make_first_level_design_matrix
 import glob
