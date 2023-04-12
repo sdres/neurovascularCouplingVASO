@@ -9,10 +9,10 @@ import glob
 
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
-subs = ['sub-06']
+subs = ['sub-08']
 
 for sub in subs:
-    featFolders = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/ses-0*/func/*vaso*_trunc.feat'))
+    featFolders = sorted(glob.glob(f'{ROOT}/derivatives/{sub}/ses-0*/func/*bold*_trunc.feat'))
     len(featFolders)
     for folder in featFolders:
         # Make registration folder
