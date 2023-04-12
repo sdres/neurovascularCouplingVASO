@@ -22,21 +22,3 @@ for sub in subs:
 
             command = f'cp {statMap} {outName}'
             subprocess.run(command, shell=True)
-
-
-#
-# # Get dims of full nii
-# file = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/sub-06_ses-avg_task-stimulation_run-avg_part-mag_T1w.nii'
-# nii = nb.load(file)
-# data = nii.get_fdata()
-# dims = data.shape
-# new = np.zeros(dims)
-#
-# file = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/statMaps/sub-06_vaso_stim_24s.nii.gz'
-# nii2 = nb.load(file)
-# data2 = nii2.get_fdata()
-#
-# new[:, :74, :] = data2
-#
-# img = nb.Nifti1Image(new, header=nii.header, affine=nii.affine)
-# nb.save(img, '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/statMaps/sub-06_vaso_stim_24s_test.nii.gz')
