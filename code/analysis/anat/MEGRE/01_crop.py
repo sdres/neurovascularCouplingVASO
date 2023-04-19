@@ -2,8 +2,6 @@
 
 import os
 import subprocess
-import numpy as np
-import nibabel as nb
 import glob
 
 # =============================================================================
@@ -17,13 +15,13 @@ SUBS = ['sub-07']
 
 for sub in SUBS:
     # Collecting files
-    NII_NAMES = sorted(glob.glob(f'{DATADIR}/{sub}/ses-*/anat/{sub}_ses-*_T2s_run-01_dir-*_echo-*_part-mag_MEGRE.nii.gz'))
+    NII_NAMES = sorted(glob.glob(f'{DATADIR}/{sub}/ses-*/anat/'
+                                 f'{sub}_ses-*_T2s_run-01_dir-*_echo-*_part-mag_MEGRE.nii.gz'))
 
     # Find MEGRE session of participant
-    for i in range(1,6):
-        for i in range(1,6):  # We had a maximum of 5 sessions
-            if f'ses-0{i}' in NII_NAMES[0]:
-                ses = f'ses-0{i}'
+    for i in range(1, 6):  # We had a maximum of 5 sessions
+        if f'ses-0{i}' in NII_NAMES[0]:
+            ses = f'ses-0{i}'
 
     # Create output directory
     outDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat/megre/01_crop'
@@ -32,7 +30,7 @@ for sub in SUBS:
         print("Output directory is created")
 
     # =============================================================================
-    # Check whether slices had to be ficed
+    # Check whether slices had to be fixed
     SLICEFIX = glob.glob(f'{DATADIR}/{sub}/{ses}/anat/*slicefix.nii*')
     if len(SLICEFIX) != 0:
         basename, ext = SLICEFIX[0].split(os.extsep, 1)
@@ -41,16 +39,20 @@ for sub in SUBS:
             if search in name:
                 NII_NAMES[i] = SLICEFIX[0]
 
-    # # sub-05
-    RANGE_X = [65, 365]  # xmin xsize
-    RANGE_Y = [0, -1]  # ymin ysize
-    RANGE_Z = [50, 150]  # zmin zsize
-
-    # # sub-06
-    RANGE_X = [60, 370]  # xmin xsize
+    # # # sub-05
+    # RANGE_X = [65, 365]  # xmin xsize
+    # RANGE_Y = [0, -1]  # ymin ysize
+    # RANGE_Z = [50, 150]  # zmin zsize
+    #
+    # # # sub-06
+    # RANGE_X = [60, 370]  # xmin xsize
+    # RANGE_Y = [0, -1]  # ymin ysize
+    # RANGE_Z = [55, 170]  # zmin zsize
+    #
+    # sub-07
+    RANGE_X = [75, 350]  # xmin xsize
     RANGE_Y = [0, -1]  # ymin ysize
     RANGE_Z = [55, 170]  # zmin zsize
-
 
     # # # sub-08
     # RANGE_X = [70, 360]  # xmin xsize
@@ -72,7 +74,6 @@ for sub in SUBS:
             basename = basename[:-9]
 
         out_file = os.path.join(outDir, "{}_crop.nii.gz".format(basename))
-
 
         # Prepare command
         command1 = "fslroi "
