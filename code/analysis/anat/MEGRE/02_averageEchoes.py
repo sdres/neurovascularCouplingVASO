@@ -9,7 +9,7 @@ import glob
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 DIRECTIONS = ['AP', 'PA', 'RL', 'LR']
 # Set subs to work on
-SUBS = ['sub-09']
+SUBS = ['sub-07']
 
 # =============================================================================
 # Processing
