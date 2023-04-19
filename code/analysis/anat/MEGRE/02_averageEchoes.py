@@ -1,7 +1,6 @@
 """Average echoes for before registration."""
 
 import os
-import numpy as np
 import nibabel as nb
 import glob
 
@@ -18,10 +17,9 @@ for sub in SUBS:
     NII_NAMES = sorted(glob.glob(f'{DATADIR}/{sub}/*/anat/{sub}_ses-*_T2s_run-01_dir-*_echo-*_part-mag_MEGRE.nii.gz'))
 
     # Find MEGRE session of participant
-    for i in range(1,6):
-        for i in range(1,6):  # We had a maximum of 5 sessions
-            if f'ses-0{i}' in NII_NAMES[0]:
-                ses = f'ses-0{i}'
+    for i in range(1, 6):  # We had a maximum of 5 sessions
+        if f'ses-0{i}' in NII_NAMES[0]:
+            ses = f'ses-0{i}'
 
     inDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat/megre/01_crop'
     # Create output directory
