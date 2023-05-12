@@ -7,7 +7,9 @@ import bvbabel
 import pprint
 
 FOLDER = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/rawdata_bv/sub-05/ses-01/anat'
+
 # FILE = f"{FOLDER}/sub-05_ses-01_uni_part-mag_run-01_MP2RAGE_denoised_IIHC_pt5_ACPC.vmr"
+FILE = f'{FOLDER}/sub-05_ses-01_uni_part-mag_run-01_MP2RAGE_denoised_IIHC_pt5_ACPC_ETC-7x-R5_WM_RH_BL2_v1out.vmr'
 FILE = f'{FOLDER}/sub-05_ses-01_uni_part-mag_run-01_MP2RAGE_denoised_IIHC_pt5_ACPC_ETC-7x-R5_WM_RH_BL2_v1out.vmr'
 
 # =============================================================================

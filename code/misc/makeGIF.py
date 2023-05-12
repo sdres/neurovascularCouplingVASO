@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 from scipy import ndimage
 from skimage import color
 import numpy as np
+
 for modality in ['bold']:
-    for stimDur in [1,2,4,12,24]:
+    for stimDur in [1, 2, 4, 12, 24]:
     # for stimDur in [12,24]:
         # Cropping images
         files = sorted(glob.glob(f'/Users/sebastiandresbach/Desktop/{modality}_{stimDur}/Scree*.png'))
@@ -29,8 +30,10 @@ for modality in ['bold']:
             imageio.imwrite(f'/Users/sebastiandresbach/Desktop/{modality}_{stimDur}/frame{i:02d}.png', cropped)
 
 
-    template = f'/Users/sebastiandresbach/Desktop/neurovascularCouplingFigures/fig-{modality}ActivationSquare.png'
+    template = f'/Users/sebastiandresbach/Desktop/items/neurovascularCouplingFigures/fig-{modality}ActivationSquare.png'
+    template = '/Users/sebastiandresbach/Desktop/neurovascularCouplingFigures/ISMRM/fig-vasoActivationSquare.png'
     image = io.imread(template)
+    image.shape
     stim = '/Users/sebastiandresbach/github/neurovascularCouplingVASO/code/stimulation/visual_0.png'
     stim = io.imread(stim,as_gray=False)
     stim = stim[::10,::10]
@@ -63,16 +66,18 @@ for modality in ['bold']:
             else:
                 tmp = io.imread(f'/Users/sebastiandresbach/Desktop/{modality}_{stimDur}/frame{maxFramesStim:02d}.png')
 
-            tmp = tmp[-332:,-1174:-175,:]
-            image[yStarts[i]:yEnds[i],1296:2295,:] = tmp
+            tmp = tmp[-332:, -1174:-175, :]
+            image[yStarts[i]:yEnds[i], 1296:2295, :] = tmp
 
             if frame*0.785 < stimDur:
                 if frame % 2 == 0:
                     stim = '/Users/sebastiandresbach/github/neurovascularCouplingVASO/code/stimulation/visual_0.png'
                 if frame % 2 != 0:
                     stim = '/Users/sebastiandresbach/github/neurovascularCouplingVASO/code/stimulation/visual_1.png'
+
                 stim = io.imread(stim)
-                stim = stim[::5,::5]
+                stim = stim[::5, ::5]
+
                 stim = color.gray2rgb(stim)
                 stim.shape
 
@@ -80,7 +85,7 @@ for modality in ['bold']:
 
         # imageio.imwrite(f'/Users/sebastiandresbach/Desktop/gifFrames/{modality}_{frame:02d}_large.png', image)
 
-        image = image[::3,::3,:]
+        image = image[::3, ::3, :]
         imageio.imwrite(f'/Users/sebastiandresbach/Desktop/gifFrames/{modality}_{frame:02d}_small.png', image)
 
     # Assemble gif
@@ -102,6 +107,48 @@ for modality in ['bold']:
         # print('Deleting dump directory')
         # os.system(f'rm -r {dumpFolder}')
 
+
+
+    print('Done.')
+
+
+# ================================================================================================================
+# High-Resolution
+# ================================================================================================================
+
+for modality in ['vaso', 'bold']:
+    for stimDur in [1, 2, 4, 12, 24]:
+
+        files = sorted(glob.glob(f'/Users/sebastiandresbach/Desktop/items/{modality}_{stimDur}/frame*.png'))
+        # files = sorted(glob.glob(dumpFolder + '/*.png'))
+        gifImages = []
+        for i, file in enumerate(files):
+
+            image = io.imread(file)
+
+            image.shape
+            if i*0.785 < stimDur:
+                if i % 2 == 0:
+                    stimFile = '/Users/sebastiandresbach/github/neurovascularCouplingVASO/code/stimulation/visual_0.png'
+                if i % 2 != 0:
+                    stimFile = '/Users/sebastiandresbach/github/neurovascularCouplingVASO/code/stimulation/visual_1.png'
+
+                stim = io.imread(stimFile)
+                stim = color.gray2rgba(stim)
+                stim = stim[:, :, 0, :]
+
+                stim = stim[::3, ::3]
+
+                image[-stim.shape[0]:, -stim.shape[1]:] = stim
+
+                # plt.imshow(image)
+                # plt.show()
+
+            gifImages.append(image)
+
+        imageio.mimsave(f'/Users/sebastiandresbach/Desktop/items/{modality}_{stimDur}/{modality}_movie.gif',
+                        gifImages,
+                        duration=250)  # Duration is in ms
 
 
     print('Done.')

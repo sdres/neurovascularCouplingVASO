@@ -75,8 +75,12 @@ logging.console.setLevel(logging.WARNING)
 # Set monitor information - CHECK WITH MPI:
 distanceMon = 99  # [99] in scanner
 widthMon = 30  # [30] in scanner
-PixW = 1024.0  # [1024.0] at Leipyig Terra
-PixH = 768.0  # [768.0] at Leipyig Terra
+#
+#PixW = 1024.0  # [1024.0] at Leipzig Terra
+#PixH = 768.0  # [768.0] at Leipzig Terra
+
+PixW = 1920.0  # [1024.0] at Maastricht
+PixH = 1200.0  # [768.0] at Maastricht
 
 moni = monitors.Monitor('testMonitor', width=widthMon, distance=distanceMon)
 moni.setSizePix([PixW, PixH])  # [1920.0, 1080.0] in psychoph lab

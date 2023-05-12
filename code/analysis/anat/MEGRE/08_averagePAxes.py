@@ -8,7 +8,7 @@ import glob
 # =============================================================================
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # Set subs to work on
-SUBS = ['sub-08']
+SUBS = ['sub-07']
 DIRECTIONS = [['AP', 'PA'], ['RL', 'LR']]
 AXES = ['My', 'Mx']
 # =============================================================================
@@ -18,10 +18,9 @@ for sub in SUBS:
     NII_NAMES = sorted(glob.glob(f'{DATADIR}/{sub}/*/anat/{sub}_ses-*_T2s_run-01_dir-*_echo-*_part-mag_MEGRE.nii.gz'))
 
     # Find MEGRE session of participant
-    for i in range(1,6):
-        for i in range(1,6):  # We had a maximum of 5 sessions
-            if f'ses-0{i}' in NII_NAMES[0]:
-                ses = f'ses-0{i}'
+    for i in range(1, 6):  # We had a maximum of 5 sessions
+        if f'ses-0{i}' in NII_NAMES[0]:
+            ses = f'ses-0{i}'
 
     inDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat/megre/07_mergeEchoes'
     # Create output directory
@@ -35,7 +34,6 @@ for sub in SUBS:
 
         for dir in dirs:
             NII_NAMES.append(f'{inDir}/{sub}_{ses}_T2s_run-01_dir-{dir}_part-mag_MEGRE_crop_ups2X_prepped.nii.gz')
-
 
         outName = f"{sub}_ses-T2s_dir-{axis}_part-mag_MEGRE_crop_ups2X_prepped_avg"
 

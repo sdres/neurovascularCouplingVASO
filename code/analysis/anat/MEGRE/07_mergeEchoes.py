@@ -10,7 +10,7 @@ import glob
 # =============================================================================
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # Set subs to work on
-SUBS = ['sub-08']
+SUBS = ['sub-07']
 DIRECTIONS = ['AP', 'PA', 'RL', 'LR']
 
 # =============================================================================
@@ -20,10 +20,9 @@ for sub in SUBS:
     NII_NAMES = sorted(glob.glob(f'{DATADIR}/{sub}/*/anat/{sub}_ses-*_T2s_run-01_dir-*_echo-*_part-mag_MEGRE.nii.gz'))
 
     # Find MEGRE session of participant
-    for i in range(1,6):
-        for i in range(1,6):  # We had a maximum of 5 sessions
-            if f'ses-0{i}' in NII_NAMES[0]:
-                ses = f'ses-0{i}'
+    for i in range(1,6):  # We had a maximum of 5 sessions
+        if f'ses-0{i}' in NII_NAMES[0]:
+            ses = f'ses-0{i}'
 
     inDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat/megre/06_applyReg'
     # Create output directory
@@ -31,7 +30,6 @@ for sub in SUBS:
     if not os.path.exists(outDir):
         os.makedirs(outDir)
         print("Output directory is created")
-
 
     for dir in DIRECTIONS:
         print(f'Processing {dir}')

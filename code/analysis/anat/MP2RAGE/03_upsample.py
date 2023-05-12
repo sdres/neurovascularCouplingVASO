@@ -12,7 +12,7 @@ import glob
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 UPFACT = 4
 
-SUBS = ['sub-09']
+SUBS = ['sub-05']
 
 for sub in SUBS:
 
@@ -92,23 +92,23 @@ for sub in SUBS:
     # =============================================================================
     # Upsample ROIs
 
-    roiDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat'
-    images = sorted(glob.glob(f'{roiDir}/*LH_sphere.nii.gz'))
-
-    for i, f in enumerate(images):
-        # Prepare output
-        basename, ext = f.split(os.extsep, 1)
-        basename = os.path.basename(basename)
-        out_file = os.path.join(upsampleOutDir, f"{basename}_ups{UPFACT}X.nii.gz")
-
-        # Prepare command
-        command2 = "c3d {} ".format(f)
-        command2 += "-interpolation NearestNeighbor "
-        command2 += f"-resample {UPFACT}00% "
-        command2 += "-o {}".format(out_file)
-
-        # Execute command
-        subprocess.run(command2, shell=True)
+    # roiDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat'
+    # images = sorted(glob.glob(f'{roiDir}/*LH_sphere.nii.gz'))
+    #
+    # for i, f in enumerate(images):
+    #     # Prepare output
+    #     basename, ext = f.split(os.extsep, 1)
+    #     basename = os.path.basename(basename)
+    #     out_file = os.path.join(upsampleOutDir, f"{basename}_ups{UPFACT}X.nii.gz")
+    #
+    #     # Prepare command
+    #     command2 = "c3d {} ".format(f)
+    #     command2 += "-interpolation NearestNeighbor "
+    #     command2 += f"-resample {UPFACT}00% "
+    #     command2 += "-o {}".format(out_file)
+    #
+    #     # Execute command
+    #     subprocess.run(command2, shell=True)
     #
     # # =============================================================================
     # # Upsample segmentation

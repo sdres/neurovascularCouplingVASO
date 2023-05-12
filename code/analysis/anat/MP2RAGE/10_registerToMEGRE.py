@@ -2,18 +2,17 @@
 
 import os
 import subprocess
-import numpy as np
 import nibabel as nb
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
-SUBS = ['sub-08']
+SUBS = ['sub-07']
 
 for sub in SUBS:
     # Find MEGRE session
-    for sesNr in range(1,6):
-        if os.path.exists(f"{DATADIR}/{sub}/ses-0{sesNr}/anat/megre/11_T2star/{sub}_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz"):
+    for sesNr in range(1, 6):
+        if os.path.exists(f"{DATADIR}/{sub}/ses-0{sesNr}/anat/megre/11_T2star/"
+                          f"{sub}_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz"):
             megreSes = f'ses-0{sesNr}'
-
 
     # =============================================================================
     NII_NAMES = [
@@ -21,7 +20,8 @@ for sub in SUBS:
         # '{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_LH_sphere_crop_ups4X.nii.gz'
         # '{DATADIR}/{sub}/ses-01/anat/upsample/peri_uncrop.nii.gz'
         ]
-    NII_TARGET = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/{sub}_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz"
+    NII_TARGET = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/" \
+                 f"{sub}_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz"
 
     # Use ITK-SNAP manually to find the best registration
     AFFINE = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/initial_matrix.txt"
@@ -63,7 +63,7 @@ for sub in SUBS:
         # Execute command
         subprocess.run(command2, shell=True)
 
-        # Substitude header with target nifti
+        # Substitute header with target nifti
         nii_target = nb.load(NII_TARGET)
         nii_moving = nb.load(out_moving)
         nii_out = nb.Nifti1Image(nii_moving.get_fdata(), header=nii_target.header,
@@ -72,9 +72,7 @@ for sub in SUBS:
 
     print('\n\nFinished.')
 
-
-
-    moving = f'{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_ses-01_inv-2_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
+    moving = f'{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
     fixed = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/{sub}_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz"
     regFolder = f"{DATADIR}/{sub}/ses-01/anat/07_register_to_T2s"
     initial = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/initial_matrix.txt"
@@ -97,15 +95,8 @@ for sub in SUBS:
     command += f'--smoothing-sigmas 1x0vox '
     command += f'-x {DATADIR}/{sub}/{megreSes}/anat/megre/03_upsample/{sub}_ses-T2s_crop_regmask_ups2X.nii.gz'
     # Run command
-    subprocess.run(command,shell=True)
+    subprocess.run(command, shell=True)
 
-    #
-
-
-
-
-
-    # moving = f'{DATADIR}/{sub}/ses-01/anat/upsample/sub-09_rim-LH_perimeter_chunk_uncrop.nii.gz'
     moving = f'{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_ses-01_inv-2_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
 
     # Prepare command to apply transform and check quality
@@ -117,9 +108,20 @@ for sub in SUBS:
     # command += f'-t {regFolder}/registered1_1Warp.nii.gz '
     command += f'-t {regFolder}/registered1_0GenericAffine.mat '
     # command += f'-o {regFolder}/sub-09_rim-LH_perimeter_chunk_uncrop_registered.nii.gz'
-    command += f'-o {regFolder}/{sub}_ses-01_inv-2_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X_registered.nii.gz'
+    command += f'-o {regFolder}/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X_registered.nii.gz'
     # Run command
-    subprocess.run(command,shell=True)
+    subprocess.run(command, shell=True)
+
+
+# Switch headers
+sub_06head = nb.load('/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz').header
+
+file = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-07/ses-05/anat/megre/11_T2star/sub-07_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz'
+sub_07_nii = nb.load(file)
+affine = sub_07_nii.affine
+
+new = nb.Nifti1Image(sub_07_nii.get_fdata(), header=sub_06head, affine=affine)
+nb.save(new, file)
 
 
 
@@ -155,4 +157,4 @@ for sub in SUBS:
     # command += '263 162 35 162 79 158'
     command += '271 162 7 162 31 159'
 
-    subprocess.run(command,shell=True)
+    subprocess.run(command, shell=True)

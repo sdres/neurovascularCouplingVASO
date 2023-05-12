@@ -21,7 +21,7 @@ DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivat
 # Set subjects to work on
 subs = ['sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09']
 # subs = ['sub-06','sub-07']
-# subs = ['sub-09']
+subs = ['sub-05']
 
 MODALITIES = ['bold', 'vaso']
 analysisPrograms = ['fsl', 'nilearn']
@@ -108,7 +108,7 @@ for modality in ['vaso', 'bold']:
         title = legend.get_title()
         title.set_fontsize(14)
         plt.tight_layout()
-        plt.savefig(f'/Users/sebastiandresbach/Desktop/sub-all_{modality}_stimDur-{stimDur}s_zScoreProfile_fslVsNilearn.png',
+        plt.savefig(f'/Users/sebastiandresbach/Desktop/{sub}_{modality}_stimDur-{stimDur}s_zScoreProfile_fslVsNilearn.png',
                     bbox_inches="tight")
         plt.show()
 

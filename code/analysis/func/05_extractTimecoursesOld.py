@@ -182,7 +182,7 @@ for file in files:
 # Test whether extracted ERAS give same results
 
 SUBS = ['sub-06','sub-07','sub-09']
-SUBS = ['sub-06']
+SUBS = ['sub-09']
 
 timePointList = []
 modalityList = []
@@ -210,7 +210,7 @@ for sub in SUBS:
     # for stimDuration in [1, 12]:
 
         # for modality in ['vaso', 'bold']:
-        for modality in ['bold']:
+        for modality in ['vaso']:
             # frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_task-stimulation_run-avg_part-mag_{modality}_intemp_era-{stimDuration}s_sigChange_masked_frame*_registered_crop.nii.gz'))
             frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_task-stimulation_run-avg_part-mag_{modality}_highRes_era-{stimDuration}s_sigChange_frame*_registered_crop.nii.gz'))
             # file = f'{DATADIR}/{sub}/ERAs/frames/sub-06_task-stimulation_run-avg_part-mag_bold_intemp_era-12s_sigChange-after_frame12_registered_crop.nii.gz'
@@ -462,3 +462,178 @@ for sub in ['sub-06']:
                 plt.savefig(f'./results/{sub}_stimDur-{int(stimDuration)}_{modality}_ERA-layers.png', bbox_inches = "tight")
 
                 plt.show()
+
+
+
+
+
+# =============================================================================
+# extract from vessels
+# =============================================================================
+
+SUBS = ['sub-06']
+
+timePointList = []
+modalityList = []
+valList = []
+stimDurList = []
+subList = []
+vesselList = []
+
+# vessels = {1:'veins', 2:'arteries'}
+
+for sub in SUBS:
+    subDir = f'{DATADIR}/{sub}'
+
+    segFolder = f'{DATADIR}/{sub}/ses-01/anat/upsample'
+
+    vesselFile = f'/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre/finalVeins_registered_crop.nii.gz'
+    vesselNii = nb.load(vesselFile)
+    vesselData = vesselNii.get_fdata()
+    vesseTypes = np.unique(vesselData)[1:]
+    #
+    # # roisData = nb.load(f'{roiFolder}/sub-05_vaso_stimulation_registered_crop_largestCluster_bin_UVD_max_filter.nii.gz').get_fdata()
+    # roisData = nb.load(f'{segFolder}/{sub}_rim_perimeter_chunk.nii.gz').get_fdata()
+    # roiIdx = roisData == 1
+
+
+    for stimDuration in [1, 2, 4, 12, 24]:
+    # for stimDuration in [2]:
+
+        for modality in ['vaso', 'bold']:
+        # for modality in ['bold']:
+            frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_task-stimulation_run-avg_part-mag_{modality}_intemp_era-{stimDuration}s_sigChange_masked_frame*_registered_crop.nii.gz'))
+            # file = f'{DATADIR}/{sub}/ERAs/frames/sub-06_task-stimulation_run-avg_part-mag_bold_intemp_era-12s_sigChange-after_frame12_registered_crop.nii.gz'
+
+            for j,frame in enumerate(frames):
+
+                nii = nb.load(frame)
+
+                data = nii.get_fdata()
+
+                for vesselType in vesseTypes:
+
+                    idx = vesselData == vesselType
+                    # tmp = roiIdx*layerIdx
+
+                    val = np.mean(data[idx])
+
+                    if modality == 'bold':
+                        valList.append(val)
+                    if modality == 'vaso':
+                        valList.append(val)
+
+                    subList.append(sub)
+                    depthList.append(4)
+                    stimDurList.append(stimDuration)
+                    modalityList.append(modality)
+                    timePointList.append(j)
+
+
+data = pd.DataFrame({'subject': subList, 'volume': timePointList, 'modality': modalityList, 'data': valList, 'vessel':vesselList, 'stimDur':stimDurList})
+# data = pd.DataFrame({'subject': subList, 'volume': timePointList, 'modality': modalityList, 'data': valList, 'stimDur': stimDurList})
+
+data.to_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responsesAcrossVessels.csv', sep = ',', index=False)
+
+
+
+tmp = data.loc[(data['stimDur'] == 24)&(data['modality'] == 'vaso')&(data['subject'] == 'sub-06')]
+
+sns.lineplot(
+             data = tmp,
+             x = "volume",
+             y = "data",
+             hue='vessel',
+             linewidth = 3
+             # ci=None,
+             )
+
+palettesLayers = {'vaso':['#55a8e2','#FF0000'],
+'bold':['#ff8c26','#FF0000']}
+layerNames = ['GM','vein']
+
+# for interpolationType in ['linear', 'cubic']:
+for interpolationType in ['linear']:
+    # data = pd.read_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',')
+    # data = data.loc[data['interpolation']==interpolationType]
+    for modality in ['bold', 'vaso']:
+    # for modality in ['vaso']:
+
+        for stimDuration in [1., 2., 4., 12., 24.]:
+            fig, (ax1) = plt.subplots(1,1,figsize=(7.5,5))
+
+            # for modality in ['bold', 'vaso']:
+
+            for layer in [1,2]:
+
+                val = np.mean(data.loc[(data['stimDur'] == stimDuration)
+                                     & (data['volume'] == 0)
+                                     & (data['layer'] == layer)]['data']
+                                     )
+
+                if layer == 1:
+                    tmp = data.loc[(data['stimDur'] == stimDuration)&(data['layer'] != 4)&(data['modality'] == modality)&(data['subject'] == 'sub-06')]
+
+                if layer == 2:
+                    tmp = data.loc[(data['stimDur'] == stimDuration)&(data['layer'] == 4)&(data['modality'] == modality)&(data['subject'] == 'sub-06')]
+
+                # if val > 0:
+                #     tmp['data'] = tmp['data'] - val
+                # if val < 0:
+                    # tmp['data'] = tmp['data'] + val
+                # tmp['data'] = tmp['data'] - val
+                nrVols = len(np.unique(tmp['volume']))
+
+                # ax1.set_xticks(np.arange(-1.5,3.6))
+                if modality == 'vaso':
+                    ax1.set_ylim(-5.1,7.1)
+                if modality == 'bold':
+                    ax1.set_ylim(-8.1,12.1)
+                sns.lineplot(ax=ax1,
+                             data = tmp,
+                             x = "volume",
+                             y = "data",
+                             color = palettesLayers[modality][layer-1],
+                             linewidth = 3,
+                             # ci=None,
+                             label = layerNames[layer-1],
+                             )
+            if modality == 'vaso':
+                ax1.set_ylim(-5.1,7.1)
+            if modality == 'bold':
+                ax1.set_ylim(-8.1,12.1)
+            # Prepare x-ticks
+            ticks = np.linspace(0, nrVols, 10)
+            labels = (np.linspace(0, nrVols, 10)*0.7808410714285715).round(decimals=1)
+
+            # ax1.set_yticks(np.arange(-0.25, 3.51, 0.5))
+
+            ax1.yaxis.set_tick_params(labelsize=18)
+            ax1.xaxis.set_tick_params(labelsize=18)
+
+            # tweak x-axis
+            ax1.set_xticks(ticks[::2])
+            ax1.set_xticklabels(labels[::2],fontsize=18)
+            ax1.set_xlabel('Time [s]', fontsize=24)
+
+            # draw lines
+            ax1.axvspan(0, stimDuration / 0.7808410714285715, color='#e5e5e5', alpha=0.2, lw=0, label = 'stimulation')
+            # get value of first timepoint
+
+            ax1.axhline(0,linestyle = '--', color = 'white')
+
+            legend = ax1.legend(loc='upper right', title="Tissue", fontsize=14)
+            legend.get_title().set_fontsize('16') #legend 'Title' fontsize
+
+            fig.tight_layout()
+
+            ax1.set_ylabel(r'Signal change [%]', fontsize=24)
+
+            if stimDuration == 1:
+                plt.title(f'{int(stimDuration)} second stimulation', fontsize=24,pad=10)
+            else:
+                plt.title(f'{int(stimDuration)} seconds stimulation', fontsize=24,pad=10)
+
+            plt.savefig(f'./results/{sub}_stimDur-{int(stimDuration)}_{modality}_ERA-tissues.png', bbox_inches = "tight")
+
+            plt.show()

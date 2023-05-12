@@ -92,14 +92,14 @@ for sub in subs:  # Loop over participants
             if runData.shape[-1] < 250:
                 iti = 'shortITI'
 
-            # Linearly detrend data if wanted
-            signal.detrend(runData, axis = -1, type = 'linear', overwrite_data = True)
+            # Linearly de-trend data if wanted
+            signal.detrend(runData, axis=-1, type='linear', overwrite_data=True)
 
-            # Average timecouorse over entire mask
+            # Average time-course over entire mask
             timecourse = np.mean(runData[:, :, :][maskData.astype(bool)], axis=0)
 
             # Set baseline for normalization
-            baseline = np.mean(np.concatenate((timecourse[:11],timecourse[-21:])), axis = -1)
+            baseline = np.mean(np.concatenate((timecourse[:11], timecourse[-21:])), axis=-1)
 
             # Compute signal change with reference to baseline
             sigChange = (np.divide(timecourse, baseline)) * 100
@@ -107,7 +107,7 @@ for sub in subs:  # Loop over participants
             # sigChange = timecourse.copy()
             # sigChange = (np.divide(timecourse, baseline)-1) * 100
 
-            for k, stimDur in enumerate([1,2,4,12,24]):
+            for k, stimDur in enumerate([1, 2, 4, 12, 24]):
 
                 # Initiate lists
                 starts = []

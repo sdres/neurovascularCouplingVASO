@@ -5,12 +5,13 @@ import nibabel as nb
 import numpy as np
 # from scipy.linalg import lstsq
 import glob
+
 # =============================================================================
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # Set subs to work on
-SUBS = ['sub-08']
+SUBS = ['sub-07']
 
-TEs = np.arange(1,7)*3.8
+TEs = np.arange(1, 7)*3.8
 
 # =============================================================================
 # Processing
@@ -19,10 +20,9 @@ for sub in SUBS:
     NII_NAMES = sorted(glob.glob(f'{DATADIR}/{sub}/*/anat/{sub}_ses-*_T2s_run-01_dir-*_echo-*_part-mag_MEGRE.nii.gz'))
 
     # Find MEGRE session of participant
-    for i in range(1,6):
-        for i in range(1,6):  # We had a maximum of 5 sessions
-            if f'ses-0{i}' in NII_NAMES[0]:
-                ses = f'ses-0{i}'
+    for i in range(1, 6):  # We had a maximum of 5 sessions
+        if f'ses-0{i}' in NII_NAMES[0]:
+            ses = f'ses-0{i}'
 
     inDir = f'{DATADIR}/derivatives/{sub}/{ses}/anat/megre/10_decayfix'
     # Create output directory
@@ -34,10 +34,8 @@ for sub in SUBS:
     # Parameters
     NII_NAME = f"{inDir}/{sub}_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed.nii.gz"
 
-
     # =============================================================================
     print("Step_12: Fit T2*.")
-
 
     nii = nb.load(NII_NAME)
     dims = nii.shape
