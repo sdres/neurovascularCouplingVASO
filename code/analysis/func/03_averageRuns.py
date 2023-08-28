@@ -17,7 +17,7 @@ from computeT1w import *
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 
 SUBS = ['sub-07']
-SESSIONS = ['ses-01','ses-02','ses-03','ses-04']
+SESSIONS = ['ses-01', 'ses-02', 'ses-03', 'ses-04']
 
 for sub in SUBS:
     # Create subject-directory in derivatives if it does not exist
@@ -88,7 +88,6 @@ for sub in SUBS:
             img = nb.Nifti1Image(newData, header=header, affine=affine)
             nb.save(img, f'{outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_{modality}.nii')
 
-
         modalities = glob.glob(f'{outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_*.nii')
 
         t1w = computeT1w(modalities[0], modalities[1])
@@ -98,7 +97,7 @@ for sub in SUBS:
         affine = nb.load(modalities[0]).affine
 
         # And save the image
-        img = nb.Nifti1Image(t1w, header = header, affine = affine)
+        img = nb.Nifti1Image(t1w, header=header, affine=affine)
         nb.save(img, f'{outFolder}/{sub}_{ses}_task-stimulation_run-avg_part-mag_T1w.nii')
 
 
