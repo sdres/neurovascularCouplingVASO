@@ -33,11 +33,11 @@ def infotodict(seqinfo):
     mp2rageT1Mag = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_t1_part-mag_run-0{item:01d}_MP2RAGE')
     mp2rageT1Phase = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_t1_part-phase_run-0{item:01d}_MP2RAGE')
 
-
     info = {vasoMagn: [],
-            vasoPhs:[],
-            boldMagn:[],
-            boldPhs:[],
+            vasoPhs: [],
+            boldMagn: [],
+            boldPhs: [],
+
             # MP2RAGE
             mp2rageInv1Mag: [],
             mp2rageInv1Phase: [],
@@ -59,7 +59,7 @@ def infotodict(seqinfo):
                 info[boldMagn].append(s.series_id)
             if ('S01_P' in s.series_description):
                 info[boldPhs].append(s.series_id)
-        MP2RAGE
+        # MP2RAGE
         if ('INV1' in s.series_description):
             info[mp2rageInv1Mag].append(s.series_id)
         if ('INV2' in s.series_description):
@@ -68,4 +68,5 @@ def infotodict(seqinfo):
             info[mp2rageUniMag].append(s.series_id)
         if ('T1' in s.series_description):
             info[mp2rageT1Mag].append(s.series_id)
+
     return info
