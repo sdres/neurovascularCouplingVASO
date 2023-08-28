@@ -58,7 +58,7 @@ for sub in subs:
 # Extract voxel wise timecourses
 # =============================================================================
 
-SUBS = ['sub-05','sub-06','sub-08','sub-09']
+SUBS = ['sub-05', 'sub-06', 'sub-08', 'sub-09']
 STIMDURS = [1, 2, 4, 12, 24]
 # STIMDURS = [24]
 EVENTDURS = {'shortITI': np.array([11, 14, 18, 32, 48]),
@@ -95,7 +95,7 @@ for sub in SUBS:
     sessions = []
     # Find all sessions
     for run in allRuns:
-        for i in range(1,6):  # We had a maximum of 5 sessions
+        for i in range(1, 6):  # We had a maximum of 5 sessions
             if f'ses-0{i}' in run:
                 sessions.append(f'ses-0{i}')
 
@@ -160,13 +160,12 @@ for sub in SUBS:
                 tmpRun /= len(onsets['onset'])
 
                 tmp = np.add(tmp[..., :nrTimepoints], tmpRun)
-                divisor[:,:,:,:nrTimepoints] += 1
-
+                divisor[:, :, :, :nrTimepoints] += 1
 
             tmp = np.divide(tmp, divisor)
             if modality == 'vaso':
                 tmp = tmp * -1
-            img = nb.Nifti1Image(tmp, header = header, affine = affine)
+            img = nb.Nifti1Image(tmp, header=header, affine=affine)
             nb.save(img, f'{DATADIR}/{sub}/ERAs/{sub}_task-stimulation_run-avg_part-mag_{modality}_intemp_era-{stimDur}s_sigChange.nii.gz')
 
 
