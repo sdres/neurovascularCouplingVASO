@@ -311,7 +311,7 @@ for sub in SUBS:
 
             # Set y label
             axes[0].set_ylabel("Translation [mm]", fontsize=24)
-            axes[1].set_ylabel("Rotation [radians]", fontsize=24)
+            axes[1].set_ylabel("Rotation [degree]", fontsize=24)
 
             # Colors are the same for both plots, so we only need one legend
             axes[1].legend(fontsize=20,
