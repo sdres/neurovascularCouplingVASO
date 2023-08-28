@@ -1,15 +1,10 @@
-"""
-
-Generating event-files.tsv to be stored with data from log files
-
-"""
+"""Generating event-files.tsv to be stored with data from log files"""
 
 import numpy as np
 import glob
 import pandas as pd
 import os
 import re
-
 
 # define ROOT dir
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
