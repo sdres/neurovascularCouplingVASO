@@ -48,7 +48,7 @@ for sub in SUBS:
         # Set folder where motion traces were dumped
         motionDir = f'{funcDir}/motionParameters'
 
-        for run in runs[::2]:
+        for run in runs:
             base = os.path.basename(run).rsplit('.', 2)[0]
 
             parts = base.split('_')
@@ -67,20 +67,37 @@ for sub in SUBS:
 
             FDs = pd.concat((FDs, tmp))
 
-# Select volumes with excessive motion
-tmp = FDs.loc[FDs['FD'] > 0.9]
-
-maxMotion = np.max(tmp['FD'])
 nrVolsTotal = len(FDs)
-nrVolsExcessive = len(tmp)
-nrRunsWithExcessive = len(tmp['run'].unique())
+print(f'the total numer of volumes is {nrVolsTotal}')
+
+for modality in ['bold', 'cbv']:
+    # Select volumes with excessive motion
+    tmp = FDs.loc[(FDs['FD'] > 0.9) & (FDs['modality'] == modality)]
+
+    maxMotion = np.max(tmp['FD'])
+    print(f'maximum FD for {modality} is {maxMotion}')
+
+    nrVolsExcessive = len(tmp)
+    print(f'For {modality}, we found {nrVolsExcessive} volumes with motion > 0.9mm')
+
+    nrRunsWithExcessive = len(tmp['run'].unique())
+
+    print(f'For {modality}, {nrRunsWithExcessive} runs were affected')
+percentVols = 92 / nrVolsTotal * 100
+print(f'{percentVols:2f}% of volumes show motion above voxel size')
+
+
 
 fig, (ax1) = plt.subplots(1, 1, figsize=(7.5, 5))
-sns.histplot(tmp, x='FD', linewidth=1, color='tab:red', bins=20)
+# sns.histplot(tmp, x='FD', linewidth=1, color='tab:red', bins=20)
+sns.histplot(tmp, x='FD', linewidth=1, hue='modality', multiple='dodge', bins=20, palette=PALETTE)
 ax1.set_ylabel(r'# Volumes', fontsize=24)
 ax1.set_xlabel(r'FD [mm]', fontsize=24)
 ax1.yaxis.set_tick_params(labelsize=18)
 ax1.xaxis.set_tick_params(labelsize=18)
+
+plt.legend(title='Modality', loc='upper right', labels=['Nulled', 'BOLD'], fontsize=18, title_fontsize=20)
+
 fig.tight_layout()
 plt.savefig(f'./results/runsGreater1mmFD.png', bbox_inches="tight")
 plt.show()
