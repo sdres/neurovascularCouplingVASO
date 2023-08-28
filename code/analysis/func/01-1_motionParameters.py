@@ -326,7 +326,7 @@ for sub in SUBS:
 
             # Save figure
             plt.savefig(f'results/motionParameters/{base}_motion.jpg', bbox_inches='tight', pad_inches=0)
-            plt.show()
+            # plt.show()
 
             # =========================================================================
             # Plotting FDs
@@ -360,4 +360,4 @@ for sub in SUBS:
 
             plt.title(base[:-9], fontsize=24, pad=20)
             plt.savefig(f'results/motionParameters/{base}_FDs.png', bbox_inches='tight', pad_inches=0)
-            plt.show()
+            # plt.show()
