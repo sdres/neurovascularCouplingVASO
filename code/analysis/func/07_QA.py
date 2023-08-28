@@ -54,16 +54,16 @@ for sub in ['sub-06']:
 
         sns.kdeplot(data = tmp ,x = 'data', hue='modality',linewidth=2, palette=palette)
 
-        plt.title(f'ROI {metric}',fontsize=24)
+        plt.title(f'ROI {metric}', fontsize=24)
         # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-        plt.ylabel('voxel count',fontsize=24)
+        plt.ylabel('voxel count', fontsize=24)
         plt.yticks([])
 
         if metric == 'tSNR':
-            ticks = np.arange(5,31,5)
+            ticks = np.arange(5, 31, 5)
             plt.xticks(ticks, fontsize=14)
 
-        plt.xlabel(f'{metric}',fontsize=20)
+        plt.xlabel(f'{metric}', fontsize=20)
 
         #legend hack
         old_legend = ax.legend_
@@ -88,6 +88,7 @@ valList = []
 sesList = []
 modalityList = []
 voxList = []
+metricList = []
 
 for sub in subs:
     print(f'Processing {sub}')
@@ -95,36 +96,40 @@ for sub in subs:
     statFolder = f'{DATADIR}/{sub}/statMaps/glm_fsl'
     segFolder = f'{DATADIR}/{sub}/ses-01/anat/upsample'
 
-    roisData = nb.load(glob.glob(f'{segFolder}/{sub}_rim-LH_perimeter_chunk.nii*')[0]).get_fdata()
+    roisData = nb.load(glob.glob(f'{segFolder}/{sub}_rim-LH_perimeter_chunk.nii.gz')[0]).get_fdata()
     roiIdx = roisData == 1
 
     for modality in MODALITIES:
-        files = sorted(glob.glob(f'{subFolder}/ses-*/func/{sub}_ses-*_task-stimulation_run-avg_part-mag_'
-                          f'{modality}_intemp_tSNR_registered_crop-toShpereLH.nii.gz'))
+        for metric in ['tSNR']:
+        # for metric in ['tSNR', 'mean', 'skew', 'kurt']:
+                files = sorted(glob.glob(f'{subFolder}/ses-*/func/{sub}_ses-*_task-stimulation_run-avg_part-mag_'
+                              f'{modality}_intemp_{metric}_registered_crop-toShpereLH.nii.gz'))
 
-        for file in files:
-            for j in range(1, 6):
-                if f'ses-0{j}' in file:
-                    ses = f'ses-0{j}'
+            for file in files:
+                for j in range(1, 6):
+                    if f'ses-0{j}' in file:
+                        ses = f'ses-0{j}'
 
-            data = nb.load(file).get_fdata()
+                data = nb.load(file).get_fdata()
 
-            dataMasked = data[roiIdx]
+                dataMasked = data[roiIdx]
 
-            for i, val in enumerate(dataMasked):
+                for i, val in enumerate(dataMasked):
 
-                subList.append(sub)
-                valList.append(val)
-                sesList.append(ses)
-                modalityList.append(modality)
-                voxList.append(i)
+                    subList.append(sub)
+                    valList.append(val)
+                    sesList.append(ses)
+                    modalityList.append(modality)
+                    voxList.append(i)
+                    metricList.append(metric)
 
 # Save data to dataframe
 data = pd.DataFrame({'subject': subList,
                      'session': sesList,
                      'value': valList,
                      'voxelID': voxList,
-                     'modality': modalityList}
+                     'modality': modalityList,
+                     'metric': metricList}
                     )
 
 plt.style.use('dark_background')
@@ -134,28 +139,62 @@ palette = {
     'bold': 'tab:orange',
     'vaso': 'tab:blue'}
 
-fig, ax = plt.subplots()
+for metric in data['metric'].unique():
+    fig, ax = plt.subplots()
 
-sns.kdeplot(data=data, x='value', hue='modality', linewidth=2, palette=palette)
+    tmp = data.loc[data['metric'] == metric]
 
-plt.title(f'ROI tSNR', fontsize=24)
-# ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-plt.ylabel('voxel count', fontsize=24)
-plt.yticks([])
+    sns.kdeplot(data=tmp, x='value', hue='modality', linewidth=2, palette=palette)
 
-ticks = np.arange(0, 61, 10)
-plt.xticks(ticks, fontsize=14)
-plt.xlim([0, 60])
+    plt.title(f'ROI {metric}', fontsize=24)
+    # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    plt.ylabel('voxel count', fontsize=24)
+    plt.yticks([])
 
-plt.xlabel(f'tSNR', fontsize=20)
+    ticks = np.arange(0, 61, 10)
+    plt.xticks(ticks, fontsize=14)
+    plt.xlim([0, 60])
 
-#legend hack
-old_legend = ax.legend_
-handles = old_legend.legendHandles
-labels = [t.get_text() for t in old_legend.get_texts()]
-title = old_legend.get_title().get_text()
-ax.legend(handles, labels, loc='upper right', title='', fontsize=16)
-plt.tight_layout()
-plt.savefig(f'/Users/sebastiandresbach/Desktop/tSNR.png', bbox_inches='tight')
+    plt.xlabel(f'{metric}', fontsize=20)
 
-plt.show()
+    #legend hack
+    old_legend = ax.legend_
+    handles = old_legend.legendHandles
+    labels = [t.get_text() for t in old_legend.get_texts()]
+    title = old_legend.get_title().get_text()
+    ax.legend(handles, labels, loc='upper right', title='', fontsize=16)
+    plt.tight_layout()
+    plt.savefig(
+        f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/QA/group_{metric}.png',
+        bbox_inches="tight")
+    plt.show()
+
+
+# Plot single subs
+for metric in data['metric'].unique():
+    for modality in MODALITIES:
+        fig, ax = plt.subplots()
+        tmp = data.loc[(data['metric'] == metric) & (data['modality'] == modality)]
+        sns.kdeplot(data=tmp, x='value', hue='subject', linewidth=2)
+
+        plt.title(f'{modality} {metric}', fontsize=24)
+        # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        plt.ylabel('voxel count', fontsize=24)
+        plt.yticks([])
+
+        # ticks = np.arange(0, 61, 10)
+        # plt.xticks(ticks, fontsize=14)
+        # plt.xlim([0, 60])
+
+        plt.xlabel(f'{metric}', fontsize=20)
+
+        #legend hack
+        old_legend = ax.legend_
+        handles = old_legend.legendHandles
+        labels = [t.get_text() for t in old_legend.get_texts()]
+        title = old_legend.get_title().get_text()
+        ax.legend(handles, labels, loc='upper right', title='', fontsize=16)
+        plt.tight_layout()
+        # plt.savefig(f'/Users/sebastiandresbach/Desktop/tSNR.png', bbox_inches='tight')
+
+        plt.show()
