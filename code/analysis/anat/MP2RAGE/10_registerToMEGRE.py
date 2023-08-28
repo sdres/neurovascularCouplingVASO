@@ -5,7 +5,7 @@ import subprocess
 import nibabel as nb
 
 DATADIR = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives'
-SUBS = ['sub-07']
+SUBS = ['sub-08']
 
 for sub in SUBS:
     # Find MEGRE session
@@ -16,8 +16,9 @@ for sub in SUBS:
 
     # =============================================================================
     NII_NAMES = [
-        f'{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
+        # f'{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
         # '{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_LH_sphere_crop_ups4X.nii.gz'
+        f'{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_rim-LH_perimeter_chunk_uncrop.nii.gz'
         # '{DATADIR}/{sub}/ses-01/anat/upsample/peri_uncrop.nii.gz'
         ]
     NII_TARGET = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/" \
@@ -25,6 +26,7 @@ for sub in SUBS:
 
     # Use ITK-SNAP manually to find the best registration
     AFFINE = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/initial_matrix.txt"
+    # AFFINE = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/initial_matrix.txt"
 
     outDir = f"{DATADIR}/{sub}/ses-01/anat/07_register_to_T2s"
 
@@ -73,6 +75,7 @@ for sub in SUBS:
     print('\n\nFinished.')
 
     moving = f'{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz'
+    # moving = f'{DATADIR}/{sub}/ses-01/anat/upsample/{sub}_rim-LH_perimeter_chunk.nii.gz'
     fixed = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/{sub}_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz"
     regFolder = f"{DATADIR}/{sub}/ses-01/anat/07_register_to_T2s"
     initial = f"{DATADIR}/{sub}/{megreSes}/anat/megre/11_T2star/initial_matrix.txt"
@@ -101,14 +104,14 @@ for sub in SUBS:
 
     # Prepare command to apply transform and check quality
     command = 'antsApplyTransforms '
-    command += f'--interpolation BSpline[5] '
+    # command += f'--interpolation BSpline[5] '
     # command += f'--interpolation MultiLabel '
     command += f'-d 3 -i {moving} '
     command += f'-r {fixed} '
     # command += f'-t {regFolder}/registered1_1Warp.nii.gz '
     command += f'-t {regFolder}/registered1_0GenericAffine.mat '
-    # command += f'-o {regFolder}/sub-09_rim-LH_perimeter_chunk_uncrop_registered.nii.gz'
-    command += f'-o {regFolder}/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X_registered.nii.gz'
+    command += f'-o {regFolder}/sub-05_rim-LH_perimeter_chunk_uncrop_registered.nii.gz'
+
     # Run command
     subprocess.run(command, shell=True)
 
@@ -116,11 +119,11 @@ for sub in SUBS:
 # Switch headers
 sub_06head = nb.load('/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-06/ses-04/anat/megre/11_T2star/sub-06_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz').header
 
-file = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-07/ses-05/anat/megre/11_T2star/sub-07_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz'
-sub_07_nii = nb.load(file)
-affine = sub_07_nii.affine
+file = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti/derivatives/sub-05/ses-02/anat/megre/11_T2star/sub-05_ses-T2s_part-mag_MEGRE_crop_ups2X_prepped_avg_composite_decayfixed_S0.nii.gz'
+sub_05_nii = nb.load(file)
+affine = sub_05_nii.affine
 
-new = nb.Nifti1Image(sub_07_nii.get_fdata(), header=sub_06head, affine=affine)
+new = nb.Nifti1Image(sub_05_nii.get_fdata(), header=sub_06head, affine=affine)
 nb.save(new, file)
 
 
