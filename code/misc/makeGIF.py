@@ -1,10 +1,7 @@
 
 import imageio
-import os
 import glob
 from skimage import io
-import matplotlib.pyplot as plt
-from scipy import ndimage
 from skimage import color
 import numpy as np
 
@@ -148,7 +145,8 @@ for modality in ['vaso', 'bold']:
 
         imageio.mimsave(f'/Users/sebastiandresbach/Desktop/items/{modality}_{stimDur}/{modality}_movie.gif',
                         gifImages,
-                        duration=250)  # Duration is in ms
+                        duration=250,
+                        loop=0)  # Duration is in ms
 
 
     print('Done.')
