@@ -240,10 +240,10 @@ for sub in SUBS:
 
     # =========================================================================
     # Look for sessions
-    # Collectall runs across sessions (containing both nulled and notnulled images)
+    # Collect all runs across sessions (containing both nulled and notnulled images)
     allRuns = sorted(glob.glob(f'{ROOT}/{sub}/ses-*/func/{sub}_ses-0*_task-*run-0*_part-mag*.nii.gz'))
 
-    # Initialte list for sessions
+    # Initiate list for sessions
     sessions = []
     # Find all sessions
     for run in allRuns:
