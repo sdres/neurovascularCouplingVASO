@@ -82,18 +82,22 @@ for sub in subs:
 
 data = pd.DataFrame({'subject': subList, 'run': runList, 'ratio': targetDetectedList})
 
+subs = []
 ratios = []
 counts = []
+for sub in data['subject'].unique():
+    tmp = data.loc[data['subject'] == sub]
+    for ratio in tmp['ratio'].unique():
+        tmpData = tmp.loc[tmp['ratio'] == ratio]
+        ratios.append(np.round(ratio, 2))
+        counts.append(len(tmpData))
+        subs.append(sub)
 
-for ratio in data['ratio'].unique():
-    tmp = data.loc[data['ratio'] == ratio]
-    ratios.append(np.round(ratio,2))
-    counts.append(len(tmp))
-
-data2 = pd.DataFrame({'ratio': ratios, 'count': counts})
+data2 = pd.DataFrame({'subject': subs, 'ratio': ratios, 'count': counts})
 
 fig, (ax1) = plt.subplots(1, 1, figsize=(7.5, 5))
-splot = sns.barplot(data=data2, x='ratio', y='count', linewidth=1, edgecolor="1", color='tab:red')
+# splot = sns.barplot(data=data2, x='ratio', y='count', linewidth=1, edgecolor="1", color='tab:red')
+splot = sns.barplot(data=data2, x='ratio', y='count', linewidth=1, edgecolor="1", hue='subject')
 for p in splot.patches:
     splot.annotate(format(p.get_height(), '.0f'),
                    (p.get_x() + p.get_width() / 2., p.get_height()),
@@ -101,16 +105,13 @@ for p in splot.patches:
                    xytext=(0, 9),
                    textcoords='offset points',
                    fontsize=14)
+
 plt.ylim(0, 90)
 ax1.set_ylabel(r'#runs', fontsize=24)
 ax1.set_xlabel(r'Ratio detected', fontsize=24)
 ax1.yaxis.set_tick_params(labelsize=18)
 ax1.xaxis.set_tick_params(labelsize=18)
 fig.tight_layout()
-plt.savefig(f'./results/targetsDetectedVsUndetected.png', bbox_inches="tight")
+# plt.savefig(f'./results/targetsDetectedVsUndetected.png', bbox_inches="tight")
 
 plt.show()
-
-
-# sns.displot(data=data, x='ratio', bins=20)
-# data.loc[data['ratio'] <= 0.78]
