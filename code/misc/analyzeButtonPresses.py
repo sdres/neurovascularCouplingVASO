@@ -1,16 +1,12 @@
-'''
-
-Investigate attention task performance.
-
-'''
+"""Investigate attention task performance."""
 
 import numpy as np
 import glob
 import pandas as pd
-import os
 import re
 import seaborn as sns
 import matplotlib.pyplot as plt
+
 # Define ROOT dir
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
 # define subjects to work on
@@ -22,23 +18,12 @@ runList = []
 targetDetectedList = []
 
 for sub in subs:
-    # # get all runs of all sessions
-    # runs = sorted(glob.glob(f'{ROOT}/{sub}/ses-*/func/{sub}_ses-*_task-*_run-0*_*part-mag*_cbv.nii.gz'))
-    #
-    # for run in runs:
-    #     # get basename of current run
-    #     base = os.path.basename(run).rsplit('.', 2)[0][:-4]
-    #     # see session in which it was acquired
-    #
-    #     for i in range(1,99):
-    #         if f'ses-0{i}' in base:
-    #             ses = f'ses-0{i}'
 
     logFiles = sorted(glob.glob(f'code/stimulation/{sub}/ses-*/{sub}_ses-*_run-*_neurovascularCoupling.log'))
 
     for log in logFiles:
-        # print(f'processing {log}')
-        logFile = pd.read_csv(log,usecols=[0])
+        # print(f'Processing {log}')
+        logFile = pd.read_csv(log, usecols=[0])
 
         # Because the column definition will get hickups if empty colums are
         # present, we find line with first trigger to then load the file anew,
@@ -50,10 +35,9 @@ for sub in subs:
 
         # define column names
         ColNames = ['startTime', 'type', 'event']
-        # load logfile again, starting with first trigger
-        # logFile = pd.read_csv(f'{ROOT}/derivatives/{sub}/{ses}/events/{base}.log', sep = '\t',skiprows=firstVolRow, names = ColNames)
 
-        logFile = pd.read_csv(log, sep = '\t',skiprows=firstVolRow, names = ColNames)
+        # load logfile again, starting with first trigger
+        logFile = pd.read_csv(log, sep='\t', skiprows=firstVolRow, names=ColNames)
 
         # initiate lists
         targetTimes = []
@@ -81,7 +65,7 @@ for sub in subs:
 
         count = 0
         for i, target in enumerate(targetDetected[1:]):
-            # print(f'comparing {target} with {targetDetected[i]}')
+            # print(f'Comparing {target} with {targetDetected[i]}')
             if target == targetDetected[i]:
                 count = count + 1
         if count >= 1:
