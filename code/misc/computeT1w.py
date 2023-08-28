@@ -29,14 +29,14 @@ def computeT1w(nulledFile, notnulledFile, detrend = False):
 
     if detrend == True:
         # Detrend before std. dev. calculation
-        combinedDemean = signal.detrend(combined, axis = 3, type = 'constant')
-        combinedDetrend = signal.detrend(combinedDemean, axis = 3, type = 'linear')
-        stdDev = np.std(combinedDetrend, axis = 3)
+        combinedDemean = signal.detrend(combined, axis=3, type='constant')
+        combinedDetrend = signal.detrend(combinedDemean, axis=3, type='linear')
+        stdDev = np.std(combinedDetrend, axis=3)
     else:
-        stdDev = np.std(combined, axis = 3)
+        stdDev = np.std(combined, axis=3)
 
     #Compute mean
-    mean = np.mean(combined, axis = 3)
+    mean = np.mean(combined, axis=3)
     # Compute variation
     cvar = stdDev/mean
     # Take inverse
