@@ -72,3 +72,38 @@ for sub in subs:
             design = pd.DataFrame({'onset': stimStart, 'duration': durs, 'trial_type': stim})
             for modality in ['bold', 'cbv']:
                 design.to_csv(f'{ROOT}/{sub}/{ses}/func/{base}_{modality}_events.tsv', index=False)
+
+
+# ==========================================================================================
+# Check if events are the same within session
+subs = ['sub-05', 'sub-06', 'sub-07', 'sub-09']
+
+for sub in subs:
+    # get all runs of all sessions
+    allRuns = sorted(glob.glob(f'{ROOT}/{sub}/ses-*/func/{sub}_ses-*_task-*_run-0*_*part-mag*_cbv.nii.gz'))
+
+    # Initiate list for sessions
+    sessions = []
+    # Find all sessions
+    for run in allRuns:
+        for i in range(1, 6):  # We had a maximum of 5 sessions
+            if f'ses-0{i}' in run:
+                sessions.append(f'ses-0{i}')
+
+    sessions = set(sessions)
+
+    for ses in sessions:
+        runs = sorted(glob.glob(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-*_run-0*_*part-mag*_cbv.nii.gz'))
+
+        reference = pd.read_csv(f'{ROOT}/{sub}/{ses}/func/{sub}_{ses}_task-stimulation_run-01_part-mag_cbv_events.tsv')
+
+        for run in runs[1:]:
+            # get basename of current run
+            base = os.path.basename(run).rsplit('.', 2)[0][:-4]
+            # see session in which it was acquired
+
+            runData = pd.read_csv(f'{ROOT}/{sub}/{ses}/func/{base}_cbv_events.tsv')
+            if not np.sum(reference.trial_type == runData.trial_type) == 20:
+                print(f'ERROR in {base}')
+
+print('All good!')
