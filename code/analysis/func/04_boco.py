@@ -68,7 +68,6 @@ for sub in SUBS:
         #         print(f'Skipping sessions with long ITIs')
         #         continue
 
-
         tr = findTR(f'code/stimulation/{sub}/{ses}/{sub}_{ses}_run-01_neurovascularCoupling.log')
         tr = tr
         print(f'Effective TR: {tr} seconds')
@@ -124,9 +123,9 @@ for sub in SUBS:
 
                 for i in range(data.shape[-1]):
                     if i < nrPrepend:
-                        newData[:,:,:,i] = data[:,:,:,0]
+                        newData[:, :, :, i] = data[:, :, :, 0]
                     else:
-                        newData[:,:,:,i]=data[:,:,:,i-nrPrepend]
+                        newData[:, :, :, i] = data[:, :, :, i-nrPrepend]
 
                 # Save data
                 img = nb.Nifti1Image(newData.astype(int), header=header, affine=affine)
