@@ -1,17 +1,14 @@
-'''
+"""
 
 Extracting and plotting signal based on ME-GRE vessel segmentations
 
-'''
-import os
+"""
+
 import glob
 import nibabel as nb
 import numpy as np
-import subprocess
 import pandas as pd
-import re
 import matplotlib.pyplot as plt
-from scipy import interpolate
 from scipy.ndimage import morphology, generate_binary_structure
 import seaborn as sns
 import sys
@@ -29,8 +26,8 @@ SUBS = ['sub-06']
 # Get TR
 UPFACTOR = 4
 
-
 # Get propper ROIs for GM and vessels
+
 for sub in SUBS:
     subDir = f'{DATADIR}/{sub}'
 
@@ -116,10 +113,10 @@ for sub in SUBS:
 
         for modality in ['vaso', 'bold']:
         # for modality in ['bold']:
-            frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_task-stimulation_run-avg_part-mag_{modality}_intemp_era-{stimDuration}s_sigChange_masked_frame*_registered_crop.nii.gz'))
-            # file = f'{DATADIR}/{sub}/ERAs/frames/sub-06_task-stimulation_run-avg_part-mag_bold_intemp_era-12s_sigChange-after_frame12_registered_crop.nii.gz'
+            frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_{ses}_task-stimulation_run-avg_part-mag_{modality}_'
+                              f'intemp_era-{stimDuration}s_sigChange_frame*_registered_crop.nii.gz'))
 
-            for j,frame in enumerate(frames):
+            for j, frame in enumerate(frames):
 
                 nii = nb.load(frame)
 
@@ -145,10 +142,6 @@ for sub in SUBS:
 
 data = pd.DataFrame({'subject': subList, 'volume': timePointList, 'modality': modalityList, 'data': valList, 'layer':depthList, 'stimDur':stimDurList})
 
-
-
-
-
 # =============================================================================
 # extract from vessels
 # =============================================================================
@@ -162,7 +155,7 @@ stimDurList = []
 subList = []
 tissueList = []
 
-tissues = {1:'Gray matter', 2:'Vessel dominated', 3: 'intracortical vessel'}
+tissues = {1: 'Gray matter', 2: 'Vessel dominated'}
 
 for sub in SUBS:
     subDir = f'{DATADIR}/{sub}'
@@ -180,135 +173,144 @@ for sub in SUBS:
     tissueTypes = np.unique(vesselGM)[1:]
 
     for stimDuration in [1, 2, 4, 12, 24]:
-    # for stimDuration in [2]:
 
         for modality in ['vaso', 'bold']:
-        # for modality in ['bold']:
-            frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_task-stimulation_run-avg_part-mag_{modality}_intemp_era-{stimDuration}s_sigChange_masked_frame*_registered_crop.nii.gz'))
-            # file = f'{DATADIR}/{sub}/ERAs/frames/sub-06_task-stimulation_run-avg_part-mag_bold_intemp_era-12s_sigChange-after_frame12_registered_crop.nii.gz'
+            frames = sorted(glob.glob(f'{DATADIR}/{sub}/ERAs/frames/{sub}_ses-avg_task-stimulation_run-avg_part-'
+                                      f'mag_{modality}_intemp_era-{stimDuration}s_sigChange-after_frame*_registered_crop.nii.gz'))
 
-            for j,frame in enumerate(frames):
+            for j, frame in enumerate(frames):
 
                 nii = nb.load(frame)
-
                 data = nii.get_fdata()
-
+                data.shape
                 for tissue in tissueTypes:
-
-
                     idx = vesselGM == tissue
-                    # tmp = roiIdx*layerIdx
 
                     val = np.mean(data[idx])
 
-                    if modality == 'bold':
-                        valList.append(val)
-                    if modality == 'vaso':
-                        valList.append(val)
-
+                    valList.append(val)
                     subList.append(sub)
-
-
                     tissueList.append(tissues[tissue])
                     stimDurList.append(stimDuration)
                     modalityList.append(modality)
                     timePointList.append(j)
 
-data = pd.DataFrame({'subject': subList, 'volume': timePointList, 'modality': modalityList, 'data': valList, 'tissue':tissueList, 'stimDur':stimDurList})
+data = pd.DataFrame({'subject': subList,
+                     'volume': timePointList,
+                     'modality': modalityList,
+                     'data': valList,
+                     'tissue': tissueList,
+                     'stimDur': stimDurList
+                     })
+
+# =============================================================================
+# Equalize mean between first and second set
+# =============================================================================
+
+tr = 3.1262367768477795/4
+EVENTDURS = {'shortITI': (np.array([11, 14, 18, 32, 48])/tr).astype('int'),
+             'longITI': (np.array([21, 24, 28, 42, 64])/tr).astype('int')}
+
+STIMDURS = [1, 2, 4, 12, 24]
+
+equalized = pd.DataFrame()
+
+for sub in data['subject'].unique():
+    for modality in ['vaso', 'bold']:
+        for tissue in data['tissue'].unique():
+            for i, stimDur in enumerate(STIMDURS):
+                tmp = data.loc[(data['subject'] == sub)
+                               & (data['modality'] == modality)
+                               & (data['tissue'] == tissue)
+                               & (data['stimDur'] == stimDur)]
+
+                extension = EVENTDURS['longITI'][i] - EVENTDURS['shortITI'][i]
+                # Get max number of volumes
+                maxVol = np.max(tmp['volume'].to_numpy())
+
+                firstVol = maxVol - extension
+
+                series1 = tmp.loc[(tmp['volume'] < firstVol+1)]
+                series2 = tmp.loc[(tmp['volume'] >= firstVol+1)]
+
+                val1 = np.mean(series1.loc[series1['volume'] == firstVol]['data'])
+                val2 = np.mean(series2.loc[series2['volume'] == firstVol+1]['data'])
+
+                diff = val1 - val2
+                series2['data'] += diff
+
+                equalized = pd.concat((equalized, series1))
+                equalized = pd.concat((equalized, series2))
 
 
+# =============================================================================
+# Plotting
+# =============================================================================
 
+palettesLayers = {'vaso': ['#55a8e2', '#FF0000'], 'bold': ['#ff8c26', '#FF0000']}
 
+for modality in ['bold']:
 
-palettesLayers = {'vaso':['#55a8e2','#FF0000'],
-'bold':['#ff8c26', '#FF0000']}
-# tissues = {1:'GM', 2:'Pial Vessel', 3: 'intracortical vessel'}
+    for stimDuration in [1., 2., 4., 12., 24.]:
+        fig, (ax1) = plt.subplots(1, 1, figsize=(7.5, 5))
 
-# for interpolationType in ['linear', 'cubic']:
-for interpolationType in ['linear']:
-    # data = pd.read_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/{sub}_task-stimulation_responses.csv', sep = ',')
-    # data = data.loc[data['interpolation']==interpolationType]
-    for modality in ['bold', 'vaso']:
-    # for modality in ['vaso']:
+        for j, tissue in enumerate(['Gray matter', 'Vessel dominated']):
 
-        for stimDuration in [1., 2., 4., 12., 24.]:
-            fig, (ax1) = plt.subplots(1,1,figsize=(7.5,5))
+            tmp = equalized.loc[(equalized['stimDur'] == stimDuration)
+                           & (equalized['tissue'] == tissue)
+                           & (equalized['modality'] == modality)
+                           & (equalized['subject'] == 'sub-06')]
 
-            # for modality in ['bold', 'vaso']:
+            val = np.mean(tmp.loc[(tmp['volume'] == 0)]['data'])
 
-            for j, tissue in enumerate(['Gray matter','Vessel dominated']):
+            tmp['data'] = tmp['data'] - val
 
-                # val = np.mean(data.loc[(data['stimDur'] == stimDuration)
-                #                      & (data['volume'] == 0)
-                #                      & (data['layer'] == layer)]['data']
-                #                      )
+            nrVols = len(np.unique(tmp['volume']))
 
+            sns.lineplot(ax=ax1,
+                         data=tmp,
+                         x="volume",
+                         y="data",
+                         color=palettesLayers[modality][j],
+                         linewidth=3,
+                         label=tissue,
+                         )
 
-                tmp = data.loc[(data['stimDur'] == stimDuration)&(data['tissue'] == tissue)&(data['modality'] == modality)&(data['subject'] == 'sub-06')]
+        if modality == 'vaso':
+            ax1.set_ylim(-3.1, 7.1)
+            yTickVals = np.arange(-3.1, 7.1, 2)
+            ax1.set_yticks(yTickVals)
 
-                val = np.mean(tmp.loc[(tmp['volume'] == 0)]['data'])
-                # if val > 0:
-                #     tmp['data'] = tmp['data'] - val
-                # if val < 0:
-                    # tmp['data'] = tmp['data'] + val
-                tmp['data'] = tmp['data'] - val
-                # if val > 0:
-                #     tmp['data'] = tmp['data'] - val
-                # if val < 0:
-                    # tmp['data'] = tmp['data'] + val
-                # tmp['data'] = tmp['data'] - val
-                nrVols = len(np.unique(tmp['volume']))
+        if modality == 'bold':
+            ax1.set_ylim(-4, 14)
+            yTickVals = np.arange(-3, 12.1, 3)
+            ax1.set_yticks(yTickVals)
 
-                # ax1.set_xticks(np.arange(-1.5,3.6))
-                if modality == 'vaso':
-                    ax1.set_ylim(-5.1,7.1)
-                if modality == 'bold':
-                    ax1.set_ylim(-8.1,12.1)
-                sns.lineplot(ax=ax1,
-                             data = tmp,
-                             x = "volume",
-                             y = "data",
-                             color = palettesLayers[modality][j],
-                             linewidth = 3,
-                             # ci=None,
-                             label = tissue,
-                             )
-            if modality == 'vaso':
-                ax1.set_ylim(-3.1,7.1)
-            if modality == 'bold':
-                ax1.set_ylim(-3.1,14.1)
-            # Prepare x-ticks
-            ticks = np.linspace(0, nrVols, 10)
-            labels = (ticks * 0.7808410714285715).round(decimals=1)
+        # Prepare x-ticks
+        ticks = np.linspace(0, nrVols, 10)
+        labels = (ticks * 0.7808410714285715).round(decimals=1)
 
-            # ax1.set_yticks(np.arange(-0.25, 3.51, 0.5))
+        ax1.yaxis.set_tick_params(labelsize=18)
+        ax1.xaxis.set_tick_params(labelsize=18)
 
-            ax1.yaxis.set_tick_params(labelsize=18)
-            ax1.xaxis.set_tick_params(labelsize=18)
+        # Tweak x-axis
+        ax1.set_xticks(ticks[::2])
+        ax1.set_xticklabels(labels[::2], fontsize=18)
+        ax1.set_xlabel('Time [s]', fontsize=24)
 
-            # tweak x-axis
-            ax1.set_xticks(ticks[::2])
-            ax1.set_xticklabels(labels[::2],fontsize=18)
-            ax1.set_xlabel('Time [s]', fontsize=24)
+        # Draw lines for stim duration and 0-line
+        ax1.axvspan(0, stimDuration / 0.7808410714285715, color='#e5e5e5', alpha=0.2, lw=0, label='stimulation')
+        ax1.axhline(0, linestyle='--', color='white')
 
-            # draw lines
-            ax1.axvspan(0, stimDuration / 0.7808410714285715, color='#e5e5e5', alpha=0.2, lw=0, label = 'stimulation')
-            # get value of first timepoint
-
-            ax1.axhline(0,linestyle = '--', color = 'white')
-
+        # Prepare legend
+        if stimDuration == 24:
             legend = ax1.legend(loc='upper right', title="Tissue", fontsize=18)
-            legend.get_title().set_fontsize('18') #legend 'Title' fontsize
+            legend.get_title().set_fontsize('18')  # Legend 'Title' font-size
+        else:
+            ax1.get_legend().remove()
 
-            fig.tight_layout()
+        ax1.set_ylabel(r'Signal change [%]', fontsize=24)
 
-            ax1.set_ylabel(r'Signal change [%]', fontsize=24)
-
-            if stimDuration == 1:
-                plt.title(f'{int(stimDuration)} second stimulation', fontsize=24,pad=10)
-            else:
-                plt.title(f'{int(stimDuration)} seconds stimulation', fontsize=24,pad=10)
-
-            plt.savefig(f'./results/{sub}_stimDur-{int(stimDuration)}_{modality}_ERA-tissues.png', bbox_inches = "tight")
-
-            plt.show()
+        plt.tight_layout()
+        plt.savefig(f'./results/{sub}_stimDur-{int(stimDuration)}_{modality}_ERA-tissues.png', bbox_inches="tight")
+        plt.show()
