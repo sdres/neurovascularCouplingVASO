@@ -98,21 +98,25 @@ for sub in SUBS:
             ax1.axhline(0, linestyle='--', color='white')
 
             # Prepare legend
-            if stimDuration == 24:
-                legend = ax1.legend(loc='upper right', title="Layer", fontsize=18)
+            if stimDuration == 24 and sub == 'sub-09':
+                legend = ax1.legend(loc='upper right', title="Layer", fontsize=20)
                 legend.get_title().set_fontsize('18')  # Legend 'Title' font-size
             else:
                 ax1.get_legend().remove()
 
             ax1.set_ylabel(r'Signal change [%]', fontsize=24)
 
+            # if sub == 'sub-08' and stimDuration == 1 and modality == 'vaso':
+            #     for spine in ax1.spines.values():
+            #         spine.set_edgecolor('red')
 
             plt.tight_layout()
 
             plt.savefig(
                 f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/ERAs/{sub}_stimDur-{int(stimDuration):2d}_{modality}_ERA-layers_equalizedNormalized.png',
                 bbox_inches="tight")
-            plt.show()
+            # plt.show()
+            plt.close()
 
 
 for modality in ['bold', 'vaso']:
