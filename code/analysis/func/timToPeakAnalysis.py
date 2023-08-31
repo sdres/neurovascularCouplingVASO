@@ -92,7 +92,7 @@ titlePad = 10
 yMax = {'bold': [6, 7, 8, 15, 19], 'vaso': [7, 7, 10, 15, 24]}
 
 for modality in ['vaso', 'bold']:
-    fig, axes = plt.subplots(1, 5, figsize=(21, 5))
+    fig, axes = plt.subplots(1, 5, figsize=(21, 5), sharey=True)
 
     for i, stimDur in enumerate(timepointData['stimDur'].unique()):
 
@@ -105,10 +105,10 @@ for modality in ['vaso', 'bold']:
 
         # ================================================================================
         # Misc
-        axes[i].set_ylim(0, yMax[modality][i])
-
-        ticks = np.arange(0, yMax[modality][i], int(yMax[modality][i]/6))
-        axes[i].set_yticks(ticks)
+        # axes[i].set_ylim(0, yMax[modality][i])
+        #
+        # ticks = np.arange(0, yMax[modality][i], int(yMax[modality][i]/6))
+        # axes[i].set_yticks(ticks)
 
         if stimDur == 1:
             axes[i].set_title(f'{int(stimDur)} second stimulation', fontsize=18, pad=titlePad)
@@ -120,8 +120,6 @@ for modality in ['vaso', 'bold']:
         axes[i].set(xlabel=None)
         axes[i].set_xticks([])
 
-        # axes[i].axhline(stimDur, linestyle='--', color='white')
-
         # Legend
         if i < 4:
             axes[i].get_legend().remove()
@@ -130,6 +128,8 @@ for modality in ['vaso', 'bold']:
 
         if i == 0:
             axes[i].set_ylabel('Time to peak [s]', fontsize=18)
+
+        axes[i].axhline(stimDur, linestyle='--', color='white')
 
         legend = plt.legend(title='Layer', fontsize=14, loc='center left', bbox_to_anchor=(1, 0.5))
         title = legend.get_title()
