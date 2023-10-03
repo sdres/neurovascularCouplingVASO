@@ -102,6 +102,9 @@ tickLabelSize = 18
 legendTextSize = 18
 titlePad = 10
 
+lims = []
+
+
 for dataType in ['undershootVal', 'undershootValNorm']:
     for modality in ['vaso', 'bold']:
 
@@ -111,7 +114,8 @@ for dataType in ['undershootVal', 'undershootValNorm']:
 
         ymin = np.min(tmp[dataType])
 
-        fig, axes = plt.subplots(1, 5, figsize=(21, 5), sharey=False)
+
+        fig, axes = plt.subplots(1, 5, figsize=(21, 5), sharey=True)
 
         for i, stimDur in enumerate(temporalData['stimDur'].unique()):
 
@@ -125,7 +129,10 @@ for dataType in ['undershootVal', 'undershootValNorm']:
 
             # ================================================================================
             # Mis
-            if modality == 'bold':
+            # if modality == 'bold':
+            if modality == 'vaso' and dataType == 'undershootValNorm':
+                axes[i].set_ylim(-1, 0)
+            else:
                 axes[i].set_ylim(ymin, 0)
 
             if stimDur == 1:
