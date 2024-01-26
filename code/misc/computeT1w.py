@@ -25,7 +25,7 @@ def computeT1w(nulledFile, notnulledFile, detrend = False):
     notnulledData = notnulledNii.get_fdata()
 
     # Concatenate nulled and notnulled timeseries
-    combined = np.concatenate((notnulledData,nulledData), axis=3)
+    combined = np.concatenate((notnulledData, nulledData), axis=3)
 
     if detrend == True:
         # Detrend before std. dev. calculation

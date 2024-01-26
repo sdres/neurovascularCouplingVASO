@@ -86,7 +86,7 @@ for modality in ['bold', 'cbv']:
 percentVols = 92 / nrVolsTotal * 100
 print(f'{percentVols:2f}% of volumes show motion above voxel size')
 
-
+tmp = FDs.loc[(FDs['FD'] > 0.9) ]
 
 fig, (ax1) = plt.subplots(1, 1, figsize=(7.5, 5))
 # sns.histplot(tmp, x='FD', linewidth=1, color='tab:red', bins=20)

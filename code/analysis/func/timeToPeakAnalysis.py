@@ -8,7 +8,7 @@ import pandas as pd
 # Load data
 data = pd.read_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/ERAs_rawPlusZscored_equalizedNormalized.csv', sep=',')
 
-layerNames = ['deep', 'middle', 'superficial', 'vein']
+layerNames = ['Deep', 'Middle', 'Superficial', 'vein']
 
 layerList = []
 valList = []

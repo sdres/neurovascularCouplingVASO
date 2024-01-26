@@ -5,7 +5,7 @@
 docker run --rm -it \
 -v /Users/sebastiandresbach/data/neurovascularCouplingVASO:/base nipy/heudiconv:latest \
 -d /base/DICOM/sub-{subject}/ses-{session}/*/*.dcm \
--o /base/Nifti/ \
+-o /base/openNeuro/ \
 -f convertall \
 -s 05 \
 -ss 02 \
@@ -20,10 +20,10 @@ docker run --rm -it \
 # step 3
 docker run --rm -it \
 -v /Users/sebastiandresbach/data/neurovascularCouplingVASO:/base nipy/heudiconv:latest \
--d /base/DICOM/sub-{subject}/ses-{session}/*/*.ima \
--o /base/Nifti/ \
--f /base/Nifti/code/heudiconvHeuristic.py \
--s 07 \
--ss 05 \
+-d /base/DICOM/sub-{subject}/ses-{session}/*/*.dcm \
+-o /base/openNeuro/ \
+-f /base/openNeuro/code/heudiconvHeuristic.py \
+-s 05 \
+-ss 02 \
 -c dcm2niix \
 -b --overwrite

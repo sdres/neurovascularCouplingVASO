@@ -33,7 +33,6 @@ for sub in subs:
     # =========================================================================
 
     moving = glob.glob(f'{anatDir}/upsample/{sub}_ses-01_uni_part-mag_run-01_MP2RAGE_N4cor_brain_crop_ups4X.nii.gz')[0]
-
     fixed = f'{funcDir}/{sub}_ses-avg_task-stimulation_run-avg_part-mag_T1w.nii'
 
     # Set up ants command
@@ -54,7 +53,7 @@ for sub in subs:
     command += f'--smoothing-sigmas 1x0vox '
     command += f'-x {anatDir}/{sub}_registrationMask.nii.gz'
     # Run command
-    subprocess.run(command,shell=True)
+    subprocess.run(command, shell=True)
 
     # Prepare command to apply transform and check quality
     command = 'antsApplyTransforms '
@@ -65,7 +64,7 @@ for sub in subs:
     command += f'-t {regFolder}/registered1_0GenericAffine.mat '
     command += f'-o {moving.split(".")[0]}_registered.nii'
     # Run command
-    subprocess.run(command,shell=True)
+    subprocess.run(command, shell=True)
 
     # =========================================================================
     # Apply inverse transform
@@ -86,4 +85,4 @@ for sub in subs:
     command += f'-t [{regFolder}/registered1_0GenericAffine.mat, 1] '
     command += f'-o {moving.split(".")[0]}_registered.nii'
 
-    subprocess.run(command,shell=True)
+    subprocess.run(command, shell=True)

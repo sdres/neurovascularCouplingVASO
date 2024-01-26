@@ -17,6 +17,8 @@ subList = []
 runList = []
 targetDetectedList = []
 
+nrTargets = []
+
 for sub in subs:
 
     logFiles = sorted(glob.glob(f'code/stimulation/{sub}/ses-*/{sub}_ses-*_run-*_neurovascularCoupling.log'))
@@ -76,9 +78,15 @@ for sub in subs:
         # Count missed targets
         detectedRatio = (len(targetTimes) - targetDetected.count(-1))/len(targetTimes)
 
+        nrTargets.append(len(targetTimes))
         subList.append(sub)
         runList.append(log.split('/')[-1][:20])
         targetDetectedList.append(detectedRatio)
+
+np.min(nrTargets)
+np.max(nrTargets)
+np.mean(nrTargets)
+
 
 data = pd.DataFrame({'subject': subList, 'run': runList, 'ratio': targetDetectedList})
 
@@ -95,9 +103,24 @@ for sub in data['subject'].unique():
 
 data2 = pd.DataFrame({'subject': subs, 'ratio': ratios, 'count': counts})
 
+
+# Ignore participants
+ratioList = []
+countList = []
+
+for ratio in data2['ratio'].unique():
+    tmp = data2.loc[data2['ratio'] == ratio]['count'].to_numpy()
+    val = np.sum(tmp)
+    ratioList.append(ratio)
+    countList.append(val)
+
+newDat = pd.DataFrame({'ratio': ratioList, 'count': countList})
+
+
 fig, (ax1) = plt.subplots(1, 1, figsize=(7.5, 5))
+splot = sns.barplot(data=newDat, x='ratio', y='count', linewidth=1, edgecolor="1", color='tab:red')
 # splot = sns.barplot(data=data2, x='ratio', y='count', linewidth=1, edgecolor="1", color='tab:red')
-splot = sns.barplot(data=data2, x='ratio', y='count', linewidth=1, edgecolor="1", hue='subject')
+# splot = sns.barplot(data=data2, x='ratio', y='count', linewidth=1, edgecolor="1", hue='subject')
 for p in splot.patches:
     splot.annotate(format(p.get_height(), '.0f'),
                    (p.get_x() + p.get_width() / 2., p.get_height()),
@@ -107,11 +130,11 @@ for p in splot.patches:
                    fontsize=14)
 
 plt.ylim(0, 90)
-ax1.set_ylabel(r'#runs', fontsize=24)
+ax1.set_ylabel(r'# runs', fontsize=24)
 ax1.set_xlabel(r'Ratio detected', fontsize=24)
 ax1.yaxis.set_tick_params(labelsize=18)
 ax1.xaxis.set_tick_params(labelsize=18)
 fig.tight_layout()
-# plt.savefig(f'./results/targetsDetectedVsUndetected.png', bbox_inches="tight")
+plt.savefig(f'./results/targetsDetectedVsUndetected.png', bbox_inches="tight")
 
 plt.show()

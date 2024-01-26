@@ -35,7 +35,6 @@ for sub in ['sub-06']:
                 valList.append(val[0])
 
 data = pd.DataFrame({'voxel': voxelList, 'metric': metricList, 'modality': modalityList, 'data': valList})
-data.to_csv(f'results/')
 
 plt.style.use('dark_background')
 
@@ -78,7 +77,6 @@ for sub in ['sub-06']:
 # ============================================================================================================
 # Highres ROIs
 # ============================================================================================================
-
 
 MODALITIES = ['bold', 'vaso']
 subs = ['sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09']
@@ -132,6 +130,8 @@ data = pd.DataFrame({'subject': subList,
                      'modality': modalityList,
                      'metric': metricList}
                     )
+data.to_csv(f'results/QA_metrics.csv', index=False, sep=',')
+
 
 plt.style.use('dark_background')
 
@@ -226,6 +226,18 @@ for sub in data['subject'].unique():
                 plt.xlim([0, 60])
 
             plt.xlabel(f'{metric}', fontsize=20)
+
+            # Calculate and plot mean
+            m = np.mean(tmp['value'])
+            ax.axvline(m, linestyle='--', color='white', label='mean')
+
+            # Get ylim
+            lims = ax.get_ylim()
+            # get lowest 5% point
+            p = (lims[1] / 100) * 95
+
+            # ax.text(m+0.3, p, r'mean $\approx$ {}'.format(round(m)), color='white')
+            ax.text(m+0.3, p, f'mean={m:.1f}', color='white')
 
             #legend hack
             old_legend = ax.legend_

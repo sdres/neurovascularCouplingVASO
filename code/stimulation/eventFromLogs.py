@@ -8,8 +8,9 @@ import re
 
 # define ROOT dir
 ROOT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/Nifti'
+OUT = '/Users/sebastiandresbach/data/neurovascularCouplingVASO/openNeuro'
 # define subjects to work on
-subs = ['sub-08']
+subs = ['sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09']
 
 for sub in subs:
     # get all runs of all sessions
@@ -71,7 +72,7 @@ for sub in subs:
             # make dataframe and save as text file
             design = pd.DataFrame({'onset': stimStart, 'duration': durs, 'trial_type': stim})
             for modality in ['bold', 'cbv']:
-                design.to_csv(f'{ROOT}/{sub}/{ses}/func/{base}_{modality}_events.tsv', index=False)
+                design.to_csv(f'{OUT}/{sub}/{ses}/func/{base}_{modality}_events.tsv', sep='\t',  index=False)
 
 
 # ==========================================================================================

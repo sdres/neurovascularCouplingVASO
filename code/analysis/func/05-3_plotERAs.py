@@ -356,11 +356,10 @@ for sub in ['sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09']:
                         bbox_inches="tight")
             plt.show()
 
-# for modality in ['bold', 'vaso']:
-for modality in ['bold']:
+for modality in ['bold', 'vaso']:
+# for modality in ['bold']:
 
     for stimDuration in [1., 2., 4., 12., 24.]:
-    # for stimDuration in [1]:
 
         fig, (ax1) = plt.subplots(1, 1, figsize=(7.5, 5))
 
@@ -369,7 +368,8 @@ for modality in ['bold']:
             tmp = equalized.loc[(equalized['stimDur'] == stimDuration)
                                 & (equalized['layer'] == layer)
                                 & (equalized['modality'] == modality)
-                                & (equalized['dataType'] == 'zscore')]
+                                & (equalized['dataType'] == 'zscore')
+                                & (equalized['subject'] != 'sub-08')]
 
             # Get number of volumes for stimulus duration
             nrVols = len(np.unique(tmp['volume']))

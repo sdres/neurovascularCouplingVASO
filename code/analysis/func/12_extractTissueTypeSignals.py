@@ -425,55 +425,246 @@ timepointData = pd.DataFrame({'subject': subList,
 
 
 
-for modality in ['bold']:
+valList = []
+stimDurList = []
+subList = []
+modalityList = []
 
-    fig, axes = plt.subplots(1, 5, figsize=(21, 5), sharey=True)
+for sub in data['subject'].unique():
+    for modality in ['bold', 'vaso']:
+        for stimDur in data['stimDur'].unique():
 
-    for i, stimDur in enumerate(temporalData['stimDur'].unique()):
+            vessel = timepointData.loc[(timepointData['subject'] == sub)
+                           & (timepointData['modality'] == modality)
+                           & (timepointData['layer'] == 'Vessel dominated')
+                           & (timepointData['stimDur'] == stimDur)]
 
-        tmp = temporalData.loc[(timepointData['stimDur'] == stimDur)
-                               & (timepointData['modality'] == modality)]
+            gm = timepointData.loc[(timepointData['subject'] == sub)
+                           & (timepointData['modality'] == modality)
+                           & (timepointData['layer'] == 'Gray matter')
+                           & (timepointData['stimDur'] == stimDur)]
 
-        sns.barplot(ax=axes[i], data=tmp, x="stimDur", y='layer', hue="layer", palette=palettesLayers[modality])
 
-        # sns.barplot(ax=axes[i], data=tmp, x="stimDur", y="undershootVal", hue="layer", palette=palettesLayers[modality], errorbar=None)
+            ratio = vessel['data'].to_numpy()[0] / gm['data'].to_numpy()[0]
 
-        # ================================================================================
-        # Mis
-        # if modality == 'bold':
-        if modality == 'vaso' and dataType == 'undershootValNorm':
-            axes[i].set_ylim(-1, 0)
-        else:
-            axes[i].set_ylim(ymin, 0)
+            valList.append(ratio)
+            stimDurList.append(stimDur)
+            subList.append(sub)
+            modalityList.append(modality)
 
-        if stimDur == 1:
-            axes[i].set_title(f'{int(stimDur)} second stimulation', fontsize=18, pad=titlePad)
-        else:
-            axes[i].set_title(f'{int(stimDur)} seconds stimulation', fontsize=18, pad=titlePad)
+ratioData = pd.DataFrame({'subject': subList,
+                              'ratio': valList,
+                              'stimDur': stimDurList,
+                              'modality': modalityList})
 
-        # Set font-sizes for axes
-        axes[i].yaxis.set_tick_params(labelsize=18)
-        axes[i].set(xlabel=None)
-        axes[i].set_xticks([])
 
-        # Legend
-        if i < 4:
-            axes[i].get_legend().remove()
-        if i > 0:
-            axes[i].set(ylabel=None)
+palettesLayers = {'vaso': ['#55a8e2']*5, 'bold': ['#ff8c26']*5}
 
-        if i == 0 and dataType == 'undershootVal':
-            axes[i].set_ylabel('PSU [% signal change]', fontsize=18)
-        elif i == 0 and dataType == 'undershootValNorm':
-            axes[i].set_ylabel('Normalized PSU [a.u.]', fontsize=18)
-        # handle the duplicate legend
-        handles, labels = axes[i].get_legend_handles_labels()
 
-        # legend = plt.legend(handles[-2:], labels[-2:], title='Layer', fontsize=14, loc='center left', bbox_to_anchor=(1, 0.5))
-        legend = plt.legend(title='Layer', fontsize=14, loc='center left', bbox_to_anchor=(1, 0.5))
-        title = legend.get_title()
-        title.set_fontsize(18)
-    # plt.savefig(
-    #     f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/PSU_{modality}_{dataType}.png',
-    #     bbox_inches="tight")
-    plt.show()
+plt.style.use('dark_background')
+
+# define linewidth to 2
+LW = 2
+# Define fontsize size for x- and y-labels
+labelSize = 24
+# Define fontsize size for x- and y-ticks
+tickLabelSize = 18
+# Define fontsize legend text
+legendTextSize = 18
+titlePad = 10
+
+fig, axes = plt.subplots(1, 2, sharey=True)
+
+modality_names = ['VASO', "BOLD"]
+
+for i, modality in enumerate(['vaso', 'bold']):
+
+    tmp = ratioData.loc[ratioData['modality']==modality]
+    sns.boxplot(ax=axes[i], data=tmp, y='ratio', x='stimDur', palette=palettesLayers[modality])
+
+    # ================================================================================
+    # Mis
+
+    axes[i].set_title(modality_names[i], fontsize=18, pad=titlePad)
+
+    # if modality == 'bold':
+    #     axes[i].set_ylim(1.5, 4.5)
+    #     yTickVals = np.arange(1.5, 4.6, 0.5)
+    #     axes[i].set_yticks(yTickVals)
+    #
+    # if modality == 'vaso':
+    #     axes[i].set_ylim(0, 4)
+    #     yTickVals = np.arange(0, 4.1, 0.5)
+    #     axes[i].set_yticks(yTickVals)
+
+    axes[i].axhline(1, linestyle='--', color='white')
+
+    # Set font-sizes for axes
+    axes[i].yaxis.set_tick_params(labelsize=18)
+    axes[i].xaxis.set_tick_params(labelsize=18)
+
+    axes[i].set_xlabel('Stimulus duration [s]', fontsize=18)
+
+axes[0].set_ylabel('Vessel / gray matter peak', fontsize=18)
+axes[1].set_ylabel('', fontsize=18)
+
+fig.tight_layout()
+plt.savefig(
+    f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/vesselOverGM.png',
+    bbox_inches="tight")
+plt.show()
+
+
+
+# =============================================================================
+# absolute GM and Vessel data
+# =============================================================================
+
+# Load data
+data = pd.read_csv(f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/ERAs_vessels_equalizedNormalized.csv', sep=',')
+
+layerList = []
+valList = []
+stimDurList = []
+timePointList = []
+subList = []
+modalityList = []
+
+for sub in data['subject'].unique():
+    if sub == 'sub-08':
+        print('skipping sub 08')
+        continue
+    for modality in ['vaso', 'bold']:
+        for stimDur in data['stimDur'].unique():
+            for layer in data['tissue'].unique():
+
+                tmp = data.loc[(data['subject'] == sub)
+                               & (data['modality'] == modality)
+                               & (data['tissue'] == layer)
+                               & (data['stimDur'] == stimDur)]
+
+                maxTP = 0
+                maxVal = 0
+
+                # Find timepoint with highest value
+                for timePoint in tmp['volume'].unique():
+                    val = np.mean(tmp.loc[tmp['volume'] == timePoint]['data'])
+                    if maxVal != 0 and val <= 0:
+                        break
+                    if val >= maxVal:
+                        maxTP = timePoint
+                        maxVal = val
+
+                layerList.append(layer)
+                valList.append(maxVal)
+                stimDurList.append(stimDur)
+                timePointList.append(maxTP)
+                subList.append(sub)
+                modalityList.append(modality)
+
+peakTimeList = [i * 0.785 for i in timePointList]
+
+timepointData = pd.DataFrame({'subject': subList,
+                              'maxVol': timePointList,
+                              'data': valList,
+                              'layer': layerList,
+                              'stimDur': stimDurList,
+                              'peakTime': peakTimeList,
+                              'modality': modalityList})
+
+
+
+
+valList = []
+stimDurList = []
+subList = []
+modalityList = []
+tissueTypeList = []
+
+for sub in data['subject'].unique():
+    for modality in ['bold', 'vaso']:
+        for stimDur in data['stimDur'].unique():
+            for tissueType in ['Gray matter', 'Vessel dominated']:
+                tmp = timepointData.loc[(timepointData['subject'] == sub)
+                               & (timepointData['modality'] == modality)
+                               & (timepointData['layer'] == tissueType)
+                               & (timepointData['stimDur'] == stimDur)]
+
+
+
+                val = tmp['data'].to_numpy()[0]
+
+                valList.append(val)
+                stimDurList.append(stimDur)
+                subList.append(sub)
+                modalityList.append(modality)
+                tissueTypeList.append(tissueType)
+
+ratioData = pd.DataFrame({'subject': subList,
+                          'val': valList,
+                          'stimDur': stimDurList,
+                          'modality': modalityList,
+                          'tissue': tissueTypeList})
+
+
+palettesLayers = {'vaso': {'Gray matter': '#55a8e2', 'Vessel dominated': '#FF0000'},
+                'bold': {'Gray matter': '#ff8c26', 'Vessel dominated':  '#FF0000'}}
+
+palettesLayers = {'vaso': {'Gray matter': {'1': '#ff8c26', 2: '#ff8c26', 4: '#ff8c26', 12: '#ff8c26', 24: '#ff8c26', }, 'Vessel dominated': {1: '#FF0000', 2: '#FF0000', 4: '#FF0000', 12: '#FF0000', 24: '#FF0000'}},
+                'bold': {'Gray matter': {'1': '#ff8c26', 2: '#ff8c26', 4: '#ff8c26', 12: '#ff8c26', 24: '#ff8c26', }, 'Vessel dominated': {1: '#FF0000', 2: '#FF0000', 4: '#FF0000', 12: '#FF0000', 24: '#FF0000'}}
+                }
+
+plt.style.use('dark_background')
+
+# define linewidth to 2
+LW = 2
+# Define fontsize size for x- and y-labels
+labelSize = 24
+# Define fontsize size for x- and y-ticks
+tickLabelSize = 18
+# Define fontsize legend text
+legendTextSize = 18
+titlePad = 10
+
+fig, axes = plt.subplots(1, 2, sharey=False)
+
+for i, modality in enumerate(['vaso', 'bold']):
+    for tissueType in ratioData['tissue'].unique():
+        tmp = ratioData.loc[(ratioData['modality']==modality) & (ratioData['tissue']==tissueType)]
+        # tmp = ratioData.loc[(ratioData['modality']==modality)]
+        # sns.boxplot(ax=axes[i], data=tmp, y='val', x='stimDur',dodge = True, palette=palettesLayers[modality][tissueType])
+        sns.boxplot(ax=axes[i], data=tmp, y='val', x='stimDur',dodge = True)
+        # sns.boxplot(ax=axes[i], data=tmp, y='val', x='stimDur', hue='tissue')
+
+    # ================================================================================
+    # Mis
+
+    axes[i].set_title(modality, fontsize=18, pad=titlePad)
+
+    # if modality == 'bold':
+    #     axes[i].set_ylim(1.5, 4.5)
+    #     yTickVals = np.arange(1.5, 4.6, 0.5)
+    #     axes[i].set_yticks(yTickVals)
+    #
+    # if modality == 'vaso':
+    #     axes[i].set_ylim(0, 4)
+    #     yTickVals = np.arange(0, 4.1, 0.5)
+    #     axes[i].set_yticks(yTickVals)
+
+    # axes[i].axhline(1, linestyle='--', color='white')
+
+    # Set font-sizes for axes
+    axes[i].yaxis.set_tick_params(labelsize=18)
+    axes[i].xaxis.set_tick_params(labelsize=18)
+
+    axes[i].set_xlabel('Stimulus duration [s]', fontsize=18)
+
+axes[0].set_ylabel('Signal change [%]', fontsize=18)
+axes[1].set_ylabel('', fontsize=18)
+
+# plt.suptitle(f'Ratio of GM and vessel peak', fontsize=24)
+fig.tight_layout()
+plt.savefig(
+    f'/Users/sebastiandresbach/github/neurovascularCouplingVASO/results/absoluteVessel.png',
+    bbox_inches="tight")
+plt.show()
