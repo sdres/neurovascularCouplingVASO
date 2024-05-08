@@ -33,7 +33,7 @@ antsPath = '/Users/sebastiandresbach/ANTs/install/bin'
 
 SUBS = ['sub-07']
 
-SESSIONS = ['ses-01','ses-02','ses-03','ses-04']
+SESSIONS = ['ses-01', 'ses-02', 'ses-03', 'ses-04']
 # SESSIONS = ['ses-05']
 
 for sub in SUBS:

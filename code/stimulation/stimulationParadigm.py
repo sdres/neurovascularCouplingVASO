@@ -152,7 +152,7 @@ for i in range(0, 2):  # loop over frames
         name=f'Movie Frame {i}',
         image=f'visual_{i}.png',
         units='pix',
-        contrast = 0.8
+        contrast=0.8
         )
         )
 
